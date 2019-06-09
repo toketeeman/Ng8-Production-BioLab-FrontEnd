@@ -1,1 +1,59 @@
-/* You can add global styles to this file, and also import other style files */
+/* global styles */
+
+* {
+  font-family: Roboto, Arial, sans-serif;
+  color: #282828;
+
+}
+
+body {
+  margin: 0
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Link */
+
+/* Input */
+input {
+  border-radius: 2px;
+  padding: 8px;
+  border: 1px solid;
+}
+
+label {
+  display: block;
+}
+
+/* Button */
+button {
+  display: inline-flex;
+  align-items: center;
+  background-color: #c3c3c3;
+  border: none;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 2px;
+  color: #ffffff;
+  background-color: #282828;
+  border: none;
+  cursor: arrow;
+}
+
+.btn:hover {
+  opacity: 0.8
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: auto;
+}
+
+
+/* Error state: #f78885 */

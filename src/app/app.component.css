@@ -1,0 +1,15 @@
+.header {
+  width: 100%;
+  height: 60px;
+  background-color: #c3c3c3;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center
+}
+
+.header-title {
+  font-weight: normal;
+  margin: 0;
+}
