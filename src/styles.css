@@ -12,7 +12,6 @@ body {
 
 .container {
   display: flex;
-  flex-direction: row;
 }
 
 /* Link */
@@ -30,13 +29,13 @@ label {
 
 /* Button */
 button {
-  display: inline-flex;
+  /* display: inline-flex; */
   align-items: center;
   background-color: #c3c3c3;
   border: none;
 }
 .btn {
-  display: inline-flex;
+  /* display: inline-flex; */
   align-items: center;
   padding: 8px 16px;
   border-radius: 2px;
