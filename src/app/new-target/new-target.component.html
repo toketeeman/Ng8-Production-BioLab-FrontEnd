@@ -1,3 +1,24 @@
-<p>
-  new-target works!
-</p>
+<form>
+  <label for="target">Target Name</label>
+  <input type="text" id="target" required>
+
+  <label for="partner">Partner</label>
+  <input type="text" id="partner" required>
+
+  <label for="protein-class">Protein Class</label>
+  <!-- @TODO add real class names to select-->
+  <select id="protein-class">
+    <option>Class 1</option>
+    <option>Class 2</option>
+    <option>Class 3</option>
+  </select>
+
+  <label for="notes">Notes</label>
+  <textarea id="notes" rows="3" columns="25"></textarea>
+
+  <label for="project">Project Name</label>
+  <input type="text" id="project">
+</form>
+
+<button class="btn btn-form">Cancel</button>
+<button class="btn btn-form">Save</button>

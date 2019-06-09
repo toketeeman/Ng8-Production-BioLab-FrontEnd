@@ -16,17 +16,6 @@ body {
 
 /* Link */
 
-/* Input */
-input {
-  border-radius: 2px;
-  padding: 8px;
-  border: 1px solid;
-}
-
-label {
-  display: block;
-}
-
 /* Button */
 button {
   /* display: inline-flex; */
@@ -38,6 +27,7 @@ button {
   /* display: inline-flex; */
   align-items: center;
   padding: 8px 16px;
+  margin: 8px;
   border-radius: 2px;
   color: #ffffff;
   background-color: #282828;
@@ -54,5 +44,28 @@ button {
   cursor: auto;
 }
 
+/* Form */
+form {
+  margin: 8px;
+}
+
+form input, form textarea {
+  border-radius: 2px;
+  border: 1px solid #c3c3c3;
+  box-shadow: 0px;
+}
+
+/* Input */
+input {
+  border-radius: 2px;
+  padding: 8px;
+  border: 1px solid;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
 
 /* Error state: #f78885 */
