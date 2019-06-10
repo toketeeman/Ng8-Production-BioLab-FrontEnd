@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatMenuModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { NewTargetComponent } from "./new-target/new-target.component";
+import { NewSubunitComponent } from './new-subunit/new-subunit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NewTargetComponent
+    NewTargetComponent,
+    NewSubunitComponent
   ],
   imports: [
     BrowserModule,
