@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-root",
@@ -6,5 +7,11 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  title = "protein-expression-front-end";
+  constructor (
+    private router: Router
+  ) {}
+
+  title: string = "Welcome to the Protein Target Database"; 
+  // @TODO add route subscription to dynamically change nav title on route
+
 }

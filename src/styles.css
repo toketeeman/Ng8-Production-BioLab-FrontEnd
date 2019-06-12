@@ -9,7 +9,7 @@ body {
   margin: 0;
 }
 
-.container {
+.flex {
   display: flex;
 }
 
@@ -18,12 +18,25 @@ body {
 }
 
 /* Helper classes */
-
 .margin-top {
   margin-top: 25px;
 }
 
+.padding-left-1 {
+  padding-left: 10px;
+}
+
+.padding-right-1 {
+  padding-right: 10px;
+}
+
 /* Link */
+
+/* Icons */
+
+.icon-red {
+  fill: #f78885; 
+}
 
 /* Button */
 button {
@@ -79,7 +92,6 @@ form textarea {
 }
 
 /* Input */
-
 label {
   display: block;
   font-size: 14px;

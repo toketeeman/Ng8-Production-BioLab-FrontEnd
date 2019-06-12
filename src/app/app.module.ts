@@ -5,17 +5,19 @@ import { AppRoutingModule } from "./app-routing.module";
 import { MatMenuModule } from "@angular/material";
 import { AppComponent } from "./app.component";
 import { NewTargetComponent } from "./new-target/new-target.component";
-import { NewSubunitComponent } from "./new-subunit/new-subunit.component";
+import { AddSubunitComponent } from "./add-subunit/add-subunit.component";
+import { SubunitInteractionsComponent } from './subunit-interactions/subunit-interactions.component';
+import { TargetRegistrationService } from './target-registration.service';
 
 @NgModule({
-  declarations: [AppComponent, NewTargetComponent, NewSubunitComponent],
+  declarations: [AppComponent, NewTargetComponent, AddSubunitComponent, SubunitInteractionsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatMenuModule
   ],
-  providers: [],
+  providers: [TargetRegistrationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

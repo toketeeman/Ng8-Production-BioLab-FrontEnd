@@ -1,0 +1,102 @@
+<h4>Target: XYZ Target</h4> <!-- Change target name to codeface -->
+
+<div>Sub Unit Interactions</div>
+<button class="btn" (click)="addNewInteraction()">Add New Interaction</button>
+<!-- Interaction -->
+<!--@TODO add datatable for completed sub unit interactions. Cells can be edited, rows can be deleted -->
+<div class="flex">
+  <span class="flex-item">Sub Unit Name</span>
+  <span class="flex-item">Copy #</span>
+  <span class="flex-item">Interaction Type</span>
+  <span class="flex-item">Copy #</span>
+</div>
+<form class="flex" *ngFor="let interaction of interactions">
+  <div class="flex-item">
+    <select id="subunit-name">
+      <!-- @TODO subunit names are populated from  new target response -->
+      <option>Sub Unit A</option>
+      <option>Sub Unit B</option>
+      <option>Sub Unit C</option>
+    </select>
+  </div>
+
+  <div class="flex-item">
+    <input type="number" for="copy-number">
+  </div>
+
+  <div class="flex-item">
+    <!-- @TODO where does this list of types come from -->
+    <select id="interaction-type">
+      <option>Covalent</option>
+      <option>Another type</option>
+    </select>
+  </div>
+
+  <div class="flex-item">
+    <input type="number" for="copy-number">
+    <span class="padding-left-1" (click)="deleteInteraction(interaction)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="icon-red"/>
+        <path d="M0 0h24v24H0z" fill="none" />
+      </svg>
+    </span>
+  </div>
+</form>
+
+<div>Post Translation Modifications</div>
+<button class="btn">Add New PTM</button>
+
+<div class="flex">
+  <span class="flex-item">Sub Unit Name</span>
+  <span class="flex-item">Residue Number</span>
+  <span class="flex-item">Sub Unit Name</span>
+  <span class="flex-item">Residue Number</span>
+  <span class="flex-item">Post Translation Modification</span>
+</div>
+
+<!-- PTM item -->
+<form class="flex" *ngFor="let ptm of ptms">
+  <div class="flex-item">
+    <select id="subunit-name">
+      <!-- @TODO subunit names are populated from new target response -->
+      <option>Sub Unit A</option>
+      <option>Sub Unit B</option>
+      <option>Sub Unit C</option>
+    </select>
+  </div>
+
+  <div class="flex-item">
+    <input id="residue-number" type="number">
+  </div>
+
+  <div class="flex-item">
+    <select id="subunit-name">
+    <!-- @TODO subunit names are populated from new target response -->
+      <option>Sub Unit A</option>
+      <option>Sub Unit B</option>
+      <option>Sub Unit C</option>
+    </select>
+  </div>
+
+  <div class="flex-item">
+    <input id="residue-number" class="flex-item" type="number">
+  </div>
+
+  <div class="flex-item">
+    <select id="ptm" >
+      <option>a</option>
+      <option>b</option>
+      <option>c</option>
+    </select>
+    <span class="padding-left-1" (click)="deleteInteraction(interaction)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="icon-red"/>
+        <path d="M0 0h24v24H0z" fill="none" />
+      </svg>
+    </span>
+  </div>
+</form>
+
+<button class="btn">Cancel</button> <!-- resets form -->
+<button class="btn">Save</button> 
+<!-- API call, on success navigates to success screen. on error, load form with data and error message alert -->
