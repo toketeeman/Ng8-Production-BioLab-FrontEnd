@@ -7,11 +7,8 @@ import { Router } from "@angular/router";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  constructor (
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
-  title: string = "Welcome to the Protein Target Database"; 
+  title = "Welcome to the Protein Target Database";
   // @TODO add route subscription to dynamically change nav title on route
-
 }

@@ -1,12 +1,14 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { TargetRegistrationService } from './target-registration.service';
+import { TargetRegistrationService } from "./target-registration.service";
 
-describe('TargetRegistrationService', () => {
+describe("TargetRegistrationService", () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
-    const service: TargetRegistrationService = TestBed.get(TargetRegistrationService);
+  it("should be created", () => {
+    const service: TargetRegistrationService = TestBed.get(
+      TargetRegistrationService
+    );
     expect(service).toBeTruthy();
   });
 });

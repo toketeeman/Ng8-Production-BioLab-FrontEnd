@@ -1,28 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, FormArray } from "@angular/forms";
 
 @Component({
-  selector: 'app-subunit-interactions',
-  templateUrl: './subunit-interactions.component.html',
-  styleUrls: ['./subunit-interactions.component.css']
+  selector: "app-subunit-interactions",
+  templateUrl: "./subunit-interactions.component.html",
+  styleUrls: ["./subunit-interactions.component.css"]
 })
-export class SubunitInteractionsComponent {
-  interactions: any[] = [
-    "interaction1",
-    "interaction2",
-    "interaction3"
-  ];
+export class SubunitInteractionsComponent implements OnInit {
+  interactionForm: FormGroup;
 
-  ptms: any[] = [
-    "ptm1",
-    "ptm2"
-  ]
-
-  addNewInteraction () {
-    this.interactions.push(`interaction${this.interactions.length + 1}`)
+  get subunits() {
+    return this.interactionForm.get("subunits") as FormArray;
   }
 
-  deleteInteraction (target) {
-    this.interactions = this.interactions.filter(interaction => interaction !== target);
+  get ptms() {
+    return this.interactionForm.get("ptms") as FormArray;
   }
 
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.interactionForm = this.fb.group({
+      subunits: this.fb.array([this.createSubUnitInteraction()]),
+      ptms: this.fb.array([this.createPtm()])
+    });
+  }
+
+  createSubUnitInteraction() {
+    return this.fb.group({
+      nameA: [""],
+      copyNumA: [""],
+      type: [""],
+      nameB: [""],
+      copyNumB: [""]
+    });
+  }
+
+  createPtm() {
+    return this.fb.group({
+      nameA: [""],
+      resNumA: [""],
+      nameB: [""],
+      resNumB: [""],
+      ptm: [""]
+    });
+  }
+
+  addSubUnitInteraction() {
+    this.subunits.push(this.createSubUnitInteraction());
+  }
+
+  addPtm() {
+    this.ptms.push(this.createPtm());
+  }
 }

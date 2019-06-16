@@ -1,32 +1,53 @@
-<div class="flex">
-  <form class="flex-item">
-    <label for="target">Target Name</label>
-    <input type="text" id="target" required>
+<form class="flex container" [formGroup]="targetForm">
+  <div class="flex flex-item flex-column section">
+    <label class="label-block" for="target">Target Name</label>
+    <input type="text" id="target" formControlName="target" required>
 
-    <label for="partner">Partner</label>
-    <input type="text" id="partner" required>
+    <label class="label-block" for="partner">Partner</label>
+    <input type="text" id="partner" formControlName="partner" required>
 
-    <label for="protein-class">Protein Class</label>
+    <label class="label-block" for="protein-class">Protein Class</label>
     <!-- @TODO add real class names to select-->
-    <select id="protein-class">
+    <select id="protein-class" formControlName="proteinClass">
       <option>Class 1</option>
       <option>Class 2</option>
       <option>Class 3</option>
     </select>
 
-    <label for="notes">Notes</label>
-    <textarea id="notes" rows="3" columns="25"></textarea>
+    <label class="label-block" for="notes">Notes</label>
+    <textarea id="notes" rows="3" formControlName="notes"></textarea>
 
-    <label for="project">Project Name</label>
-    <input type="text" id="project">
+    <label class="label-block" for="project">Project Name</label>
+    <input type="text" id="project" formControlName="project">
 
-    <button class="btn btn-form">Cancel</button>
-    <button class="btn btn-form" routerLink="/subunit-interactions">Save</button>
-  </form>
+    <div>
+      <button class="btn btn-form" (click)="targetForm.reset()">Cancel</button>
+      <button class="btn btn-form" (click)="onSubmit()">Save</button>
+    </div>
 
-  <div class="flex-item">
-    <app-add-subunit></app-add-subunit>
-    <app-add-subunit></app-add-subunit>
-    <button class="btn btn-form">Add Another Sub Unit</button>
   </div>
-</div>
+
+  <div class="flex-item section">
+    <div formArrayName="subunits" *ngFor="let unit of subunits.controls; let i = index;">
+      <div [formGroupName]="i">
+        <div class="margin-top">
+          <label for="name">Subunit name:&nbsp;</label>
+          <input id="name" type="text" formControlName="name" required>
+        </div>
+
+        <div class="margin-top">
+          <label for="copies">Number copies of this subunit in the target:&nbsp;</label>
+          <input id="copies" type="number" formControlName="copies" required>
+        </div>
+
+        <br>
+        <button class="btn">Add subunit amino acid FASTA file</button>
+        <button class="btn">Add codon optimized DNA FASTA file</button>
+      </div>
+      <hr>
+      <!-- @TODO style divider between subunit forms-->
+    </div>
+
+    <button class="btn btn-form" (click)="addSubUnit()">Add Another Sub Unit</button>
+  </div>
+</form>

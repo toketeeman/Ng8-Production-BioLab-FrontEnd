@@ -1,5 +1,6 @@
-/* global styles */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+/* global styles */
 * {
   font-family: Roboto, Arial, sans-serif;
   color: #282828;
@@ -9,15 +10,48 @@ body {
   margin: 0;
 }
 
+/* flexbox */
 .flex {
   display: flex;
 }
 
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
 .flex-item {
-  flex: 1;
+  flex: 2;
+}
+
+/* .flex-item:nth-of-type(1) {
+  flex: 3;
+} */
+
+.flex-fill {
+  display: flex;
+  justify-content: stretch;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
 }
 
 /* Helper classes */
+.container {
+  margin: 35px;
+}
+
+.section {
+  padding: 1em 5em;
+}
+
 .margin-top {
   margin-top: 25px;
 }
@@ -35,21 +69,16 @@ body {
 /* Icons */
 
 .icon-red {
-  fill: #f78885; 
+  fill: #f78885;
 }
 
 /* Button */
-button {
-  /* display: inline-flex; */
-  align-items: center;
-  /* background-color: #c3c3c3; */
-  /* border: none; */
-}
 .btn {
-  /* display: inline-flex; */
+  font-size: 12px;
   align-items: center;
   padding: 8px 16px;
-  margin: 8px;
+  margin-top: 16px;
+  margin-right: 8px;
   border-radius: 4px;
   border: none;
   cursor: arrow;
@@ -70,33 +99,44 @@ button {
   border: 1px solid #c3c3c3;
 }
 
-.btn:hover {
+/* .btn:hover {
   opacity: 0.8;
 }
 
 .btn:disabled {
   opacity: 0.5;
   cursor: auto;
-}
+} */
 
 /* Form */
-form {
-  margin: 8px;
+
+form input,
+form textarea,
+form select {
+  box-sizing: border-box;
+  font-size: 16px;
 }
 
 form input,
 form textarea {
-  border-radius: 4px;
   border: 1px solid #c3c3c3;
   box-shadow: 0px;
 }
 
+.form-divider {
+  width: 350px;
+  color: #c3c3c3;
+}
+
 /* Input */
 label {
-  display: block;
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 8px;
   margin-top: 16px;
+}
+
+.label-block {
+  display: block;
 }
 
 /* Error state: #f78885 */
