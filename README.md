@@ -3,6 +3,15 @@ Web client for the protein expression application
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.2.
 
+## Requirements
+- [node.js](https://nodejs.org) version 10 or later
+- [npm](https://www.npmjs.com/) version 6 or later
+
+## Install app and dependencies
+1. Clone this repo to your local machine: `git clone https://github.com/AbSciBio/protein_expression_front_end.git`
+2. Navigate to the root folder of the application: `cd protein_expression_front_end`
+3. Install project dependencies: `npm i`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
