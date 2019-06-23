@@ -4,7 +4,7 @@ import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { MatMenuModule } from "@angular/material";
-import { MatButtonModule } from "@angular/material/button";
+import { MatButtonModule } from "@angular/material";
 import { AppComponent } from "./app.component";
 import { NewTargetComponent } from "./new-target/new-target.component";
 import { AddSubunitComponent } from "./add-subunit/add-subunit.component";
@@ -23,7 +23,7 @@ import { TargetRegistrationService } from "./target-registration.service";
     AppRoutingModule,
     BrowserAnimationsModule,
     MatMenuModule,
-    MatMenuModule,
+    MatButtonModule,
     ReactiveFormsModule
   ],
   providers: [TargetRegistrationService],

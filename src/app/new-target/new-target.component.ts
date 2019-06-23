@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { FormBuilder, FormArray, FormGroup } from "@angular/forms";
+import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-new-target",
@@ -14,16 +14,30 @@ export class NewTargetComponent implements OnInit {
     return this.targetForm.get("subunits") as FormArray;
   }
 
+  get target() {
+    return this.targetForm.get("target") as FormControl;
+  }
+  get partner() {
+    return this.targetForm.get("partner") as FormControl;
+  }
+  get project() {
+    return this.targetForm.get("project") as FormControl;
+  }
+
+  get proteinClass() {
+    return this.targetForm.get("proteinClass") as FormControl;
+  }
+
   constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit() {
     this.targetForm = this.fb.group({
-      target: [""],
-      partner: [""],
-      proteinClass: [""],
+      target: ["", Validators.required],
+      partner: ["", Validators.required],
+      proteinClass: ["", Validators.required],
       notes: [""],
-      project: [""],
-      subunits: this.fb.array([this.createSubUnit()])
+      project: ["", Validators.required],
+      subunits: this.fb.array([this.createSubUnit()]) // subunits must be one entry long with all fields completed
     });
   }
 

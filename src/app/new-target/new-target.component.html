@@ -1,43 +1,50 @@
 <form class="flex container" [formGroup]="targetForm">
   <div class="flex flex-item flex-column section">
     <label class="label-block" for="target">Target Name</label>
-    <input type="text" id="target" formControlName="target" required>
+    <input [class.error-icon]="target.touched && target.invalid" [class.success-icon]="target.valid" type="text" id="target" formControlName="target" required>
+    <div class="error-msg" *ngIf="target.touched && target.invalid">Target name is required.</div>
 
     <label class="label-block" for="partner">Partner</label>
-    <input type="text" id="partner" formControlName="partner" required>
+    <input [class.error-icon]="partner.touched && partner.invalid" [class.success-icon]="partner.valid" type="text" id="partner" formControlName="partner" required>
+    <div class="error-msg" *ngIf="partner.touched && partner.invalid">Partner is required.</div>
 
     <label class="label-block" for="protein-class">Protein Class</label>
     <!-- @TODO add real class names to select-->
+    <!-- @TODO add values and validation to select -->
     <select id="protein-class" formControlName="proteinClass">
       <option>Class 1</option>
       <option>Class 2</option>
       <option>Class 3</option>
     </select>
+    <div class="error-msg" *ngIf="proteinClass.touched && proteinClass.invalid">Select a protein class.</div>
 
     <label class="label-block" for="notes">Notes</label>
     <textarea id="notes" rows="3" formControlName="notes"></textarea>
 
     <label class="label-block" for="project">Project Name</label>
-    <input type="text" id="project" formControlName="project">
+    <input [class.error-icon]="project.touched && project.invalid" [class.success-icon]="project.valid"  type="text" id="project" formControlName="project" required>
+    <div class="error-msg" *ngIf="project.touched && project.invalid">Project name is required.</div>
 
     <div>
       <button class="btn btn-form" (click)="targetForm.reset()">Cancel</button>
-      <button class="btn btn-form" (click)="onSubmit()">Save</button>
+      <button class="btn btn-form" (click)="onSubmit()" [disabled]="!targetForm.valid">Save</button>
     </div>
 
   </div>
 
   <div class="flex-item section">
+    <!--@TODO design better form validation UI for subforms-->
+    <!-- @TODO Add delete controls, but min. of one subunit must be defined -->
     <div formArrayName="subunits" *ngFor="let unit of subunits.controls; let i = index;">
       <div [formGroupName]="i">
         <div class="margin-top">
           <label for="name">Subunit name:&nbsp;</label>
-          <input id="name" type="text" formControlName="name" required>
+          <input id="name" type="text" formControlName="name">
         </div>
 
         <div class="margin-top">
           <label for="copies">Number copies of this subunit in the target:&nbsp;</label>
-          <input id="copies" type="number" formControlName="copies" required>
+          <input id="copies" type="number" formControlName="copies">
         </div>
 
         <br>
@@ -51,3 +58,6 @@
     <button class="btn btn-form" (click)="addSubUnit()">Add Another Sub Unit</button>
   </div>
 </form>
+
+{{ targetForm.value | json }}
+isValid: {{ targetForm.valid }}
