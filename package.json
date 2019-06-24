@@ -15,7 +15,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm test"
+      "pre-push": "ng test --source-map=false --watch=false"
     }
   },
   "lint-staged": {
