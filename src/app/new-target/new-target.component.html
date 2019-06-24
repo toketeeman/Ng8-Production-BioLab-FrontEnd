@@ -10,11 +10,10 @@
 
     <label class="label-block" for="protein-class">Protein Class</label>
     <!-- @TODO add real class names to select-->
-    <!-- @TODO add values and validation to select -->
     <select id="protein-class" formControlName="proteinClass">
-      <option>Class 1</option>
-      <option>Class 2</option>
-      <option>Class 3</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
     </select>
     <div class="error-msg" *ngIf="proteinClass.touched && proteinClass.invalid">Select a protein class.</div>
 
@@ -33,13 +32,18 @@
   </div>
 
   <div class="flex-item section">
-    <!--@TODO design better form validation UI for subforms-->
-    <!-- @TODO Add delete controls, but min. of one subunit must be defined -->
-    <div formArrayName="subunits" *ngFor="let unit of subunits.controls; let i = index;">
+    <div formArrayName="subUnits" *ngFor="let unit of subUnits.controls; let i = index;">
       <div [formGroupName]="i">
         <div class="margin-top">
           <label for="name">Subunit name:&nbsp;</label>
           <input id="name" type="text" formControlName="name">
+          <!-- Delete button is not displayed for first subunit formGroup -->
+          <span *ngIf="i > 0" (click)="deleteSubUnit(i)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="icon-red" />
+              <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+          </span>
         </div>
 
         <div class="margin-top">
@@ -48,8 +52,11 @@
         </div>
 
         <br>
+        <!-- @TODO create input type=file controls & form validators -->
         <button class="btn">Add subunit amino acid FASTA file</button>
         <button class="btn">Add codon optimized DNA FASTA file</button>
+
+        <div class="error-msg" *ngIf="unit.touched && unit.invalid">Incomplete subunit.</div>
       </div>
       <hr>
       <!-- @TODO style divider between subunit forms-->

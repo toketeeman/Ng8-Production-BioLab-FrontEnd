@@ -9,11 +9,10 @@ import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from "@ang
 })
 export class NewTargetComponent implements OnInit {
   targetForm: FormGroup;
-
-  get subunits() {
-    return this.targetForm.get("subunits") as FormArray;
+  // getters allow the new-target form template to refer to individual controls by variable name
+  get subUnits() {
+    return this.targetForm.get("subUnits") as FormArray;
   }
-
   get target() {
     return this.targetForm.get("target") as FormControl;
   }
@@ -23,7 +22,6 @@ export class NewTargetComponent implements OnInit {
   get project() {
     return this.targetForm.get("project") as FormControl;
   }
-
   get proteinClass() {
     return this.targetForm.get("proteinClass") as FormControl;
   }
@@ -37,19 +35,25 @@ export class NewTargetComponent implements OnInit {
       proteinClass: ["", Validators.required],
       notes: [""],
       project: ["", Validators.required],
-      subunits: this.fb.array([this.createSubUnit()]) // subunits must be one entry long with all fields completed
+      subUnits: this.fb.array([this.createSubUnit()])
     });
   }
 
   createSubUnit(): FormGroup {
     return this.fb.group({
-      name: [""],
-      copies: [""]
+      name: ["", Validators.required],
+      copies: ["", Validators.required]
     });
   }
 
   addSubUnit() {
-    this.subunits.push(this.createSubUnit());
+    // adds new instance of subunit formGroup to the subunits formArray
+    this.subUnits.push(this.createSubUnit());
+  }
+
+  deleteSubUnit(index) {
+    // removes subunit formGroup at provided index of subunits FormArray
+    this.subUnits.removeAt(index);
   }
 
   onSubmit() {
