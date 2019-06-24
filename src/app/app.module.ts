@@ -36,7 +36,7 @@ import { TargetRegistrationService } from "./target-registration.service";
     MatButtonModule,
     ReactiveFormsModule
   ],
-  providers: [TargetRegistrationService],
+  providers: [TargetRegistrationService, InMemoryDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
