@@ -55,7 +55,7 @@ export class SubunitInteractionsComponent implements OnInit {
     this.ptms.push(this.createPtm());
   }
 
-  deleteInteraction(groupName: 'subunits' | 'ptms', index: number) {
+  deleteInteraction(groupName: "subunits" | "ptms", index: number) {
     // removes instance of formGroup at specified index from specified formArray
     this[groupName].removeAt(index);
   }

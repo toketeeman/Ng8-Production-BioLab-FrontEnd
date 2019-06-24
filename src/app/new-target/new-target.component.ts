@@ -70,7 +70,7 @@ export class NewTargetComponent implements OnInit {
   }
 
   /** Remove subunit formGroup at provided index of subunits FormArray */
-  deleteSubUnit(index) {
+  deleteSubUnit(index: number) {
     this.subUnits.removeAt(index);
   }
 

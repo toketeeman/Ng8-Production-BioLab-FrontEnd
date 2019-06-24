@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { InMemoryDbService } from "angular-in-memory-web-api";
 
 @Injectable()
-
 export class InMemoryDataService {
   createDb() {
     const proteinClasses = [
@@ -21,12 +20,12 @@ export class InMemoryDataService {
       {
         protein_class_name: "protein class4 name",
         protein_class_pk_id: 4
-      },
+      }
     ];
 
     const proteinTargets = [];
-    return {proteinClasses, proteinTargets};
+    return { proteinClasses, proteinTargets };
   }
 
-  constructor() { }
+  constructor() {}
 }

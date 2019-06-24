@@ -9,10 +9,9 @@ import { TargetRegistrationService } from "./target-registration.service";
 describe("TargetRegistrationService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [ HttpClientTestingModule ]
+      imports: [HttpClientTestingModule]
+    });
   });
-
-});
 
   it("should be created", () => {
     const service: TargetRegistrationService = TestBed.get(
