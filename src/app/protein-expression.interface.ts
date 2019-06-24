@@ -4,7 +4,7 @@ export interface ITarget {
   protein_class_pk: number;
   notes: string;
   project: string;
-  subunits: any[];
+  subunits: ISubunit[];
 }
 
 export interface ISubunit {
@@ -16,7 +16,7 @@ export interface ISubunit {
 
 export interface IProteinClass {
   protein_class_name: string;
-  protein_class_id: number;
+  protein_class_pk_id: number;
 }
 
 // @TODO export interface ISubunitInteraction

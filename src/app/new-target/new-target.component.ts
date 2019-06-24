@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from "@angular/forms";
+import { TargetRegistrationService } from "../target-registration.service";
+import { IProteinClass } from "../protein-expression.interface";
 
 @Component({
   selector: "app-new-target",
@@ -9,6 +11,7 @@ import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from "@ang
 })
 export class NewTargetComponent implements OnInit {
   targetForm: FormGroup;
+  proteinClasses: IProteinClass[];
   // getters allow the new-target form template to refer to individual controls by variable name
   get subUnits() {
     return this.targetForm.get("subUnits") as FormArray;
@@ -26,7 +29,11 @@ export class NewTargetComponent implements OnInit {
     return this.targetForm.get("proteinClass") as FormControl;
   }
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private targetService: TargetRegistrationService
+  ) {}
 
   ngOnInit() {
     this.targetForm = this.fb.group({
@@ -36,6 +43,13 @@ export class NewTargetComponent implements OnInit {
       notes: [""],
       project: ["", Validators.required],
       subUnits: this.fb.array([this.createSubUnit()])
+    });
+
+    this.targetService.getProteinClasses().subscribe(response => {
+      this.proteinClasses = response;
+    },
+    error => {
+      // @TODO some clientside error handling here
     });
   }
 
@@ -57,7 +71,7 @@ export class NewTargetComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.targetForm.value);
+    // this.targetService.registerTarget(this.targetForm.value);
     this.router.navigate(["/subunit-interactions"]);
   }
 }

@@ -9,11 +9,9 @@
     <div class="error-msg" *ngIf="partner.touched && partner.invalid">Partner is required.</div>
 
     <label class="label-block" for="protein-class">Protein Class</label>
-    <!-- @TODO add real class names to select-->
     <select id="protein-class" formControlName="proteinClass">
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+      <option *ngFor="let class of proteinClasses" [value]="class['protein_class_pk_id']">{{
+        class['protein_class_name'] }}</option>
     </select>
     <div class="error-msg" *ngIf="proteinClass.touched && proteinClass.invalid">Select a protein class.</div>
 
