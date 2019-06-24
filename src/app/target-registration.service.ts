@@ -5,7 +5,7 @@ import {
   HttpErrorResponse
 } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { tap, map, catchError } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 import { IProteinClass } from "./protein-expression.interface";
 
 @Injectable({
@@ -17,6 +17,13 @@ export class TargetRegistrationService {
 
   constructor(private http: HttpClient) {}
 
+  /** GET protein classes from backend */
+  getProteinClasses(): Observable<IProteinClass[]> {
+    return this.http.get<IProteinClass[]>(this.proteinClassesUrl).pipe();
+    // @TODO add error handling
+  }
+
+  /** POST register new protein target */
   registerTarget(target) {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -25,12 +32,8 @@ export class TargetRegistrationService {
     return this.http.post(this.targetUrl, target, httpOptions);
   }
 
+  /** POST register subunit interactions */
   registerInteractions() {}
-
-  getProteinClasses(): Observable<IProteinClass[]> {
-    return this.http.get<IProteinClass[]>(this.proteinClassesUrl);
-    // @TODO add error handling
-  }
 
   private handleError(error: HttpErrorResponse) {
 

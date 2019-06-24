@@ -10,7 +10,7 @@
 
     <label class="label-block" for="protein-class">Protein Class</label>
     <select id="protein-class" formControlName="proteinClass">
-      <option *ngFor="let class of proteinClasses" [value]="class['protein_class_pk_id']">{{
+      <option *ngFor="let class of proteinClasses$ | async" [value]="class['protein_class_pk_id']">{{
         class['protein_class_name'] }}</option>
     </select>
     <div class="error-msg" *ngIf="proteinClass.touched && proteinClass.invalid">Select a protein class.</div>
