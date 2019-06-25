@@ -1,6 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { FormBuilder, FormArray, FormGroup } from "@angular/forms";
+import {
+  FormBuilder,
+  FormArray,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
+import { Observable } from "rxjs";
+import { TargetRegistrationService } from "../target-registration.service";
+import { IProteinClass } from "../protein-expression.interface";
 
 @Component({
   selector: "app-new-target",
@@ -9,37 +18,68 @@ import { FormBuilder, FormArray, FormGroup } from "@angular/forms";
 })
 export class NewTargetComponent implements OnInit {
   targetForm: FormGroup;
+  proteinClasses$: Observable<IProteinClass[]>;
 
-  get subunits() {
-    return this.targetForm.get("subunits") as FormArray;
+  /** getters allow the new-target form template to refer to individual controls by variable name
+   */
+  get subUnits() {
+    return this.targetForm.get("subUnits") as FormArray;
+  }
+  get target() {
+    return this.targetForm.get("target") as FormControl;
+  }
+  get partner() {
+    return this.targetForm.get("partner") as FormControl;
+  }
+  get project() {
+    return this.targetForm.get("project") as FormControl;
+  }
+  get proteinClass() {
+    return this.targetForm.get("proteinClass") as FormControl;
   }
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private targetService: TargetRegistrationService
+  ) {}
 
   ngOnInit() {
     this.targetForm = this.fb.group({
-      target: [""],
-      partner: [""],
-      proteinClass: [""],
+      target: ["", Validators.required],
+      partner: ["", Validators.required],
+      proteinClass: ["", Validators.required],
       notes: [""],
-      project: [""],
-      subunits: this.fb.array([this.createSubUnit()])
+      project: ["", Validators.required],
+      subUnits: this.fb.array([this.createSubUnit()])
     });
+
+    this.proteinClasses$ = this.targetService.getProteinClasses();
   }
 
   createSubUnit(): FormGroup {
     return this.fb.group({
-      name: [""],
-      copies: [""]
+      name: ["", Validators.required],
+      copies: ["", Validators.required]
     });
   }
 
+  /** Add new instance of subunit formGroup to the subunits formArray */
   addSubUnit() {
-    this.subunits.push(this.createSubUnit());
+    this.subUnits.push(this.createSubUnit());
   }
 
+  /** Remove subunit formGroup at provided index of subunits FormArray */
+  deleteSubUnit(index: number) {
+    this.subUnits.removeAt(index);
+  }
+
+  /** Submit form data to register target.
+   * On success, navigate to /subunit-interactions
+   * On error, retain form data, display error alert with message
+   */
   onSubmit() {
-    console.log(this.targetForm.value);
+    // this.targetService.registerTarget(this.targetForm.value);
     this.router.navigate(["/subunit-interactions"]);
   }
 }

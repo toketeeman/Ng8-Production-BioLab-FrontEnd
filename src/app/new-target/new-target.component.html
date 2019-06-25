@@ -1,48 +1,60 @@
 <form class="flex container" [formGroup]="targetForm">
   <div class="flex flex-item flex-column section">
     <label class="label-block" for="target">Target Name</label>
-    <input type="text" id="target" formControlName="target" required>
+    <input [class.error-icon]="target.touched && target.invalid" [class.success-icon]="target.valid" type="text" id="target" formControlName="target" required>
+    <div class="error-msg" *ngIf="target.touched && target.invalid">Target name is required.</div>
 
     <label class="label-block" for="partner">Partner</label>
-    <input type="text" id="partner" formControlName="partner" required>
+    <input [class.error-icon]="partner.touched && partner.invalid" [class.success-icon]="partner.valid" type="text" id="partner" formControlName="partner" required>
+    <div class="error-msg" *ngIf="partner.touched && partner.invalid">Partner is required.</div>
 
     <label class="label-block" for="protein-class">Protein Class</label>
-    <!-- @TODO add real class names to select-->
     <select id="protein-class" formControlName="proteinClass">
-      <option>Class 1</option>
-      <option>Class 2</option>
-      <option>Class 3</option>
+      <option *ngFor="let class of proteinClasses$ | async" [value]="class['protein_class_pk_id']">{{
+        class['protein_class_name'] }}</option>
     </select>
+    <div class="error-msg" *ngIf="proteinClass.touched && proteinClass.invalid">Select a protein class.</div>
 
     <label class="label-block" for="notes">Notes</label>
     <textarea id="notes" rows="3" formControlName="notes"></textarea>
 
     <label class="label-block" for="project">Project Name</label>
-    <input type="text" id="project" formControlName="project">
+    <input [class.error-icon]="project.touched && project.invalid" [class.success-icon]="project.valid"  type="text" id="project" formControlName="project" required>
+    <div class="error-msg" *ngIf="project.touched && project.invalid">Project name is required.</div>
 
     <div>
       <button class="btn btn-form" (click)="targetForm.reset()">Cancel</button>
-      <button class="btn btn-form" (click)="onSubmit()">Save</button>
+      <button class="btn btn-form" (click)="onSubmit()" [disabled]="!targetForm.valid">Save</button>
     </div>
 
   </div>
 
   <div class="flex-item section">
-    <div formArrayName="subunits" *ngFor="let unit of subunits.controls; let i = index;">
+    <div formArrayName="subUnits" *ngFor="let unit of subUnits.controls; let i = index;">
       <div [formGroupName]="i">
         <div class="margin-top">
           <label for="name">Subunit name:&nbsp;</label>
-          <input id="name" type="text" formControlName="name" required>
+          <input id="name" type="text" formControlName="name">
+          <!-- Delete button is not displayed for first subunit formGroup -->
+          <span *ngIf="i > 0" (click)="deleteSubUnit(i)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="icon-red" />
+              <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+          </span>
         </div>
 
         <div class="margin-top">
           <label for="copies">Number copies of this subunit in the target:&nbsp;</label>
-          <input id="copies" type="number" formControlName="copies" required>
+          <input id="copies" type="number" formControlName="copies">
         </div>
 
         <br>
+        <!-- @TODO create input type=file controls & form validators -->
         <button class="btn">Add subunit amino acid FASTA file</button>
         <button class="btn">Add codon optimized DNA FASTA file</button>
+
+        <div class="error-msg" *ngIf="unit.touched && unit.invalid">Incomplete subunit.</div>
       </div>
       <hr>
       <!-- @TODO style divider between subunit forms-->
@@ -51,3 +63,6 @@
     <button class="btn btn-form" (click)="addSubUnit()">Add Another Sub Unit</button>
   </div>
 </form>
+
+{{ targetForm.value | json }}
+isValid: {{ targetForm.valid }}

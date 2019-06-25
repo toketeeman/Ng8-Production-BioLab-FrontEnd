@@ -1,15 +1,49 @@
 import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable, of } from "rxjs";
+import { catchError } from "rxjs/operators";
+import { IProteinClass } from "./protein-expression.interface";
 
 @Injectable({
   providedIn: "root"
 })
 export class TargetRegistrationService {
-  constructor() {}
+  private proteinClassesUrl = "api/proteinClasses"; // temp URL to mock web api
+  private targetUrl = "api/targetUrl";
 
-  // @TODO is registerTarget a separate API call from registerInteractions
-  registerTarget() {}
+  constructor(private http: HttpClient) {}
 
+  /** GET protein classes from backend
+   * @returns Observable<IProteinClass[]>
+   */
+  getProteinClasses(): Observable<IProteinClass[]> {
+    return this.http
+      .get<IProteinClass[]>(this.proteinClassesUrl)
+      .pipe(catchError(this.handleError<IProteinClass[]>("getProteinClasses")));
+  }
+
+  /** POST register new protein target
+   * @param target: ITarget
+   */
+  registerTarget(target) {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    };
+    console.log(target);
+    return this.http.post(this.targetUrl, target, httpOptions);
+  }
+
+  /** POST register subunit interactions */
   registerInteractions() {}
 
-  getProteinClasses() {} // retrieve protein classes list to populate form dropdown
+  /**
+   * Handle failed http operation
+   * @param operation - name of failed http operation
+   */
+  private handleError<T>(operation: string) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} failed: ${error.message}`);
+      return;
+    };
+  }
 }

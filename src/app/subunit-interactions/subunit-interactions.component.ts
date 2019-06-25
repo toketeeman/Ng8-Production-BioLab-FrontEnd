@@ -8,11 +8,10 @@ import { FormBuilder, FormGroup, FormArray } from "@angular/forms";
 })
 export class SubunitInteractionsComponent implements OnInit {
   interactionForm: FormGroup;
-
+  // getters allow the subunit interactions form template to refer to dynamic formArrays by variable name
   get subunits() {
     return this.interactionForm.get("subunits") as FormArray;
   }
-
   get ptms() {
     return this.interactionForm.get("ptms") as FormArray;
   }
@@ -47,10 +46,17 @@ export class SubunitInteractionsComponent implements OnInit {
   }
 
   addSubUnitInteraction() {
+    // adds new instance of subunitInteraction formGroup to subunitInteractions formArray
     this.subunits.push(this.createSubUnitInteraction());
   }
 
   addPtm() {
+    // adds new instance of ptm formGroup to ptms formArray
     this.ptms.push(this.createPtm());
+  }
+
+  deleteInteraction(groupName: "subunits" | "ptms", index: number) {
+    // removes instance of formGroup at specified index from specified formArray
+    this[groupName].removeAt(index);
   }
 }

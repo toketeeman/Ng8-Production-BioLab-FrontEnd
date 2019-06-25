@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SubunitInteractionsComponent } from "./subunit-interactions.component";
 
 describe("SubunitInteractionsComponent", () => {
@@ -8,6 +8,7 @@ describe("SubunitInteractionsComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [FormsModule, ReactiveFormsModule],
       declarations: [SubunitInteractionsComponent]
     }).compileComponents();
   }));
