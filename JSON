@@ -35,18 +35,15 @@ For the "Add codon optimized DNA FASTA file" upload, POST the following:
     "fasta_file": "amino_acid fasta file"
 }
 
-For each individual successful FASTA upload, the following will be returned with a 200:
+For each individual successful FASTA upload, the following object will be
+returned with a 200 (the fasta_entries array will contain one object as shown):
 
 {
-  "fasta_file": [
-    ">Example Fasta Header String\n",
-    "ATCGGCTAGCTAGCATCGATCGA"
-  ],
-  "sequence_type": "dna", 
+  "sequence_type": "sequence type",
   "fasta_entries": [
     {
       "fasta_description": "Example Fasta Header String",
-      "sequence_type": "dna",
+      "sequence_type": "sequence type",
       "sequence": "ATCGGCTAGCTAGCATCGATCGA"
     }
   ]
