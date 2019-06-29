@@ -25,6 +25,7 @@ For the "Add subunit amino acid FASTA file" upload, POST the following:
 
 {
     "sequence_type": "dna",
+    "expected_entry_count": 1,
     "fasta_file": "dna fasta file"
 }
 
@@ -32,6 +33,7 @@ For the "Add codon optimized DNA FASTA file" upload, POST the following:
 
 {
     "sequence_type": "amino_acid",
+    "expected_entry_count": 1,
     "fasta_file": "amino_acid fasta file"
 }
 
@@ -40,6 +42,8 @@ returned with a 200 (the fasta_entries array will contain one object as shown):
 
 {
   "sequence_type": "sequence type",
+  "expected_entry_count": 1,
+  "actual_entry_count": 1,
   "fasta_entries": [
     {
       "fasta_description": "Example Fasta Header String",
