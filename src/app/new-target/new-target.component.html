@@ -8,12 +8,12 @@
     <input [class.error-icon]="partner.touched && partner.invalid" [class.success-icon]="partner.valid" type="text" id="partner" formControlName="partner" required>
     <div class="error-msg" *ngIf="partner.touched && partner.invalid">Partner is required.</div>
 
-    <label class="label-block" for="protein-class">Protein Class</label>
-    <select id="protein-class" formControlName="proteinClass">
+    <label class="label-block" for="proteinClassPk">Protein Class</label>
+    <select id="proteinClassPk" formControlName="protein_class_pk">
       <option *ngFor="let class of proteinClasses$ | async" [value]="class['protein_class_pk_id']">{{
         class['protein_class_name'] }}</option>
     </select>
-    <div class="error-msg" *ngIf="proteinClass.touched && proteinClass.invalid">Select a protein class.</div>
+    <div class="error-msg" *ngIf="protein_class_pk.touched && protein_class_pk.invalid">Select a protein class.</div>
 
     <label class="label-block" for="notes">Notes</label>
     <textarea id="notes" rows="3" formControlName="notes"></textarea>
@@ -30,17 +30,17 @@
   </div>
 
   <div class="flex-item section">
-    <div formArrayName="subUnits" *ngFor="let unit of subUnits.controls; let i = index;">
-      <div [formGroupName]="i">
+    <div formArrayName="subunits" *ngFor="let unit of subunits.controls; let i = index;">
+      <form [formGroupName]="i">
         <div class="margin-top">
           <label for="name">Subunit name:&nbsp;</label>
           <input id="name" type="text" formControlName="name">
           <!-- Delete button is not displayed for first subunit formGroup -->
-          <span *ngIf="i > 0" (click)="deleteSubUnit(i)">
+          <span *ngIf="i > 0" (click)="deleteSubunit(i)">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="icon-red" />
               <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
+             </svg>
           </span>
         </div>
 
@@ -50,19 +50,44 @@
         </div>
 
         <br>
-        <!-- @TODO create input type=file controls & form validators -->
-        <button class="btn">Add subunit amino acid FASTA file</button>
-        <button class="btn">Add codon optimized DNA FASTA file</button>
+        <!-- @TODO restyle file input -->
+        <!-- @TODO add validator icons/styles -->
+        <div>
+          <label for="aminoAcidFile">
+            Add subunit amino acid FASTA file
+          </label>
+          <input id="aminoAcidFile" type="file" accept=".FASTA" formControlName="amino_acid" (change)="onFileChange('amino_acid', $event, i)">
+          <span *ngIf="unit.value.amino_acid_validated">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path fill="#5ab059" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+            </svg>
+         </span>
+        </div>
 
+        <div>
+          <label for="dnaFile">
+            Add codon optimized DNA FASTA file
+          </label>
+          <input id="dnaFile" type="file" accept=".FASTA" formControlName="dna" (change)="onFileChange('dna', $event, i)"/>
+          <span *ngIf="unit.value.dna_validated">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path fill="#5ab059" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+            </svg>
+          </span>
+        </div>
         <div class="error-msg" *ngIf="unit.touched && unit.invalid">Incomplete subunit.</div>
-      </div>
+      </form>
       <hr>
       <!-- @TODO style divider between subunit forms-->
     </div>
 
-    <button class="btn btn-form" (click)="addSubUnit()">Add Another Sub Unit</button>
+    <button class="btn btn-form" (click)="addSubunit()">Add Another Sub Unit</button>
   </div>
 </form>
 
 {{ targetForm.value | json }}
 isValid: {{ targetForm.valid }}
+
+targetIsValid: {{ target.valid }}

@@ -10,16 +10,19 @@ import { MatMenuModule } from "@angular/material";
 import { MatButtonModule } from "@angular/material";
 import { AppComponent } from "./app.component";
 import { NewTargetComponent } from "./new-target/new-target.component";
-import { AddSubunitComponent } from "./add-subunit/add-subunit.component";
 import { SubunitInteractionsComponent } from "./subunit-interactions/subunit-interactions.component";
 import { TargetRegistrationService } from "./target-registration.service";
+import { AuthenticationService } from "./auth/authentication.service";
+import { LoginFormComponent } from "./auth/login-form/login-form.component";
+import { HomeComponent } from "./home/home.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NewTargetComponent,
-    AddSubunitComponent,
-    SubunitInteractionsComponent
+    SubunitInteractionsComponent,
+    LoginFormComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,11 @@ import { TargetRegistrationService } from "./target-registration.service";
     MatButtonModule,
     ReactiveFormsModule
   ],
-  providers: [TargetRegistrationService, InMemoryDataService],
+  providers: [
+    AuthenticationService,
+    TargetRegistrationService,
+    InMemoryDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

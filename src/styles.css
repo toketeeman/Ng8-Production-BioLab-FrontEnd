@@ -99,6 +99,12 @@ body {
   border: 1px solid #c3c3c3;
 }
 
+.btn-login {
+  position: relative;
+  display: block;
+  background-color: #c3c3c3;
+}
+
 /* .btn:hover {
   opacity: 0.8;
 } */
@@ -183,6 +189,15 @@ label {
   background-image: url("./assets/icons/baseline-done-24px.svg");
   background-position: right center;
   background-repeat: no-repeat;
+}
+
+.input-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 /* Error state: #f78885 */
