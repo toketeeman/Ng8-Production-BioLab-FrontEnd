@@ -1,13 +1,19 @@
 <form class="container" [formGroup]="loginForm">
   <h3>Log in to the AbSci Target Database</h3>
   <label class="login-label" for="username">User name</label>
-  <input id="username" type=text formControlName="userName">
-
+  <input id="username" type=text formControlName="username">
 
   <label class="login-label" for="password">Password</label>
   <input id="password" type="password" formControlName="password">
 
-  <button class="btn btn-login" (click)="login()">Log in</button>
+  <div *ngIf="errorMessage">
+    <!-- @TODO add alert styles and semantic markup -->
+    <div>
+      {{ errorMessage }}
+    </div>
+  </div>
 
+  <button class="btn btn-login" (click)="login()">Log in</button>
+  <!-- @TODO remove debugger statement -->
   {{ loginForm.value | json }}
 </form>

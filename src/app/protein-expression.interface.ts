@@ -1,3 +1,9 @@
+export interface IUser {
+  username: string;
+  password?: string;
+  token?: string;
+}
+
 export interface ITarget {
   target: string;
   partner: string;
@@ -20,7 +26,7 @@ export interface ISubunit {
 
 export interface IProteinClass {
   protein_class_name: string;
-  protein_class_pk_id: number;
+  protein_class_pk: number;
 }
 
 export interface IFastaFile {

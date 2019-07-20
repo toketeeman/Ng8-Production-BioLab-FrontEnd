@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Store } from "@ngrx/store";
 import {
   FormBuilder,
   FormArray,
@@ -7,18 +7,23 @@ import {
   Validators,
   FormControl
 } from "@angular/forms";
-import { Observable } from "rxjs";
-import { TargetRegistrationService } from "../target-registration.service";
+import { Observable, Subscription } from "rxjs";
+import { TargetRegistrationService } from "../services/target-registration.service";
 import { IProteinClass } from "../protein-expression.interface";
+import { AppState, selectTargetState } from "../store/app.states";
+import { NewTarget } from "../store/actions/target.actions";
 
 @Component({
   selector: "app-new-target",
   templateUrl: "./new-target.component.html",
   styleUrls: ["./new-target.component.css"]
 })
-export class NewTargetComponent implements OnInit {
+export class NewTargetComponent implements OnInit, OnDestroy {
   targetForm: FormGroup;
   proteinClasses$: Observable<IProteinClass[]>;
+  state$: Observable<any>;
+  stateSubscription: Subscription;
+  errorMessage: string | null;
 
   /** getters allow the new-target form template to refer to individual controls by variable name
    */
@@ -44,11 +49,19 @@ export class NewTargetComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private targetService: TargetRegistrationService
-  ) {}
+    private targetService: TargetRegistrationService,
+    private store: Store<AppState>
+  ) {
+    this.state$ = this.store.select(selectTargetState);
+  }
 
   ngOnInit() {
+    this.stateSubscription = this.state$.subscribe(state => {
+      if (state) {
+        this.errorMessage = state.errorMessage;
+      }
+    });
+
     this.targetForm = this.fb.group({
       target: ["", Validators.required],
       partner: ["", Validators.required],
@@ -121,6 +134,7 @@ export class NewTargetComponent implements OnInit {
           },
           error => {
             // subunit.patchValue({ validated: false });
+            // @TODO test error UI
             console.log(error);
           }
         );
@@ -128,20 +142,13 @@ export class NewTargetComponent implements OnInit {
     }
   }
 
-  /** Submit form data to register target.
-   *  On success, navigate to /subunit-interactions
-   *  On error, retain form data, display error alert with message
-   */
-  onSubmit() {
-    this.targetService.registerTarget(this.targetForm.value).subscribe(
-      response => {
-        console.log(response);
-        this.router.navigate(["home/subunit-interactions"]);
-      },
-      error => {
-        console.log(error);
-        // @TODO add error UI with styled alert for message
-      }
-    );
+  onSubmit(): void {
+    const data = this.targetForm.value;
+    this.store.dispatch(new NewTarget(data));
+    // @TODO add error UI with styled alert for message
+  }
+
+  ngOnDestroy() {
+    this.stateSubscription.unsubscribe();
   }
 }

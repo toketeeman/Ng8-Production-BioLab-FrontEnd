@@ -9,33 +9,39 @@ import {
   getStatusText,
   STATUS
 } from "angular-in-memory-web-api";
-import { ITarget } from "./protein-expression.interface";
+import { ITarget } from "../protein-expression.interface";
 
+const users = [
+  {
+    username: "user1",
+    password: "password1"
+  }
+];
 @Injectable()
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const proteinClasses = [
       {
         protein_class_name: "protein class1 name",
-        protein_class_pk_id: 1
+        protein_class_pk: 1
       },
       {
         protein_class_name: "protein class2 name",
-        protein_class_pk_id: 2
+        protein_class_pk: 2
       },
       {
         protein_class_name: "protein class3 name",
-        protein_class_pk_id: 3
+        protein_class_pk: 3
       },
       {
         protein_class_name: "protein class4 name",
-        protein_class_pk_id: 4
+        protein_class_pk: 4
       }
     ];
 
     const proteinTargets = [];
     const fastaFiles = [];
-    return { proteinClasses, proteinTargets, fastaFiles };
+    return { users, proteinClasses, proteinTargets, fastaFiles };
   }
 
   // POST interceptor that returns custom response objects
@@ -48,6 +54,10 @@ export class InMemoryDataService implements InMemoryDbService {
 
     if (collectionName === "fastaFiles") {
       return this.uploadFastaFile(reqInfo);
+    }
+
+    if (collectionName === "users") {
+      return this.handleAuth(reqInfo);
     }
   }
 
@@ -102,6 +112,31 @@ export class InMemoryDataService implements InMemoryDbService {
       };
       return this.finishOptions(options, reqInfo);
     });
+  }
+
+  handleAuth(reqInfo: any) {
+    return reqInfo.utils.createResponse$(() => {
+      const { username, password } = reqInfo.req.body;
+      const isValidUser = this.isValidUser(username, password);
+
+      const options: ResponseOptions = isValidUser
+        ? {
+            body: { token: "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b" },
+            status: STATUS.OK
+          }
+        : {
+            body: { error: "Unable to log in with provided credentials." },
+            status: STATUS.FORBIDDEN
+          };
+      return this.finishOptions(options, reqInfo);
+    });
+  }
+
+  isValidUser(username, password) {
+    const filtered = users.filter(
+      user => user.username === username && user.password === password
+    );
+    return filtered.length > 0 ? true : false;
   }
 
   /////////// helpers ///////////////

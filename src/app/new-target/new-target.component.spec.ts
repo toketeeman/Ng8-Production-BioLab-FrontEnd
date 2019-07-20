@@ -2,12 +2,17 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterTestingModule } from "@angular/router/testing";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { Store } from "@ngrx/store";
+import { provideMockStore, MockStore } from "@ngrx/store/testing";
 import { NewTargetComponent } from "./new-target.component";
+
 import { ITarget } from "../protein-expression.interface";
 
 describe("NewTargetComponent", () => {
   let component: NewTargetComponent;
   let fixture: ComponentFixture<NewTargetComponent>;
+  let store: MockStore<{ errorMessage: string }>;
+  const initialState = { errorMessage: null };
 
   const mockTarget = {
     target: "targetA",
@@ -33,15 +38,21 @@ describe("NewTargetComponent", () => {
         RouterTestingModule,
         HttpClientTestingModule
       ],
-      declarations: [NewTargetComponent]
+      declarations: [NewTargetComponent],
+      providers: [provideMockStore({ initialState })]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NewTargetComponent);
     component = fixture.componentInstance;
+    store = TestBed.get<Store<any>>(Store);
 
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it("should create", () => {

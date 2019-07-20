@@ -5,6 +5,7 @@ import { SubunitInteractionsComponent } from "./subunit-interactions/subunit-int
 import { LoginFormComponent } from "./auth/login-form/login-form.component";
 import { HomeComponent } from "./home/home.component";
 import { AuthGuard } from "./auth/auth.guard";
+import { RegistrationSuccessComponent } from "./registration-success/registration-success.component";
 
 const routes: Routes = [
   { path: "login", component: LoginFormComponent },
@@ -14,13 +15,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: "add-target", component: NewTargetComponent },
-      { path: "subunit-interactions", component: SubunitInteractionsComponent }
+      { path: "subunit-interactions", component: SubunitInteractionsComponent },
+      // @TODO add target Id number to route params
+      // @TODO guard this route
+      { path: "success", component: RegistrationSuccessComponent }
     ]
   },
   // @TODO add routeGuard here with redirect to /login
   { path: "", redirectTo: "home", pathMatch: "full" }
-
-  // @TODO add /success state
 ];
 
 @NgModule({

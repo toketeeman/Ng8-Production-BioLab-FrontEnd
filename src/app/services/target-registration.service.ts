@@ -2,15 +2,12 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { AuthenticationService } from "./authentication.service";
 import {
   IProteinClass,
   ITarget,
   IFastaResponse
-} from "./protein-expression.interface";
-
-const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" })
-};
+} from "../protein-expression.interface";
 
 @Injectable({
   providedIn: "root"
@@ -20,14 +17,18 @@ export class TargetRegistrationService {
   private targetUrl = "api/proteinTargets";
   private fastaUrl = "api/fastaFiles";
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthenticationService
+  ) {}
 
   /** GET protein classes from backend
    * @returns Observable<IProteinClass[]>
    */
   getProteinClasses(): Observable<IProteinClass[]> {
+    const httpOptions = this.getHttpOptions();
     return this.http
-      .get<IProteinClass[]>(this.proteinClassesUrl)
+      .get<IProteinClass[]>(this.proteinClassesUrl, httpOptions)
       .pipe(catchError(this.handleError<IProteinClass[]>("getProteinClasses")));
   }
 
@@ -40,6 +41,7 @@ export class TargetRegistrationService {
     type: "amino_acid" | "dna",
     file: any
   ): Observable<IFastaResponse> {
+    const httpOptions = this.getHttpOptions("multipart/form-data");
     const fastaFile = {
       sequence_type: type,
       expected_entry_count: 1,
@@ -56,6 +58,7 @@ export class TargetRegistrationService {
    * @returns Observable<ITarget>
    */
   registerTarget(targetData): Observable<ITarget> {
+    const httpOptions = this.getHttpOptions();
     return this.http.post<ITarget>(
       this.targetUrl,
       this.formatTarget(targetData),
@@ -95,6 +98,16 @@ export class TargetRegistrationService {
       notes: targetObject.notes,
       project: targetObject.project,
       subunits: formattedUnits
+    };
+  }
+
+  private getHttpOptions(contentType?: string) {
+    const token = this.authService.getToken();
+    return {
+      headers: new HttpHeaders({
+        "Content-Type": contentType ? contentType : "application/json",
+        Authorization: `Token ${token}`
+      })
     };
   }
 }

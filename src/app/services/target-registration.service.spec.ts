@@ -10,11 +10,11 @@ describe("TargetRegistrationService", () => {
   const mockProteinClasses = [
     {
       protein_class_name: "protein class1 name",
-      protein_class_pk_id: 1
+      protein_class_pk: 1
     },
     {
       protein_class_name: "protein class2 name",
-      protein_class_pk_id: 2
+      protein_class_pk: 2
     }
   ];
 

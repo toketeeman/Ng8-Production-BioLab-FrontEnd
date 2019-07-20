@@ -1,11 +1,10 @@
 Login object
-
 {
   "username": "the user name",
   "password": "the password"
 }
 Login failure
-Response returns a 400, 
+Response returns a 400,
 {
     "non_field_errors": [
         "Unable to log in with provided credentials."
@@ -16,15 +15,15 @@ Response returns a 400,
 Login success
 Response returns a 200 with token
 
-{   token : “token string” }	
-	
+{ "key": “token string” }
+
 
 Subunit Fasta File objects
 
 For the "Add subunit amino acid FASTA file" upload, POST the following:
 
 {
-    "sequence_type": "dna",
+    "sequence_type": "amino_acid",
     "expected_entry_count": 1,
     "fasta_file": "dna fasta file"
 }
@@ -32,7 +31,7 @@ For the "Add subunit amino acid FASTA file" upload, POST the following:
 For the "Add codon optimized DNA FASTA file" upload, POST the following:
 
 {
-    "sequence_type": "amino_acid",
+    "sequence_type": "dna",
     "expected_entry_count": 1,
     "fasta_file": "amino_acid fasta file"
 }
@@ -55,9 +54,9 @@ returned with a 200 (the fasta_entries array will contain one object as shown):
 
 
 From these responses, populate the appropriate fields in the "subunits" array in the
-"Target" object. 
+"Target" object.
 
-Specifically, the "amino_acid_fasta_description", "amino_acid_sequence", 
+Specifically, the "amino_acid_fasta_description", "amino_acid_sequence",
 "dna_fasta_description" and "dna_sequence" fields.
 
 Target object:
@@ -120,15 +119,15 @@ Protein class
   "protein_class": [
     {
       "protein_class_name": "protein class1 name",
-      "protein_class_pk_id": 1
+      "protein_class_pk": 1
     },
     {
       "protein_class_name": "protein class2 name",
-      "protein_class_pk_id": 2
+      "protein_class_pk": 2
     },
     {
       "protein_class_name": "protein class3 name",
-      "protein_class_pk_id": 3
+      "protein_class_pk": 3
     }
   ]
 }

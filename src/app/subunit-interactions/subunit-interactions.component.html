@@ -1,6 +1,6 @@
 <div class="flex container flex-column">
   <div class="flex-item">
-    <h4>Target: XYZ Target</h4> <!-- @TODO Change target name to codeface font -->
+    <h4>Target: {{ target }}</h4> <!-- @TODO Change target name to codeface font -->
     <form [formGroup]="interactionForm">
       <!-- SubUnit Interactions section -->
       <div>Sub Unit Interactions</div>
@@ -16,13 +16,10 @@
         <div class="flex-item interaction-label">Copy #</div>
       </div>
 
-      <div formArrayName="subunits" *ngFor="let subunit of subunits.controls; let i = index;">
+      <div formArrayName="subunitsArray" *ngFor="let subunit of subunitsArray.controls; let i = index;">
         <div class="flex flex-item" [formGroupName]="i">
           <select class="flex-item interaction-field" formControlName="nameA">
-            <!-- @TODO subunit names are populated from  new target response -->
-            <option>Sub Unit A</option>
-            <option>Sub Unit B</option>
-            <option>Sub Unit C</option>
+            <option *ngFor="let unit of subunits">{{ unit.name }}</option>
           </select>
 
           <input class="flex-item interaction-field" type="number" formControlName="copyNumA">
@@ -32,7 +29,9 @@
             <option>Another type</option>
           </select>
 
-          <input class="flex-item interaction-field" type="text" formControlName="nameB">
+          <select class="flex-item interaction-field" type="text" formControlName="nameB">
+            <option *ngFor="let unit of subunits">{{ unit.name }}</option>
+          </select>
 
           <input class="flex-item interaction-field" type="number" formControlName="copyNumB">
 
@@ -57,21 +56,17 @@
       <span class="flex-item interaction-label">Post Translation Modification</span>
     </div>
 
-    <div formArrayName="ptms" *ngFor="let ptm of ptms.controls; let i = index;">
+    <div formArrayName="ptmsArray" *ngFor="let ptm of ptmsArray.controls; let i = index;">
       <!-- @TODO add styled divider between PTM forms-->
       <div class="flex flex-item" [formGroupName]="i">
         <select class="flex-item interaction-field" formControlName="nameA">
-          <option>Sub Unit A</option>
-          <option>Sub Unit B</option>
-          <option>Sub Unit C</option>
+          <option *ngFor="let unit of subunits">{{ unit.name }}</option>
         </select>
 
         <input class="flex-item interaction-field" type="number" formControlName="resNumA">
 
         <select class="flex-item interaction-field" formControlName="nameB">
-          <option>Sub Unit A</option>
-          <option>Sub Unit B</option>
-          <option>Sub Unit C</option>
+          <option *ngFor="let unit of subunits">{{ unit.name }}</option>
         </select>
 
         <input class="flex-item interaction-field" type="number" formControlName="resNumB">

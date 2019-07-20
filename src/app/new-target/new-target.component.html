@@ -1,3 +1,7 @@
+<div *ngIf="errorMessage">
+  <!-- @TODO replace with styled error alert component & actual errorMessage -->
+  <div>An error occured here</div>
+</div>
 <form class="flex container" [formGroup]="targetForm">
   <div class="flex flex-item flex-column section">
     <label class="label-block" for="target">Target Name</label>
@@ -10,7 +14,7 @@
 
     <label class="label-block" for="proteinClassPk">Protein Class</label>
     <select id="proteinClassPk" formControlName="protein_class_pk">
-      <option *ngFor="let class of proteinClasses$ | async" [value]="class['protein_class_pk_id']">{{
+      <option *ngFor="let class of proteinClasses$ | async" [value]="class['protein_class_pk']">{{
         class['protein_class_name'] }}</option>
     </select>
     <div class="error-msg" *ngIf="protein_class_pk.touched && protein_class_pk.invalid">Select a protein class.</div>
