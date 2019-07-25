@@ -99,46 +99,37 @@ export class NewTargetComponent implements OnInit, OnDestroy {
     this.subunits.removeAt(index);
   }
 
-  /** Upload and validate the FASTA file
-   * We use the FileReader web API to read the contents of the FASTA file and then patch the form with this value.
-   * Adopted from: https://medium.com/@amcdnl/file-uploads-with-angular-reactive-forms-960fd0b34cb5
-   * FileReader API docs: https://developer.mozilla.org/en-US/docs/Web/API/FileReader
-   */
   onFileChange(type: "amino_acid" | "dna", event: any, index: number) {
     const subunit = this.subunits.get(index.toString());
-    const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
-      reader.readAsDataURL(file);
 
-      reader.onload = () => {
-        this.targetService.uploadFastaFile(type, reader.result).subscribe(
-          response => {
-            // tslint:disable-next-line:no-string-literal
-            const fastaEntry = response["fasta_entries"][0];
+      this.targetService.uploadFastaFile(type, file).subscribe(
+        response => {
+          // tslint:disable-next-line:no-string-literal
+          const fastaEntry = response["fasta_entries"][0];
 
-            if (type === "amino_acid") {
-              subunit.patchValue({
-                amino_acid_validated: true,
-                amino_acid_fasta_description: fastaEntry.fasta_description,
-                amino_acid_sequence: fastaEntry.sequence
-              });
-            }
-            if (type === "dna") {
-              subunit.patchValue({
-                dna_validated: true,
-                dna_fasta_description: fastaEntry.fasta_description,
-                dna_sequence: fastaEntry.sequence
-              });
-            }
-          },
-          error => {
-            // subunit.patchValue({ validated: false });
-            // @TODO test error UI
-            console.log(error);
+          if (type === "amino_acid") {
+            subunit.patchValue({
+              amino_acid_validated: true,
+              amino_acid_fasta_description: fastaEntry.fasta_description,
+              amino_acid_sequence: fastaEntry.sequence
+            });
           }
-        );
-      };
+          if (type === "dna") {
+            subunit.patchValue({
+              dna_validated: true,
+              dna_fasta_description: fastaEntry.fasta_description,
+              dna_sequence: fastaEntry.sequence
+            });
+          }
+        },
+        error => {
+          // subunit.patchValue({ validated: false });
+          // @TODO test error UI
+          console.log(error);
+        }
+      );
     }
   }
 

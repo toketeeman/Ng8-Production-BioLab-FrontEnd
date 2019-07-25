@@ -41,15 +41,20 @@ export class TargetRegistrationService {
     type: "amino_acid" | "dna",
     file: any
   ): Observable<IFastaResponse> {
-    const httpOptions = this.getHttpOptions("multipart/form-data");
+    const httpOptions = this.getHttpOptions();
+    const formData = new FormData();
     const fastaFile = {
       sequence_type: type,
       expected_entry_count: 1,
       fasta_file: file
     };
-    console.log(fastaFile);
+
+    for (const [key, value] of Object.entries(fastaFile)) {
+      formData.append(key, value);
+    }
+    console.log(formData);
     return this.http
-      .post<IFastaResponse>(this.fastaUrl, fastaFile, httpOptions)
+      .post<IFastaResponse>(this.fastaUrl, formData, httpOptions)
       .pipe(catchError(this.handleError<IFastaResponse>("uploadFastaFile")));
   }
 
@@ -101,11 +106,10 @@ export class TargetRegistrationService {
     };
   }
 
-  private getHttpOptions(contentType?: string) {
+  private getHttpOptions() {
     const token = this.authService.getToken();
     return {
       headers: new HttpHeaders({
-        "Content-Type": contentType ? contentType : "application/json",
         Authorization: `Token ${token}`
       })
     };
