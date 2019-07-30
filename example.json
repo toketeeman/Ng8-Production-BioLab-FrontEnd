@@ -131,3 +131,90 @@ Protein class
     }
   ]
 }
+
+Subunit interactions & PTMs route workflow:
+
+Get subunits belonging to the selected target:
+
+GET api/subunits/?target=PK_OF_TARGET
+
+Response:
+
+[
+  {
+    "subunit_id": 1,
+    "subunit_name": "TestSubunit1",
+    "subunit_sequence": "AGCTHKLM",
+    "copies": 3,
+    "target": 1,
+    "created_at": "2019-07-29T08:35:54.316380-07:00",
+    "updated_at": "2019-07-29T08:35:54.316429-07:00",
+    "created_by": 1,
+    "updated_by": null
+  },
+  {
+    "subunit_id": 2,
+    "subunit_name": "TestSubunit2",
+    "subunit_sequence": "AGCLSSSSH",
+    "copies": 2,
+    "target": 1,
+    "created_at": "2019-07-29T08:35:54.316380-07:00",
+    "updated_at": "2019-07-29T08:35:54.316429-07:00",
+    "created_by": 1,
+    "updated_by": null
+  }
+]
+
+The "subunit_sequence" field is the sequence in terms of amino acid
+residues. One residue is equivalent to one character of the string.
+This is the string that's used for the residue logic (max length, adding new PTMs, etc).
+
+
+As it currently is drafted, the subunit interactions and the post translational
+modifications are two separate requests.
+
+Subunit interactions object:
+
+POST api/subunit-interaction/
+
+[
+  {
+    "origin_subunit": subunit_one.subunit_id,
+    "origin_subunit_copy": 3,
+    "destination_subunit": subunit_two.subunit_id,
+    "destination_subunit_copy": 1,
+    "interaction": "interaction"
+  },
+  {
+    "origin_subunit": subunit_one.subunit_id,
+    "origin_subunit_copy": 2,
+    "destination_subunit": subunit_two.subunit_id,
+    "destination_subunit_copy": 2,
+    "interaction": "another interaction"
+  }
+]
+
+A successful response will return the same data with a 201.
+
+Post translational modification object:
+
+POST api/post-translational-modification/
+
+[
+  {
+    "origin_subunit": subunit_one.subunit_id,
+    "origin_subunit_residue": 16,
+    "destination_subunit": subunit_two.subunit_id,
+    "destination_subunit_residue": 45,
+    "ptm": "ptm"
+  },
+  {
+    "origin_subunit": subunit_one.subunit_id,
+    "origin_subunit_residue": 13,
+    "destination_subunit": subunit_two.subunit_id,
+    "destination_subunit_residue": 74,
+    "ptm": "another ptm"
+  }
+]
+
+A successful response will return the same data with a 201.
