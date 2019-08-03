@@ -9,6 +9,7 @@ import {
 } from "@angular/forms";
 import { Observable, Subscription } from "rxjs";
 import { TargetRegistrationService } from "../services/target-registration.service";
+import { AlertService } from "../services/alert.service";
 import { IProteinClass } from "../protein-expression.interface";
 import { AppState, selectTargetState } from "../store/app.states";
 import { NewTarget } from "../store/actions/target.actions";
@@ -24,6 +25,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
   state$: Observable<any>;
   stateSubscription: Subscription;
   errorMessage: string | null;
+  disableDeactivateGuard = false;
 
   /** getters allow the new-target form template to refer to individual controls by variable name
    */
@@ -50,7 +52,8 @@ export class NewTargetComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private targetService: TargetRegistrationService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private alert: AlertService
   ) {
     this.state$ = this.store.select(selectTargetState);
   }
@@ -76,14 +79,14 @@ export class NewTargetComponent implements OnInit, OnDestroy {
 
   createSubunit(): FormGroup {
     return this.fb.group({
-      name: ["", Validators.required],
+      subunit_name: ["", Validators.required],
       copies: ["", Validators.required],
       amino_acid: ["", Validators.required],
-      amino_acid_validated: [""],
+      amino_acid_fileName: [""],
       amino_acid_fasta_description: [""],
       amino_acid_sequence: [""],
       dna: ["", Validators.required],
-      dna_validated: [""],
+      dna_fileName: [""],
       dna_fasta_description: [""],
       dna_sequence: [""]
     });
@@ -101,6 +104,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
 
   onFileChange(type: "amino_acid" | "dna", event: any, index: number) {
     const subunit = this.subunits.get(index.toString());
+
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
 
@@ -111,14 +115,14 @@ export class NewTargetComponent implements OnInit, OnDestroy {
 
           if (type === "amino_acid") {
             subunit.patchValue({
-              amino_acid_validated: true,
+              amino_acid_fileName: file.name,
               amino_acid_fasta_description: fastaEntry.fasta_description,
               amino_acid_sequence: fastaEntry.sequence
             });
           }
           if (type === "dna") {
             subunit.patchValue({
-              dna_validated: true,
+              dna_fileName: file.name,
               dna_fasta_description: fastaEntry.fasta_description,
               dna_sequence: fastaEntry.sequence
             });
@@ -133,7 +137,16 @@ export class NewTargetComponent implements OnInit, OnDestroy {
     }
   }
 
+  canDeactivate() {
+    // @TODO also add a check for touched but no data
+    if (this.targetForm.untouched || this.disableDeactivateGuard) {
+      return true;
+    }
+    return this.alert.confirm("Discard changes?");
+  }
+
   onSubmit(): void {
+    this.disableDeactivateGuard = true;
     const data = this.targetForm.value;
     this.store.dispatch(new NewTarget(data));
     // @TODO add error UI with styled alert for message

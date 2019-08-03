@@ -41,7 +41,8 @@ export class InMemoryDataService implements InMemoryDbService {
 
     const proteinTargets = [];
     const fastaFiles = [];
-    return { users, proteinClasses, proteinTargets, fastaFiles };
+    const interactions = [];
+    return { users, proteinClasses, proteinTargets, fastaFiles, interactions };
   }
 
   // POST interceptor that returns custom response objects
@@ -58,6 +59,10 @@ export class InMemoryDataService implements InMemoryDbService {
 
     if (collectionName === "users") {
       return this.handleAuth(reqInfo);
+    }
+
+    if (collectionName === "interactions") {
+      return this.registerInteractions(reqInfo);
     }
   }
 
@@ -86,7 +91,7 @@ export class InMemoryDataService implements InMemoryDbService {
       id: 1234,
       protein_class_pk: data.protein_class_pk,
       notes: data.notes,
-      project_name: data.project,
+      project_name: data.project_name,
       subunits: data.subunits
     };
   }
@@ -137,6 +142,22 @@ export class InMemoryDataService implements InMemoryDbService {
       user => user.username === username && user.password === password
     );
     return filtered.length > 0 ? true : false;
+  }
+
+  registerInteractions(reqInfo: any) {
+    return reqInfo.utils.createResponse$(() => {
+      const responseData = {
+        interactions: reqInfo.req.body.interactions,
+        ptms: reqInfo.req.body.ptms
+      };
+
+      const options: ResponseOptions = {
+        body: responseData,
+        status: STATUS.OK
+      };
+
+      return this.finishOptions(options, reqInfo);
+    });
   }
 
   /////////// helpers ///////////////

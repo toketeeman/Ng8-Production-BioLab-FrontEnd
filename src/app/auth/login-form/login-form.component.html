@@ -7,13 +7,10 @@
   <input id="password" type="password" formControlName="password">
 
   <div *ngIf="errorMessage">
-    <!-- @TODO add alert styles and semantic markup -->
-    <div>
+    <div class="error-msg">
       {{ errorMessage }}
     </div>
   </div>
 
   <button class="btn btn-login" (click)="login()">Log in</button>
-  <!-- @TODO remove debugger statement -->
-  {{ loginForm.value | json }}
 </form>

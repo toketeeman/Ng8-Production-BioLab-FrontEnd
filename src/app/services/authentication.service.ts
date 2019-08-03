@@ -10,9 +10,7 @@ const httpOptions = {
   providedIn: "root"
 })
 export class AuthenticationService {
-  private authUrl = "api/users";
-
-  isLoggedIn = false;
+  authUrl = "api/users";
   redirectUrl: string;
 
   constructor(private http: HttpClient) {}

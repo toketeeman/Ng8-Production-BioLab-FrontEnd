@@ -4,8 +4,8 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { Store } from "@ngrx/store";
 import { provideMockStore, MockStore } from "@ngrx/store/testing";
+import { MatDividerModule, MatDivider } from "@angular/material";
 import { NewTargetComponent } from "./new-target.component";
-
 import { ITarget } from "../protein-expression.interface";
 
 describe("NewTargetComponent", () => {
@@ -19,10 +19,10 @@ describe("NewTargetComponent", () => {
     partner: "partnerA",
     protein_class_pk: 1,
     notes: "",
-    project: "projectA",
+    project_name: "projectA",
     subunits: [
       {
-        name: "subunitA",
+        subunit_name: "subunitA",
         copies: 1,
         amino_acid_file: "../../mocks/example_protein.fasta",
         dna_file: "../../mocks/example_dna.fasta"
@@ -36,7 +36,8 @@ describe("NewTargetComponent", () => {
         FormsModule,
         ReactiveFormsModule,
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        MatDividerModule
       ],
       declarations: [NewTargetComponent],
       providers: [provideMockStore({ initialState })]
@@ -75,7 +76,7 @@ describe("NewTargetComponent", () => {
     component.protein_class_pk.patchValue(mockTarget["protein_class_pk"]);
     expect(component.protein_class_pk.valid).toBeTruthy();
 
-    component.project.patchValue(mockTarget.project);
+    component.project.patchValue(mockTarget.project_name);
     expect(component.project.valid).toBeTruthy();
 
     // @TODO Fix test of FASTA file uploads

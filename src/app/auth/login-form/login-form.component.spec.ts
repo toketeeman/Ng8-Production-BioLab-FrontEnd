@@ -39,4 +39,6 @@ describe("LoginFormComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy();
   });
+
+  // should require a username and a password
 });

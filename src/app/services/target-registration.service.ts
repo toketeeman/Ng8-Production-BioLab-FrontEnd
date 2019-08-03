@@ -13,9 +13,10 @@ import {
   providedIn: "root"
 })
 export class TargetRegistrationService {
-  private proteinClassesUrl = "api/proteinClasses"; // temp URL to mock web api
-  private targetUrl = "api/proteinTargets";
-  private fastaUrl = "api/fastaFiles";
+  proteinClassesUrl = "api/proteinClasses"; // temp URL to mock web api
+  targetUrl = "api/proteinTargets";
+  fastaUrl = "api/fastaFiles";
+  interactionsUrl = "api/interactions";
 
   constructor(
     private http: HttpClient,
@@ -71,8 +72,19 @@ export class TargetRegistrationService {
     );
   }
 
-  /** POST register subunit interactions */
-  registerInteractions() {}
+  /** POST register subunit interactions
+   * @params interactionData: IInteractionData
+   * @returns Observable<any>
+   */
+  registerInteractions(interactionData: any): Observable<any> {
+    const httpOptions = this.getHttpOptions();
+
+    return this.http.post<any>(
+      this.interactionsUrl,
+      interactionData,
+      httpOptions
+    );
+  }
 
   /**
    * Handle failed http operation
@@ -88,7 +100,7 @@ export class TargetRegistrationService {
   private formatTarget(targetObject: any) {
     const formattedUnits = targetObject.subunits.map(unit => {
       return {
-        name: unit.name,
+        subunit_name: unit.subunit_name,
         copies: unit.copies,
         amino_acid_fasta_description: unit.amino_acid_fasta_description,
         amino_acid_sequence: unit.amino_acid_sequence,
@@ -101,7 +113,7 @@ export class TargetRegistrationService {
       partner: targetObject.partner,
       protein_class_pk: targetObject.protein_class_pk,
       notes: targetObject.notes,
-      project: targetObject.project,
+      project_name: targetObject.project,
       subunits: formattedUnits
     };
   }

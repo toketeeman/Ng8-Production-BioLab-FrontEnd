@@ -1,11 +1,11 @@
-<div class="flex container flex-column">
+<div class="flex container flex-column section">
   <div class="flex-item">
-    <h4>Target: {{ target }}</h4> <!-- @TODO Change target name to codeface font -->
+    <h4>Target: <span class="code-face">{{ target }}</span></h4>
     <form [formGroup]="interactionForm">
       <!-- SubUnit Interactions section -->
       <div>Sub Unit Interactions</div>
       <div>
-        <button class="btn" (click)="addSubUnitInteraction()">Add New Interaction</button>
+        <button class="btn btn-form" (click)="addSubUnitInteraction()">Add New Interaction</button>
       </div>
 
       <div class="flex flex-item">
@@ -18,34 +18,53 @@
 
       <div formArrayName="subunitsArray" *ngFor="let subunit of subunitsArray.controls; let i = index;">
         <div class="flex flex-item" [formGroupName]="i">
-          <select class="flex-item interaction-field" formControlName="nameA">
-            <option *ngFor="let unit of subunits">{{ unit.name }}</option>
+          <select class="flex-item interaction-field" formControlName="origin_subunit" (change)="updateCopyRange($event.target.value, i, 'origin_subunit_copy')">
+            <option *ngFor="let unit of subunits" [value]="unit.subunit_name">{{ unit.subunit_name }}</option>
           </select>
 
-          <input class="flex-item interaction-field" type="number" formControlName="copyNumA">
+          <div class="flex-item">
+            <input class="flex-item interaction-field" type="number" formControlName="origin_subunit_copy">
+            <span class="flex-item error-msg" *ngIf="subunit['controls'].origin_subunit_copy.errors?.min" class="error-msg">
+              Must be 1 or greater.
+            </span>
+            <span class="flex-item error-msg" *ngIf="subunit['controls'].origin_subunit_copy.errors?.max">
+              Range is 1 - {{ subunit['controls'].origin_subunit_copy.errors?.max.max }}.
+            </span>
+          </div>
 
-          <select class="flex-item interaction-field" formControlName="type">
-            <option>Covalent</option>
-            <option>Another type</option>
+
+          <select class="flex-item interaction-field" formControlName="interaction">
+            <option value="covalent">Covalent</option>
+            <option value="non-covalent">Non-covalent</option>
           </select>
 
-          <select class="flex-item interaction-field" type="text" formControlName="nameB">
-            <option *ngFor="let unit of subunits">{{ unit.name }}</option>
+          <select class="flex-item interaction-field" type="text" formControlName="destination_subunit" (change)="updateCopyRange($event.target.value, i, 'destination_subunit_copy')">
+            <option *ngFor="let unit of subunits" [value]="unit.subunit_name">{{ unit.subunit_name }}</option>
           </select>
 
-          <input class="flex-item interaction-field" type="number" formControlName="copyNumB">
+          <div class="flex-item">
+            <input class="flex-item interaction-field" type="number" formControlName="destination_subunit_copy">
+            <span class="flex-item error-msg" *ngIf="subunit['controls'].destination_subunit_copy.errors?.min" class="error-msg">
+              Must be 1 or greater.
+            </span>
+            <span class="flex-item error-msg" *ngIf="subunit['controls'].destination_subunit_copy.errors?.max">
+              Range is 1 - {{ subunit['controls'].destination_subunit_copy.errors?.max.max }}.
+            </span>
+          </div>
 
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" (click)="deleteInteraction('subunits', i)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" (click)="deleteInteraction('subunitsArray', i)">
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
               class="icon-red" />
             <path d="M0 0h24v24H0z" fill="none"/>
           </svg>
         </div>
+        <mat-divider></mat-divider>
       </div>
+
     <!-- PTM section -->
     <div class="margin-top">Post Translation Modifications</div>
     <div>
-      <button class="btn" (click)="addPtm()">Add New PTM</button>
+      <button class="btn btn-form" (click)="addPtm()">Add New PTM</button>
     </div>
 
     <div class="flex flex-item">
@@ -57,37 +76,57 @@
     </div>
 
     <div formArrayName="ptmsArray" *ngFor="let ptm of ptmsArray.controls; let i = index;">
-      <!-- @TODO add styled divider between PTM forms-->
       <div class="flex flex-item" [formGroupName]="i">
-        <select class="flex-item interaction-field" formControlName="nameA">
-          <option *ngFor="let unit of subunits">{{ unit.name }}</option>
+        <select class="flex-item interaction-field" formControlName="origin_subunit" (change)="updateResidueValidator($event.target.value, i, 'origin_subunit_residue')">
+          <option *ngFor="let unit of subunits" [value]="unit.subunit_name">{{ unit.subunit_name }}</option>
         </select>
 
-        <input class="flex-item interaction-field" type="number" formControlName="resNumA">
+        <div class="flex-item">
+          <input class="flex-item interaction-field" type="number" formControlName="origin_subunit_residue">
+          <span class="flex-item error-msg" *ngIf="ptm['controls'].origin_subunit_residue.errors?.min" class="error-msg">
+            Must be 1 or greater.
+          </span>
+          <span class="flex-item error-msg" *ngIf="ptm['controls'].origin_subunit_residue.errors?.max">
+            Range is 1 - {{ ptm['controls'].origin_subunit_residue.errors?.max.max }}.
+          </span>
+        </div>
 
-        <select class="flex-item interaction-field" formControlName="nameB">
-          <option *ngFor="let unit of subunits">{{ unit.name }}</option>
+        <select class="flex-item interaction-field" formControlName="destination_subunit" (change)="updateResidueValidator($event.target.value, i, 'destination_subunit_residue')">
+          <option *ngFor="let unit of subunits" [value]="unit.subunit_name">{{ unit.subunit_name }}</option>
         </select>
 
-        <input class="flex-item interaction-field" type="number" formControlName="resNumB">
+        <div class="flex-item">
+          <input class="flex-item interaction-field" type="number" formControlName="destination_subunit_residue">
+          <span class="flex-item error-msg" *ngIf="ptm['controls'].destination_subunit_residue.errors?.min" class="error-msg">
+            Must be 1 or greater.
+          </span>
+          <span class="flex-item error-msg" *ngIf="ptm['controls'].destination_subunit_residue.errors?.max">
+            Range is 1 - {{ ptm['controls'].destination_subunit_residue.errors?.max.max }}.
+          </span>
+        </div>
 
         <select class="flex-item interaction-field" formControlName="ptm">
-          <option>a</option>
-          <option>b</option>
-          <option>c</option>
+          <option value="phosphorylation">Phosphorylation</option>
+          <option value="glycosylation">Glycosylation</option>
+          <option value="ubiquitination">Ubiquitination</option>
+          <option value="S-nitrosylation">S-nitrosylation</option>
+          <option value="methylation">Methylation</option>
+          <option value="N-acetylation">N-acetylation</option>
+          <option value="lipidation">Lipidation</option>
+          <option value="proteolysis">Proteolysis</option>
         </select>
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" (click)="deleteInteraction('ptms', i)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" (click)="deleteInteraction('ptmsArray', i)">
           <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
             class="icon-red" />
           <path d="M0 0h24v24H0z" fill="none" />
         </svg>
-
       </div>
+      <mat-divider></mat-divider>
     </div>
   </form>
 
   <button class="btn btn-form" (click)="interactionForm.reset()">Cancel</button>
   <!-- API call, on success navigates to success screen. on error, load form with data and error message alert -->
-  <button class="btn btn-form">Save</button>
+  <button class="btn btn-form" [disabled]="!interactionForm.valid" (click)="onSubmit()">Save</button>
 </div>

@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { FormBuilder, FormGroup, FormArray } from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
 import { Observable, Subscription } from "rxjs";
 import { AppState, selectTargetState } from "../store/app.states";
 import { ISubunit } from "../protein-expression.interface";
+import { SubunitInteractions } from "../store/actions/interactions.actions";
+import { TargetRegistrationService } from "../services/target-registration.service";
 
 @Component({
   selector: "app-subunit-interactions",
@@ -17,6 +19,7 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   target: string;
   subunits: ISubunit[];
   errorMessage: string | null;
+  disableDeactivateGuard = false;
 
   // getters allow the subunit interactions form template to refer to dynamic formArrays by variable name
   get subunitsArray() {
@@ -37,29 +40,31 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
     });
 
     this.stateSubscription = this.state$.subscribe(state => {
-      this.target = state.target;
-      this.subunits = state.subunits;
-      console.log(this.subunits);
+      if (state) {
+        console.log(state);
+        this.target = state.target;
+        this.subunits = state.subunits;
+      }
     });
   }
 
   createSubUnitInteraction() {
     return this.fb.group({
-      nameA: [""],
-      copyNumA: [""],
-      type: [""],
-      nameB: [""],
-      copyNumB: [""]
+      origin_subunit: ["", Validators.required],
+      origin_subunit_copy: ["", [Validators.required, Validators.min(1)]],
+      interaction: ["", Validators.required],
+      destination_subunit: ["", Validators.required],
+      destination_subunit_copy: ["", [Validators.required, Validators.min(1)]]
     });
   }
 
   createPtm() {
     return this.fb.group({
-      nameA: [""],
-      resNumA: [""],
-      nameB: [""],
-      resNumB: [""],
-      ptm: [""]
+      origin_subunit: ["", Validators.required],
+      origin_subunit_residue: ["", Validators.required],
+      destination_subunit: ["", Validators.required],
+      destination_subunit_residue: ["", Validators.required],
+      ptm: ["", Validators.required]
     });
   }
 
@@ -73,9 +78,56 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
     this.ptmsArray.push(this.createPtm());
   }
 
-  deleteInteraction(groupName: "subunits" | "ptms", index: number) {
+  updateCopyRange(
+    subunitName: string,
+    index: number,
+    controlName: "origin_subunit_copy" | "destination_subunit_copy"
+  ) {
+    const copyNumber = this.subunits.filter(
+      unit => unit.subunit_name === subunitName
+    )[0].copies;
+
+    // set the maximum range of the appropriate copy number control to the subunit's number of copies
+    // tslint:disable-next-line:no-string-literal
+    const control = this.subunitsArray.at(index)["controls"][controlName];
+    control.setValidators([Validators.min(1), Validators.max(copyNumber)]);
+  }
+
+  updateResidueValidator(
+    subunitName: string,
+    index: number,
+    controlName: "origin_subunit_residue" | "destination_subunit_residue"
+  ) {
+    const residueLength = this.subunits.filter(
+      unit => unit.subunit_name === subunitName
+    )[0].amino_acid_sequence.length;
+
+    // tslint:disable-next-line:no-string-literal
+    const control = this.ptmsArray.at(index)["controls"][controlName];
+
+    control.setValidators([Validators.min(1), Validators.max(residueLength)]);
+  }
+
+  deleteInteraction(groupName: "subunitsArray" | "ptmsArray", index: number) {
     // removes instance of formGroup at specified index from specified formArray
     this[groupName].removeAt(index);
+  }
+
+  onSubmit(): void {
+    this.disableDeactivateGuard = true;
+    const data = {
+      interactions: this.interactionForm.value.subunitsArray,
+      ptms: this.interactionForm.value.ptmsArray
+    };
+    this.store.dispatch(new SubunitInteractions(data));
+    // @TODO add error UI with styled alert for message
+  }
+
+  canDeactivate() {
+    if (this.disableDeactivateGuard) {
+      return true;
+    }
+    return false;
   }
 
   ngOnDestroy() {

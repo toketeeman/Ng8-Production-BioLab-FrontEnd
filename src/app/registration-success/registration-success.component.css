@@ -1,0 +1,13 @@
+.success-field {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.success-text {
+  overflow-wrap: break-word;
+  max-width: 450px;
+}
+
+.subunit-panel {
+  margin-bottom: 15px;
+}

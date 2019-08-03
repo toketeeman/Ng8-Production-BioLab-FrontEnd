@@ -8,10 +8,7 @@ import {
   TargetRegistrationActionTypes,
   NewTarget,
   NewTargetSuccess,
-  NewTargetFailure,
-  SubunitInteractions,
-  SubunitInteractionsSuccess,
-  SubunitInteractionsFailure
+  NewTargetFailure
 } from "../actions/target.actions";
 
 @Injectable()
@@ -29,9 +26,12 @@ export class TargetEffects {
     switchMap(data => {
       return this.targetRegistrationService.registerTarget(data).pipe(
         map(targetObj => {
-          console.log(targetObj);
           return new NewTargetSuccess({
             target: targetObj.target,
+            partner: targetObj.partner,
+            protein_class_pk: targetObj.protein_class_pk,
+            notes: targetObj.notes,
+            project_name: targetObj.project_name,
             subunits: targetObj.subunits
           });
         }),

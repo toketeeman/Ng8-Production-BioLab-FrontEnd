@@ -8,6 +8,8 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { MatMenuModule } from "@angular/material";
 import { MatButtonModule } from "@angular/material";
+import { MatDividerModule } from "@angular/material";
+import { MatExpansionModule } from "@angular/material";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { TargetRegistrationService } from "./services/target-registration.service";
@@ -16,6 +18,7 @@ import { InMemoryDataService } from "./services/in-memory-data.service";
 import { TokenInterceptor } from "./services/token.interceptor";
 import { AuthEffects } from "./store/effects/auth.effects";
 import { TargetEffects } from "./store/effects/target.effects";
+import { InteractionsEffects } from "./store/effects/interactions.effects";
 import { reducers } from "./store/app.states";
 import { AppComponent } from "./app.component";
 import { NewTargetComponent } from "./new-target/new-target.component";
@@ -45,9 +48,11 @@ import { RegistrationSuccessComponent } from "./registration-success/registratio
       dataEncapsulation: false
     }),
     StoreModule.forRoot(reducers, {}),
-    EffectsModule.forRoot([AuthEffects, TargetEffects]),
+    EffectsModule.forRoot([AuthEffects, TargetEffects, InteractionsEffects]),
     MatMenuModule,
     MatButtonModule,
+    MatDividerModule,
+    MatExpansionModule,
     ReactiveFormsModule
   ],
   providers: [

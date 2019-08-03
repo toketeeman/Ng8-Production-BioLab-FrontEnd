@@ -2,17 +2,17 @@ import { TestBed, async, inject } from "@angular/core/testing";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 
-import { AuthGuard } from "./auth.guard";
+import { CanAccessGuard } from "./can-access.guard";
 
-describe("AuthGuard", () => {
+describe("CanAccessGuard", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthGuard],
+      providers: [CanAccessGuard],
       imports: [HttpClientTestingModule, RouterTestingModule]
     });
   });
 
-  it("should ...", inject([AuthGuard], (guard: AuthGuard) => {
+  it("should ...", inject([CanAccessGuard], (guard: CanAccessGuard) => {
     expect(guard).toBeTruthy();
   }));
 });

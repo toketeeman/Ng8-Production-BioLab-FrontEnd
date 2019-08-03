@@ -68,7 +68,7 @@ Target object:
   "project": "project name",
   "subunits": [
     {
-      "name": "subunit1 name",
+      "subunit_name": "subunit1 name",
       "copies": 1,
       "amino_acid_fasta_description": "Subunit 1 AA Fasta Description",
       "amino_acid_sequence": "ASDTQCGHKR",
@@ -76,7 +76,7 @@ Target object:
       "dna_sequence": "ATCGGCTAGCTAGCATCGATCGA"
     },
     {
-      "name": "subunit2 name",
+      "subunit_name": "subunit2 name",
       "copies": 1,
       "amino_acid_fasta_description": "Subunit 2 AA Fasta Description",
       "amino_acid_sequence": "ASDTQCGHKRDTQCGHKR",
@@ -96,7 +96,8 @@ Successful target creation object:
   "project_name": "project name",
   "subunits": [
     {
-      "name": "subunit1 name",
+      "subunit_id": 1,
+      "subunit_name": "subunit1 name",
       "copies": 1,
       "amino_acid_fasta_description": "Subunit 1 AA Fasta Description",
       "amino_acid_sequence": "ASDTQCGHKR",
@@ -104,7 +105,8 @@ Successful target creation object:
       "dna_sequence": "ATCGGCTAGCTAGCATCGATCGA"
     },
     {
-      "name": "subunit2 name",
+      "subunit_id": 2,
+      "subunit_name": "subunit2 name",
       "copies": 1,
       "amino_acid_fasta_description": "Subunit 2 AA Fasta Description",
       "amino_acid_sequence": "ASDTQCGHKRDTQCGHKR",
@@ -143,7 +145,7 @@ Response:
 [
   {
     "subunit_id": 1,
-    "subunit_name": "TestSubunit1",
+    "subunit_name": "subunit1 name",
     "subunit_sequence": "AGCTHKLM",
     "copies": 3,
     "target": 1,
@@ -154,7 +156,7 @@ Response:
   },
   {
     "subunit_id": 2,
-    "subunit_name": "TestSubunit2",
+    "subunit_name": "subunit2 name",
     "subunit_sequence": "AGCLSSSSH",
     "copies": 2,
     "target": 1,

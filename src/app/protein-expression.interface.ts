@@ -9,12 +9,12 @@ export interface ITarget {
   partner: string;
   protein_class_pk: number;
   notes: string;
-  project: string;
+  project_name: string;
   subunits: ISubunit[];
 }
 
 export interface ISubunit {
-  name: string;
+  subunit_name: string;
   copies: number;
   // amino_acid_file: any;
   // dna_file: any;
@@ -47,5 +47,19 @@ export interface IFastaResponse {
     }
   ];
 }
-// @TODO export interface ISubunitInteraction
-// @TODO export interface IPostTranslationMod
+
+export interface ISubunitInteraction {
+  origin_subunit: number;
+  origin_subunit_copy: number;
+  destination_subunit: number;
+  destination_subunit_copy: number;
+  interaction: string;
+}
+
+export interface IPostTranslationalModification {
+  origin_subunit: number;
+  origin_subunit_residue: number;
+  destination_subunit: number;
+  destination_subunit_residue: number;
+  ptm: string;
+}
