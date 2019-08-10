@@ -5,7 +5,6 @@ import { Observable, Subscription } from "rxjs";
 import { AppState, selectTargetState } from "../store/app.states";
 import { ISubunit } from "../protein-expression.interface";
 import { SubunitInteractions } from "../store/actions/interactions.actions";
-import { TargetRegistrationService } from "../services/target-registration.service";
 
 @Component({
   selector: "app-subunit-interactions",
@@ -41,9 +40,9 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
 
     this.stateSubscription = this.state$.subscribe(state => {
       if (state) {
-        console.log(state);
         this.target = state.target;
         this.subunits = state.subunits;
+        this.errorMessage = state.errorMessage;
       }
     });
   }
@@ -120,7 +119,6 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
       ptms: this.interactionForm.value.ptmsArray
     };
     this.store.dispatch(new SubunitInteractions(data));
-    // @TODO add error UI with styled alert for message
   }
 
   canDeactivate() {

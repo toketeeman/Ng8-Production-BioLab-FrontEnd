@@ -71,7 +71,6 @@ describe("NewTargetComponent", () => {
     component.partner.patchValue(mockTarget.partner);
     expect(component.target.valid).toBeTruthy();
 
-    // @TODO distable this tslint rule for entire project
     // tslint:disable-next-line:no-string-literal
     component.protein_class_pk.patchValue(mockTarget["protein_class_pk"]);
     expect(component.protein_class_pk.valid).toBeTruthy();

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, Effect, ofType } from "@ngrx/effects";
-import { Observable, of } from "rxjs";
+import { Observable, of, forkJoin } from "rxjs";
 import { map, switchMap, tap, catchError } from "rxjs/operators";
 import { TargetRegistrationService } from "../../services/target-registration.service";
 import {
@@ -24,17 +24,19 @@ export class InteractionsEffects {
     ofType(InteractionsRegistrationActionTypes.SUBUNIT_INTERACTIONS),
     map((action: SubunitInteractions) => action.data),
     switchMap(data => {
-      return this.targetRegistrationService.registerInteractions(data).pipe(
-        map(interactionsObj => {
-          return new SubunitInteractionsSuccess({
-            interactions: interactionsObj.interactions,
-            ptms: interactionsObj.ptms
-          });
-        }),
-        catchError(error => {
-          return of(new SubunitInteractionsFailure({ error }));
-        })
+      return forkJoin(
+        this.targetRegistrationService.registerInteractions(data.interactions),
+        this.targetRegistrationService.registerPtms(data.ptms)
       );
+    }),
+    map(([interactions, ptms]) => {
+      return new SubunitInteractionsSuccess({
+        interactions,
+        ptms
+      });
+    }),
+    catchError(error => {
+      return of(new SubunitInteractionsFailure({ error }));
     })
   );
 

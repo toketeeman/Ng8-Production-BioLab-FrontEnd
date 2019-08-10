@@ -130,7 +130,6 @@ export class NewTargetComponent implements OnInit, OnDestroy {
         },
         error => {
           // subunit.patchValue({ validated: false });
-          // @TODO test error UI
           console.log(error);
         }
       );
@@ -138,7 +137,6 @@ export class NewTargetComponent implements OnInit, OnDestroy {
   }
 
   canDeactivate() {
-    // @TODO also add a check for touched but no data
     if (this.targetForm.untouched || this.disableDeactivateGuard) {
       return true;
     }
@@ -149,7 +147,6 @@ export class NewTargetComponent implements OnInit, OnDestroy {
     this.disableDeactivateGuard = true;
     const data = this.targetForm.value;
     this.store.dispatch(new NewTarget(data));
-    // @TODO add error UI with styled alert for message
   }
 
   ngOnDestroy() {

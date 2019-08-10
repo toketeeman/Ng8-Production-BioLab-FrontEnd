@@ -41,8 +41,16 @@ export class InMemoryDataService implements InMemoryDbService {
 
     const proteinTargets = [];
     const fastaFiles = [];
-    const interactions = [];
-    return { users, proteinClasses, proteinTargets, fastaFiles, interactions };
+    const subunitInteractions = [];
+    const postTranslationalModifications = [];
+    return {
+      users,
+      proteinClasses,
+      proteinTargets,
+      fastaFiles,
+      subunitInteractions,
+      postTranslationalModifications
+    };
   }
 
   // POST interceptor that returns custom response objects
@@ -61,7 +69,10 @@ export class InMemoryDataService implements InMemoryDbService {
       return this.handleAuth(reqInfo);
     }
 
-    if (collectionName === "interactions") {
+    if (
+      collectionName === "subunitInteractions" ||
+      collectionName === "postTranslationalModifications"
+    ) {
       return this.registerInteractions(reqInfo);
     }
   }
@@ -146,10 +157,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
   registerInteractions(reqInfo: any) {
     return reqInfo.utils.createResponse$(() => {
-      const responseData = {
-        interactions: reqInfo.req.body.interactions,
-        ptms: reqInfo.req.body.ptms
-      };
+      const responseData = reqInfo.req.body;
 
       const options: ResponseOptions = {
         body: responseData,

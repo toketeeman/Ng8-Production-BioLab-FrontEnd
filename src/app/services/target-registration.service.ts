@@ -6,7 +6,9 @@ import { AuthenticationService } from "./authentication.service";
 import {
   IProteinClass,
   ITarget,
-  IFastaResponse
+  IFastaResponse,
+  ISubunitInteraction,
+  IPostTranslationalModification
 } from "../protein-expression.interface";
 
 @Injectable({
@@ -16,7 +18,8 @@ export class TargetRegistrationService {
   proteinClassesUrl = "api/proteinClasses"; // temp URL to mock web api
   targetUrl = "api/proteinTargets";
   fastaUrl = "api/fastaFiles";
-  interactionsUrl = "api/interactions";
+  interactionsUrl = "api/subunitInteractions";
+  ptmsUrl = "api/postTranslationalModifications";
 
   constructor(
     private http: HttpClient,
@@ -73,17 +76,30 @@ export class TargetRegistrationService {
   }
 
   /** POST register subunit interactions
-   * @params interactionData: IInteractionData
+   * @params subunitInteractions: ISubunitInteraction[]
    * @returns Observable<any>
    */
-  registerInteractions(interactionData: any): Observable<any> {
+  registerInteractions(
+    subunitInteractions: ISubunitInteraction[]
+  ): Observable<any> {
     const httpOptions = this.getHttpOptions();
 
     return this.http.post<any>(
       this.interactionsUrl,
-      interactionData,
+      subunitInteractions,
       httpOptions
     );
+  }
+
+  /** POST register post translational modifications
+   * @params ptms: IPostTranslationalModification[]
+   * @returns Observable<any>
+   */
+
+  registerPtms(ptms: IPostTranslationalModification[]): Observable<any> {
+    const httpOptions = this.getHttpOptions();
+
+    return this.http.post<any>(this.ptmsUrl, ptms, httpOptions);
   }
 
   /**
