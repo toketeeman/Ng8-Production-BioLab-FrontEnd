@@ -104,6 +104,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
 
   onFileChange(type: "amino_acid" | "dna", event: any, index: number) {
     const subunit = this.subunits.get(index.toString());
+    const control = subunit.get(type);
 
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
@@ -129,8 +130,12 @@ export class NewTargetComponent implements OnInit, OnDestroy {
           }
         },
         error => {
-          // subunit.patchValue({ validated: false });
+          /** Form control filename value could be patched as shown with error message
+           * string or a status code in order to show conditional error messages in the template.
+           */
+          // subunit.get(`${type}_fileName`).patchValue(error.non_field_errors[0]);
           console.log(error);
+          control.patchValue(null);
         }
       );
     }

@@ -18,7 +18,7 @@ export class AuthenticationService {
   /** Returns token from browser's local storage
    */
   getToken(): string {
-    return localStorage.getItem("token");
+    return sessionStorage.getItem("token");
   }
 
   /** POST log in user

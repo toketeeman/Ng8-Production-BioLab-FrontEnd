@@ -37,9 +37,9 @@
       <form [formGroupName]="i" class="padding-vertical-1">
         <div class="margin-top">
           <label for="subunit_name">Subunit name:&nbsp;</label>
-          <input id="subunit_name" type="text" formControlName="subunit_name">
+          <input id="subunit_name" type="text" formControlName="subunit_name" [class.error-icon]="unit.get('subunit_name').dirty && unit.get('subunit_name').invalid" [class.success-icon]="unit.get('subunit_name').valid">
           <!-- Delete button is not displayed for first subunit formGroup -->
-          <span *ngIf="i > 0" (click)="deleteSubunit(i)">
+          <span *ngIf="i > 0" class="delete-icon" (click)="deleteSubunit(i)">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" class="icon-red" />
               <path d="M0 0h24v24H0z" fill="none" />
@@ -49,7 +49,7 @@
 
         <div class="margin-top">
           <label for="copies">Number copies of this subunit in the target:&nbsp;</label>
-          <input id="copies" type="number" formControlName="copies">
+          <input id="copies" type="number" formControlName="copies" [class.error-icon]="unit.get('copies').touched && unit.get('copies').invalid" [class.success-icon]="unit.get('copies').valid">
         </div>
 
         <br>
@@ -59,28 +59,32 @@
             Add subunit amino acid FASTA file
           </label>
           <br>
+          <!-- amino_acid FASTA file error message. Specific error messaging or conditional error messages could be added here. -->
+           <div *ngIf="!unit.get('amino_acid').valid && unit.get('amino_acid').touched" class="error-msg">File could not be uploaded. Please try again.</div>
           <input id="aminoAcidFile" type="file" accept=".FASTA" formControlName="amino_acid" (change)="onFileChange('amino_acid', $event, i)"/>
-          <span *ngIf="unit.value.amino_acid_fileName">
+          <span *ngIf="unit.get('amino_acid').valid && unit.get('amino_acid_sequence').value">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <path fill="none" d="M0 0h24v24H0z" />
               <path fill="#5ab059" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
             </svg>
          </span>
+
         </div>
         <div>
           <label class="file-upload-label" for="dnaFile">
             Add codon optimized DNA FASTA file
           </label>
           <br>
+          <!-- dna FASTA file error message. Specific error messaging or conditional error messages could be added here. -->
+          <div *ngIf="!unit.get('dna').valid && unit.get('dna').touched" class="error-msg">Invalid file: please try again.</div>
           <input id="dnaFile" type="file" accept=".FASTA" formControlName="dna" (change)="onFileChange('dna', $event, i)"/>
-          <span *ngIf="unit.value.dna_fileName">
+          <span *ngIf="unit.get('dna').valid && unit.get('dna_sequence').value">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <path fill="none" d="M0 0h24v24H0z" />
               <path fill="#5ab059" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
             </svg>
           </span>
         </div>
-        <div class="error-msg" *ngIf="unit.touched && unit.invalid">Incomplete subunit.</div>
       </form>
       <mat-divider></mat-divider>
     </div>
@@ -88,8 +92,3 @@
     <button class="btn btn-form" (click)="addSubunit()">Add Another Sub Unit</button>
   </div>
 </form>
-
-{{ targetForm.value | json }}
-isValid: {{ targetForm.valid }}
-
-targetIsValid: {{ target.valid }}

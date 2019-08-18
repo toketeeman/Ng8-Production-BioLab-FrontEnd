@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Logout dispatches LogOut action to store, which in turn removes token from localStorage and changes user's status to logged out.
+   * Logout dispatches LogOut action to store, which in turn removes token from sessionStorage and changes user's status to logged out.
    */
   logout(): void {
     this.store.dispatch(new LogOut());

@@ -122,9 +122,13 @@ export class InMemoryDataService implements InMemoryDbService {
         ]
       };
 
+      // const options: ResponseOptions = {
+      //   body: responseData,
+      //   status: STATUS.OK
+      // };
       const options: ResponseOptions = {
-        body: responseData,
-        status: STATUS.OK
+        body: { non_field_errors: ["bad file"] },
+        status: STATUS.BAD_REQUEST
       };
       return this.finishOptions(options, reqInfo);
     });
@@ -137,7 +141,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
       const options: ResponseOptions = isValidUser
         ? {
-            body: { token: "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b" },
+            body: { key: "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b" },
             status: STATUS.OK
           }
         : {

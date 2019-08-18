@@ -26,6 +26,12 @@ body {
   justify-content: center;
 }
 
+.flex-vertical-center {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
 .flex-item-1 {
   flex: 1;
 }
@@ -81,6 +87,10 @@ body {
 /* Icons */
 .icon-red {
   fill: #f78885;
+}
+
+.delete-icon {
+  margin: 2rem;
 }
 
 /* Button */

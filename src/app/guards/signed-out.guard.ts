@@ -20,7 +20,7 @@ export class SignedOutGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.getToken()) {
-      this.router.navigate(["/home"]);
+      this.router.navigate(["/home/add-target"]);
       return false;
     }
     return true;

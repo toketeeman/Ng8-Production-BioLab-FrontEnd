@@ -26,6 +26,7 @@ import { SubunitInteractionsComponent } from "./subunit-interactions/subunit-int
 import { LoginFormComponent } from "./auth/login-form/login-form.component";
 import { HomeComponent } from "./home/home.component";
 import { RegistrationSuccessComponent } from "./registration-success/registration-success.component";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { RegistrationSuccessComponent } from "./registration-success/registratio
     SubunitInteractionsComponent,
     LoginFormComponent,
     HomeComponent,
-    RegistrationSuccessComponent
+    RegistrationSuccessComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

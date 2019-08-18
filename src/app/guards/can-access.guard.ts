@@ -27,7 +27,7 @@ export class CanAccessGuard
     | boolean
     | UrlTree {
     if (this.router.url === "/") {
-      this.router.navigateByUrl("/home");
+      this.router.navigateByUrl("/home/add-target");
       return false;
     }
     return true;

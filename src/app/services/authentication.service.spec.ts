@@ -66,9 +66,9 @@ describe("AuthenticationService", () => {
     req.flush(errMsg, { status: 401, statusText: "invalid credentials" });
   });
 
-  it("#getToken should return a token from localStorage", () => {
+  it("#getToken should return a token from sessionStorage", () => {
     const mockToken = "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b";
-    localStorage.setItem("token", mockToken);
+    sessionStorage.setItem("token", mockToken);
 
     expect(authService.getToken()).toEqual(mockToken);
   });

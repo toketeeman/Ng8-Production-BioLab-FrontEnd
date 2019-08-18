@@ -57,9 +57,8 @@ export class TargetRegistrationService {
       formData.append(key, value);
     }
     console.log(formData);
-    return this.http
-      .post<IFastaResponse>(this.fastaUrl, formData, httpOptions)
-      .pipe(catchError(this.handleError<IFastaResponse>("uploadFastaFile")));
+    return this.http.post<IFastaResponse>(this.fastaUrl, formData, httpOptions);
+    // .pipe(catchError(this.handleError<IFastaResponse>("uploadFastaFile")));
   }
 
   /** POST register new protein target

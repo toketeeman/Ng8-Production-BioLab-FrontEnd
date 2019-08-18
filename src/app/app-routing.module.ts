@@ -9,6 +9,7 @@ import { SignedOutGuard } from "./guards/signed-out.guard";
 import { RegistrationSuccessComponent } from "./registration-success/registration-success.component";
 import { UnsavedChangesGuard } from "./guards/unsaved-changes.guard";
 import { CanAccessGuard } from "./guards/can-access.guard";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {
@@ -40,8 +41,8 @@ const routes: Routes = [
       }
     ]
   },
-  // @TODO add 404 page & route
-  { path: "", redirectTo: "home", pathMatch: "full" }
+  { path: "", redirectTo: "home/add-target", pathMatch: "full" },
+  { path: "**", component: PageNotFoundComponent }
 ];
 
 @NgModule({

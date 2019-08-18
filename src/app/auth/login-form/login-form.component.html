@@ -1,16 +1,18 @@
-<form class="container" [formGroup]="loginForm">
-  <h3>Log in to the AbSci Target Database</h3>
-  <label class="login-label" for="username">User name</label>
-  <input id="username" type=text formControlName="username">
+<div class="flex-center flex-vertical-center">
+  <form class="container" [formGroup]="loginForm">
+    <h3>Log in to the AbSci Target Database</h3>
+    <label class="login-label" for="username">User name</label>
+    <input id="username" type=text formControlName="username">
 
-  <label class="login-label" for="password">Password</label>
-  <input id="password" type="password" formControlName="password">
+    <label class="login-label" for="password">Password</label>
+    <input id="password" type="password" formControlName="password">
 
-  <div *ngIf="errorMessage">
-    <div class="error-msg">
-      {{ errorMessage }}
+    <div *ngIf="errorMessage">
+      <div class="error-msg">
+        {{ errorMessage }}
+      </div>
     </div>
-  </div>
 
-  <button class="btn btn-login" (click)="login()">Log in</button>
-</form>
+    <button class="btn btn-login" (click)="login()">Log in</button>
+  </form>
+</div>
