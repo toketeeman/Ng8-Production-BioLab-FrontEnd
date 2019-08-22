@@ -15,9 +15,8 @@ export interface ITarget {
 
 export interface ISubunit {
   subunit_name: string;
+  subunit_id?: number;
   copies: number;
-  // amino_acid_file: any;
-  // dna_file: any;
   amino_acid_fasta_description: string;
   amino_acid_sequence: string;
   dna_fasta_description: string;

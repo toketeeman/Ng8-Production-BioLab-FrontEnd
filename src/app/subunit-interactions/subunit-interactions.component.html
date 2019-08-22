@@ -22,7 +22,7 @@
       <div formArrayName="subunitsArray" *ngFor="let subunit of subunitsArray.controls; let i = index;">
         <div class="flex flex-item" [formGroupName]="i">
           <select class="flex-item interaction-field" formControlName="origin_subunit" (change)="updateCopyRange($event.target.value, i, 'origin_subunit_copy')">
-            <option *ngFor="let unit of subunits" [value]="unit.subunit_name">{{ unit.subunit_name }}</option>
+            <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
           </select>
 
           <div class="flex-item">
@@ -42,7 +42,7 @@
           </select>
 
           <select class="flex-item interaction-field" type="text" formControlName="destination_subunit" (change)="updateCopyRange($event.target.value, i, 'destination_subunit_copy')">
-            <option *ngFor="let unit of subunits" [value]="unit.subunit_name">{{ unit.subunit_name }}</option>
+            <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
           </select>
 
           <div class="flex-item">
@@ -81,7 +81,7 @@
     <div formArrayName="ptmsArray" *ngFor="let ptm of ptmsArray.controls; let i = index;">
       <div class="flex flex-item" [formGroupName]="i">
         <select class="flex-item interaction-field" formControlName="origin_subunit" (change)="updateResidueValidator($event.target.value, i, 'origin_subunit_residue')">
-          <option *ngFor="let unit of subunits" [value]="unit.subunit_name">{{ unit.subunit_name }}</option>
+          <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
         </select>
 
         <div class="flex-item">
@@ -95,7 +95,7 @@
         </div>
 
         <select class="flex-item interaction-field" formControlName="destination_subunit" (change)="updateResidueValidator($event.target.value, i, 'destination_subunit_residue')">
-          <option *ngFor="let unit of subunits" [value]="unit.subunit_name">{{ unit.subunit_name }}</option>
+          <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
         </select>
 
         <div class="flex-item">
