@@ -10,6 +10,7 @@ import { MatMenuModule } from "@angular/material";
 import { MatButtonModule } from "@angular/material";
 import { MatDividerModule } from "@angular/material";
 import { MatExpansionModule } from "@angular/material";
+import { MatTooltipModule } from "@angular/material";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { TargetRegistrationService } from "./services/target-registration.service";
@@ -55,6 +56,7 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
     MatButtonModule,
     MatDividerModule,
     MatExpansionModule,
+    MatTooltipModule,
     ReactiveFormsModule
   ],
   providers: [

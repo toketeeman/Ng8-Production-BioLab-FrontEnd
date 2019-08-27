@@ -122,14 +122,14 @@ export class InMemoryDataService implements InMemoryDbService {
         ]
       };
 
-      // const options: ResponseOptions = {
-      //   body: responseData,
-      //   status: STATUS.OK
-      // };
       const options: ResponseOptions = {
-        body: { non_field_errors: ["bad file"] },
-        status: STATUS.BAD_REQUEST
+        body: responseData,
+        status: STATUS.OK
       };
+      // const options: ResponseOptions = {
+      //   body: { non_field_errors: ["bad file"] },
+      //   status: STATUS.BAD_REQUEST
+      // };
       return this.finishOptions(options, reqInfo);
     });
   }

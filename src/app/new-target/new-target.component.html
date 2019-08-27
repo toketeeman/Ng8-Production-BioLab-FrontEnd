@@ -34,7 +34,7 @@
 
   <div class="flex-item section">
     <div formArrayName="subunits" *ngFor="let unit of subunits.controls; let i = index;">
-      <form [formGroupName]="i" class="padding-vertical-1">
+      <form [formGroupName]="i" class="padding-bottom-1">
         <div class="margin-top">
           <label for="subunit_name">Subunit name:&nbsp;</label>
           <input id="subunit_name" type="text" formControlName="subunit_name" [class.error-icon]="unit.get('subunit_name').dirty && unit.get('subunit_name').invalid" [class.success-icon]="unit.get('subunit_name').valid">

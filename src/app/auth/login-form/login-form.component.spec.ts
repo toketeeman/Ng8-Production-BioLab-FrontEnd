@@ -40,5 +40,12 @@ describe("LoginFormComponent", () => {
     expect(component).toBeTruthy();
   });
 
-  // should require a username and a password
+  it("should require a username and password", () => {
+    expect(component.loginForm.valid).toBeFalsy();
+    component.loginForm.patchValue({
+      username: "user",
+      password: "password123"
+    });
+    expect(component.loginForm.valid).toBeTruthy();
+  });
 });

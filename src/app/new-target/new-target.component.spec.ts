@@ -3,6 +3,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterTestingModule } from "@angular/router/testing";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { Store } from "@ngrx/store";
+import { of } from "rxjs";
+import { TargetRegistrationService } from "../services/target-registration.service";
 import { provideMockStore, MockStore } from "@ngrx/store/testing";
 import { MatDividerModule, MatDivider } from "@angular/material";
 import { NewTargetComponent } from "./new-target.component";
@@ -11,6 +13,7 @@ import { ITarget } from "../protein-expression.interface";
 describe("NewTargetComponent", () => {
   let component: NewTargetComponent;
   let fixture: ComponentFixture<NewTargetComponent>;
+  let getProteinClassSpy: jasmine.Spy;
   let store: MockStore<{ errorMessage: string }>;
   const initialState = { errorMessage: null };
 
@@ -22,15 +25,55 @@ describe("NewTargetComponent", () => {
     project_name: "projectA",
     subunits: [
       {
-        subunit_name: "subunitA",
+        subunit_name: "subunit1 name",
         copies: 1,
-        amino_acid_file: "../../mocks/example_protein.fasta",
-        dna_file: "../../mocks/example_dna.fasta"
+        amino_acid: "amino_acid.fasta",
+        amino_acid_fasta_description: "Subunit 1 AA Fasta Description",
+        amino_acid_sequence: "ASDTQCGHKR",
+        dna: "dna.fasta",
+        dna_fasta_description: "Subunit 1 DNA Fasta Description",
+        dna_sequence: "ATCGGCTAGCTAGCATCGATCGA"
+      },
+      {
+        subunit_name: "subunit2 name",
+        copies: 1,
+        amino_acid: "amino_acid2.fasta",
+        amino_acid_fasta_description: "Subunit 2 AA Fasta Description",
+        amino_acid_sequence: "ASDTQCGHKRDTQCGHKR",
+        dna: "dna2.fasta",
+        dna_fasta_description: "Subunit 2 DNA Fasta Description",
+        dna_sequence: "CGCTGCGACGAGCTAGGGCGATCGACGATTCAGG"
       }
     ]
   };
 
+  const mockProteinClasses = [
+    {
+      protein_class_name: "protein class1 name",
+      protein_class_pk: 1
+    },
+    {
+      protein_class_name: "protein class2 name",
+      protein_class_pk: 2
+    },
+    {
+      protein_class_name: "protein class3 name",
+      protein_class_pk: 3
+    },
+    {
+      protein_class_name: "protein class4 name",
+      protein_class_pk: 4
+    }
+  ];
+
   beforeEach(async(() => {
+    const targetRegistrationService = jasmine.createSpyObj(
+      "TargetRegistrationService",
+      ["getProteinClasses"]
+    );
+    getProteinClassSpy = targetRegistrationService.getProteinClasses.and.returnValue(
+      of(mockProteinClasses)
+    );
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
@@ -40,7 +83,13 @@ describe("NewTargetComponent", () => {
         MatDividerModule
       ],
       declarations: [NewTargetComponent],
-      providers: [provideMockStore({ initialState })]
+      providers: [
+        provideMockStore({ initialState }),
+        {
+          provide: TargetRegistrationService,
+          useValue: targetRegistrationService
+        }
+      ]
     }).compileComponents();
   }));
 
@@ -64,12 +113,12 @@ describe("NewTargetComponent", () => {
     expect(component.targetForm.valid).toBeFalsy();
   });
 
-  it("should be valid if form is completed with valid target data", () => {
+  it("individual form controls validate when filled", () => {
     component.target.patchValue(mockTarget.target);
     expect(component.target.valid).toBeTruthy();
 
     component.partner.patchValue(mockTarget.partner);
-    expect(component.target.valid).toBeTruthy();
+    expect(component.partner.valid).toBeTruthy();
 
     // tslint:disable-next-line:no-string-literal
     component.protein_class_pk.patchValue(mockTarget["protein_class_pk"]);
@@ -77,13 +126,12 @@ describe("NewTargetComponent", () => {
 
     component.project.patchValue(mockTarget.project_name);
     expect(component.project.valid).toBeTruthy();
-
-    // @TODO Fix test of FASTA file uploads
-    // component.subUnits.patchValue(mockTarget.subunits);
-    // expect(component.subUnits.valid).toBeTruthy();
-
-    // expect(component.targetForm.valid).toBeTruthy();
   });
+
+  // it("should be valid when new-target form completed with valid target data", () => {
+  //   component.targetForm.patchValue(mockTarget);
+  //   expect(component.targetForm.valid).toBeTruthy();
+  // });
 
   it("should add a new subunit formGroup", () => {
     component.addSubunit();
@@ -96,5 +144,10 @@ describe("NewTargetComponent", () => {
     expect(component.subunits.length).toEqual(1);
   });
 
-  // @TODO add test for proteinClass dropdown
+  it("should use the protein classes from the target service", () => {
+    const selectEl = fixture.nativeElement.querySelector("#proteinClassPk");
+    getProteinClassSpy.and.returnValue(mockProteinClasses);
+    fixture.detectChanges();
+    expect(selectEl.children.length).toBeGreaterThan(0);
+  });
 });

@@ -107,9 +107,63 @@ describe("TargetRegistrationService", () => {
     req.flush(mockTarget);
   });
 
+  it("should register subunit interactions", () => {
+    const mockSubunitInteractions = [
+      {
+        origin_subunit: 1,
+        origin_subunit_copy: 3,
+        destination_subunit: 2,
+        destination_subunit_copy: 1,
+        interaction: "covalent"
+      },
+      {
+        origin_subunit: 2,
+        origin_subunit_copy: 2,
+        destination_subunit: 1,
+        destination_subunit_copy: 2,
+        interaction: "covalent"
+      }
+    ];
+
+    targetService
+      .registerInteractions(mockSubunitInteractions)
+      .subscribe(data => {
+        expect(data).toEqual(mockSubunitInteractions);
+      });
+    const req = httpTestingController.expectOne(targetService.interactionsUrl);
+    expect(req.request.method).toEqual("POST");
+
+    req.flush(mockSubunitInteractions);
+  });
+
+  it("should register post translational modifications", () => {
+    const mockPtms = [
+      {
+        origin_subunit: 1,
+        origin_subunit_residue: 16,
+        destination_subunit: 2,
+        destination_subunit_residue: 45,
+        ptm: "ptm"
+      },
+      {
+        origin_subunit: 2,
+        origin_subunit_residue: 13,
+        destination_subunit: 1,
+        destination_subunit_residue: 74,
+        ptm: "another ptm"
+      }
+    ];
+
+    targetService.registerPtms(mockPtms).subscribe(data => {
+      expect(data).toEqual(mockPtms);
+    });
+    const req = httpTestingController.expectOne(targetService.ptmsUrl);
+    expect(req.request.method).toEqual("POST");
+
+    req.flush(mockPtms);
+  });
+
   afterEach(() => {
     httpTestingController.verify();
   });
-
-  // @TODO it should register subunit interactions (POST)
 });
