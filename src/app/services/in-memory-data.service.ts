@@ -95,7 +95,12 @@ export class InMemoryDataService implements InMemoryDbService {
     });
   }
 
-  formatTargetResponse(data: ITarget) {
+  formatTargetResponse(data: any) {
+    const subunits = data.subunits.map(unit => {
+      unit.subunit_id = Math.floor(Math.random() * Math.floor(99));
+      return unit;
+    });
+
     return {
       target: data.target,
       partner: data.partner,
@@ -103,7 +108,7 @@ export class InMemoryDataService implements InMemoryDbService {
       protein_class_pk: data.protein_class_pk,
       notes: data.notes,
       project_name: data.project_name,
-      subunits: data.subunits
+      subunits
     };
   }
 

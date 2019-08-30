@@ -40,6 +40,7 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
 
     this.stateSubscription = this.state$.subscribe(state => {
       if (state) {
+        console.log(state);
         this.target = state.target;
         this.subunits = state.subunits;
         this.errorMessage = state.errorMessage;
@@ -78,13 +79,13 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   }
 
   updateCopyRange(
-    subunitName: string,
+    subunitId: string,
     index: number,
     controlName: "origin_subunit_copy" | "destination_subunit_copy"
   ) {
-    const copyNumber = this.subunits.filter(
-      unit => unit.subunit_name === subunitName
-    )[0].copies;
+    const id = parseInt(subunitId, 10);
+    const copyNumber = this.subunits.filter(unit => unit.subunit_id === id)[0]
+      .copies;
 
     // set the maximum range of the appropriate copy number control to the subunit's number of copies
     // tslint:disable-next-line:no-string-literal
@@ -93,12 +94,13 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   }
 
   updateResidueValidator(
-    subunitName: string,
+    subunitId: string,
     index: number,
     controlName: "origin_subunit_residue" | "destination_subunit_residue"
   ) {
+    const id = parseInt(subunitId, 10);
     const residueLength = this.subunits.filter(
-      unit => unit.subunit_name === subunitName
+      unit => unit.subunit_id === id
     )[0].amino_acid_sequence.length;
 
     // tslint:disable-next-line:no-string-literal
