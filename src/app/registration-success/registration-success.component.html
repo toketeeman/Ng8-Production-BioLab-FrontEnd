@@ -69,11 +69,11 @@
       <th>Sub Unit Name</th>
       <th>Copy #</th>
     </tr>
-    <tr *ngFor="let interaction of (interactions$ | async).interactions">
-      <td>{{ interaction.origin_subunit }}</td>
+    <tr *ngFor="let interaction of this.interactions">
+      <td>{{ interaction.origin_subunit_name }}</td>
       <td>{{ interaction.origin_subunit_copy }}</td>
       <td>{{ interaction.interaction }}</td>
-      <td>{{ interaction.destination_subunit }}</td>
+      <td>{{ interaction.destination_subunit_name }}</td>
       <td>{{ interaction.destination_subunit_copy }}</td>
     </tr>
   </table>
@@ -89,10 +89,10 @@
       <th>Residue Number</th>
       <th>Post Translational Modication</th>
     </tr>
-    <tr *ngFor="let ptm of (interactions$ | async).ptms">
-      <td>{{ ptm.origin_subunit }}</td>
+    <tr *ngFor="let ptm of this.ptms">
+      <td>{{ ptm.origin_subunit_name }}</td>
       <td>{{ ptm.origin_subunit_residue }}</td>
-      <td>{{ ptm.destination_subunit }}</td>
+      <td>{{ ptm.destination_subunit_name }}</td>
       <td>{{ ptm.destination_subunit_residue }}</td>
       <td>{{ ptm.ptm }}</td>
     </tr>
