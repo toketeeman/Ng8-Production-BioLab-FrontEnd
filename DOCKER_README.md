@@ -1,6 +1,6 @@
 # Introduction
 
-This application executes in a browser and is served via nginx in a docker container. The Dockerfile in this
+This application executes in a browser and is served via nginx in a docker container. The Dockerfiles in this
 directory builds the code and copies it to the docker image to be served as static content from nginx.
 
 There are at least a couple different methods that can be used for this Docker image to run which are detailed below.
