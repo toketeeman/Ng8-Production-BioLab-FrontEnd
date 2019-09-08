@@ -9,7 +9,9 @@ WORKDIR /app
 COPY . .
 RUN npm i
 ENV PATH=/app/node_modules/.bin:$PATH
-RUN ng test --browsers ChromeHeadless --watch=false
+#Commented out for dev envirnonment for speed of deployment until
+#CICD is implemented.
+#RUN ng test --browsers ChromeHeadless --watch=false
 RUN ng build --configuration="production"
 
 FROM nginx
