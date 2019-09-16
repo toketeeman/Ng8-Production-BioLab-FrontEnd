@@ -15,11 +15,11 @@ import {
   providedIn: "root"
 })
 export class TargetRegistrationService {
-  proteinClassesUrl = "api/proteinClasses"; // temp URL to mock web api
-  targetUrl = "api/proteinTargets";
-  fastaUrl = "api/fastaFiles";
-  interactionsUrl = "api/subunitInteractions";
-  ptmsUrl = "api/postTranslationalModifications";
+  proteinClassesUrl = "api/v1/proteinClasses"; // temp URL to mock web api
+  targetUrl = "api/v1/proteinTargets";
+  fastaUrl = "api/v1/fastaFiles";
+  interactionsUrl = "api/v1/subunitInteractions";
+  ptmsUrl = "api/v1/postTranslationalModifications";
 
   constructor(
     private http: HttpClient,
