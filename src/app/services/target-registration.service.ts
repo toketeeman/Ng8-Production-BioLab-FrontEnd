@@ -15,11 +15,11 @@ import {
   providedIn: "root"
 })
 export class TargetRegistrationService {
-  proteinClassesUrl = "api/v1/proteinClasses"; // temp URL to mock web api
-  targetUrl = "api/v1/proteinTargets";
-  fastaUrl = "api/v1/fastaFiles";
-  interactionsUrl = "api/v1/subunitInteractions";
-  ptmsUrl = "api/v1/postTranslationalModifications";
+  proteinClassesUrl = "api/v1/absci-targets/protein-class/";
+  targetUrl = "api/v1/absci-targets/target-registration/";
+  fastaUrl = "api/v1/absci-targets/fasta-file-parser/";
+  interactionsUrl = "api/v1/absci-targets/interaction/";
+  ptmsUrl = "api/v1/absci-targets/ptm/";
 
   constructor(
     private http: HttpClient,
