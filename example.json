@@ -181,17 +181,17 @@ POST api/subunit-interaction/
 
 [
   {
-    "origin_subunit": subunit_one.subunit_id,
-    "origin_subunit_copy": 3,
-    "destination_subunit": subunit_two.subunit_id,
-    "destination_subunit_copy": 1,
+    "subunit_one": subunit_one.subunit_id,
+    "subunit_one_copy": 3,
+    "subunit_two": subunit_two.subunit_id,
+    "subunit_two_copy": 1,
     "interaction": "interaction"
   },
   {
-    "origin_subunit": subunit_one.subunit_id,
-    "origin_subunit_copy": 2,
-    "destination_subunit": subunit_two.subunit_id,
-    "destination_subunit_copy": 2,
+    "subunit_one": subunit_one.subunit_id,
+    "subunit_one_copy": 2,
+    "subunit_two": subunit_two.subunit_id,
+    "subunit_two_copy": 2,
     "interaction": "another interaction"
   }
 ]
@@ -204,17 +204,17 @@ POST api/post-translational-modification/
 
 [
   {
-    "origin_subunit": subunit_one.subunit_id,
-    "origin_subunit_residue": 16,
-    "destination_subunit": subunit_two.subunit_id,
-    "destination_subunit_residue": 45,
+    "subunit_one": subunit_one.subunit_id,
+    "subunit_one_residue": 16,
+    "subunit_two": subunit_two.subunit_id,
+    "subunit_two_residue": 45,
     "ptm": "ptm"
   },
   {
-    "origin_subunit": subunit_one.subunit_id,
-    "origin_subunit_residue": 13,
-    "destination_subunit": subunit_two.subunit_id,
-    "destination_subunit_residue": 74,
+    "subunit_one": subunit_one.subunit_id,
+    "subunit_one_residue": 13,
+    "subunit_two": subunit_two.subunit_id,
+    "subunit_two_residue": 74,
     "ptm": "another ptm"
   }
 ]

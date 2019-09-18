@@ -70,11 +70,11 @@
       <th>Copy #</th>
     </tr>
     <tr *ngFor="let interaction of this.interactions">
-      <td>{{ interaction.origin_subunit_name }}</td>
-      <td>{{ interaction.origin_subunit_copy }}</td>
+      <td>{{ interaction.subunit_one_name }}</td>
+      <td>{{ interaction.subunit_one_copy }}</td>
       <td>{{ interaction.interaction }}</td>
-      <td>{{ interaction.destination_subunit_name }}</td>
-      <td>{{ interaction.destination_subunit_copy }}</td>
+      <td>{{ interaction.subunit_two_name }}</td>
+      <td>{{ interaction.subunit_two_copy }}</td>
     </tr>
   </table>
 </div>
@@ -90,10 +90,10 @@
       <th>Post Translational Modication</th>
     </tr>
     <tr *ngFor="let ptm of this.ptms">
-      <td>{{ ptm.origin_subunit_name }}</td>
-      <td>{{ ptm.origin_subunit_residue }}</td>
-      <td>{{ ptm.destination_subunit_name }}</td>
-      <td>{{ ptm.destination_subunit_residue }}</td>
+      <td>{{ ptm.subunit_one_name }}</td>
+      <td>{{ ptm.subunit_one_residue }}</td>
+      <td>{{ ptm.subunit_two_name }}</td>
+      <td>{{ ptm.subunit_two_residue }}</td>
       <td>{{ ptm.ptm }}</td>
     </tr>
   </table>

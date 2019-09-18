@@ -48,17 +48,17 @@ export interface IFastaResponse {
 }
 
 export interface ISubunitInteraction {
-  origin_subunit: number;
-  origin_subunit_copy: number;
-  destination_subunit: number;
-  destination_subunit_copy: number;
+  subunit_one: number;
+  subunit_one_copy: number;
+  subunit_two: number;
+  subunit_two_copy: number;
   interaction: string;
 }
 
 export interface IPostTranslationalModification {
-  origin_subunit: number;
-  origin_subunit_residue: number;
-  destination_subunit: number;
-  destination_subunit_residue: number;
+  subunit_one: number;
+  subunit_one_residue: number;
+  subunit_two: number;
+  subunit_two_residue: number;
   ptm: string;
 }
