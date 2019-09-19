@@ -28,6 +28,33 @@ import { LoginFormComponent } from "./auth/login-form/login-form.component";
 import { HomeComponent } from "./home/home.component";
 import { RegistrationSuccessComponent } from "./registration-success/registration-success.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { environment } from "../environments/environment";
+
+const appImports = [
+  BrowserModule,
+  AppRoutingModule,
+  BrowserAnimationsModule,
+  HttpClientModule,
+  StoreModule.forRoot(reducers, {}),
+  EffectsModule.forRoot([AuthEffects, TargetEffects, InteractionsEffects]),
+  MatMenuModule,
+  MatButtonModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatTooltipModule,
+  ReactiveFormsModule
+];
+
+if (!environment.production) {
+  appImports.push(
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+      dataEncapsulation: false
+    })
+  );
+}
 
 @NgModule({
   declarations: [
@@ -39,26 +66,7 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
     RegistrationSuccessComponent,
     PageNotFoundComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-      dataEncapsulation: false
-    }),
-    StoreModule.forRoot(reducers, {}),
-    EffectsModule.forRoot([AuthEffects, TargetEffects, InteractionsEffects]),
-    MatMenuModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatTooltipModule,
-    ReactiveFormsModule
-  ],
+  imports: appImports,
   providers: [
     AuthenticationService,
     TargetRegistrationService,

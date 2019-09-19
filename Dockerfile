@@ -1,21 +1,16 @@
-FROM node as builderbase
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
-     && apt-get install -y chromium
-ENV CHROME_BIN=chromium
+FROM node
 
-FROM builderbase as builder
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -yq google-chrome-stable
+
 WORKDIR /app
 COPY . .
+ENV PATH /app/node_modules/.bin:$PATH
 RUN npm i
-ENV PATH=/app/node_modules/.bin:$PATH
-RUN ng build
 
-#TODO - try to get unit tests working headless in docker
-# FROM builder as tester
-# ENV CHROME_BIN=chromium
-# RUN ng test --watch=false --browsers=ChromeHeadless
+RUN ng test --browsers ChromeHeadless --watch=false
 
-FROM nginx
-COPY --from=builder /app/dist/protein-expression-front-end /usr/share/nginx/html
-EXPOSE 80
+EXPOSE 4200
+CMD ng serve --host 0.0.0.0

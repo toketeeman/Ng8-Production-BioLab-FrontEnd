@@ -56,22 +56,22 @@ export class InMemoryDataService implements InMemoryDbService {
   // POST interceptor that returns custom response objects
 
   post(reqInfo: RequestInfo) {
-    const collectionName = reqInfo.collectionName;
-    if (collectionName === "proteinTargets") {
+    const url = reqInfo.url;
+    if (url === "api/v1/absci-targets/protein-class/") {
       return this.registerTarget(reqInfo);
     }
 
-    if (collectionName === "fastaFiles") {
+    if (url === "api/v1/absci-targets/fasta-file-parser/") {
       return this.uploadFastaFile(reqInfo);
     }
 
-    if (collectionName === "users") {
+    if (url === "api/v1/auth/login/") {
       return this.handleAuth(reqInfo);
     }
 
     if (
-      collectionName === "subunitInteractions" ||
-      collectionName === "postTranslationalModifications"
+      url === "api/v1/absci-targets/interaction/" ||
+      url === "api/v1/absci-targets/ptm/"
     ) {
       return this.registerInteractions(reqInfo);
     }
