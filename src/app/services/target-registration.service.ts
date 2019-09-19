@@ -18,8 +18,8 @@ export class TargetRegistrationService {
   proteinClassesUrl = "api/v1/absci-targets/protein-class/";
   targetUrl = "api/v1/absci-targets/target-registration/";
   fastaUrl = "api/v1/absci-targets/fasta-file-parser/";
-  interactionsUrl = "api/v1/absci-targets/interaction/";
-  ptmsUrl = "api/v1/absci-targets/ptm/";
+  interactionsUrl = "api/v1/absci-targets/subunit-interaction/";
+  ptmsUrl = "api/v1/absci-targets/subunit-ptm/";
 
   constructor(
     private http: HttpClient,
