@@ -29,24 +29,24 @@ export class RegistrationSuccessComponent implements OnInit, OnDestroy {
       this.interactions$
     ).subscribe(([target, interactionData]) => {
       this.interactions = interactionData.interactions.map(interaction => {
-        interaction.origin_subunit_name = this.setSubunitName(
-          interaction.origin_subunit,
+        interaction.subunit_one_name = this.setSubunitName(
+          interaction.subunit_one,
           target.subunits
         );
-        interaction.destination_subunit_name = this.setSubunitName(
-          interaction.destination_subunit,
+        interaction.subunit_two_name = this.setSubunitName(
+          interaction.subunit_two,
           target.subunits
         );
         return interaction;
       });
 
       this.ptms = interactionData.ptms.map(ptm => {
-        ptm.origin_subunit_name = this.setSubunitName(
-          ptm.origin_subunit,
+        ptm.subunit_one_name = this.setSubunitName(
+          ptm.subunit_one,
           target.subunits
         );
-        ptm.destination_subunit_name = this.setSubunitName(
-          ptm.destination_subunit,
+        ptm.subunit_two_name = this.setSubunitName(
+          ptm.subunit_two,
           target.subunits
         );
         return ptm;

@@ -21,17 +21,17 @@
 
       <div formArrayName="subunitsArray" *ngFor="let subunit of subunitsArray.controls; let i = index;">
         <div class="flex flex-item" [formGroupName]="i">
-          <select class="flex-item interaction-field" formControlName="origin_subunit" (change)="updateCopyRange($event.target.value, i, 'origin_subunit_copy')">
+          <select class="flex-item interaction-field" formControlName="subunit_one" (change)="updateCopyRange($event.target.value, i, 'subunit_one_copy')">
             <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
           </select>
 
           <div class="flex-item">
-            <input class="flex-item interaction-field" type="number" formControlName="origin_subunit_copy">
-            <span class="flex-item error-msg" *ngIf="subunit['controls'].origin_subunit_copy.errors?.min" class="error-msg">
+            <input class="flex-item interaction-field" type="number" formControlName="subunit_one_copy">
+            <span class="flex-item error-msg" *ngIf="subunit['controls'].subunit_one_copy.errors?.min" class="error-msg">
               Must be 1 or greater.
             </span>
-            <span class="flex-item error-msg" *ngIf="subunit['controls'].origin_subunit_copy.errors?.max">
-              Range is 1 - {{ subunit['controls'].origin_subunit_copy.errors?.max.max }}.
+            <span class="flex-item error-msg" *ngIf="subunit['controls'].subunit_one_copy.errors?.max">
+              Range is 1 - {{ subunit['controls'].subunit_one_copy.errors?.max.max }}.
             </span>
           </div>
 
@@ -41,17 +41,17 @@
             <option value="non-covalent">Non-covalent</option>
           </select>
 
-          <select class="flex-item interaction-field" type="text" formControlName="destination_subunit" (change)="updateCopyRange($event.target.value, i, 'destination_subunit_copy')">
+          <select class="flex-item interaction-field" type="text" formControlName="subunit_two" (change)="updateCopyRange($event.target.value, i, 'subunit_two_copy')">
             <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
           </select>
 
           <div class="flex-item">
-            <input class="flex-item interaction-field" type="number" formControlName="destination_subunit_copy">
-            <span class="flex-item error-msg" *ngIf="subunit['controls'].destination_subunit_copy.errors?.min" class="error-msg">
+            <input class="flex-item interaction-field" type="number" formControlName="subunit_two_copy">
+            <span class="flex-item error-msg" *ngIf="subunit['controls'].subunit_two_copy.errors?.min" class="error-msg">
               Must be 1 or greater.
             </span>
-            <span class="flex-item error-msg" *ngIf="subunit['controls'].destination_subunit_copy.errors?.max">
-              Range is 1 - {{ subunit['controls'].destination_subunit_copy.errors?.max.max }}.
+            <span class="flex-item error-msg" *ngIf="subunit['controls'].subunit_two_copy.errors?.max">
+              Range is 1 - {{ subunit['controls'].subunit_two_copy.errors?.max.max }}.
             </span>
           </div>
 
@@ -86,31 +86,31 @@
 
     <div formArrayName="ptmsArray" *ngFor="let ptm of ptmsArray.controls; let i = index;">
       <div class="flex flex-item" [formGroupName]="i">
-        <select class="flex-item interaction-field" formControlName="origin_subunit" (change)="updateResidueValidator($event.target.value, i, 'origin_subunit_residue')">
+        <select class="flex-item interaction-field" formControlName="subunit_one" (change)="updateResidueValidator($event.target.value, i, 'subunit_one_residue')">
           <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
         </select>
 
         <div class="flex-item">
-          <input class="flex-item interaction-field" type="number" formControlName="origin_subunit_residue">
-          <span class="flex-item error-msg" *ngIf="ptm['controls'].origin_subunit_residue.errors?.min" class="error-msg">
+          <input class="flex-item interaction-field" type="number" formControlName="subunit_one_residue">
+          <span class="flex-item error-msg" *ngIf="ptm['controls'].subunit_one_residue.errors?.min" class="error-msg">
             Must be 1 or greater.
           </span>
-          <span class="flex-item error-msg" *ngIf="ptm['controls'].origin_subunit_residue.errors?.max">
-            Range is 1 - {{ ptm['controls'].origin_subunit_residue.errors?.max.max }}.
+          <span class="flex-item error-msg" *ngIf="ptm['controls'].subunit_one_residue.errors?.max">
+            Range is 1 - {{ ptm['controls'].subunit_one_residue.errors?.max.max }}.
           </span>
         </div>
 
-        <select class="flex-item interaction-field" formControlName="destination_subunit" (change)="updateResidueValidator($event.target.value, i, 'destination_subunit_residue')">
+        <select class="flex-item interaction-field" formControlName="subunit_two" (change)="updateResidueValidator($event.target.value, i, 'subunit_two_residue')">
           <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
         </select>
 
         <div class="flex-item">
-          <input class="flex-item interaction-field" type="number" formControlName="destination_subunit_residue">
-          <span class="flex-item error-msg" *ngIf="ptm['controls'].destination_subunit_residue.errors?.min" class="error-msg">
+          <input class="flex-item interaction-field" type="number" formControlName="subunit_two_residue">
+          <span class="flex-item error-msg" *ngIf="ptm['controls'].subunit_two_residue.errors?.min" class="error-msg">
             Must be 1 or greater.
           </span>
-          <span class="flex-item error-msg" *ngIf="ptm['controls'].destination_subunit_residue.errors?.max">
-            Range is 1 - {{ ptm['controls'].destination_subunit_residue.errors?.max.max }}.
+          <span class="flex-item error-msg" *ngIf="ptm['controls'].subunit_two_residue.errors?.max">
+            Range is 1 - {{ ptm['controls'].subunit_two_residue.errors?.max.max }}.
           </span>
         </div>
 

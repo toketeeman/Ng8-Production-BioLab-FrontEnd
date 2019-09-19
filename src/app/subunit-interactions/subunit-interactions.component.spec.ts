@@ -15,34 +15,34 @@ describe("SubunitInteractionsComponent", () => {
   }>;
   const mockInteractions = [
     {
-      origin_subunit: 1,
-      origin_subunit_copy: 3,
-      destination_subunit: 2,
-      destination_subunit_copy: 1,
+      subunit_one: 1,
+      subunit_one_copy: 3,
+      subunit_two: 2,
+      subunit_two_copy: 1,
       interaction: "covalent"
     },
     {
-      origin_subunit: 2,
-      origin_subunit_copy: 2,
-      destination_subunit: 1,
-      destination_subunit_copy: 2,
+      subunit_one: 2,
+      subunit_one_copy: 2,
+      subunit_two: 1,
+      subunit_two_copy: 2,
       interaction: "covalent"
     }
   ];
 
   const mockPtms = [
     {
-      origin_subunit: 1,
-      origin_subunit_residue: 16,
-      destination_subunit: 2,
-      destination_subunit_residue: 45,
+      subunit_one: 1,
+      subunit_one_residue: 16,
+      subunit_two: 2,
+      subunit_two_residue: 45,
       ptm: "ptm"
     },
     {
-      origin_subunit: 2,
-      origin_subunit_residue: 13,
-      destination_subunit: 1,
-      destination_subunit_residue: 74,
+      subunit_one: 2,
+      subunit_one_residue: 13,
+      subunit_two: 1,
+      subunit_two_residue: 74,
       ptm: "another ptm"
     }
   ];

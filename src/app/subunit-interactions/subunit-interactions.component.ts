@@ -50,20 +50,20 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
 
   createSubUnitInteraction() {
     return this.fb.group({
-      origin_subunit: ["", Validators.required],
-      origin_subunit_copy: ["", [Validators.required, Validators.min(1)]],
+      subunit_one: ["", Validators.required],
+      subunit_one_copy: ["", [Validators.required, Validators.min(1)]],
       interaction: ["", Validators.required],
-      destination_subunit: ["", Validators.required],
-      destination_subunit_copy: ["", [Validators.required, Validators.min(1)]]
+      subunit_two: ["", Validators.required],
+      subunit_two_copy: ["", [Validators.required, Validators.min(1)]]
     });
   }
 
   createPtm() {
     return this.fb.group({
-      origin_subunit: ["", Validators.required],
-      origin_subunit_residue: ["", Validators.required],
-      destination_subunit: ["", Validators.required],
-      destination_subunit_residue: ["", Validators.required],
+      subunit_one: ["", Validators.required],
+      subunit_one_residue: ["", Validators.required],
+      subunit_two: ["", Validators.required],
+      subunit_two_residue: ["", Validators.required],
       ptm: ["", Validators.required]
     });
   }
@@ -81,7 +81,7 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   updateCopyRange(
     subunitId: string,
     index: number,
-    controlName: "origin_subunit_copy" | "destination_subunit_copy"
+    controlName: "subunit_one_copy" | "subunit_two_copy"
   ) {
     const id = parseInt(subunitId, 10);
     const copyNumber = this.subunits.filter(unit => unit.subunit_id === id)[0]
@@ -96,7 +96,7 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   updateResidueValidator(
     subunitId: string,
     index: number,
-    controlName: "origin_subunit_residue" | "destination_subunit_residue"
+    controlName: "subunit_one_residue" | "subunit_two_residue"
   ) {
     const id = parseInt(subunitId, 10);
     const residueLength = this.subunits.filter(
