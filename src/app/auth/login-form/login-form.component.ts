@@ -22,6 +22,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log("LoginForm: init");
     this.loginForm = this.fb.group({
       username: ["", Validators.required],
       password: ["", Validators.required]
@@ -37,6 +38,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       username: this.loginForm.value.username,
       password: this.loginForm.value.password
     };
+    console.log("Loginform: login()");
     this.store.dispatch(new LogIn(data));
   }
 

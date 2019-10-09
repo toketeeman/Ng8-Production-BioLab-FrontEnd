@@ -28,12 +28,16 @@ export class AuthEffects {
     switchMap(data => {
       return this.authService.logIn(data.username, data.password).pipe(
         map(user => {
+          console.log(
+            "AuthEffects: LogIn: returned from authService with success"
+          );
           return new LogInSuccess({
             token: user.key,
             username: data.username
           });
         }),
         catchError(error => {
+          console.log("AuthEffects: login failure");
           console.log(error);
           return of(new LogInFailure({ error }));
         })
@@ -45,6 +49,9 @@ export class AuthEffects {
   LogInSuccess: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
     tap(user => {
+      console.log(
+        "AuthEffects: LogInSuccess: set token, go to /home/add-target"
+      );
       sessionStorage.setItem("token", user.data.token);
       this.router.navigateByUrl("/home/add-target");
     })
