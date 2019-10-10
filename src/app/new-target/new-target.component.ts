@@ -59,6 +59,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log("NewTarget: init");
     this.stateSubscription = this.state$.subscribe(state => {
       if (state) {
         this.errorMessage = state.errorMessage;

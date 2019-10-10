@@ -9,7 +9,7 @@ import {
   getStatusText,
   STATUS
 } from "angular-in-memory-web-api";
-import { ITarget } from "../protein-expression.interface";
+import { ITarget, IProteinClass } from "../protein-expression.interface";
 
 const users = [
   {
@@ -20,20 +20,24 @@ const users = [
 @Injectable()
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    const proteinClasses = [
+    const proteinClasses: IProteinClass[] = [
       {
+        id: 1,
         protein_class_name: "protein class1 name",
         protein_class_pk: 1
       },
       {
+        id: 2,
         protein_class_name: "protein class2 name",
         protein_class_pk: 2
       },
       {
+        id: 3,
         protein_class_name: "protein class3 name",
         protein_class_pk: 3
       },
       {
+        id: 4,
         protein_class_name: "protein class4 name",
         protein_class_pk: 4
       }
@@ -57,7 +61,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
   post(reqInfo: RequestInfo) {
     console.log(
-      "InMemoryDataService: post() reqInfo = ",
+      "InMemoryDataService: post(): reqInfo = ",
       JSON.stringify(reqInfo)
     );
     const url = reqInfo.url;
@@ -82,7 +86,22 @@ export class InMemoryDataService implements InMemoryDbService {
     }
   }
 
-  // this library requires that all items in a collection have a numerical id
+  // GET interceptor that returns custom response objects
+  // (left here only for possible future reference)
+
+  // get(reqInfo: RequestInfo) {
+  //   console.log(
+  //     "InMemoryDataService: get(): reqInfo = ",
+  //     JSON.stringify(reqInfo)
+  //   );
+  //   const url = reqInfo.url;
+  //   if (url === "api/proteinClasses") {
+  //     //return a http response
+  //   }
+  // }
+
+  // This library requires that all items in a collection have a numerical id
+  // if one has not been provided in the actual data.
   genId(proteinTargets: any[]): number {
     return proteinTargets.length > 0
       ? Math.max(...proteinTargets.map(target => target.id)) + 1
@@ -184,6 +203,10 @@ export class InMemoryDataService implements InMemoryDbService {
 
       return this.finishOptions(options, reqInfo);
     });
+  }
+
+  getProteinClasses(reqInfo: any) {
+    return true;
   }
 
   /////////// helpers ///////////////

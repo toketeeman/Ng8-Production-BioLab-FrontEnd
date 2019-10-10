@@ -15,7 +15,7 @@ import {
   providedIn: "root"
 })
 export class TargetRegistrationService {
-  proteinClassesUrl = "api/v1/absci-targets/protein-class/";
+  proteinClassesUrl = "api/proteinClasses";
   targetUrl = "api/v1/absci-targets/target-registration/";
   fastaUrl = "api/v1/absci-targets/fasta-file-parser/";
   interactionsUrl = "api/v1/absci-targets/subunit-interaction/";
