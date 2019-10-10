@@ -27,7 +27,6 @@ export class AuthenticationService {
    */
   logIn(username: string, password: string): Observable<any> {
     const user = { username, password };
-    console.log("AuthenticationService: login(): looking for user in db");
     return this.http.post(this.authUrl, user, httpOptions);
   }
 }

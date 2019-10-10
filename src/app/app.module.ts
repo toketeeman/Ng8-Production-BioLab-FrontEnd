@@ -46,7 +46,9 @@ const appImports = [
 ];
 
 if (!environment.production) {
-  console.log("Adding in-memory data service");
+  console.log(
+    "In development mode. Adding in-memory data service. Did you want that?"
+  );
   appImports.push(
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.

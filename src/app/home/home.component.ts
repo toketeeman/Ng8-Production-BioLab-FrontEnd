@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log("Home: init");
     this.stateSubscription = this.state$.subscribe(state => {
       this.isAuthenticated = state.isAuthenticated;
     });

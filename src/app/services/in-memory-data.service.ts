@@ -60,10 +60,12 @@ export class InMemoryDataService implements InMemoryDbService {
   // POST interceptor that returns custom response objects
 
   post(reqInfo: RequestInfo) {
-    console.log(
-      "InMemoryDataService: post(): reqInfo = ",
-      JSON.stringify(reqInfo)
-    );
+    // Keep handy for now.
+    //
+    // console.log(
+    //   "InMemoryDataService: post(): reqInfo = ",
+    //   JSON.stringify(reqInfo)
+    // );
     const url = reqInfo.url;
     if (url === "api/v1/absci-targets/protein-class/") {
       return this.registerTarget(reqInfo);
@@ -74,7 +76,6 @@ export class InMemoryDataService implements InMemoryDbService {
     }
 
     if (url === "api/v1/auth/login/") {
-      console.log("InMemoryDataService: post(): go handle the auth request");
       return this.handleAuth(reqInfo);
     }
 
@@ -164,9 +165,6 @@ export class InMemoryDataService implements InMemoryDbService {
   }
 
   handleAuth(reqInfo: any) {
-    console.log(
-      "InMemoryDataService: handleAuth(): get the login info for user"
-    );
     return reqInfo.utils.createResponse$(() => {
       const { username, password } = reqInfo.req.body;
       const isValidUser = this.isValidUser(username, password);
@@ -185,7 +183,6 @@ export class InMemoryDataService implements InMemoryDbService {
   }
 
   isValidUser(username, password) {
-    console.log("isValidUser: ", username, password);
     const filtered = users.filter(
       user => user.username === username && user.password === password
     );
