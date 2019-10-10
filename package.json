@@ -13,12 +13,6 @@
     "prettier:ts": "prettier --write --parser typescript \"src/**/*.ts\"",
     "prettier:css": "prettier --write --parser css \"src/**/*.css\""
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "ng test --source-map=false --watch=false"
-    }
-  },
   "lint-staged": {
     "*.css": [
       "prettier --write --parser css",
