@@ -9,7 +9,7 @@ import {
   getStatusText,
   STATUS
 } from "angular-in-memory-web-api";
-import { ITarget, IProteinClass } from "../protein-expression.interface";
+import { ITarget } from "../protein-expression.interface";
 
 const users = [
   {
@@ -20,24 +20,20 @@ const users = [
 @Injectable()
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    const proteinClasses: IProteinClass[] = [
+    const proteinClasses = [
       {
-        id: 1,
         protein_class_name: "protein class1 name",
         protein_class_pk: 1
       },
       {
-        id: 2,
         protein_class_name: "protein class2 name",
         protein_class_pk: 2
       },
       {
-        id: 3,
         protein_class_name: "protein class3 name",
         protein_class_pk: 3
       },
       {
-        id: 4,
         protein_class_name: "protein class4 name",
         protein_class_pk: 4
       }

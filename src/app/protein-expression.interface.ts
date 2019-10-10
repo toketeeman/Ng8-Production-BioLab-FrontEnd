@@ -24,7 +24,6 @@ export interface ISubunit {
 }
 
 export interface IProteinClass {
-  id: number;
   protein_class_name: string;
   protein_class_pk: number;
 }
