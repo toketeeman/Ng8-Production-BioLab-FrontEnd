@@ -29,6 +29,8 @@ import { HomeComponent } from "./home/home.component";
 import { RegistrationSuccessComponent } from "./registration-success/registration-success.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { environment } from "../environments/environment";
+import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
+import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
 
 const appImports = [
   BrowserModule,
@@ -67,7 +69,9 @@ if (!environment.production) {
     LoginFormComponent,
     HomeComponent,
     RegistrationSuccessComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SearchPlasmidsComponent,
+    SearchTargetsComponent
   ],
   imports: appImports,
   providers: [

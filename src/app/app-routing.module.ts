@@ -10,6 +10,8 @@ import { RegistrationSuccessComponent } from "./registration-success/registratio
 import { UnsavedChangesGuard } from "./guards/unsaved-changes.guard";
 import { CanAccessGuard } from "./guards/can-access.guard";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
+import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
 
 const routes: Routes = [
   {
@@ -36,6 +38,18 @@ const routes: Routes = [
       {
         path: "success",
         component: RegistrationSuccessComponent,
+        canActivate: [CanAccessGuard],
+        canDeactivate: [CanAccessGuard]
+      },
+      {
+        path: "search-targets",
+        component: SearchTargetsComponent,
+        canActivate: [CanAccessGuard],
+        canDeactivate: [CanAccessGuard]
+      },
+      {
+        path: "search-plasmids",
+        component: SearchPlasmidsComponent,
         canActivate: [CanAccessGuard],
         canDeactivate: [CanAccessGuard]
       }
