@@ -14,3 +14,19 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+export const devUrls = {
+  proteinClassesUrl: "api/proteinClasses",
+  targetUrl: "api/v1/absci-targets/target-registration/",
+  fastaUrl: "api/v1/absci-targets/fasta-file-parser/",
+  interactionsUrl: "api/v1/absci-targets/subunit-interaction/",
+  ptmsUrl: "api/v1/absci-targets/subunit-ptm/"
+};
+
+export const prodUrls = {
+  proteinClassesUrl: "",
+  targetUrl: "",
+  fastaUrl: "",
+  interactionsUrl: "",
+  ptmsUrl: ""
+};
