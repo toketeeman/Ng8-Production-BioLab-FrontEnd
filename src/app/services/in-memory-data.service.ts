@@ -34,112 +34,112 @@ export class InMemoryDataService implements InMemoryDbService {
         description: "Description B",
         markers: "tetracycline",
         protein: "protein y",
-        project: "Akita",
-        slimsId: "PL4523"
+        project: "Doberman",
+        slimsId: "PL4544"
       },
       {
         plasmidId: "PL1233",
         description: "Description C",
         markers: "ampicillin,kanamycin",
         protein: "protein z",
-        project: "Akita",
-        slimsId: "PL4523"
+        project: "Daschhund",
+        slimsId: "PL1233"
       },
       {
         plasmidId: "PL5678",
         description: "Description D",
         markers: "carbenicillin",
-        protein: "protein x",
-        project: "Akita",
-        slimsId: "PL4523"
+        protein: "protein d",
+        project: "Collie",
+        slimsId: "PL5678"
       },
       {
         plasmidId: "PL9821",
         description: "Description E",
-        markers: "kanamycin",
-        protein: "protein y",
-        project: "Akita",
-        slimsId: "PL4523"
+        markers: "clindamycin,trimethoprim",
+        protein: "protein e",
+        project: "Retriever",
+        slimsId: "PL9821"
       },
       {
         plasmidId: "PL1074",
         description: "Description F",
         markers: "kanamycin",
-        protein: "protein z",
-        project: "Akita",
-        slimsId: "PL4523"
+        protein: "protein f",
+        project: "Greyhound",
+        slimsId: "PL1074"
       },
       {
-        plasmidId: "PLAS23",
+        plasmidId: "PL2223",
         description: "Description G",
-        markers: "kanamycin",
+        markers: "sulfamethoxazole ",
         protein: "protein x",
-        project: "Akita",
-        slimsId: "PL4523"
+        project: "Pug",
+        slimsId: "PL2223"
       },
       {
-        plasmidId: "PLAS23",
+        plasmidId: "PL4535",
         description: "Description H",
-        markers: "kanamycin",
-        protein: "protein y",
-        project: "Akita",
-        slimsId: "PL4523"
+        markers: "trimethoprim,metronidazole,doxycycline",
+        protein: "protein e",
+        project: "Husky",
+        slimsId: "PL4535"
       },
       {
-        plasmidId: "PLAS23",
+        plasmidId: "PL9623",
         description: "Description I",
-        markers: "kanamycin",
-        protein: "protein z",
-        project: "Akita",
-        slimsId: "PL4523"
+        markers: "clindamycin",
+        protein: "protein s",
+        project: "bulldog",
+        slimsId: "PL9623"
       },
       {
-        plasmidId: "PLAS23",
+        plasmidId: "PL0723",
         description: "Description J",
-        markers: "kanamycin",
-        protein: "protein x",
-        project: "Akita",
-        slimsId: "PL4523"
+        markers: "metronidazole",
+        protein: "protein t",
+        project: "Maltese",
+        slimsId: "PL0723"
       },
       {
-        plasmidId: "PLAS23",
+        plasmidId: "PL5023",
         description: "Description K",
-        markers: "kanamycin",
+        markers: "azithromycin",
         protein: "protein y",
         project: "Akita",
-        slimsId: "PL4523"
+        slimsId: "PL5023"
       },
       {
-        plasmidId: "PLAS23",
+        plasmidId: "PL5824",
         description: "Description L",
-        markers: "kanamycin",
+        markers: "ciprofloxacin",
         protein: "protein z",
-        project: "Akita",
-        slimsId: "PL4523"
+        project: "Husky",
+        slimsId: "PL5824"
       },
       {
-        plasmidId: "PLAS23",
+        plasmidId: "PL8223",
         description: "Description M",
-        markers: "kanamycin",
+        markers: "amoxicillin",
         protein: "protein x",
-        project: "Akita",
-        slimsId: "PL4523"
+        project: "Pug",
+        slimsId: "PL8223"
       },
       {
-        plasmidId: "PLAS23",
+        plasmidId: "PL3023",
         description: "Description N",
-        markers: "kanamycin",
-        protein: "protein y",
-        project: "Akita",
-        slimsId: "PL4523"
+        markers: "doxycycline",
+        protein: "protein d",
+        project: "Huskyta",
+        slimsId: "PL3023"
       },
       {
-        plasmidId: "PLAS23",
+        plasmidId: "PL9333",
         description: "Description O",
-        markers: "kanamycin",
-        protein: "protein z",
-        project: "Akita",
-        slimsId: "PL4523"
+        markers: "cephalexin",
+        protein: "protein s",
+        project: "Beagle",
+        slimsId: "PL9333"
       }
     ];
     const proteinClasses = [
@@ -167,6 +167,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const postTranslationalModifications = [];
     return {
       users,
+      plasmids,
       proteinClasses,
       proteinTargets,
       fastaFiles,
