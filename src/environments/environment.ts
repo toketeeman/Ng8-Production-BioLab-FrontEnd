@@ -17,7 +17,7 @@ export const environment = {
 
 export const devUrls = {
   proteinClassesUrl: "api/proteinClasses",
-  targetUrl: "api/v1/absci-targets/target-registration/",
+  targetUrl: "api/target-registration/",
   fastaUrl: "api/v1/absci-targets/fasta-file-parser/",
   interactionsUrl: "api/v1/absci-targets/subunit-interaction/",
   ptmsUrl: "api/v1/absci-targets/subunit-ptm/"

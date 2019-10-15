@@ -63,7 +63,7 @@ export class InMemoryDataService implements InMemoryDbService {
     //   JSON.stringify(reqInfo)
     // );
     const url = reqInfo.url;
-    if (url === "api/v1/absci-targets/protein-class/") {
+    if (url === "api/target-registration/") {
       return this.registerTarget(reqInfo);
     }
 
