@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { InMemoryDbService } from "angular-in-memory-web-api";
+import { devUrls } from "../../environments/environment";
 
 import {
   ParsedRequestUrl,
@@ -186,22 +187,19 @@ export class InMemoryDataService implements InMemoryDbService {
     //   JSON.stringify(reqInfo)
     // );
     const url = reqInfo.url;
-    if (url === "api/v1/absci-targets/protein-class/") {
+    if (url === devUrls.targetUrl) {
       return this.registerTarget(reqInfo);
     }
 
-    if (url === "api/v1/absci-targets/fasta-file-parser/") {
+    if (url === devUrls.fastaUrl) {
       return this.uploadFastaFile(reqInfo);
     }
 
-    if (url === "api/v1/auth/login/") {
+    if (url === devUrls.loginUrl) {
       return this.handleAuth(reqInfo);
     }
 
-    if (
-      url === "api/v1/absci-targets/interaction/" ||
-      url === "api/v1/absci-targets/ptm/"
-    ) {
+    if (url === devUrls.interactionsUrl || url === devUrls.ptmsUrl) {
       return this.registerInteractions(reqInfo);
     }
   }
@@ -215,7 +213,7 @@ export class InMemoryDataService implements InMemoryDbService {
   //     JSON.stringify(reqInfo)
   //   );
   //   const url = reqInfo.url;
-  //   if (url === "api/proteinClasses") {
+  //   if (url === . . . ") {
   //     //return a http response
   //   }
   // }
