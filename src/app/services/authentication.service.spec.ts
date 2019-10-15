@@ -44,7 +44,7 @@ describe("AuthenticationService", () => {
         expect(response).toEqual(mockUser);
       });
 
-    const req = httpTestingController.expectOne(authService.authUrl);
+    const req = httpTestingController.expectOne(authService.loginUrl);
     expect(req.request.method).toEqual("POST");
     mockUser.token = "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b";
 
@@ -62,7 +62,7 @@ describe("AuthenticationService", () => {
       }
     );
 
-    const req = httpTestingController.expectOne(authService.authUrl);
+    const req = httpTestingController.expectOne(authService.loginUrl);
     req.flush(errMsg, { status: 401, statusText: "invalid credentials" });
   });
 
