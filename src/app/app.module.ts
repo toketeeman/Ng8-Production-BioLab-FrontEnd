@@ -31,6 +31,7 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 import { environment } from "../environments/environment";
 import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
 import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
+import { AgGridModule } from "ag-grid-angular";
 
 const appImports = [
   BrowserModule,
@@ -44,7 +45,8 @@ const appImports = [
   MatDividerModule,
   MatExpansionModule,
   MatTooltipModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  AgGridModule.withComponents([])
 ];
 
 if (!environment.production) {

@@ -20,6 +20,128 @@ const users = [
 @Injectable()
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
+    const plasmids = [
+      {
+        plasmidId: "PL4523",
+        description: "Description A",
+        markers: "kanamycin",
+        protein: "protein x",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PL4544",
+        description: "Description B",
+        markers: "tetracycline",
+        protein: "protein y",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PL1233",
+        description: "Description C",
+        markers: "ampicillin,kanamycin",
+        protein: "protein z",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PL5678",
+        description: "Description D",
+        markers: "carbenicillin",
+        protein: "protein x",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PL9821",
+        description: "Description E",
+        markers: "kanamycin",
+        protein: "protein y",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PL1074",
+        description: "Description F",
+        markers: "kanamycin",
+        protein: "protein z",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PLAS23",
+        description: "Description G",
+        markers: "kanamycin",
+        protein: "protein x",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PLAS23",
+        description: "Description H",
+        markers: "kanamycin",
+        protein: "protein y",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PLAS23",
+        description: "Description I",
+        markers: "kanamycin",
+        protein: "protein z",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PLAS23",
+        description: "Description J",
+        markers: "kanamycin",
+        protein: "protein x",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PLAS23",
+        description: "Description K",
+        markers: "kanamycin",
+        protein: "protein y",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PLAS23",
+        description: "Description L",
+        markers: "kanamycin",
+        protein: "protein z",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PLAS23",
+        description: "Description M",
+        markers: "kanamycin",
+        protein: "protein x",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PLAS23",
+        description: "Description N",
+        markers: "kanamycin",
+        protein: "protein y",
+        project: "Akita",
+        slimsId: "PL4523"
+      },
+      {
+        plasmidId: "PLAS23",
+        description: "Description O",
+        markers: "kanamycin",
+        protein: "protein z",
+        project: "Akita",
+        slimsId: "PL4523"
+      }
+    ];
     const proteinClasses = [
       {
         protein_class_name: "protein class1 name",
