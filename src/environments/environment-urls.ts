@@ -5,7 +5,8 @@ export const devUrls = {
   fastaUrl: "api/v1/absci-targets/fasta-file-parser/",
   interactionsUrl: "api/v1/absci-targets/subunit-interaction/",
   ptmsUrl: "api/v1/absci-targets/subunit-ptm/",
-  plasmidsUrl: "api/plasmids"
+  plasmidsUrl: "api/plasmids",
+  targetsUrl: "api/targets"
 };
 
 export const prodUrls = {
@@ -15,5 +16,6 @@ export const prodUrls = {
   fastaUrl: "",
   interactionsUrl: "",
   ptmsUrl: "",
-  plasmidsUrl: ""
+  plasmidsUrl: "",
+  targetsUrl: ""
 };

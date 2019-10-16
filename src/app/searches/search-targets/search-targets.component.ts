@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, isDevMode } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { devUrls, prodUrls } from "../../../environments/environment-urls";
 
 @Component({
   selector: "app-search-targets",
@@ -6,7 +8,47 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./search-targets.component.css"]
 })
 export class SearchTargetsComponent implements OnInit {
-  constructor() {}
+  columnDefs = [
+    {
+      headerName: "Target",
+      field: "target",
+      sortable: true,
+      filter: true
+    },
+    {
+      headerName: "Partner",
+      field: "partner",
+      sortable: true,
+      filter: true
+    },
+    {
+      headerName: "Subunits",
+      field: "subunits",
+      sortable: true,
+      filter: true
+    },
+    { headerName: "Project", field: "project", sortable: true, filter: true },
+    {
+      headerName: "Plasmid Count",
+      field: "plasmidCount",
+      sortable: true,
+      filter: true
+    },
+    { headerName: "PTMs", field: "ptms", sortable: true, filter: true }
+  ];
 
-  ngOnInit() {}
+  rowData: any;
+  targetsUrl: string;
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    if (isDevMode()) {
+      this.targetsUrl = devUrls.targetsUrl;
+    } else {
+      this.targetsUrl = prodUrls.targetsUrl;
+    }
+
+    this.rowData = this.http.get(this.targetsUrl);
+  }
 }
