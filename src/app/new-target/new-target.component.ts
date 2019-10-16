@@ -81,7 +81,10 @@ export class NewTargetComponent implements OnInit, OnDestroy {
   createSubunit(): FormGroup {
     return this.fb.group({
       subunit_name: ["", Validators.required],
-      copies: ["", Validators.required, ValidateNumberInput, Validators.min(1)],
+      copies: [
+        "",
+        [Validators.required, ValidateNumberInput, Validators.min(1)]
+      ],
       amino_acid: ["", Validators.required],
       amino_acid_fileName: [""],
       amino_acid_fasta_description: [""],

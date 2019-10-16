@@ -68,9 +68,9 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   createPtm() {
     return this.fb.group({
       subunit_one: ["", Validators.required],
-      subunit_one_residue: ["", Validators.required, ValidateNumberInput],
+      subunit_one_residue: ["", [Validators.required, ValidateNumberInput]],
       subunit_two: ["", Validators.required],
-      subunit_two_residue: ["", Validators.required, ValidateNumberInput],
+      subunit_two_residue: ["", [Validators.required, ValidateNumberInput]],
       ptm: ["", Validators.required]
     });
   }
@@ -97,7 +97,11 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
     // set the maximum range of the appropriate copy number control to the subunit's number of copies
     // tslint:disable-next-line:no-string-literal
     const control = this.subunitsArray.at(index)["controls"][controlName];
-    control.setValidators([Validators.min(1), Validators.max(copyNumber)]);
+    control.setValidators([
+      ValidateNumberInput,
+      Validators.min(1),
+      Validators.max(copyNumber)
+    ]);
   }
 
   updateResidueValidator(
@@ -112,8 +116,11 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
 
     // tslint:disable-next-line:no-string-literal
     const control = this.ptmsArray.at(index)["controls"][controlName];
-
-    control.setValidators([Validators.min(1), Validators.max(residueLength)]);
+    control.setValidators([
+      ValidateNumberInput,
+      Validators.min(1),
+      Validators.max(residueLength)
+    ]);
   }
 
   deleteInteraction(groupName: "subunitsArray" | "ptmsArray", index: number) {
