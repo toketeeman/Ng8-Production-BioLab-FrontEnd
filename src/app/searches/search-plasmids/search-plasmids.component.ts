@@ -35,15 +35,15 @@ export class SearchPlasmidsComponent implements OnInit {
   rowData: any;
   plasmidsUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
     if (isDevMode()) {
       this.plasmidsUrl = devUrls.plasmidsUrl;
     } else {
       this.plasmidsUrl = prodUrls.plasmidsUrl;
     }
-  }
 
-  ngOnInit() {
     this.rowData = this.http.get(this.plasmidsUrl);
   }
 }
