@@ -62,3 +62,21 @@ export interface IPostTranslationalModification {
   subunit_two_residue: number;
   ptm: string;
 }
+
+export interface IGridTarget {
+  target: string;
+  partner: string;
+  subunits: string;
+  project: string;
+  plasmidCount: string;
+  ptms: string;
+}
+
+export interface IGridPlasmid {
+  plasmidId: string;
+  description: string;
+  markers: string;
+  protein: string;
+  project: string;
+  slimsId: string;
+}

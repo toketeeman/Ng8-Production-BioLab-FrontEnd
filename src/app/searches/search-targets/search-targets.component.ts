@@ -1,6 +1,8 @@
 import { Component, OnInit, isDevMode } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
+import { Observable } from "rxjs";
+import { IGridTarget } from "../../protein-expression.interface";
 
 @Component({
   selector: "app-search-targets",
@@ -9,24 +11,9 @@ import { devUrls, prodUrls } from "../../../environments/environment-urls";
 })
 export class SearchTargetsComponent implements OnInit {
   columnDefs = [
-    {
-      headerName: "Target",
-      field: "target",
-      sortable: true,
-      filter: true
-    },
-    {
-      headerName: "Partner",
-      field: "partner",
-      sortable: true,
-      filter: true
-    },
-    {
-      headerName: "Subunits",
-      field: "subunits",
-      sortable: true,
-      filter: true
-    },
+    { headerName: "Target", field: "target", sortable: true, filter: true },
+    { headerName: "Partner", field: "partner", sortable: true, filter: true },
+    { headerName: "Subunits", field: "subunits", sortable: true, filter: true },
     { headerName: "Project", field: "project", sortable: true, filter: true },
     {
       headerName: "Plasmid Count",
@@ -37,7 +24,7 @@ export class SearchTargetsComponent implements OnInit {
     { headerName: "PTMs", field: "ptms", sortable: true, filter: true }
   ];
 
-  rowData: any;
+  rowData$: Observable<IGridTarget>;
   targetsUrl: string;
 
   constructor(private http: HttpClient) {}
@@ -49,6 +36,6 @@ export class SearchTargetsComponent implements OnInit {
       this.targetsUrl = prodUrls.targetsUrl;
     }
 
-    this.rowData = this.http.get(this.targetsUrl);
+    this.rowData$ = this.http.get<IGridTarget>(this.targetsUrl);
   }
 }

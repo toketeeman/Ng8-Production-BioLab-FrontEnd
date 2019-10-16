@@ -1,6 +1,8 @@
 import { Component, OnInit, isDevMode } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
+import { Observable } from "rxjs";
+import { IGridPlasmid } from "../../protein-expression.interface";
 
 @Component({
   selector: "app-search-plasmids",
@@ -32,7 +34,7 @@ export class SearchPlasmidsComponent implements OnInit {
     { headerName: "SLIMS Link", field: "slimsId", sortable: true, filter: true }
   ];
 
-  rowData: any;
+  rowData$: Observable<IGridPlasmid>;
   plasmidsUrl: string;
 
   constructor(private http: HttpClient) {}
@@ -44,6 +46,6 @@ export class SearchPlasmidsComponent implements OnInit {
       this.plasmidsUrl = prodUrls.plasmidsUrl;
     }
 
-    this.rowData = this.http.get(this.plasmidsUrl);
+    this.rowData$ = this.http.get<IGridPlasmid>(this.plasmidsUrl);
   }
 }

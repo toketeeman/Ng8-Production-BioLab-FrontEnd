@@ -21,6 +21,216 @@ const users = [
 @Injectable()
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
+    const targets = [
+      {
+        target: "protein x",
+        partner: "partner 1",
+        subunits: "3",
+        project: "akita",
+        plasmidCount: "4",
+        ptms: "DiSulfide bond(1)"
+      },
+      {
+        target: "protein y",
+        partner: "partner 2",
+        subunits: "4",
+        project: "collie",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(3)"
+      },
+      {
+        target: "protein z",
+        partner: "partner 3",
+        subunits: "1",
+        project: "greyhound",
+        plasmidCount: "4",
+        ptms: "DiSulfide bond(2)"
+      },
+      {
+        target: "protein c",
+        partner: "partner 4",
+        subunits: "2",
+        project: "pug",
+        plasmidCount: "12",
+        ptms: "DiSulfide bond(2)"
+      },
+      {
+        target: "protein d",
+        partner: "partner 5",
+        subunits: "1",
+        project: "retriever",
+        plasmidCount: "8",
+        ptms: "DiSulfide bond(4)"
+      },
+      {
+        target: "protein q",
+        partner: "partner 6",
+        subunits: "1",
+        project: "shepherd",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(6)"
+      },
+      {
+        target: "protein f",
+        partner: "partner 7",
+        subunits: "4",
+        project: "akita",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(9)"
+      },
+      {
+        target: "protein x",
+        partner: "partner 8",
+        subunits: "4",
+        project: "poodle",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(3)"
+      },
+      {
+        target: "protein d",
+        partner: "partner 9",
+        subunits: "3",
+        project: "terrier",
+        plasmidCount: "4",
+        ptms: "DiSulfide bond(4)"
+      },
+      {
+        target: "protein m",
+        partner: "partner 10",
+        subunits: "1",
+        project: "greyhound",
+        plasmidCount: "8",
+        ptms: "DiSulfide bond(2)"
+      },
+      {
+        target: "protein q",
+        partner: "partner 11",
+        subunits: "1",
+        project: "daschund",
+        plasmidCount: "6",
+        ptms: "DiSulfide bond(2)"
+      },
+      {
+        target: "protein r",
+        partner: "partner 12",
+        subunits: "2",
+        project: "pug",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(1)"
+      },
+      {
+        target: "protein x",
+        partner: "partner 13",
+        subunits: "1",
+        project: "collie",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(5)"
+      },
+      {
+        target: "protein z",
+        partner: "partner 14",
+        subunits: "4",
+        project: "corgi",
+        plasmidCount: "6",
+        ptms: "DiSulfide bond(3)"
+      },
+      {
+        target: "protein c",
+        partner: "partner 15",
+        subunits: "1",
+        project: "husky",
+        plasmidCount: "6",
+        ptms: "DiSulfide bond(2)"
+      },
+      {
+        target: "protein r",
+        partner: "partner 16",
+        subunits: "1",
+        project: "beagle",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(4)"
+      },
+      {
+        target: "protein m",
+        partner: "partner 17",
+        subunits: "1",
+        project: "chihuahua",
+        plasmidCount: "4",
+        ptms: "DiSulfide bond(4)"
+      },
+      {
+        target: "protein f",
+        partner: "partner 18",
+        subunits: "3",
+        project: "bulldog",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(11)"
+      },
+      {
+        target: "protein e",
+        partner: "partner 19",
+        subunits: "3",
+        project: "collie",
+        plasmidCount: "4",
+        ptms: "DiSulfide bond(8)"
+      },
+      {
+        target: "protein y",
+        partner: "partner 20",
+        subunits: "1",
+        project: "boxer",
+        plasmidCount: "10",
+        ptms: "DiSulfide bond(2)"
+      },
+      {
+        target: "protein g",
+        partner: "partner 21",
+        subunits: "2",
+        project: "chihuahua",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(3)"
+      },
+      {
+        target: "protein f",
+        partner: "partner 22",
+        subunits: "2",
+        project: "dobermann",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(2)"
+      },
+      {
+        target: "protein s",
+        partner: "partner 23",
+        subunits: "1",
+        project: "bulldog",
+        plasmidCount: "4",
+        ptms: "DiSulfide bond(5)"
+      },
+      {
+        target: "protein z",
+        partner: "partner 24",
+        subunits: "3",
+        project: "terrier",
+        plasmidCount: "4",
+        ptms: "DiSulfide bond(6)"
+      },
+      {
+        target: "protein q",
+        partner: "partner 25",
+        subunits: "3",
+        project: "mastiff",
+        plasmidCount: "4",
+        ptms: "DiSulfide bond(6)"
+      },
+      {
+        target: "protein m",
+        partner: "partner 26",
+        subunits: "1",
+        project: "samoyed",
+        plasmidCount: "2",
+        ptms: "DiSulfide bond(1)"
+      }
+    ];
     const plasmids = [
       {
         plasmidId: "PL4523",
@@ -168,6 +378,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const postTranslationalModifications = [];
     return {
       users,
+      targets,
       plasmids,
       proteinClasses,
       proteinTargets,
