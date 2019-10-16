@@ -1,6 +1,6 @@
 import { Component, OnInit, isDevMode } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { devUrls, prodUrls } from "../../../environments/environment";
+import { devUrls, prodUrls } from "../../../environments/environment-urls";
 
 @Component({
   selector: "app-search-plasmids",

@@ -10,7 +10,7 @@ import {
   ISubunitInteraction,
   IPostTranslationalModification
 } from "../protein-expression.interface";
-import { devUrls, prodUrls } from "../../environments/environment";
+import { devUrls, prodUrls } from "../../environments/environment-urls";
 
 @Injectable({
   providedIn: "root"

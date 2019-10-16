@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { InMemoryDbService } from "angular-in-memory-web-api";
-import { devUrls } from "../../environments/environment";
+import { devUrls } from "../../environments/environment-urls";
 
 import {
   ParsedRequestUrl,
