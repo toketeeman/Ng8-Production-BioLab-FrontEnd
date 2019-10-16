@@ -5,6 +5,7 @@ import { Observable, Subscription } from "rxjs";
 import { AppState, selectTargetState } from "../store/app.states";
 import { ISubunit } from "../protein-expression.interface";
 import { SubunitInteractions } from "../store/actions/interactions.actions";
+import { ValidateNumberInput } from "../validators/numberInput.validator";
 
 @Component({
   selector: "app-subunit-interactions",
@@ -51,19 +52,25 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   createSubUnitInteraction() {
     return this.fb.group({
       subunit_one: ["", Validators.required],
-      subunit_one_copy: ["", [Validators.required, Validators.min(1)]],
+      subunit_one_copy: [
+        "",
+        [Validators.required, ValidateNumberInput, Validators.min(1)]
+      ],
       interaction: ["", Validators.required],
       subunit_two: ["", Validators.required],
-      subunit_two_copy: ["", [Validators.required, Validators.min(1)]]
+      subunit_two_copy: [
+        "",
+        [Validators.required, ValidateNumberInput, Validators.min(1)]
+      ]
     });
   }
 
   createPtm() {
     return this.fb.group({
       subunit_one: ["", Validators.required],
-      subunit_one_residue: ["", Validators.required],
+      subunit_one_residue: ["", Validators.required, ValidateNumberInput],
       subunit_two: ["", Validators.required],
-      subunit_two_residue: ["", Validators.required],
+      subunit_two_residue: ["", Validators.required, ValidateNumberInput],
       ptm: ["", Validators.required]
     });
   }
