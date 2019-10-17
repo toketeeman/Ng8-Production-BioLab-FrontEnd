@@ -12,3 +12,7 @@ header button {
   background-color: #b3b3b3;
   font-weight: bold;
 }
+
+header span {
+  margin-left: 50px;
+}
