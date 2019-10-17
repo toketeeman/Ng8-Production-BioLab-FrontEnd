@@ -43,8 +43,9 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     { headerName: "SLIMS Link", field: "slimsId", sortable: true, filter: true }
   ];
 
-  rowData$: Observable<IGridPlasmid>;
-  plasmidsUrl: string;
+  private rowData$: Observable<IGridPlasmid>;
+  private plasmidsUrl: string;
+  private paginationPagesize: number;
 
   constructor(private http: HttpClient) {}
 
@@ -55,6 +56,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       this.plasmidsUrl = prodUrls.plasmidsUrl;
     }
 
+    this.paginationPagesize = 10;
     this.rowData$ = this.http.get<IGridPlasmid>(this.plasmidsUrl);
   }
 

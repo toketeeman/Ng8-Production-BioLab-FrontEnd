@@ -1,8 +1,10 @@
 <ag-grid-angular
   #agGrid
-  style="width: 1000px; height: 600px;"
+  style="width: 1000px; height: 400px;"
   class="ag-theme-balham"
   [rowData]="rowData$ | async"
   [columnDefs]="columnDefs"
->
+  [pagination]="true"
+  [paginationPageSize]="paginationPagesize"
+>y
 </ag-grid-angular>

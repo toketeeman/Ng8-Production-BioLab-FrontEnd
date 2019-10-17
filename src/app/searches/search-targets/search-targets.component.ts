@@ -33,8 +33,9 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     { headerName: "PTMs", field: "ptms", sortable: true, filter: true }
   ];
 
-  rowData$: Observable<IGridTarget>;
-  targetsUrl: string;
+  private rowData$: Observable<IGridTarget>;
+  private targetsUrl: string;
+  private paginationPagesize: number;
 
   constructor(private http: HttpClient) {}
 
@@ -45,6 +46,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       this.targetsUrl = prodUrls.targetsUrl;
     }
 
+    this.paginationPagesize = 10;
     this.rowData$ = this.http.get<IGridTarget>(this.targetsUrl);
   }
 
