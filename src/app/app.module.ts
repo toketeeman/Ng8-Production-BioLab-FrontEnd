@@ -68,7 +68,7 @@ const appImports = [
   MatExpansionModule,
   MatTooltipModule,
   ReactiveFormsModule,
-  AgGridModule.withComponents([])
+  AgGridModule.withComponents([BrowserAnimationsModule])
 ];
 
 if (!environment.production) {
