@@ -6,11 +6,23 @@ import { HttpClientModule } from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
-import { MatMenuModule } from "@angular/material";
-import { MatButtonModule } from "@angular/material";
-import { MatDividerModule } from "@angular/material";
-import { MatExpansionModule } from "@angular/material";
-import { MatTooltipModule } from "@angular/material";
+import {
+  MatCardModule,
+  MatButtonToggleModule,
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSliderModule,
+  MatMenuModule,
+  MatButtonModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatTooltipModule
+} from "@angular/material";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { TargetRegistrationService } from "./services/target-registration.service";
@@ -40,6 +52,16 @@ const appImports = [
   HttpClientModule,
   StoreModule.forRoot(reducers, {}),
   EffectsModule.forRoot([AuthEffects, TargetEffects, InteractionsEffects]),
+  MatCardModule,
+  MatButtonToggleModule,
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSliderModule,
   MatMenuModule,
   MatButtonModule,
   MatDividerModule,
