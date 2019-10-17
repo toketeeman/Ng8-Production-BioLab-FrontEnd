@@ -1,15 +1,24 @@
-import { Component, OnInit, isDevMode } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  isDevMode,
+  ViewChild,
+  AfterViewInit
+} from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import { Observable } from "rxjs";
 import { IGridPlasmid } from "../../protein-expression.interface";
+import { AgGridAngular } from "ag-grid-angular";
 
 @Component({
   selector: "app-search-plasmids",
   templateUrl: "./search-plasmids.component.html",
   styleUrls: ["./search-plasmids.component.css"]
 })
-export class SearchPlasmidsComponent implements OnInit {
+export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
+  @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
+
   columnDefs = [
     {
       headerName: "PlasmidId",
@@ -47,5 +56,9 @@ export class SearchPlasmidsComponent implements OnInit {
     }
 
     this.rowData$ = this.http.get<IGridPlasmid>(this.plasmidsUrl);
+  }
+
+  ngAfterViewInit() {
+    this.agGrid.api.sizeColumnsToFit();
   }
 }
