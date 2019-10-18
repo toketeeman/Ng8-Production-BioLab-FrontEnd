@@ -43,15 +43,11 @@ const routes: Routes = [
       },
       {
         path: "search-targets",
-        component: SearchTargetsComponent,
-        canActivate: [CanAccessGuard],
-        canDeactivate: [CanAccessGuard]
+        component: SearchTargetsComponent
       },
       {
         path: "search-plasmids",
-        component: SearchPlasmidsComponent,
-        canActivate: [CanAccessGuard],
-        canDeactivate: [CanAccessGuard]
+        component: SearchPlasmidsComponent
       }
     ]
   },
