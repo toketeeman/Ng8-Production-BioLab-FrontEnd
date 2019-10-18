@@ -13,6 +13,7 @@ import { AlertService } from "../services/alert.service";
 import { IProteinClass } from "../protein-expression.interface";
 import { AppState, selectTargetState } from "../store/app.states";
 import { NewTarget } from "../store/actions/target.actions";
+import { ValidateNumberInput } from "../validators/numberInput.validator";
 
 @Component({
   selector: "app-new-target",
@@ -80,7 +81,10 @@ export class NewTargetComponent implements OnInit, OnDestroy {
   createSubunit(): FormGroup {
     return this.fb.group({
       subunit_name: ["", Validators.required],
-      copies: ["", Validators.required],
+      copies: [
+        "",
+        [Validators.required, ValidateNumberInput, Validators.min(1)]
+      ],
       amino_acid: ["", Validators.required],
       amino_acid_fileName: [""],
       amino_acid_fasta_description: [""],
