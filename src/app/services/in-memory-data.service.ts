@@ -18,9 +18,16 @@ const users = [
     password: "password1"
   }
 ];
+
 @Injectable()
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
+    const users = [
+      {
+        username: "user1",
+        password: "password1"
+      }
+    ];
     const targets = [
       {
         target: "protein x",
@@ -376,6 +383,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const fastaFiles = [];
     const subunitInteractions = [];
     const postTranslationalModifications = [];
+
     return {
       users,
       targets,

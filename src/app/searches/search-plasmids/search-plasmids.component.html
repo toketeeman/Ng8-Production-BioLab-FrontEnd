@@ -1,6 +1,6 @@
 <header class="flex">
-  <input type="text" id="searchargs" name="searchargs" size="80">
-  <button mat-button>Search</button>
+  <input #searchArgs placeholder="Search . . ." type="text" size="80">
+  <button mat-button (click)="onSearch(searchArgs.value)">Search</button>
   <button mat-button>Refresh</button>
 
   <span>
