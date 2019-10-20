@@ -3,8 +3,7 @@ import {
   OnInit,
   isDevMode,
   ViewChild,
-  AfterViewInit,
-  ElementRef
+  AfterViewInit
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
@@ -19,7 +18,6 @@ import { AgGridAngular } from "ag-grid-angular";
 })
 export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
-  // @ViewChild("searchArgs", { static: false }) searchArgs: ElementRef;
   private searchArg = "";
   private searchSet: string[] = [];
 
@@ -69,34 +67,56 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   }
 
   doesExternalFilterPass(node): boolean {
-    // the row fields are at node.data.* .
-    console.log("node: ", JSON.stringify(node.data));
-    console.log("node.data.plasmidId: ", node.data.plasmidId);
+    // The row fields are at node.data.* .
+    //console.log("node: ", JSON.stringify(node.data));
+    //console.log("node.data.plasmidId: ", node.data.plasmidId);
     return this.filterMatch((node.data as IGridPlasmid).plasmidId);
   }
 
   filterMatch(nodeField: string): boolean {
-    // Matching logic here.
-    console.log("filtermatch(): ");
-
-    return true;
+    if (nodeField === undefined) {
+      return false;
+    }
+    console.log("nodeField: ", nodeField);
+    if (!this.searchSet.length) {
+      return true; 
+    }
+    let lowerNodeField = nodeField.toLowerCase();
+    for (let searchValue of this.searchSet) {
+      if (lowerNodeField === searchValue) {
+        return true;
+      }
+    }
+    return false;
   }
 
   onSearch(searchArgs: string): void {
-    // compute the search set
+    //console.log("searchArgs: ", searchArgs);
 
-    console.log("searchArgs: ", searchArgs);
+    // Compute the search set here from the entered search args.
+    const rawSet: string[] = searchArgs.split(',');
+    this.searchSet = [];
+    rawSet.forEach((value: string) => {
+      const cleanedValue = value.replace(/\s/g, "").toLowerCase();
+      if (cleanedValue.length) {
+        this.searchSet.push(cleanedValue);
+      }
+    })
 
+    console.log("searchSet: ", JSON.stringify(this.searchSet));
+
+    // Trigger the search here.
     this.agGrid.gridOptions.api.onFilterChanged();
   }
 
   ngAfterViewInit() {
+    // Grid options can finally be set at this point.
     this.agGrid.gridOptions.animateRows = true;
 
-    // Note: these local class methods below are called internally by the ag-Grid,
+    // Note: these two local class methods below are called internally by the ag-Grid,
     // and thus their class closures are lost, making it impossible to call any other
     // class methods within them if needed. So use .bind(this) when adding this method
-    // to the girdOptions.
+    // to the gridOptions.
     this.agGrid.gridOptions.isExternalFilterPresent = this.isExternalFilterPresent.bind(
       this
     );
