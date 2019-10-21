@@ -46,7 +46,9 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     },
     { headerName: "Protein", field: "protein", sortable: true, filter: true },
     { headerName: "Project", field: "project", sortable: true, filter: true },
-    { headerName: "SLIMS Link", field: "slimsId", sortable: true, filter: true }
+    { headerName: "SLIMS Link", field: "slimsId", sortable: true, filter: true,
+        cellRenderer: (node) => 
+            `<a href="https://google.com">${node.data.slimsId}</a>` }
   ];
 
   constructor(private http: HttpClient) {}
