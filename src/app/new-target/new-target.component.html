@@ -3,7 +3,7 @@
 </div>
 <form class="flex container" [formGroup]="targetForm">
   <div class="flex flex-item flex-column section">
-    <label class="label-block" for="target">Target Name</label>
+    <label class="label-block" for="target" appAutoFocus>Target Name</label>
     <input [class.error-icon]="target.touched && target.invalid" [class.success-icon]="target.valid" type="text" id="target" formControlName="target" required>
     <div class="error-msg" *ngIf="target.touched && target.invalid">Target name is required.</div>
 

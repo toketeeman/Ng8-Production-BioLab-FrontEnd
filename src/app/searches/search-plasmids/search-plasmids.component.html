@@ -1,5 +1,5 @@
 <header class="flex">
-  <input #searchArgs placeholder="Search . . ." type="text" size="80" (keyup.enter)="onReturnSearch($event)">
+  <input #searchArgs appAutoFocus placeholder="Search . . ." type="text" size="80" (keyup.enter)="onReturnSearch($event)">
   <button mat-button (click)="onSearch(searchArgs.value)">Search</button>
   <button mat-button (click)="onRefresh()">Refresh</button>
 

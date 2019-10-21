@@ -44,6 +44,7 @@ import { environment } from "../environments/environment";
 import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
 import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
 import { AgGridModule } from "ag-grid-angular";
+import { AutoFocusDirective } from './directives/auto-focus.directive';
 
 const appImports = [
   BrowserModule,
@@ -95,7 +96,8 @@ if (!environment.production) {
     RegistrationSuccessComponent,
     PageNotFoundComponent,
     SearchPlasmidsComponent,
-    SearchTargetsComponent
+    SearchTargetsComponent,
+    AutoFocusDirective
   ],
   imports: appImports,
   providers: [
