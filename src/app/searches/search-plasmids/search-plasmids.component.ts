@@ -81,9 +81,9 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     if (!this.searchSet.length) {
       return true; 
     }
-    let lowerNodeField = nodeField.toLowerCase();
+    let cleanNodeField = nodeField.replace(/\s/g, "").toLowerCase();
     for (let searchValue of this.searchSet) {
-      if (lowerNodeField === searchValue) {
+      if (cleanNodeField === searchValue) {
         return true;
       }
     }
