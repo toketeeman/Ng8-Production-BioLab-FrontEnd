@@ -18,7 +18,7 @@ import { AgGridAngular } from "ag-grid-angular";
 })
 export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
-  private searchArg = "";
+
   private searchSet: string[] = [];
 
   columnDefs = [
@@ -77,7 +77,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     if (nodeField === undefined) {
       return false;
     }
-    console.log("nodeField: ", nodeField);
     if (!this.searchSet.length) {
       return true; 
     }
@@ -90,9 +89,14 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  onSearch(searchArgs: string): void {
-    //console.log("searchArgs: ", searchArgs);
+  onReturnSearch(event: KeyboardEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    const searchArgs = (event.target as HTMLInputElement).value;
+    this.onSearch(searchArgs);
+  }
 
+  onSearch(searchArgs: string): void {
     // Compute the search set here from the entered search args.
     const rawSet: string[] = searchArgs.split(',');
     this.searchSet = [];
@@ -102,8 +106,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
         this.searchSet.push(cleanedValue);
       }
     })
-
-    console.log("searchSet: ", JSON.stringify(this.searchSet));
 
     // Trigger the search here.
     this.agGrid.gridOptions.api.onFilterChanged();
