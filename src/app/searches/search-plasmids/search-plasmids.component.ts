@@ -3,7 +3,8 @@ import {
   OnInit,
   isDevMode,
   ViewChild,
-  AfterViewInit
+  AfterViewInit,
+  ElementRef
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
@@ -20,6 +21,9 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
 
   private searchSet: string[] = [];
+  private rowData$: Observable<IGridPlasmid>;
+  private plasmidsUrl: string;
+  private paginationPagesize: number;
 
   columnDefs = [
     {
@@ -44,10 +48,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     { headerName: "Project", field: "project", sortable: true, filter: true },
     { headerName: "SLIMS Link", field: "slimsId", sortable: true, filter: true }
   ];
-
-  private rowData$: Observable<IGridPlasmid>;
-  private plasmidsUrl: string;
-  private paginationPagesize: number;
 
   constructor(private http: HttpClient) {}
 
@@ -106,6 +106,14 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
         this.searchSet.push(cleanedValue);
       }
     })
+
+    // Trigger the search here.
+    this.agGrid.gridOptions.api.onFilterChanged();
+  }
+
+  onRefresh() {
+    // Reset the search args to "everything".
+    this.searchSet = [];
 
     // Trigger the search here.
     this.agGrid.gridOptions.api.onFilterChanged();
