@@ -22,13 +22,13 @@ const users = [
 @Injectable()
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    const users = [
+    let users = [
       {
         username: "user1",
         password: "password1"
       }
     ];
-    const targets = [
+    let targets = [
       {
         target: "protein x",
         partner: "partner 1",
@@ -238,7 +238,7 @@ export class InMemoryDataService implements InMemoryDbService {
         ptms: "DiSulfide bond(1)"
       }
     ];
-    const plasmids = [
+    let plasmids = [
       {
         plasmidId: "PL4523",
         description: "Description A",
@@ -360,7 +360,7 @@ export class InMemoryDataService implements InMemoryDbService {
         slimsId: "PL9333"
       }
     ];
-    const proteinClasses = [
+    let proteinClasses = [
       {
         protein_class_name: "protein class1 name",
         protein_class_pk: 1
@@ -379,10 +379,10 @@ export class InMemoryDataService implements InMemoryDbService {
       }
     ];
 
-    const proteinTargets = [];
-    const fastaFiles = [];
-    const subunitInteractions = [];
-    const postTranslationalModifications = [];
+    let proteinTargets = [];
+    let fastaFiles = [];
+    let subunitInteractions = [];
+    let postTranslationalModifications = [];
 
     return {
       users,
