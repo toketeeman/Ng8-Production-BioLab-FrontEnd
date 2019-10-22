@@ -20,10 +20,10 @@ import { AgGridAngular } from "ag-grid-angular";
 export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
 
-  private searchSet: string[] = [];
-  private rowData$: Observable<IGridPlasmid>;
-  private plasmidsUrl: string;
-  private paginationPagesize: number;
+  searchSet: string[] = [];
+  rowData$: Observable<IGridPlasmid>;
+  plasmidsUrl: string;
+  paginationPagesize: number;
 
   columnDefs = [
     {

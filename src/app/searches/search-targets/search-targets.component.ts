@@ -35,9 +35,9 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     { headerName: "PTMs", field: "ptms", sortable: true, filter: true }
   ];
 
-  private rowData$: Observable<IGridTarget>;
-  private targetsUrl: string;
-  private paginationPagesize: number;
+  rowData$: Observable<IGridTarget>;
+  targetsUrl: string;
+  paginationPagesize: number;
 
   constructor(private http: HttpClient) {}
 
