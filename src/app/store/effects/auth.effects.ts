@@ -28,13 +28,14 @@ export class AuthEffects {
     switchMap(data => {
       return this.authService.logIn(data.username, data.password).pipe(
         map(user => {
+          console.log("Login success: ", user.key);
           return new LogInSuccess({
             token: user.key,
             username: data.username
           });
         }),
         catchError(error => {
-          console.log(error);
+          console.log("Login error: ", error);
           return of(new LogInFailure({ error }));
         })
       );

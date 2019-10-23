@@ -16,9 +16,9 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {
     if (isDevMode()) {
-      this.loginUrl = devUrls.plasmidsUrl;
+      this.loginUrl = devUrls.loginUrl;
     } else {
-      this.loginUrl = prodUrls.plasmidsUrl;
+      this.loginUrl = prodUrls.loginUrl;
     }
   }
 
