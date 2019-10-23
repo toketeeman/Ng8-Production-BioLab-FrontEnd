@@ -10,8 +10,8 @@ export const devUrls = {
 };
 
 export const prodUrls = {
-  loginUrl: "",
-  proteinClassesUrl: "",
+  loginUrl: "http://localhost:8000/api/v1/auth/login/",
+  proteinClassesUrl: "http://localhost:8000/api/v1/absci-targets/protein-class/",
   targetUrl: "",
   fastaUrl: "",
   interactionsUrl: "",

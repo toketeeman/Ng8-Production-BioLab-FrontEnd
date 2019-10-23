@@ -74,7 +74,7 @@ const appImports = [
 
 if (!environment.production) {
   console.log(
-    "In development mode. Adding in-memory data service. Did you want that?"
+    "In development mode. In-Memory DB will be the backend."
   );
   appImports.push(
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
@@ -83,6 +83,10 @@ if (!environment.production) {
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false
     })
+  );
+} else {
+  console.log(
+    "In production mode. Docker container will be the backend."
   );
 }
 
