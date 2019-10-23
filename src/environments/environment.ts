@@ -2,6 +2,9 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// A setting of true means we are using a running co-located Docker server as the backend.
+// A setting of false means we are using the in-memory web api DB interceptor as the backend.
+
 export const environment = {
   production: false
 };
