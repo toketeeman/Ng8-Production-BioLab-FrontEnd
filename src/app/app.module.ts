@@ -21,7 +21,8 @@ import {
   MatButtonModule,
   MatDividerModule,
   MatExpansionModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatDialogModule
 } from "@angular/material";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
@@ -45,6 +46,8 @@ import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasm
 import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
 import { AgGridModule } from "ag-grid-angular";
 import { AutoFocusDirective } from './directives/auto-focus.directive';
+import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
+import { ErrorDialogService } from  './dialogs/error-dialog/error-dialog.service';
 
 const appImports = [
   BrowserModule,
@@ -68,6 +71,7 @@ const appImports = [
   MatDividerModule,
   MatExpansionModule,
   MatTooltipModule,
+  MatDialogModule,
   ReactiveFormsModule,
   AgGridModule.withComponents([BrowserAnimationsModule])
 ];
@@ -86,7 +90,7 @@ if (!environment.production) {
   );
 } else {
   console.log(
-    "In production mode. Docker container will be the backend."
+    "In production mode. Docker server will be the backend."
   );
 }
 
@@ -101,19 +105,22 @@ if (!environment.production) {
     PageNotFoundComponent,
     SearchPlasmidsComponent,
     SearchTargetsComponent,
-    AutoFocusDirective
+    AutoFocusDirective,
+    ErrorDialogComponent
   ],
   imports: appImports,
   providers: [
     AuthenticationService,
     TargetRegistrationService,
-    InMemoryDataService
+    InMemoryDataService,
+    ErrorDialogService
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: TokenInterceptor,
     //   multi: true
     // }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorDialogComponent]
 })
 export class AppModule {}

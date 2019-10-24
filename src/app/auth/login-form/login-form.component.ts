@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Observable, Subscription } from "rxjs";
 import { AppState, selectAuthState } from "../../store/app.states";
 import { LogIn } from "../../store/actions/auth.actions";
+import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 
 @Component({
   selector: "app-login-form",
@@ -17,9 +18,12 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
   errorMessage: string | null;
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {
-    this.state$ = this.store.select(selectAuthState);
-  }
+  constructor(
+    private fb: FormBuilder, 
+    private store: Store<AppState>,
+    private errorDialogService: ErrorDialogService) {
+      this.state$ = this.store.select(selectAuthState);
+    }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -29,6 +33,10 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
     this.stateSubscription = this.state$.subscribe(state => {
       this.errorMessage = state.errorMessage;
+      if (this.errorMessage) {
+        console.log("login error: ", this.errorMessage);
+        this.errorDialogService.openDialog(this.errorMessage);
+      }
     });
   }
 

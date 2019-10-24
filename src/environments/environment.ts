@@ -6,7 +6,7 @@
 // A setting of false means we are using the in-memory web api DB interceptor as the backend.
 
 export const environment = {
-  production: false
+  production: true
 };
 
 /*
