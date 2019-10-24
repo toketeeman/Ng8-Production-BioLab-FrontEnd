@@ -13,6 +13,7 @@ export class ErrorDialogService {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
+    //dialogConfig.panelClass = 'standard-modalbox';
     dialogConfig.data = {
       errorMessage: errorMessage
     }

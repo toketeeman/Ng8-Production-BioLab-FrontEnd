@@ -7,11 +7,11 @@
     <label class="login-label" for="password">Password</label>
     <input id="password" type="password" formControlName="password">
 
-    <div *ngIf="errorMessage">
+    <!-- <div *ngIf="errorMessage">
       <div class="error-msg">
         {{ errorMessage }}
       </div>
-    </div>
+    </div> -->
 
     <button class="btn btn-login" (click)="login()">Log in</button>
   </form>
