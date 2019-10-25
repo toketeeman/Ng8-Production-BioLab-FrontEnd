@@ -18,7 +18,6 @@ export class ErrorDialogService {
       errorMessage: errorMessage
     }
     dialogConfig.width = "300px";
-    //dialogConfig.height = "400px";
     this.dialog.open(ErrorDialogComponent, dialogConfig);
   }
 }
