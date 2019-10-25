@@ -9,15 +9,19 @@ export class ErrorDialogService {
 
   constructor(private dialog: MatDialog) { }
 
-  openDialog(errorMessage: string): void {
+  openDialog(errorMessages: string | string[]): void {
+    let combinedMessages: string[] = [];
+    combinedMessages = combinedMessages.concat(errorMessages);
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = false;
     dialogConfig.disableClose = true;
-    //dialogConfig.panelClass = 'standard-modalbox';
+    //dialogConfig.panelClass = 'standard-modalbox';  // After we convert to scss!
     dialogConfig.data = {
-      errorMessage: errorMessage
+      errorMessages: combinedMessages
     }
     dialogConfig.width = "300px";
+
     this.dialog.open(ErrorDialogComponent, dialogConfig);
   }
 }

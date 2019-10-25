@@ -10,10 +10,11 @@ import {
 import { Observable, Subscription } from "rxjs";
 import { TargetRegistrationService } from "../services/target-registration.service";
 import { AlertService } from "../services/alert.service";
-import { IProteinClass } from "../protein-expression.interface";
+import { IProteinClass, IFastaResponse } from "../protein-expression.interface";
 import { AppState, selectTargetState } from "../store/app.states";
 import { NewTarget } from "../store/actions/target.actions";
 import { ValidateNumberInput } from "../validators/numberInput.validator";
+import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
 
 @Component({
   selector: "app-new-target",
@@ -54,7 +55,8 @@ export class NewTargetComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private targetService: TargetRegistrationService,
     private store: Store<AppState>,
-    private alert: AlertService
+    private alert: AlertService,
+    private errorDialogService: ErrorDialogService
   ) {
     this.state$ = this.store.select(selectTargetState);
   }
@@ -114,8 +116,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
       const [file] = event.target.files;
 
       this.targetService.uploadFastaFile(type, file).subscribe(
-        response => {
-          // tslint:disable-next-line:no-string-literal
+        (response: IFastaResponse) => {
           const fastaEntry = response["fasta_entries"][0];
 
           if (type === "amino_acid") {
@@ -133,13 +134,9 @@ export class NewTargetComponent implements OnInit, OnDestroy {
             });
           }
         },
-        error => {
-          /** Form control filename value could be patched as shown with error message
-           * string or a status code in order to show conditional error messages in the template.
-           */
-          // subunit.get(`${type}_fileName`).patchValue(error.non_field_errors[0]);
-          console.log(error);
+        (error: any) => {
           control.patchValue(null);
+          this.errorDialogService.openDialog([error.error.non_field_errors[0]]);
         }
       );
     }

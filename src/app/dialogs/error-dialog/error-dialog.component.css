@@ -14,8 +14,8 @@ header div {
 
 section {
   width: 100%;
-  height: 100px;
   background-color: #d3d3d3;
+  flex-direction: column;
 }
 
 section div {
@@ -39,6 +39,7 @@ footer span {
   padding-right: 20px;
 }
 
+/* Remove once we go to scss. */
 .mat-dialog-container {
   padding: 0;
 }

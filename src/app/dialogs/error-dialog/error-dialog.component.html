@@ -3,7 +3,7 @@
 </header>
 
 <section class="flex">
-	<div>
+	<div *ngFor="let errorMessage of errorMessages">
 		{{ errorMessage }}
 	</div>
 </section>
