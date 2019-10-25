@@ -12,10 +12,10 @@ export const devUrls = {
 export const prodUrls = {
   loginUrl: "http://localhost:8000/api/v1/auth/login/",
   proteinClassesUrl: "http://localhost:8000/api/v1/absci-targets/protein-class/",
-  targetUrl: "",
-  fastaUrl: "",
-  interactionsUrl: "",
-  ptmsUrl: "",
-  plasmidsUrl: "",
-  targetsUrl: ""
+  targetUrl: "http://localhost:8000/api/v1/absci-targets/target-registration/",
+  fastaUrl: "http://localhost:8000/api/v1/absci-targets/fasta-file-upload",
+  interactionsUrl: "http://localhost:8000/api/v1/absci-targets/subunit-interaction/",
+  ptmsUrl: "http://localhost:8000/api/v1/absci-targets/subunit-ptm/",
+  plasmidsUrl: "http://localhost:8000/api/v1/absci-targets/plasmid/",
+  targetsUrl: "http://localhost:8000/api/v1/absci-targets/target/"
 };
