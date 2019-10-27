@@ -34,8 +34,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     this.stateSubscription = this.state$.subscribe(state => {
       this.errorMessage = state.errorMessage;
       if (this.errorMessage) {
-        console.log("login error: ", this.errorMessage);
-        this.errorDialogService.openDialog(this.errorMessage);
+        this.errorDialogService.openDialogForMessages(this.errorMessage);
       }
     });
   }

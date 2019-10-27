@@ -136,7 +136,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
         },
         (error: any) => {
           control.patchValue(null);
-          this.errorDialogService.openDialog([error.error.non_field_errors[0]]);
+          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors']);
         }
       );
     }
