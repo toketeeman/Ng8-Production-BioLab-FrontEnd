@@ -36,7 +36,8 @@ export class TargetEffects {
           });
         }),
         catchError(error => {
-          console.log(error);
+          console.log("target effects: register target: ", JSON.stringify(error));
+
           return of(new NewTargetFailure({ error }));
         })
       );
