@@ -5,6 +5,7 @@ import { Actions, Effect, ofType } from "@ngrx/effects";
 import { Observable, of } from "rxjs";
 import { map, switchMap, tap, catchError } from "rxjs/operators";
 import { AuthenticationService } from "../../services/authentication.service";
+import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import {
   AuthActionTypes,
   LogIn,
@@ -18,7 +19,8 @@ export class AuthEffects {
   constructor(
     private actions: Actions,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private errorDialogService: ErrorDialogService
   ) {}
 
   @Effect()
@@ -34,6 +36,7 @@ export class AuthEffects {
           });
         }),
         catchError(error => {
+          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors']);
           return of(new LogInFailure({ error }));
         })
       );
