@@ -38,7 +38,7 @@ export class TargetEffects {
           });
         }),
         catchError(error => {
-          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail']);
+          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);
           return of(new NewTargetFailure({ error }));
         })
       );
