@@ -4,6 +4,7 @@ import { Actions, Effect, ofType } from "@ngrx/effects";
 import { Observable, of } from "rxjs";
 import { map, switchMap, tap, catchError } from "rxjs/operators";
 import { TargetRegistrationService } from "../../services/target-registration.service";
+import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import {
   TargetRegistrationActionTypes,
   NewTarget,
@@ -16,7 +17,8 @@ export class TargetEffects {
   constructor(
     private actions: Actions,
     private targetRegistrationService: TargetRegistrationService,
-    private router: Router
+    private router: Router,
+    private errorDialogService: ErrorDialogService
   ) {}
 
   @Effect()
@@ -36,8 +38,7 @@ export class TargetEffects {
           });
         }),
         catchError(error => {
-          console.log("target effects: register target: ", JSON.stringify(error));
-
+          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors']);
           return of(new NewTargetFailure({ error }));
         })
       );
