@@ -16,6 +16,8 @@
   style="width: 1000px; height: 400px;"
   class="ag-theme-balham"
   [rowData]="rowData$ | async"
+  [rowSelection]="rowSelection"
+  (selectionChanged)="onSelectionChanged($event)"
   [columnDefs]="columnDefs"
   [pagination]="true"
   [paginationPageSize]="paginationPagesize"

@@ -22,6 +22,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
   searchSet: string[] = [];
   rowData$: Observable<IGridPlasmid>;
+  rowSelection: string = "single";
   plasmidsUrl: string;
   paginationPagesize: number;
 
@@ -138,5 +139,10 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     };
 
     this.agGrid.api.sizeColumnsToFit();
+  }
+
+  onSelectionChanged(params) {
+    let selectedRows = this.agGrid.gridOptions.api.getSelectedRows();  // Here, always an array of one row.
+
   }
 }
