@@ -143,6 +143,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
   onSelectionChanged() {
     let selectedRow: IGridPlasmid = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
-    this.router.navigate(["plasmid-detail", selectedRow.plasmid_id], { relativeTo: this.route });
+    this.router.navigate(['plasmid-detail', selectedRow.plasmid_id], { relativeTo: this.route });
   }
 }
