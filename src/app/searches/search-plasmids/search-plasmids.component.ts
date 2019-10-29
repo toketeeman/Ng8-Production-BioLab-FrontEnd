@@ -1,16 +1,12 @@
-import {
-  Component,
-  OnInit,
-  isDevMode,
-  ViewChild,
-  AfterViewInit
-} from "@angular/core";
+import { Component, OnInit, isDevMode, ViewChild, AfterViewInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { devUrls, prodUrls } from "../../../environments/environment-urls";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
+
+import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import { IGridPlasmid } from "../../protein-expression.interface";
 import { AgGridAngular } from "ag-grid-angular";
-import { Router, ActivatedRoute } from "@angular/router";
+
 
 @Component({
   selector: "app-search-plasmids",

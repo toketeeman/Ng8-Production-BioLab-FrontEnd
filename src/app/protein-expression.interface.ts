@@ -79,3 +79,11 @@ export interface IGridPlasmid {
   target_name: string;
   project_name: string;
 }
+
+export interface IGridPlasmidDetail {
+  plasmid_id: string;
+  description: string;
+  markers: string;
+  target_name: string;
+  project_name: string;
+}
