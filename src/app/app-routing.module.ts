@@ -12,6 +12,7 @@ import { CanAccessGuard } from "./guards/can-access.guard";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
 import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
+import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
 
 const routes: Routes = [
   {
@@ -48,7 +49,11 @@ const routes: Routes = [
       {
         path: "search-plasmids",
         component: SearchPlasmidsComponent
-      }
+      },
+      {
+        path: "plasmid-detail/:id",
+        component: PlasmidDetailComponent
+      },
     ]
   },
   { path: "", redirectTo: "home/add-target", pathMatch: "full" },

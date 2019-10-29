@@ -48,6 +48,7 @@ import { AgGridModule } from "ag-grid-angular";
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { ErrorDialogService } from  './dialogs/error-dialog/error-dialog.service';
+import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
 
 const appImports = [
   BrowserModule,
@@ -106,7 +107,8 @@ if (!environment.production) {
     SearchPlasmidsComponent,
     SearchTargetsComponent,
     AutoFocusDirective,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    PlasmidDetailComponent
   ],
   imports: appImports,
   providers: [
