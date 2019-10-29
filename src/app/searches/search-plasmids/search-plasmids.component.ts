@@ -28,7 +28,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   columnDefs = [
     {
       headerName: "PlasmidId",
-      field: "plasmidId",
+      field: "plasmid_id",
       sortable: true,
       filter: true
     },
@@ -44,11 +44,11 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       sortable: true,
       filter: true
     },
-    { headerName: "Protein", field: "protein", sortable: true, filter: true },
-    { headerName: "Project", field: "project", sortable: true, filter: true },
-    { headerName: "SLIMS Link", field: "slimsId", sortable: true, filter: true,
+    { headerName: "Target", field: "target_name", sortable: true, filter: true },
+    { headerName: "Project", field: "project_name", sortable: true, filter: true },
+    { headerName: "SLIMS Link",
         cellRenderer: (node) => 
-            `<a href="https://google.com">${node.data.slimsId}</a>` }
+            `<a href="#">Detail</a>` }
   ];
 
   constructor(private http: HttpClient) {}
@@ -72,7 +72,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     // The row fields are at node.data.* .
     //console.log("node: ", JSON.stringify(node.data));
     //console.log("node.data.plasmidId: ", node.data.plasmidId);
-    return this.filterMatch((node.data as IGridPlasmid).plasmidId);
+    return this.filterMatch((node.data as IGridPlasmid).plasmid_id);
   }
 
   filterMatch(nodeField: string): boolean {

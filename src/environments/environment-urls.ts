@@ -16,6 +16,6 @@ export const prodUrls = {
   fastaUrl: "http://localhost:8000/api/v1/absci-targets/fasta-file-parser/",
   interactionsUrl: "http://localhost:8000/api/v1/absci-targets/subunit-interaction/",
   ptmsUrl: "http://localhost:8000/api/v1/absci-targets/subunit-ptm/",
-  plasmidsUrl: "http://localhost:8000/api/v1/absci-targets/plasmid/",
+  plasmidsUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-view",
   targetsUrl: "http://localhost:8000/api/v1/absci-targets/target/"
 };

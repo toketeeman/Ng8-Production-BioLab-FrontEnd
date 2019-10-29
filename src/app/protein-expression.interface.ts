@@ -73,10 +73,9 @@ export interface IGridTarget {
 }
 
 export interface IGridPlasmid {
-  plasmidId: string;
+  plasmid_id: string;
   description: string;
   markers: string;
-  protein: string;
-  project: string;
-  slimsId: string;
+  target_name: string;
+  project_name: string;
 }
