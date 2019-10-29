@@ -141,7 +141,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.agGrid.api.sizeColumnsToFit();
   }
 
-  onSelectionChanged(params) {
+  onSelectionChanged() {
     let selectedRow: IGridPlasmid = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
     this.router.navigate(["/plasmid-detail", selectedRow.plasmid_id]);
   }
