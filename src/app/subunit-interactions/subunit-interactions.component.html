@@ -37,7 +37,7 @@
 
 
           <select class="flex-item interaction-field" formControlName="interaction">
-            <option value="Non-covalent">Non-covalent</option>
+            <option value="non-covalent">Non-covalent</option>
           </select>
 
           <select class="flex-item interaction-field" type="text" formControlName="subunit_two" (change)="updateCopyRange($event.target.value, i, 'subunit_two_copy')">
@@ -114,7 +114,7 @@
         </div>
 
         <select class="flex-item interaction-field" formControlName="ptm">
-          <option value="phosphorylation">Disulfide bond</option>
+          <option value="disulfide_bond">Disulfide bond</option>
         </select>
 
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" (click)="deleteInteraction('ptmsArray', i)">
