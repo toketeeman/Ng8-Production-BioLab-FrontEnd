@@ -9,7 +9,7 @@ import { devUrls, prodUrls } from "../../../environments/environment-urls";
 @Component({
   selector: 'app-plasmid-detail',
   templateUrl: './plasmid-detail.component.html',
-  styleUrls: ['./plasmid-detail.component.css']
+  styleUrls: ['./plasmid-detail.component.scss']
 })
 export class PlasmidDetailComponent implements OnInit {
 

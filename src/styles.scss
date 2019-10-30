@@ -241,3 +241,9 @@ th {
 tr {
   text-align: left;
 }
+
+.standard-modalbox {
+  mat-dialog-container {
+    padding: 0;
+  }
+}

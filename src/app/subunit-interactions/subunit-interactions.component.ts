@@ -10,7 +10,7 @@ import { ValidateNumberInput } from "../validators/numberInput.validator";
 @Component({
   selector: "app-subunit-interactions",
   templateUrl: "./subunit-interactions.component.html",
-  styleUrls: ["./subunit-interactions.component.css"]
+  styleUrls: ["./subunit-interactions.component.scss"]
 })
 export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   state$: Observable<any>;

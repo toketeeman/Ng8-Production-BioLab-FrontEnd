@@ -13,7 +13,7 @@ import { AuthenticationService } from "../../services/authentication.service";
 @Component({
   selector: "app-search-plasmids",
   templateUrl: "./search-plasmids.component.html",
-  styleUrls: ["./search-plasmids.component.css"]
+  styleUrls: ["./search-plasmids.component.scss"]
 })
 export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;

@@ -9,9 +9,9 @@
     "test:watch": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "npm run prettier:ts && npm run prettier:css",
+    "prettier": "npm run prettier:ts && npm run prettier:scss",
     "prettier:ts": "prettier --write --parser typescript \"src/**/*.ts\"",
-    "prettier:css": "prettier --write --parser css \"src/**/*.css\""
+    "prettier:css": "prettier --write --parser scss \"src/**/*.scss\""
   },
   "private": true,
   "dependencies": {

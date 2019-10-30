@@ -19,7 +19,7 @@ import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service
 @Component({
   selector: "app-new-target",
   templateUrl: "./new-target.component.html",
-  styleUrls: ["./new-target.component.css"]
+  styleUrls: ["./new-target.component.scss"]
 })
 export class NewTargetComponent implements OnInit, OnDestroy {
   targetForm: FormGroup;

@@ -16,7 +16,7 @@ export class ErrorDialogService {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = true;
     dialogConfig.disableClose = true;
-    //dialogConfig.panelClass = 'standard-modalbox';  // After we convert to scss!
+    dialogConfig.panelClass = 'standard-modalbox';
     dialogConfig.data = {
       errorMessages: combinedMessages
     }
@@ -37,7 +37,7 @@ export class ErrorDialogService {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = true;
     dialogConfig.disableClose = true;
-    //dialogConfig.panelClass = 'standard-modalbox';  // After we convert to scss!
+    dialogConfig.panelClass = 'standard-modalbox';
     dialogConfig.data = {
       errorMessages: combinedMessages
     }

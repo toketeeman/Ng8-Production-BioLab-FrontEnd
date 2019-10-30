@@ -14,7 +14,7 @@ import { AgGridAngular } from "ag-grid-angular";
 @Component({
   selector: "app-search-targets",
   templateUrl: "./search-targets.component.html",
-  styleUrls: ["./search-targets.component.css"]
+  styleUrls: ["./search-targets.component.scss"]
 })
 export class SearchTargetsComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;

@@ -9,7 +9,7 @@ import {
 @Component({
   selector: "app-registration-success",
   templateUrl: "./registration-success.component.html",
-  styleUrls: ["./registration-success.component.css"]
+  styleUrls: ["./registration-success.component.scss"]
 })
 export class RegistrationSuccessComponent implements OnInit, OnDestroy {
   target$: Observable<any>;
