@@ -1,11 +1,13 @@
 import { Component, OnInit, isDevMode, ViewChild, AfterViewInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import { IGridPlasmid } from "../../protein-expression.interface";
 import { AgGridAngular } from "ag-grid-angular";
+import { AuthenticationService } from "../../services/authentication.service";
+
 
 
 @Component({
@@ -45,7 +47,11 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     { headerName: "Project", field: "project_name", sortable: true, filter: true }
   ];
 
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private http: HttpClient, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private authService: AuthenticationService) {}
 
   ngOnInit() {
     if (isDevMode()) {
@@ -55,7 +61,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     }
 
     this.paginationPagesize = 10;
-    this.rowData$ = this.http.get<IGridPlasmid>(this.plasmidsUrl);
+    const httpOptions = this.getHttpOptions();
+    this.rowData$ = this.http.get<IGridPlasmid>(this.plasmidsUrl, httpOptions);
   }
 
   isExternalFilterPresent(): boolean {
@@ -140,5 +147,16 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   onSelectionChanged() {
     let selectedRow: IGridPlasmid = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
     this.router.navigate(['plasmid-detail', selectedRow.plasmid_id], { relativeTo: this.route });
+  }
+
+  private getHttpOptions() {
+    const token = this.authService.getToken();
+    return {
+      headers: new HttpHeaders({
+        "Authorization": `Token ${token}`,
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      })
+    };
   }
 }
