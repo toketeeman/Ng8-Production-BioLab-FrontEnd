@@ -13,7 +13,7 @@ import { devUrls, prodUrls } from "../../../environments/environment-urls";
 })
 export class PlasmidDetailComponent implements OnInit {
 
-  plasmidId: string;
+  currentPlasmidId: string;
   plasmidsUrl: string;
 
   constructor(
@@ -22,8 +22,7 @@ export class PlasmidDetailComponent implements OnInit {
     private http: HttpClient) { }
 
   ngOnInit() {
-    this.plasmidId = this.route.snapshot.paramMap.get('id');
-    console.log("plasmid-detail: plasmidId: ", this.plasmidId );
+    this.currentPlasmidId = this.route.snapshot.paramMap.get('id');
 
     if (isDevMode()) {
       this.plasmidsUrl = devUrls.plasmidsUrl;
@@ -34,6 +33,10 @@ export class PlasmidDetailComponent implements OnInit {
     //this.http.get<IGridPlasmidDetail>(this.plasmidsUrl + '/' + this.plasmidId);
     // subscribe here
 
+  }
+
+  onBack() {
+    return null;
   }
 
 }
