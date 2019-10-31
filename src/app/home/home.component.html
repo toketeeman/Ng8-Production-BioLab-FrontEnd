@@ -9,12 +9,14 @@
     <h1 *ngSwitchCase="'/home/add-target'" class="header-title">Add a New Target</h1>
     <h1 *ngSwitchCase="'/home/search-targets'" class="header-title">Search for Targets</h1>
     <h1 *ngSwitchCase="'/home/search-plasmids'" class="header-title">Search for Plasmids</h1>
+    <h1 *ngSwitchCase="'/home/plasmid-detail'" class="header-title">Plasmid Details</h1>
     <h1 *ngSwitchCase="'/home/subunit-interactions'" class="header-title">Add Sub Unit Interactions for Target</h1>
     <h1 *ngSwitchCase="'/home/success'" class="header-title">Target and Sub Units Registered</h1>
     <h1 *ngSwitchDefault class="header-title">Welcome to the Protein Target Database</h1>
   </ng-container>
   <button class="btn btn-nav" (click)="logout()">Log Out</button>
 </header>
+
 <mat-menu #menu="matMenu">
   <!-- <button mat-menu-item routerLink="/">Home</button> -->
   <button mat-menu-item routerLink="/home/add-target">Register New Target</button>

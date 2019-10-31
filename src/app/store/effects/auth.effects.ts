@@ -36,7 +36,6 @@ export class AuthEffects {
           });
         }),
         catchError(error => {
-          console.log("login error: ", JSON.stringify(error));
           this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'message']);
           return of(new LogInFailure({ error }));
         })

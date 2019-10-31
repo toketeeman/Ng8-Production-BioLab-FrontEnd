@@ -31,7 +31,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.url = event.url;
+        if (event.url.startsWith('/home/plasmid-detail')) {
+          this.url = '/home/plasmid-detail';
+        } else {
+          this.url = event.url;
+        }
       }
     });
   }

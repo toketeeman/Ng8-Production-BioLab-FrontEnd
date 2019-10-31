@@ -11,3 +11,12 @@ header {
   font-weight: normal;
   margin: 0;
 }
+
+button:first-child {
+  margin-top: -5px;
+}
+
+button:last-child {
+  margin-top: -5px;
+  margin-right: 40px;
+}

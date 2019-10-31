@@ -1,14 +1,14 @@
 import { Component, OnInit, isDevMode, ViewChild, AfterViewInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
+import { catchError } from 'rxjs/operators';
 
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import { IGridPlasmid } from "../../protein-expression.interface";
 import { AgGridAngular } from "ag-grid-angular";
 import { AuthenticationService } from "../../services/authentication.service";
-
-
+import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 
 @Component({
   selector: "app-search-plasmids",
@@ -19,7 +19,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
 
   searchSet: string[] = [];
-  rowData$: Observable<IGridPlasmid>;
+  rowData$: Observable<IGridPlasmid[]>;
   rowSelection: string = "single";
   plasmidsUrl: string;
   paginationPagesize: number;
@@ -51,7 +51,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     private http: HttpClient, 
     private router: Router, 
     private route: ActivatedRoute, 
-    private authService: AuthenticationService) {}
+    private authService: AuthenticationService,
+    private errorDialogService: ErrorDialogService) {}
 
   ngOnInit() {
     if (isDevMode()) {
@@ -62,7 +63,14 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
     this.paginationPagesize = 10;
     const httpOptions = this.getHttpOptions();
-    this.rowData$ = this.http.get<IGridPlasmid>(this.plasmidsUrl, httpOptions);
+    this.rowData$ = this.http.get<IGridPlasmid[]>(this.plasmidsUrl, httpOptions)
+                      .pipe(
+                        catchError(error => {
+                          this.errorDialogService.openDialogForErrorResponse(error, ['message']);
+                          let noResults: IGridPlasmid[] = [];
+                          return of(noResults)
+                        })
+                      );
   }
 
   isExternalFilterPresent(): boolean {
@@ -146,7 +154,9 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
   onSelectionChanged() {
     let selectedRow: IGridPlasmid = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
-    this.router.navigate(['plasmid-detail', selectedRow.plasmid_id], { relativeTo: this.route });
+    console.log("onSelectionChanged(): selectedRow: ", JSON.stringify(selectedRow));
+    //this.router.navigate(['plasmid-detail', selectedRow.plasmid_id], { relativeTo: this.route });
+    this.router.navigateByUrl('/home/plasmid-detail/' + selectedRow.plasmid_id);
   }
 
   private getHttpOptions() {

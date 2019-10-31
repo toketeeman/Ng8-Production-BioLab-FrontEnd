@@ -35,7 +35,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     { headerName: "PTMs", field: "ptms", sortable: true, filter: true }
   ];
 
-  rowData$: Observable<IGridTarget>;
+  rowData$: Observable<IGridTarget[]>;
   targetsUrl: string;
   paginationPagesize: number;
 
@@ -49,7 +49,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     }
 
     this.paginationPagesize = 10;
-    this.rowData$ = this.http.get<IGridTarget>(this.targetsUrl);
+    this.rowData$ = this.http.get<IGridTarget[]>(this.targetsUrl);
   }
 
   isExternalFilterPresent(): boolean {

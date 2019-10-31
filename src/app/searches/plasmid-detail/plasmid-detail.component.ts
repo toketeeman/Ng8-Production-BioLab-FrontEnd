@@ -23,6 +23,7 @@ export class PlasmidDetailComponent implements OnInit {
 
   ngOnInit() {
     this.plasmidId = this.route.snapshot.paramMap.get('id');
+    console.log("plasmid-detail: plasmidId: ", this.plasmidId );
 
     if (isDevMode()) {
       this.plasmidsUrl = devUrls.plasmidsUrl;
@@ -30,7 +31,7 @@ export class PlasmidDetailComponent implements OnInit {
       this.plasmidsUrl = prodUrls.plasmidsUrl;
     }
 
-    this.http.get<IGridPlasmidDetail>(this.plasmidsUrl + '/' + this.plasmidId);
+    //this.http.get<IGridPlasmidDetail>(this.plasmidsUrl + '/' + this.plasmidId);
     // subscribe here
 
   }
