@@ -1,6 +1,6 @@
 import { Component, OnInit, isDevMode, ViewChild, AfterViewInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError } from 'rxjs/operators';
 
@@ -49,8 +49,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private http: HttpClient, 
-    private router: Router, 
-    private route: ActivatedRoute, 
+    private router: Router,  
     private authService: AuthenticationService,
     private errorDialogService: ErrorDialogService) {}
 

@@ -1,42 +1,111 @@
-import { Component, OnInit, isDevMode } from '@angular/core';
+import { Component, OnInit, isDevMode, ViewChild, AfterViewInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
+import { catchError } from 'rxjs/operators';
 
-import { IGridPlasmidDetail } from "../../protein-expression.interface";
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
+import {  IGridPlasmid , IGridPlasmidDetail, IGridFeatureQualifier } from "../../protein-expression.interface";
+import { AgGridAngular } from "ag-grid-angular";
+import { AuthenticationService } from "../../services/authentication.service";
+import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
+import { FeatureQualifierRenderer } from './feature-qualifier-renderer.component';
+
 
 @Component({
   selector: 'app-plasmid-detail',
   templateUrl: './plasmid-detail.component.html',
   styleUrls: ['./plasmid-detail.component.scss']
 })
-export class PlasmidDetailComponent implements OnInit {
+export class PlasmidDetailComponent implements OnInit, AfterViewInit {
+  @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
 
+  rowData$: Observable<IGridPlasmidDetail[]>;
+  frameworkComponents;
   currentPlasmidId: string;
-  plasmidsUrl: string;
+  plasmidsDetailUrl: string;
+  columnDefs;
 
   constructor(
-    private router: Router, 
-    private route: ActivatedRoute, 
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthenticationService,
+    private errorDialogService: ErrorDialogService,
+    private route: ActivatedRoute) {} 
+    
 
   ngOnInit() {
     this.currentPlasmidId = this.route.snapshot.paramMap.get('id');
 
     if (isDevMode()) {
-      this.plasmidsUrl = devUrls.plasmidsUrl;
+      this.plasmidsDetailUrl = devUrls.plasmidsDetailUrl;
     } else {
-      this.plasmidsUrl = prodUrls.plasmidsUrl;
+      this.plasmidsDetailUrl = prodUrls.plasmidsDetailUrl + this.currentPlasmidId;
     }
 
-    //this.http.get<IGridPlasmidDetail>(this.plasmidsUrl + '/' + this.plasmidId);
-    // subscribe here
+    this.columnDefs = [
+      {
+        headerName: "Feature Name",
+        field: "feature_name",
+        sortable: true,
+        filter: true
+      },
+      {
+        headerName: "Feature Type",
+        field: "feature_type",
+        sortable: true,
+        filter: true
+      },
+      {
+        headerName: "Position",
+        field: "position",
+        sortable: true,
+        filter: true
+      },
+      { headerName: "Strand", field: "strand", sortable: true, filter: true },
+      { headerName: "Sequence", field: "sequence", sortable: true, filter: true },
+      { headerName: "Feature Qualifier", field: "feature_qualifier", cellRendererFramework: "featureQualifierRenderer" }
+    ];
 
+    this.frameworkComponents = {
+      featureQualifierRenderer: FeatureQualifierRenderer
+    };
+
+    const httpOptions = this.getHttpOptions();
+    this.rowData$ = this.http.get<IGridPlasmidDetail[]>(this.plasmidsDetailUrl, httpOptions)
+                      .pipe(
+                        catchError(error => {
+                          this.errorDialogService.openDialogForErrorResponse(error, ['message']);
+                          let noResults: IGridPlasmidDetail[] = [];
+                          return of(noResults)
+                        })
+                      );
+  }
+
+  ngAfterViewInit() {
+    // Grid options can finally be set at this point.
+    this.agGrid.gridOptions.animateRows = true;
+
+    this.agGrid.gridOptions.defaultColDef = {
+      filter: true
+    };
+
+    this.agGrid.api.sizeColumnsToFit();
   }
 
   onBack() {
-    return null;
+    this.router.navigateByUrl('/home/search-plasmids');
+  }
+
+  private getHttpOptions() {
+    const token = this.authService.getToken();
+    return {
+      headers: new HttpHeaders({
+        "Authorization": `Token ${token}`,
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      })
+    };
   }
 
 }

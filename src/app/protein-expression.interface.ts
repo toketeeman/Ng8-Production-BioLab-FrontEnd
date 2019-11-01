@@ -81,9 +81,15 @@ export interface IGridPlasmid {
 }
 
 export interface IGridPlasmidDetail {
-  plasmid_id: string;
-  description: string;
-  markers: string;
-  target_name: string;
-  project_name: string;
+  feature_name: string;
+  feature_type: string;
+  position: string;
+  strand: string;
+  sequence: string;
+  feature_qualifier: IGridFeatureQualifier[];
+}
+
+export interface IGridFeatureQualifier {
+  type: string;
+  value: string;
 }

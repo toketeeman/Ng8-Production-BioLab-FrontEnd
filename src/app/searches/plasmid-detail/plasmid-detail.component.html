@@ -2,3 +2,13 @@
   <h2 class="header-title">{{currentPlasmidId}}</h2>
   <button mat-button (click)="onBack()">Back</button>
 </header>
+
+<ag-grid-angular
+  #agGrid
+  style="width: 1000px; height: 400px;"
+  class="ag-theme-balham"
+  [rowData]="rowData$ | async"
+  [columnDefs]="columnDefs"
+  [frameworkComponents]="frameworkComponents"
+>
+</ag-grid-angular>
