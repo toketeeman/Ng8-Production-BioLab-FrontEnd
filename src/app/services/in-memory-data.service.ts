@@ -346,7 +346,7 @@ export class InMemoryDataService implements InMemoryDbService {
         project_name: "Beagle"
       }
     ];
-    let plasmidDetail: IGridPlasmidDetail[] = [
+    let plasmidsDetail: IGridPlasmidDetail[] = [
       {
         feature_name: "STOP_TAA",
         feature_type: "gene",
@@ -476,6 +476,7 @@ export class InMemoryDataService implements InMemoryDbService {
       users,
       targets,
       plasmids,
+      plasmidsDetail,
       proteinClasses,
       proteinTargets,
       fastaFiles,

@@ -22,7 +22,4 @@ export class FeatureQualifierRenderer implements ICellRendererAngularComp {
   afterGuiAttached?(params?: import("ag-grid-community").IAfterGuiAttachedParams): void {
     throw new Error("Method not implemented.");
   }
-
-
-
 }

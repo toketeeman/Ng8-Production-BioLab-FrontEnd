@@ -36,6 +36,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.currentPlasmidId = this.route.snapshot.paramMap.get('id');
+    console.log("currentPlasmidId: ", this.currentPlasmidId);
 
     if (isDevMode()) {
       this.plasmidsDetailUrl = devUrls.plasmidsDetailUrl;
@@ -47,24 +48,48 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       {
         headerName: "Feature Name",
         field: "feature_name",
+        autoHeight: true,
         sortable: true,
         filter: true
       },
       {
         headerName: "Feature Type",
         field: "feature_type",
+        autoHeight: true,
         sortable: true,
         filter: true
       },
       {
         headerName: "Position",
         field: "position",
+        autoHeight: true,
         sortable: true,
         filter: true
       },
-      { headerName: "Strand", field: "strand", sortable: true, filter: true },
-      { headerName: "Sequence", field: "sequence", sortable: true, filter: true },
-      { headerName: "Feature Qualifier", field: "feature_qualifier", cellRendererFramework: "featureQualifierRenderer" }
+      { 
+        headerName: "Strand", 
+        field: "strand",
+        autoHeight: true, 
+        sortable: true, 
+        filter: true 
+      },
+      { 
+        headerName: "Sequence", 
+        field: "sequence",
+        autoHeight: true,
+        width: 400,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },
+        sortable: true, 
+        filter: true 
+      },
+      { 
+        headerName: "Feature Qualifier", 
+        field: "feature_qualifier", 
+        autoHeight: true,
+        width: 400,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },
+        cellRendererFramework: FeatureQualifierRenderer 
+      }
     ];
 
     this.frameworkComponents = {
@@ -75,6 +100,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     this.rowData$ = this.http.get<IGridPlasmidDetail[]>(this.plasmidsDetailUrl, httpOptions)
                       .pipe(
                         catchError(error => {
+
                           this.errorDialogService.openDialogForErrorResponse(error, ['message']);
                           let noResults: IGridPlasmidDetail[] = [];
                           return of(noResults)

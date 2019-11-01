@@ -125,6 +125,6 @@ if (!environment.production) {
     // }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorDialogComponent]
+  entryComponents: [ErrorDialogComponent, FeatureQualifierRenderer]
 })
 export class AppModule {}
