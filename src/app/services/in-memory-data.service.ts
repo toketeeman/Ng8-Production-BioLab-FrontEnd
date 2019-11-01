@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { InMemoryDbService } from "angular-in-memory-web-api";
 import { devUrls } from "../../environments/environment-urls";
+import { IGridPlasmid, IGridPlasmidDetail, IGridFeatureQualifier } from "../protein-expression.interface";
 
 import {
   ParsedRequestUrl,
@@ -238,126 +239,213 @@ export class InMemoryDataService implements InMemoryDbService {
         ptms: "DiSulfide bond(1)"
       }
     ];
-    let plasmids = [
+    let plasmids: IGridPlasmid[]  = [
       {
-        plasmidId: "PL4523",
+        plasmid_id: "PL4523",
         description: "Description A",
         markers: "kanamycin",
-        protein: "protein x",
-        project: "Akita",
-        slimsId: "PL4523"
+        target_name: "protein x",
+        project_name: "Akita"
       },
       {
-        plasmidId: "PL4544",
+        plasmid_id: "PL4544",
         description: "Description B",
         markers: "tetracycline",
-        protein: "protein y",
-        project: "Doberman",
-        slimsId: "PL4544"
+        target_name: "protein y",
+        project_name: "Doberman"
       },
       {
-        plasmidId: "PL1233",
+        plasmid_id: "PL1233",
         description: "Description C",
         markers: "ampicillin,kanamycin",
-        protein: "protein z",
-        project: "Daschhund",
-        slimsId: "PL1233"
+        target_name: "protein z",
+        project_name: "Daschhund"
       },
       {
-        plasmidId: "PL5678",
+        plasmid_id: "PL5678",
         description: "Description D",
         markers: "carbenicillin",
-        protein: "protein d",
-        project: "Collie",
-        slimsId: "PL5678"
+        target_name: "protein d",
+        project_name: "Collie"
       },
       {
-        plasmidId: "PL9821",
+        plasmid_id: "PL9821",
         description: "Description E",
         markers: "clindamycin,trimethoprim",
-        protein: "protein e",
-        project: "Retriever",
-        slimsId: "PL9821"
+        target_name: "protein e",
+        project_name: "Retriever"
       },
       {
-        plasmidId: "PL1074",
+        plasmid_id: "PL1074",
         description: "Description F",
         markers: "kanamycin",
-        protein: "protein f",
-        project: "Greyhound",
-        slimsId: "PL1074"
+        target_name: "protein f",
+        project_name: "Greyhound"
       },
       {
-        plasmidId: "PL2223",
+        plasmid_id:  "PL2223",
         description: "Description G",
         markers: "sulfamethoxazole ",
-        protein: "protein x",
-        project: "Pug",
-        slimsId: "PL2223"
+        target_name: "protein x",
+        project_name: "Pug"
       },
       {
-        plasmidId: "PL4535",
+        plasmid_id:  "PL4535",
         description: "Description H",
         markers: "trimethoprim,metronidazole,doxycycline",
-        protein: "protein e",
-        project: "Husky",
-        slimsId: "PL4535"
+        target_name: "protein e",
+        project_name: "Husky"
       },
       {
-        plasmidId: "PL9623",
+        plasmid_id:  "PL9623",
         description: "Description I",
         markers: "clindamycin",
-        protein: "protein s",
-        project: "bulldog",
-        slimsId: "PL9623"
+        target_name: "protein s",
+        project_name: "Bulldog"
       },
       {
-        plasmidId: "PL0723",
+        plasmid_id:  "PL0723",
         description: "Description J",
         markers: "metronidazole",
-        protein: "protein t",
-        project: "Maltese",
-        slimsId: "PL0723"
+        target_name: "protein t",
+        project_name: "Maltese"
       },
       {
-        plasmidId: "PL5023",
+        plasmid_id:  "PL5023",
         description: "Description K",
         markers: "azithromycin",
-        protein: "protein y",
-        project: "Akita",
-        slimsId: "PL5023"
+        target_name: "protein y",
+        project_name: "Akita"
       },
       {
-        plasmidId: "PL5824",
+        plasmid_id: "PL5824",
         description: "Description L",
         markers: "ciprofloxacin",
-        protein: "protein z",
-        project: "Husky",
-        slimsId: "PL5824"
+        target_name: "protein z",
+        project_name: "Husky"
       },
       {
-        plasmidId: "PL8223",
+        plasmid_id: "PL8223",
         description: "Description M",
         markers: "amoxicillin",
-        protein: "protein x",
-        project: "Pug",
-        slimsId: "PL8223"
+        target_name: "protein x",
+        project_name: "Pug"
       },
       {
-        plasmidId: "PL3023",
+        plasmid_id: "PL3023",
         description: "Description N",
         markers: "doxycycline",
-        protein: "protein d",
-        project: "Huskyta",
-        slimsId: "PL3023"
+        target_name: "protein d",
+        project_name: "Husky"
       },
       {
-        plasmidId: "PL9333",
+        plasmid_id: "PL9333",
         description: "Description O",
         markers: "cephalexin",
-        protein: "protein s",
-        project: "Beagle",
-        slimsId: "PL9333"
+        target_name: "protein s",
+        project_name: "Beagle"
+      }
+    ];
+    let plasmidDetail: IGridPlasmidDetail[] = [
+      {
+        feature_name: "STOP_TAA",
+        feature_type: "gene",
+        position: "[1778:1781](+)",
+        strand: "1",
+        sequence: "TAA",
+        feature_qualifier: [
+          { 
+            type: "standard_name",
+            value: "STOP" 
+          }
+        ]
+      },
+      {
+        feature_name: "P_prpR",
+        feature_type: "regulatory",
+        position: "[1781:1926](-)",
+        strand: "-1",
+        sequence: "TACATTGACTATATACATACCGAGGACCATGCATAATT",
+        feature_qualifier: [
+          { 
+            type: "standard_name",
+            value: "P_prpR" 
+          },
+          {
+            type: "regulatory class",
+            value: "promoter"
+          }  
+        ]
+      },
+      {
+        feature_name: "P_prpB",
+        feature_type: "regulatory",
+        position: "[194:1781](+)",
+        strand: "1",
+        sequence: "AAGCCTATGCCCTAGGCATCGACTACGACTACGACTACGCGTA" + 
+                  "CTCGCCGAAAGCCATAGGATTTCACGCTACGATACTGCATGACGTA",
+        feature_qualifier: [
+          { 
+            type: "standard_name",
+            value: "P_prpR" 
+          },
+          {
+            type: "regulatory class",
+            value: "promoter"
+          }
+        ]
+      },
+      {
+        feature_name: "cDsbC",
+        feature_type: "CDS",
+        position: "[2032:2719](+)",
+        strand: "1",
+        sequence: "AACGTCTGCGCGGCGGATGATAGAGCGATGCAATCGCA" + 
+                  "TACTAACGTAGATGCACATACATGAGTGACTAGATAGC" +
+                  "ATATACACTCGACGCAAAAAGCGTGCACGTAATGCAGC" +
+                  "TATGACATAATGCAGTACGCCAGTATTTTAAGCCTATG" +
+                  "CCCTAGGCATCGACTACGACTACGACTACGCGTACTCG" +
+                  "CCGAAAGCCATAGGATTTCACGCTACGATACTGCATGA",
+        feature_qualifier: [
+          { 
+            type: "pseudo",
+            value: "" 
+          },
+          {
+            type: "standard name",
+            value: "cDsbC"
+          },
+          { 
+            type: "codon_start",
+            value: "1" 
+          },
+          {
+            type: "transl_table",
+            value: "11"
+          },
+          { 
+            type: "locus_tag",
+            value: "1" 
+          },
+          {
+            type: "product",
+            value: "protein-disulfide isomerase"
+          },
+          {
+            type: "note",
+            value: "DsbC; periplasmic protein with protein disulfide " +
+                   "isomerase activity; this protein also shows disulfideoxidoreductase " +
+                   "activityDerived by automated computational analysis using gene prediction method: Protein Homology."
+          },
+          {
+            type: "protein_id",
+            value: "AMH25928.1"
+          },
+          {
+            type: "translation",
+            value: "MAITISHRKQTMDDAAIQQTLAKMGIKSSDIQPAPVA.GMKTVLTNSGVLYITDDGKHIIQGPMYDVSGTAPVN."
+          }
+        ]
       }
     ];
     let proteinClasses = [
