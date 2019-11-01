@@ -49,6 +49,7 @@ import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { ErrorDialogService } from  './dialogs/error-dialog/error-dialog.service';
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
+import { FeatureQualifierRenderer } from './searches/plasmid-detail/feature-qualifier-renderer.component';
 
 const appImports = [
   BrowserModule,
@@ -74,7 +75,7 @@ const appImports = [
   MatTooltipModule,
   MatDialogModule,
   ReactiveFormsModule,
-  AgGridModule.withComponents([BrowserAnimationsModule])
+  AgGridModule.withComponents([BrowserAnimationsModule, FeatureQualifierRenderer])
 ];
 
 if (!environment.production) {
@@ -108,7 +109,8 @@ if (!environment.production) {
     SearchTargetsComponent,
     AutoFocusDirective,
     ErrorDialogComponent,
-    PlasmidDetailComponent
+    PlasmidDetailComponent,
+    FeatureQualifierRenderer
   ],
   imports: appImports,
   providers: [
