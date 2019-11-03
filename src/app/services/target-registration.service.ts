@@ -1,5 +1,5 @@
 import { Injectable, isDevMode } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { AuthenticationService } from "./authentication.service";
@@ -45,9 +45,8 @@ export class TargetRegistrationService {
    * @returns Observable<IProteinClass[]>
    */
   getProteinClasses(): Observable<IProteinClass[]> {
-    const httpOptions = this.getHttpOptions();
     return this.http
-      .get<IProteinClass[]>(this.proteinClassesUrl, httpOptions)
+      .get<IProteinClass[]>(this.proteinClassesUrl)
       .pipe(catchError(this.handleError<IProteinClass[]>("getProteinClasses")));
   }
 
@@ -60,7 +59,6 @@ export class TargetRegistrationService {
     type: "amino_acid" | "dna",
     file: any
   ): Observable<IFastaResponse> {
-    const httpOptions = this.getHttpOptions();
     const formData = new FormData();
     const fastaFile = {
       sequence_type: type,
@@ -71,7 +69,7 @@ export class TargetRegistrationService {
     for (const [key, value] of Object.entries(fastaFile)) {
       formData.append(key, value);
     }
-    return this.http.post<IFastaResponse>(this.fastaUrl, formData, httpOptions);
+    return this.http.post<IFastaResponse>(this.fastaUrl, formData);
   }
 
   /** POST register new protein target
@@ -79,11 +77,9 @@ export class TargetRegistrationService {
    * @returns Observable<ITarget>
    */
   registerTarget(targetData): Observable<ITarget> {
-    const httpOptions = this.getHttpOptions();
     return this.http.post<ITarget>(
       this.targetUrl,
-      this.formatTarget(targetData),
-      httpOptions
+      this.formatTarget(targetData)
     );
   }
 
@@ -94,12 +90,9 @@ export class TargetRegistrationService {
   registerInteractions(
     subunitInteractions: ISubunitInteraction[]
   ): Observable<any> {
-    const httpOptions = this.getHttpOptions();
-
     return this.http.post<any>(
       this.interactionsUrl,
-      subunitInteractions,
-      httpOptions
+      subunitInteractions
     );
   }
 
@@ -109,9 +102,7 @@ export class TargetRegistrationService {
    */
 
   registerPtms(ptms: IPostTranslationalModification[]): Observable<any> {
-    const httpOptions = this.getHttpOptions();
-
-    return this.http.post<any>(this.ptmsUrl, ptms, httpOptions);
+    return this.http.post<any>(this.ptmsUrl, ptms);
   }
 
   /**
@@ -146,12 +137,4 @@ export class TargetRegistrationService {
     };
   }
 
-  private getHttpOptions() {
-    const token = this.authService.getToken();
-    return {
-      headers: new HttpHeaders({
-        Authorization: `Token ${token}`
-      })
-    };
-  }
 }

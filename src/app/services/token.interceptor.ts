@@ -21,15 +21,35 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+
     this.authService = this.injector.get(AuthenticationService);
 
-    const token: string = this.authService.getToken();
-    request = request.clone({
-      setHeaders: {
-        Authorization: `Token: ${token}`,
-        "Content-Type": "application/json"
-      }
-    });
+    if (request.url.includes('/login')) {
+
+      request = request.clone({
+        setHeaders: {
+          "Content-Type": "application/json"
+        }
+      });
+    } else if (request.url.includes('/fasta-file-parser')) {
+      const token: string = this.authService.getToken();
+
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Token ${token}`
+        }
+      });
+    } else {
+      const token: string = this.authService.getToken();
+
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+    }
+
     return next.handle(request);
   }
 }

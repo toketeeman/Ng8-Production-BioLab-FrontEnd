@@ -21,7 +21,7 @@
 
       <div formArrayName="subunitsArray" *ngFor="let subunit of subunitsArray.controls; let i = index;">
         <div class="flex flex-item" [formGroupName]="i">
-          <select class="flex-item interaction-field" formControlName="subunit_one" (change)="updateCopyRange($event.target.value, i, 'subunit_one_copy')">
+          <select class="flex-item interaction-field" autoFocus formControlName="subunit_one" (change)="updateCopyRange($event.target.value, i, 'subunit_one_copy')">
             <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
           </select>
 

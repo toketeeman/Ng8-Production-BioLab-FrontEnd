@@ -1,5 +1,5 @@
 import { Component, OnInit, isDevMode, ViewChild, AfterViewInit } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError } from 'rxjs/operators';
@@ -61,8 +61,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     }
 
     this.paginationPagesize = 10;
-    const httpOptions = this.getHttpOptions();
-    this.rowData$ = this.http.get<IGridPlasmid[]>(this.plasmidsUrl, httpOptions)
+    this.rowData$ = this.http.get<IGridPlasmid[]>(this.plasmidsUrl)
                       .pipe(
                         catchError(error => {
                           this.errorDialogService.openDialogForErrorResponse(error, ['message']);
@@ -156,14 +155,4 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/home/plasmid-detail/' + selectedRow.plasmid_id);
   }
 
-  private getHttpOptions() {
-    const token = this.authService.getToken();
-    return {
-      headers: new HttpHeaders({
-        "Authorization": `Token ${token}`,
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      })
-    };
-  }
 }

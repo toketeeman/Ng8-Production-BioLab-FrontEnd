@@ -28,10 +28,6 @@ export class AuthenticationService {
     return sessionStorage.getItem("token");
   }
 
-  /** POST log in user
-   * @params username, password
-   * @returns token if credentials are valid
-   */
   logIn(username: string, password: string): Observable<any> {
     const user = { username, password };
     return this.http.post(this.loginUrl, user, httpOptions);

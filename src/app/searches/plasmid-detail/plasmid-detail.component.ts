@@ -1,5 +1,5 @@
 import { Component, OnInit, isDevMode, ViewChild, AfterViewInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError } from 'rxjs/operators';
@@ -96,8 +96,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       featureQualifierRenderer: FeatureQualifierRenderer
     };
 
-    const httpOptions = this.getHttpOptions();
-    this.rowData$ = this.http.get<IGridPlasmidDetail[]>(this.plasmidsDetailUrl, httpOptions)
+    this.rowData$ = this.http.get<IGridPlasmidDetail[]>(this.plasmidsDetailUrl)
                       .pipe(
                         catchError(error => {
 
@@ -123,15 +122,5 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/home/search-plasmids');
   }
 
-  private getHttpOptions() {
-    const token = this.authService.getToken();
-    return {
-      headers: new HttpHeaders({
-        "Authorization": `Token ${token}`,
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      })
-    };
-  }
 
 }

@@ -6,6 +6,7 @@ import { AppState, selectTargetState } from "../store/app.states";
 import { ISubunit } from "../protein-expression.interface";
 import { SubunitInteractions } from "../store/actions/interactions.actions";
 import { ValidateNumberInput } from "../validators/numberInput.validator";
+import { AlertService } from "../services/alert.service";
 
 @Component({
   selector: "app-subunit-interactions",
@@ -29,7 +30,7 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
     return this.interactionForm.get("ptmsArray") as FormArray;
   }
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {
+  constructor(private fb: FormBuilder, private alert: AlertService, private store: Store<AppState>) {
     this.state$ = this.store.select(selectTargetState);
   }
 
@@ -138,10 +139,10 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   }
 
   canDeactivate() {
-    if (this.disableDeactivateGuard) {
+    if (this.interactionForm.untouched || this.disableDeactivateGuard) {
       return true;
     }
-    return false;
+    return this.alert.confirm("Discard changes?");
   }
 
   ngOnDestroy() {

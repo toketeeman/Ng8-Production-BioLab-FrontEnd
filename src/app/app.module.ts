@@ -116,13 +116,14 @@ if (!environment.production) {
   providers: [
     AuthenticationService,
     TargetRegistrationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
     InMemoryDataService,
-    ErrorDialogService
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true
-    // }
+    ErrorDialogService,
+
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorDialogComponent, FeatureQualifierRenderer]
