@@ -114,16 +114,11 @@ if (!environment.production) {
   ],
   imports: appImports,
   providers: [
-    AuthenticationService,
-    TargetRegistrationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    },
-    InMemoryDataService,
-    ErrorDialogService,
-
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorDialogComponent, FeatureQualifierRenderer]
