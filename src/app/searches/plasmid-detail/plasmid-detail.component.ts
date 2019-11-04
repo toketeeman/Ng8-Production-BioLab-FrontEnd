@@ -87,8 +87,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         width: 400,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },
-        cellRendererFramework: FeatureQualifierRenderer,
-        sortable: true
+        cellRendererFramework: FeatureQualifierRenderer
       }
     ];
 
