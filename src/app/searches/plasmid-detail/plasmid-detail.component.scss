@@ -10,6 +10,7 @@ header {
   .header-title {
     font-weight: normal;
     margin-left: 20px;
+    margin-right: 50px;
   }
   
   header button {
@@ -17,3 +18,8 @@ header {
     background-color: #b3b3b3;
     font-weight: bold;
   }
+
+  header span {
+    margin-left: 50px;
+  }
+
