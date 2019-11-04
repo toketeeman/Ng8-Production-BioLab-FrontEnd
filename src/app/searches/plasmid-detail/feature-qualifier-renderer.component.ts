@@ -16,7 +16,7 @@ export class FeatureQualifierRenderer implements ICellRendererAngularComp {
   }
 
   agInit(params: any): void {
-    this.featureQualifier = params.value;
+    this.featureQualifier = params.value;  // A feature qualifier is an array of qualifiers.
   }
   
   afterGuiAttached?(params?: import("ag-grid-community").IAfterGuiAttachedParams): void {

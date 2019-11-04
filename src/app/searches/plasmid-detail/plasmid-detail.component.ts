@@ -88,7 +88,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         width: 400,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },
-        cellRendererFramework: FeatureQualifierRenderer 
+        cellRendererFramework: FeatureQualifierRenderer,
+        sortable: true
       }
     ];
 
@@ -99,7 +100,6 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     this.rowData$ = this.http.get<IGridPlasmidDetail[]>(this.plasmidsDetailUrl)
                       .pipe(
                         catchError(error => {
-
                           this.errorDialogService.openDialogForErrorResponse(error, ['message']);
                           let noResults: IGridPlasmidDetail[] = [];
                           return of(noResults)
@@ -114,6 +114,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.defaultColDef = {
       filter: true
     };
+
+    this.agGrid.gridOptions.rowBuffer = 20;   // Default is 10.
 
     this.agGrid.api.sizeColumnsToFit();
   }
