@@ -21,7 +21,6 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
 
   rowData$: Observable<IGridPlasmidDetail[]>;
-  frameworkComponents;
   currentPlasmidId: string;
   plasmidsDetailUrl: string;
   columnDefs;
@@ -92,10 +91,6 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         sortable: true
       }
     ];
-
-    this.frameworkComponents = {
-      featureQualifierRenderer: FeatureQualifierRenderer
-    };
 
     this.rowData$ = this.http.get<IGridPlasmidDetail[]>(this.plasmidsDetailUrl)
                       .pipe(
