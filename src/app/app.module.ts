@@ -26,8 +26,6 @@ import {
 } from "@angular/material";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
-import { TargetRegistrationService } from "./services/target-registration.service";
-import { AuthenticationService } from "./services/authentication.service";
 import { InMemoryDataService } from "./services/in-memory-data.service";
 import { TokenInterceptor } from "./services/token.interceptor";
 import { AuthEffects } from "./store/effects/auth.effects";
@@ -47,7 +45,6 @@ import { SearchTargetsComponent } from "./searches/search-targets/search-targets
 import { AgGridModule } from "ag-grid-angular";
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
-import { ErrorDialogService } from  './dialogs/error-dialog/error-dialog.service';
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
 import { FeatureQualifierRenderer } from './searches/plasmid-detail/feature-qualifier-renderer.component';
 
