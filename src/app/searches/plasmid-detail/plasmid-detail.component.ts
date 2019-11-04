@@ -13,7 +13,6 @@ import { FeatureQualifierRenderer } from './feature-qualifier-renderer.component
 
 
 @Component({
-  selector: 'app-plasmid-detail',
   templateUrl: './plasmid-detail.component.html',
   styleUrls: ['./plasmid-detail.component.scss']
 })

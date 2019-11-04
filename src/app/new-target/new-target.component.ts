@@ -17,7 +17,6 @@ import { ValidateNumberInput } from "../validators/numberInput.validator";
 import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
 
 @Component({
-  selector: "app-new-target",
   templateUrl: "./new-target.component.html",
   styleUrls: ["./new-target.component.scss"]
 })

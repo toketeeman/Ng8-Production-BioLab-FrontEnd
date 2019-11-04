@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from "ag-grid-angular";
 
 @Component({
-  selector: 'app-feature-qualifier',
   templateUrl: './feature-qualifier-renderer.component.html',
   styleUrls: ['./feature-qualifier-renderer.component.scss']
 })

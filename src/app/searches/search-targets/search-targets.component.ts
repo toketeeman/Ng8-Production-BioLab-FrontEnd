@@ -12,7 +12,6 @@ import { IGridTarget } from "../../protein-expression.interface";
 import { AgGridAngular } from "ag-grid-angular";
 
 @Component({
-  selector: "app-search-targets",
   templateUrl: "./search-targets.component.html",
   styleUrls: ["./search-targets.component.scss"]
 })

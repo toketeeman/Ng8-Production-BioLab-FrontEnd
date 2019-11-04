@@ -7,7 +7,6 @@ import {
   selectInteractionsState
 } from "../store/app.states";
 @Component({
-  selector: "app-registration-success",
   templateUrl: "./registration-success.component.html",
   styleUrls: ["./registration-success.component.scss"]
 })

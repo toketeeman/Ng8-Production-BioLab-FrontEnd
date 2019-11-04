@@ -9,7 +9,6 @@ import { ValidateNumberInput } from "../validators/numberInput.validator";
 import { AlertService } from "../services/alert.service";
 
 @Component({
-  selector: "app-subunit-interactions",
   templateUrl: "./subunit-interactions.component.html",
   styleUrls: ["./subunit-interactions.component.scss"]
 })
