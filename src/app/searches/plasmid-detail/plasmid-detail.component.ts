@@ -34,7 +34,6 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.currentPlasmidId = this.route.snapshot.paramMap.get('id');
-    console.log("currentPlasmidId: ", this.currentPlasmidId);
 
     if (isDevMode()) {
       this.plasmidsDetailUrl = devUrls.plasmidsDetailUrl;
