@@ -29,8 +29,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     private router: Router,
     private authService: AuthenticationService,
     private errorDialogService: ErrorDialogService,
-    private route: ActivatedRoute) {} 
-    
+    private route: ActivatedRoute) {}
+
 
   ngOnInit() {
     this.currentPlasmidId = this.route.snapshot.paramMap.get('id');
@@ -63,25 +63,25 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         sortable: true,
         filter: true
       },
-      { 
-        headerName: "Strand", 
+      {
+        headerName: "Strand",
         field: "strand",
-        autoHeight: true, 
-        sortable: true, 
-        filter: true 
+        autoHeight: true,
+        sortable: true,
+        filter: true
       },
-      { 
-        headerName: "Sequence", 
+      {
+        headerName: "Sequence",
         field: "sequence",
         autoHeight: true,
         width: 400,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },
-        sortable: true, 
-        filter: true 
+        sortable: true,
+        filter: true
       },
-      { 
-        headerName: "Feature Qualifier", 
-        field: "feature_qualifier", 
+      {
+        headerName: "Feature Qualifier",
+        field: "feature_qualifier",
         autoHeight: true,
         width: 400,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },
@@ -93,8 +93,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
                       .pipe(
                         catchError(error => {
                           this.errorDialogService.openDialogForErrorResponse(error, ['message']);
-                          let noResults: IGridPlasmidDetail[] = [];
-                          return of(noResults)
+                          const noResults: IGridPlasmidDetail[] = [];
+                          return of(noResults);
                         })
                       );
   }

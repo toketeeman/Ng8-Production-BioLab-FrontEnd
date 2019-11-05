@@ -6,7 +6,7 @@
     "deprecation": {
       "severity": "warn"
     },
-    "component-class-suffix": true,
+    "component-class-suffix": false,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
     "directive-selector": [
@@ -69,10 +69,11 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [
-      true,
-      "double"
+      false
     ],
+    "one-line": false,
     "trailing-comma": false,
+    "no-trailing-whitespace": false,
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
@@ -89,5 +90,6 @@
   "rulesDirectory": [
     "codelyzer"
   ],
-  "no-string-literal": false
+  "no-string-literal": false,
+  "comment-format": false
 }

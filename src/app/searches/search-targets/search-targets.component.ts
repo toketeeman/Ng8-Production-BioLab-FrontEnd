@@ -24,7 +24,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
 
   searchSet: string[] = [];
   rowData$: Observable<IGridTarget[]>;
-  rowSelection: string = "single";
+  rowSelection = "single";
   targetsUrl: string;
   paginationPagesize: number;
 
@@ -38,8 +38,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   ];
 
   constructor(
-    private http: HttpClient, 
-    private router: Router,  
+    private http: HttpClient,
+    private router: Router,
     private errorDialogService: ErrorDialogService) {}
 
   ngOnInit() {
@@ -54,8 +54,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
                       .pipe(
                         catchError(error => {
                           this.errorDialogService.openDialogForErrorResponse(error, ['message']);
-                          let noResults: IGridTarget[] = [];
-                          return of(noResults)
+                          const noResults: IGridTarget[] = [];
+                          return of(noResults);
                         })
                       );
   }
@@ -66,8 +66,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
 
   doesExternalFilterPass(node): boolean {
     // The row fields are at node.data.* .
-    //console.log("node: ", JSON.stringify(node.data));
-    //console.log("node.data.target: ", node.data.target);
+    // console.log("node: ", JSON.stringify(node.data));
+    // console.log("node.data.target: ", node.data.target);
     return this.filterMatch((node.data as IGridTarget).target);
   }
 
@@ -76,10 +76,10 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       return false;
     }
     if (!this.searchSet.length) {
-      return true; 
+      return true;
     }
-    let cleanNodeField = nodeField.replace(/\s/g, "").toLowerCase();
-    for (let searchValue of this.searchSet) {
+    const cleanNodeField = nodeField.replace(/\s/g, "").toLowerCase();
+    for (const searchValue of this.searchSet) {
       if (cleanNodeField === searchValue) {
         return true;
       }
@@ -140,7 +140,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   }
 
   onSelectionChanged() {
-    let selectedRow: IGridTarget = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
+    const selectedRow: IGridTarget = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
     this.router.navigateByUrl('/home/target-detail/' + (selectedRow as IGridTarget).target);
   }
 }

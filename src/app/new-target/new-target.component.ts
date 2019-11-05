@@ -116,7 +116,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
 
       this.targetService.uploadFastaFile(type, file).subscribe(
         (response: IFastaResponse) => {
-          const fastaEntry = response["fasta_entries"][0];
+          const fastaEntry = response.fasta_entries[0];
 
           if (type === "amino_acid") {
             subunit.patchValue({

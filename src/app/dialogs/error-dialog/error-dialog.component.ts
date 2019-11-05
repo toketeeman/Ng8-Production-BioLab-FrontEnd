@@ -11,10 +11,9 @@ export class ErrorDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ErrorDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data) 
-  { 
-    this.errorMessages = data.errorMessages;
-  }
+    @Inject(MAT_DIALOG_DATA) data) {
+      this.errorMessages = data.errorMessages;
+    }
 
   ngOnInit() {
   }

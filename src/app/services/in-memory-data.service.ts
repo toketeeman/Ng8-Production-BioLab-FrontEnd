@@ -13,23 +13,22 @@ import {
 } from "angular-in-memory-web-api";
 import { ITarget } from "../protein-expression.interface";
 
-const users = [
+const specialUsers = [
   {
     username: "user1",
     password: "password1"
   }
 ];
-
 @Injectable()
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    let users = [
+    const users = [
       {
         username: "user1",
         password: "password1"
       }
     ];
-    let targets: IGridTarget[] = [
+    const targets: IGridTarget[] = [
       {
         target: "protein x",
         partner: "partner 1",
@@ -239,7 +238,7 @@ export class InMemoryDataService implements InMemoryDbService {
         plasmidCount: "2"
       }
     ];
-    let plasmids: IGridPlasmid[]  = [
+    const plasmids: IGridPlasmid[]  = [
       {
         plasmid_id: "PL4523",
         description: "Description A",
@@ -346,7 +345,7 @@ export class InMemoryDataService implements InMemoryDbService {
         project_name: "Beagle"
       }
     ];
-    let plasmidsDetail: IGridPlasmidDetail[] = [
+    const plasmidsDetail: IGridPlasmidDetail[] = [
       {
         feature_name: "STOP_TAA",
         feature_type: "gene",
@@ -354,9 +353,9 @@ export class InMemoryDataService implements InMemoryDbService {
         strand: "1",
         sequence: "TAA",
         feature_qualifier: [
-          { 
+          {
             type: "standard_name",
-            value: "STOP" 
+            value: "STOP"
           }
         ]
       },
@@ -367,14 +366,14 @@ export class InMemoryDataService implements InMemoryDbService {
         strand: "-1",
         sequence: "TACATTGACTATATACATACCGAGGACCATGCATAATT",
         feature_qualifier: [
-          { 
+          {
             type: "standard_name",
-            value: "P_prpR" 
+            value: "P_prpR"
           },
           {
             type: "regulatory class",
             value: "promoter"
-          }  
+          }
         ]
       },
       {
@@ -382,12 +381,12 @@ export class InMemoryDataService implements InMemoryDbService {
         feature_type: "regulatory",
         position: "[194:1781](+)",
         strand: "1",
-        sequence: "AAGCCTATGCCCTAGGCATCGACTACGACTACGACTACGCGTA" + 
+        sequence: "AAGCCTATGCCCTAGGCATCGACTACGACTACGACTACGCGTA" +
                   "CTCGCCGAAAGCCATAGGATTTCACGCTACGATACTGCATGACGTA",
         feature_qualifier: [
-          { 
+          {
             type: "standard_name",
-            value: "P_prpR" 
+            value: "P_prpR"
           },
           {
             type: "regulatory class",
@@ -400,32 +399,32 @@ export class InMemoryDataService implements InMemoryDbService {
         feature_type: "CDS",
         position: "[2032:2719](+)",
         strand: "1",
-        sequence: "AACGTCTGCGCGGCGGATGATAGAGCGATGCAATCGCA" + 
+        sequence: "AACGTCTGCGCGGCGGATGATAGAGCGATGCAATCGCA" +
                   "TACTAACGTAGATGCACATACATGAGTGACTAGATAGC" +
                   "ATATACACTCGACGCAAAAAGCGTGCACGTAATGCAGC" +
                   "TATGACATAATGCAGTACGCCAGTATTTTAAGCCTATG" +
                   "CCCTAGGCATCGACTACGACTACGACTACGCGTACTCG" +
                   "CCGAAAGCCATAGGATTTCACGCTACGATACTGCATGA",
         feature_qualifier: [
-          { 
+          {
             type: "pseudo",
-            value: "" 
+            value: ""
           },
           {
             type: "standard name",
             value: "cDsbC"
           },
-          { 
+          {
             type: "codon_start",
-            value: "1" 
+            value: "1"
           },
           {
             type: "transl_table",
             value: "11"
           },
-          { 
+          {
             type: "locus_tag",
-            value: "1" 
+            value: "1"
           },
           {
             type: "product",
@@ -448,7 +447,7 @@ export class InMemoryDataService implements InMemoryDbService {
         ]
       }
     ];
-    let proteinClasses = [
+    const proteinClasses = [
       {
         protein_class_name: "protein class1 name",
         protein_class_pk: 1
@@ -467,10 +466,10 @@ export class InMemoryDataService implements InMemoryDbService {
       }
     ];
 
-    let proteinTargets = [];
-    let fastaFiles = [];
-    let subunitInteractions = [];
-    let postTranslationalModifications = [];
+    const proteinTargets = [];
+    const fastaFiles = [];
+    const subunitInteractions = [];
+    const postTranslationalModifications = [];
 
     return {
       users,
@@ -608,7 +607,7 @@ export class InMemoryDataService implements InMemoryDbService {
   }
 
   isValidUser(username, password) {
-    const filtered = users.filter(
+    const filtered = specialUsers.filter(
       user => user.username === username && user.password === password
     );
     return filtered.length > 0 ? true : false;
