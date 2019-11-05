@@ -67,9 +67,9 @@ export interface IGridTarget {
   target: string;
   partner: string;
   subunits: string;
+  geneCount: string;
   project: string;
   plasmidCount: string;
-  ptms: string;
 }
 
 export interface IGridPlasmid {

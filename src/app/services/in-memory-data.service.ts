@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { InMemoryDbService } from "angular-in-memory-web-api";
 import { devUrls } from "../../environments/environment-urls";
-import { IGridPlasmid, IGridPlasmidDetail, IGridFeatureQualifier } from "../protein-expression.interface";
+import { IGridPlasmid, IGridPlasmidDetail, IGridTarget } from "../protein-expression.interface";
 
 import {
   ParsedRequestUrl,
@@ -29,214 +29,214 @@ export class InMemoryDataService implements InMemoryDbService {
         password: "password1"
       }
     ];
-    let targets = [
+    let targets: IGridTarget[] = [
       {
         target: "protein x",
         partner: "partner 1",
         subunits: "3",
+        geneCount: "3",
         project: "akita",
-        plasmidCount: "4",
-        ptms: "DiSulfide bond(1)"
+        plasmidCount: "4"
       },
       {
         target: "protein y",
         partner: "partner 2",
         subunits: "4",
+        geneCount: "3",
         project: "collie",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(3)"
+        plasmidCount: "2"
       },
       {
         target: "protein z",
         partner: "partner 3",
         subunits: "1",
+        geneCount: "2",
         project: "greyhound",
-        plasmidCount: "4",
-        ptms: "DiSulfide bond(2)"
+        plasmidCount: "4"
       },
       {
         target: "protein c",
         partner: "partner 4",
         subunits: "2",
+        geneCount: "2",
         project: "pug",
-        plasmidCount: "12",
-        ptms: "DiSulfide bond(2)"
+        plasmidCount: "12"
       },
       {
         target: "protein d",
         partner: "partner 5",
         subunits: "1",
+        geneCount: "4",
         project: "retriever",
-        plasmidCount: "8",
-        ptms: "DiSulfide bond(4)"
+        plasmidCount: "8"
       },
       {
         target: "protein q",
         partner: "partner 6",
         subunits: "1",
+        geneCount: "6",
         project: "shepherd",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(6)"
+        plasmidCount: "2"
       },
       {
         target: "protein f",
         partner: "partner 7",
         subunits: "4",
+        geneCount: "9",
         project: "akita",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(9)"
+        plasmidCount: "2"
       },
       {
         target: "protein x",
         partner: "partner 8",
         subunits: "4",
+        geneCount: "3",
         project: "poodle",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(3)"
+        plasmidCount: "2"
       },
       {
         target: "protein d",
         partner: "partner 9",
         subunits: "3",
+        geneCount: "4",
         project: "terrier",
-        plasmidCount: "4",
-        ptms: "DiSulfide bond(4)"
+        plasmidCount: "4"
       },
       {
         target: "protein m",
         partner: "partner 10",
         subunits: "1",
+        geneCount: "2",
         project: "greyhound",
-        plasmidCount: "8",
-        ptms: "DiSulfide bond(2)"
+        plasmidCount: "8"
       },
       {
         target: "protein q",
         partner: "partner 11",
         subunits: "1",
+        geneCount: "2",
         project: "daschund",
-        plasmidCount: "6",
-        ptms: "DiSulfide bond(2)"
+        plasmidCount: "6"
       },
       {
         target: "protein r",
         partner: "partner 12",
         subunits: "2",
+        geneCount: "1",
         project: "pug",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(1)"
+        plasmidCount: "2"
       },
       {
         target: "protein x",
         partner: "partner 13",
         subunits: "1",
+        geneCount: "5",
         project: "collie",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(5)"
+        plasmidCount: "2"
       },
       {
         target: "protein z",
         partner: "partner 14",
         subunits: "4",
+        geneCount: "3",
         project: "corgi",
-        plasmidCount: "6",
-        ptms: "DiSulfide bond(3)"
+        plasmidCount: "6"
       },
       {
         target: "protein c",
         partner: "partner 15",
         subunits: "1",
+        geneCount: "2",
         project: "husky",
-        plasmidCount: "6",
-        ptms: "DiSulfide bond(2)"
+        plasmidCount: "6"
       },
       {
         target: "protein r",
         partner: "partner 16",
         subunits: "1",
+        geneCount: "4",
         project: "beagle",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(4)"
+        plasmidCount: "2"
       },
       {
         target: "protein m",
         partner: "partner 17",
         subunits: "1",
+        geneCount: "4",
         project: "chihuahua",
-        plasmidCount: "4",
-        ptms: "DiSulfide bond(4)"
+        plasmidCount: "4"
       },
       {
         target: "protein f",
         partner: "partner 18",
         subunits: "3",
+        geneCount: "11",
         project: "bulldog",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(11)"
+        plasmidCount: "2"
       },
       {
         target: "protein e",
         partner: "partner 19",
         subunits: "3",
+        geneCount: "8",
         project: "collie",
-        plasmidCount: "4",
-        ptms: "DiSulfide bond(8)"
+        plasmidCount: "4"
       },
       {
         target: "protein y",
         partner: "partner 20",
         subunits: "1",
+        geneCount: "2",
         project: "boxer",
-        plasmidCount: "10",
-        ptms: "DiSulfide bond(2)"
+        plasmidCount: "10"
       },
       {
         target: "protein g",
         partner: "partner 21",
         subunits: "2",
+        geneCount: "3",
         project: "chihuahua",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(3)"
+        plasmidCount: "2"
       },
       {
         target: "protein f",
         partner: "partner 22",
         subunits: "2",
+        geneCount: "2",
         project: "dobermann",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(2)"
+        plasmidCount: "2"
       },
       {
         target: "protein s",
         partner: "partner 23",
         subunits: "1",
+        geneCount: "5",
         project: "bulldog",
-        plasmidCount: "4",
-        ptms: "DiSulfide bond(5)"
+        plasmidCount: "4"
       },
       {
         target: "protein z",
         partner: "partner 24",
         subunits: "3",
+        geneCount: "6",
         project: "terrier",
-        plasmidCount: "4",
-        ptms: "DiSulfide bond(6)"
+        plasmidCount: "4"
       },
       {
         target: "protein q",
         partner: "partner 25",
         subunits: "3",
+        geneCount: "6",
         project: "mastiff",
-        plasmidCount: "4",
-        ptms: "DiSulfide bond(6)"
+        plasmidCount: "4"
       },
       {
         target: "protein m",
         partner: "partner 26",
         subunits: "1",
+        geneCount: "1",
         project: "samoyed",
-        plasmidCount: "2",
-        ptms: "DiSulfide bond(1)"
+        plasmidCount: "2"
       }
     ];
     let plasmids: IGridPlasmid[]  = [

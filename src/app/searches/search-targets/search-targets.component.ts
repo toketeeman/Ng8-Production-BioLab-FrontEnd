@@ -6,10 +6,14 @@ import {
   AfterViewInit
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { Observable, of } from "rxjs";
+import { catchError } from 'rxjs/operators';
+
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
-import { Observable } from "rxjs";
 import { IGridTarget } from "../../protein-expression.interface";
 import { AgGridAngular } from "ag-grid-angular";
+import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 
 @Component({
   templateUrl: "./search-targets.component.html",
@@ -17,28 +21,26 @@ import { AgGridAngular } from "ag-grid-angular";
 })
 export class SearchTargetsComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
-  private searchArg = "";
-  private searchSet: string[] = [];
+
+  searchSet: string[] = [];
+  rowData$: Observable<IGridTarget[]>;
+  rowSelection: string = "single";
+  targetsUrl: string;
+  paginationPagesize: number;
 
   columnDefs = [
     { headerName: "Target", field: "target", sortable: true, filter: true },
     { headerName: "Partner", field: "partner", sortable: true, filter: true },
     { headerName: "Subunits", field: "subunits", sortable: true, filter: true },
+    { headerName: "Gene Count", field: "geneCount", sortable: true, filter: true },
     { headerName: "Project", field: "project", sortable: true, filter: true },
-    {
-      headerName: "Plasmid Count",
-      field: "plasmidCount",
-      sortable: true,
-      filter: true
-    },
-    { headerName: "PTMs", field: "ptms", sortable: true, filter: true }
+    { headerName: "Plasmid Count", field: "plasmidCount", sortable: true, filter: true }
   ];
 
-  rowData$: Observable<IGridTarget[]>;
-  targetsUrl: string;
-  paginationPagesize: number;
-
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient, 
+    private router: Router,  
+    private errorDialogService: ErrorDialogService) {}
 
   ngOnInit() {
     if (isDevMode()) {
@@ -48,7 +50,14 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     }
 
     this.paginationPagesize = 10;
-    this.rowData$ = this.http.get<IGridTarget[]>(this.targetsUrl);
+    this.rowData$ = this.http.get<IGridTarget[]>(this.targetsUrl)
+                      .pipe(
+                        catchError(error => {
+                          this.errorDialogService.openDialogForErrorResponse(error, ['message']);
+                          let noResults: IGridTarget[] = [];
+                          return of(noResults)
+                        })
+                      );
   }
 
   isExternalFilterPresent(): boolean {
@@ -66,7 +75,6 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     if (nodeField === undefined) {
       return false;
     }
-    console.log("nodeField: ", nodeField);
     if (!this.searchSet.length) {
       return true; 
     }
@@ -79,9 +87,14 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  onSearch(searchArgs: string): void {
-    //console.log("searchArgs: ", searchArgs);
+  onReturnSearch(event: KeyboardEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    const searchArgs = (event.target as HTMLInputElement).value;
+    this.onSearch(searchArgs);
+  }
 
+  onSearch(searchArgs: string): void {
     // Compute the search set here from the entered search args.
     const rawSet: string[] = searchArgs.split(',');
     this.searchSet = [];
@@ -90,9 +103,15 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       if (cleanedValue.length) {
         this.searchSet.push(cleanedValue);
       }
-    })
+    });
 
-    console.log("searchSet: ", JSON.stringify(this.searchSet));
+    // Trigger the search here.
+    this.agGrid.gridOptions.api.onFilterChanged();
+  }
+
+  onRefresh() {
+    // Reset the search args to "everything".
+    this.searchSet = [];
 
     // Trigger the search here.
     this.agGrid.gridOptions.api.onFilterChanged();
@@ -118,5 +137,10 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     };
 
     this.agGrid.api.sizeColumnsToFit();
+  }
+
+  onSelectionChanged() {
+    let selectedRow: IGridTarget = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
+    this.router.navigateByUrl('/home/target-detail/' + (selectedRow as IGridTarget).target);
   }
 }

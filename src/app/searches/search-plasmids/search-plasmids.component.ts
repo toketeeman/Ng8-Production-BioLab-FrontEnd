@@ -7,7 +7,6 @@ import { catchError } from 'rxjs/operators';
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import { IGridPlasmid } from "../../protein-expression.interface";
 import { AgGridAngular } from "ag-grid-angular";
-import { AuthenticationService } from "../../services/authentication.service";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 
 @Component({
@@ -49,7 +48,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   constructor(
     private http: HttpClient, 
     private router: Router,  
-    private authService: AuthenticationService,
     private errorDialogService: ErrorDialogService) {}
 
   ngOnInit() {
@@ -113,7 +111,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       if (cleanedValue.length) {
         this.searchSet.push(cleanedValue);
       }
-    })
+    });
 
     // Trigger the search here.
     this.agGrid.gridOptions.api.onFilterChanged();
@@ -151,7 +149,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
   onSelectionChanged() {
     let selectedRow: IGridPlasmid = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
-    this.router.navigateByUrl('/home/plasmid-detail/' + selectedRow.plasmid_id);
+    this.router.navigateByUrl('/home/plasmid-detail/' + (selectedRow as IGridPlasmid).plasmid_id);
   }
-
 }

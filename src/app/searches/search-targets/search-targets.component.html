@@ -1,7 +1,7 @@
 <header class="flex">
-  <input #searchArgs placeholder="Search . . ." type="text" size="80">
+  <input #searchArgs placeholder="Search . . ." type="text" size="80" (keyup.enter)="onReturnSearch($event)">
   <button mat-button (click)="onSearch(searchArgs.value)">Search</button>
-  <button mat-button>Refresh</button>
+  <button id="refresh" mat-button (click)="onRefresh()">Refresh</button>
 
   <span>
     <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
@@ -16,6 +16,8 @@
   style="width: 1000px; height: 400px;"
   class="ag-theme-balham"
   [rowData]="rowData$ | async"
+  [rowSelection]="rowSelection"
+  (selectionChanged)="onSelectionChanged()"
   [columnDefs]="columnDefs"
   [pagination]="true"
   [paginationPageSize]="paginationPagesize"
