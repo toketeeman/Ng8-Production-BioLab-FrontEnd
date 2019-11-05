@@ -29,6 +29,7 @@
     "angular-in-memory-web-api": "^0.9.0",
     "rxjs": "~6.5.3",
     "tslib": "^1.10.0",
+    "tslint": "^5.20.1",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
