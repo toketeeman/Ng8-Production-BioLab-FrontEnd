@@ -347,12 +347,12 @@ export class InMemoryDataService implements InMemoryDbService {
     ];
     const plasmidsDetail: IGridPlasmidDetail[] = [
       {
-        feature_name: "STOP_TAA",
+        name: "STOP_TAA",
         feature_type: "gene",
-        position: "[1778:1781](+)",
+        sequence_span: "[1778:1781](+)",
         strand: "1",
-        sequence: "TAA",
-        feature_qualifier: [
+        dna_sequence: "TAA",
+        'feature-qualifier': [
           {
             type: "standard_name",
             value: "STOP"
@@ -360,12 +360,12 @@ export class InMemoryDataService implements InMemoryDbService {
         ]
       },
       {
-        feature_name: "P_prpR",
+        name: "P_prpR",
         feature_type: "regulatory",
-        position: "[1781:1926](-)",
+        sequence_span: "[1781:1926](-)",
         strand: "-1",
-        sequence: "TACATTGACTATATACATACCGAGGACCATGCATAATT",
-        feature_qualifier: [
+        dna_sequence: "TACATTGACTATATACATACCGAGGACCATGCATAATT",
+        'feature-qualifier': [
           {
             type: "standard_name",
             value: "P_prpR"
@@ -377,13 +377,13 @@ export class InMemoryDataService implements InMemoryDbService {
         ]
       },
       {
-        feature_name: "P_prpB",
+        name: "P_prpB",
         feature_type: "regulatory",
-        position: "[194:1781](+)",
+        sequence_span: "[194:1781](+)",
         strand: "1",
-        sequence: "AAGCCTATGCCCTAGGCATCGACTACGACTACGACTACGCGTA" +
+        dna_sequence: "AAGCCTATGCCCTAGGCATCGACTACGACTACGACTACGCGTA" +
                   "CTCGCCGAAAGCCATAGGATTTCACGCTACGATACTGCATGACGTA",
-        feature_qualifier: [
+        'feature-qualifier': [
           {
             type: "standard_name",
             value: "P_prpR"
@@ -395,17 +395,17 @@ export class InMemoryDataService implements InMemoryDbService {
         ]
       },
       {
-        feature_name: "cDsbC",
+        name: "cDsbC",
         feature_type: "CDS",
-        position: "[2032:2719](+)",
+        sequence_span: "[2032:2719](+)",
         strand: "1",
-        sequence: "AACGTCTGCGCGGCGGATGATAGAGCGATGCAATCGCA" +
+        dna_sequence: "AACGTCTGCGCGGCGGATGATAGAGCGATGCAATCGCA" +
                   "TACTAACGTAGATGCACATACATGAGTGACTAGATAGC" +
                   "ATATACACTCGACGCAAAAAGCGTGCACGTAATGCAGC" +
                   "TATGACATAATGCAGTACGCCAGTATTTTAAGCCTATG" +
                   "CCCTAGGCATCGACTACGACTACGACTACGCGTACTCG" +
                   "CCGAAAGCCATAGGATTTCACGCTACGATACTGCATGA",
-        feature_qualifier: [
+        'feature-qualifier': [
           {
             type: "pseudo",
             value: ""

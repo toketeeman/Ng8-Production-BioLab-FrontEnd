@@ -81,12 +81,12 @@ export interface IGridPlasmid {
 }
 
 export interface IGridPlasmidDetail {
-  feature_name: string;
+  name: string;
   feature_type: string;
-  position: string;
+  sequence_span: string;
   strand: string;
-  sequence: string;
-  feature_qualifier: IGridFeatureQualifier[];
+  dna_sequence: string;
+  'feature-qualifier': IGridFeatureQualifier[];
 }
 
 export interface IGridFeatureQualifier {
