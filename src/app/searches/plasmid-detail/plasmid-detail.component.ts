@@ -38,13 +38,13 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     if (isDevMode()) {
       this.plasmidsDetailUrl = devUrls.plasmidsDetailUrl;
     } else {
-      this.plasmidsDetailUrl = prodUrls.plasmidsDetailUrl + this.currentPlasmidId;
+      this.plasmidsDetailUrl = prodUrls.plasmidsDetailUrl + '?plasmid_id=' + this.currentPlasmidId;
     }
 
     this.columnDefs = [
       {
         headerName: "Feature Name",
-        field: "feature_name",
+        field: "name",
         autoHeight: true,
         sortable: true,
         filter: true
@@ -58,7 +58,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Position",
-        field: "position",
+        field: "sequence_span",
         autoHeight: true,
         sortable: true,
         filter: true
@@ -72,7 +72,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Sequence",
-        field: "sequence",
+        field: "dna_sequence",
         autoHeight: true,
         width: 400,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },
@@ -81,7 +81,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Feature Qualifier",
-        field: "feature_qualifier",
+        field: "feature-qualifier",
         autoHeight: true,
         width: 400,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },
@@ -92,6 +92,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     this.rowData$ = this.http.get<IGridPlasmidDetail[]>(this.plasmidsDetailUrl)
                       .pipe(
                         catchError(error => {
+                          console.log(JSON.stringify(error));
                           this.errorDialogService.openDialogForErrorResponse(error, ['message']);
                           const noResults: IGridPlasmidDetail[] = [];
                           return of(noResults);

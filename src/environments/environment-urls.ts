@@ -18,6 +18,6 @@ export const prodUrls = {
   interactionsUrl: "http://localhost:8000/api/v1/absci-targets/subunit-interaction/",
   ptmsUrl: "http://localhost:8000/api/v1/absci-targets/subunit-ptm/",
   plasmidsUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-view",
-  plasmidsDetailUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-view/",
+  plasmidsDetailUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-detail-view",
   targetsUrl: "http://localhost:8000/api/v1/absci-targets/target/"
 };
