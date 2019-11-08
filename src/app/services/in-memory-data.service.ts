@@ -32,6 +32,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein x",
         partner: "partner 1",
+        class: "class 2",
         subunits: "3",
         geneCount: "3",
         project: "akita",
@@ -40,6 +41,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein y",
         partner: "partner 2",
+        class: "class 1",
         subunits: "4",
         geneCount: "3",
         project: "collie",
@@ -48,6 +50,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein z",
         partner: "partner 3",
+        class: "class 6",
         subunits: "1",
         geneCount: "2",
         project: "greyhound",
@@ -56,6 +59,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein c",
         partner: "partner 4",
+        class: "class 5",
         subunits: "2",
         geneCount: "2",
         project: "pug",
@@ -64,6 +68,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein d",
         partner: "partner 5",
+        class: "class 12",
         subunits: "1",
         geneCount: "4",
         project: "retriever",
@@ -72,6 +77,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein q",
         partner: "partner 6",
+        class: "class 8",
         subunits: "1",
         geneCount: "6",
         project: "shepherd",
@@ -80,6 +86,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein f",
         partner: "partner 7",
+        class: "class 4",
         subunits: "4",
         geneCount: "9",
         project: "akita",
@@ -88,6 +95,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein x",
         partner: "partner 8",
+        class: "class 2",
         subunits: "4",
         geneCount: "3",
         project: "poodle",
@@ -96,6 +104,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein d",
         partner: "partner 9",
+        class: "class 9",
         subunits: "3",
         geneCount: "4",
         project: "terrier",
@@ -104,6 +113,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein m",
         partner: "partner 10",
+        class: "class 5",
         subunits: "1",
         geneCount: "2",
         project: "greyhound",
@@ -112,6 +122,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein q",
         partner: "partner 11",
+        class: "class 4",
         subunits: "1",
         geneCount: "2",
         project: "daschund",
@@ -120,6 +131,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein r",
         partner: "partner 12",
+        class: "class 3",
         subunits: "2",
         geneCount: "1",
         project: "pug",
@@ -128,7 +140,8 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein x",
         partner: "partner 13",
-        subunits: "1",
+        class: "class 6",
+        subunits: "8",
         geneCount: "5",
         project: "collie",
         plasmidCount: "2"
@@ -136,6 +149,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein z",
         partner: "partner 14",
+        class: "class 3",
         subunits: "4",
         geneCount: "3",
         project: "corgi",
@@ -144,6 +158,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein c",
         partner: "partner 15",
+        class: "class 5",
         subunits: "1",
         geneCount: "2",
         project: "husky",
@@ -152,6 +167,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein r",
         partner: "partner 16",
+        class: "class 7",
         subunits: "1",
         geneCount: "4",
         project: "beagle",
@@ -160,6 +176,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein m",
         partner: "partner 17",
+        class: "class 21",
         subunits: "1",
         geneCount: "4",
         project: "chihuahua",
@@ -168,6 +185,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein f",
         partner: "partner 18",
+        class: "class 3",
         subunits: "3",
         geneCount: "11",
         project: "bulldog",
@@ -176,6 +194,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein e",
         partner: "partner 19",
+        class: "class 6",
         subunits: "3",
         geneCount: "8",
         project: "collie",
@@ -184,6 +203,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein y",
         partner: "partner 20",
+        class: "class 2",
         subunits: "1",
         geneCount: "2",
         project: "boxer",
@@ -192,6 +212,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein g",
         partner: "partner 21",
+        class: "class 5",
         subunits: "2",
         geneCount: "3",
         project: "chihuahua",
@@ -200,6 +221,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein f",
         partner: "partner 22",
+        class: "class 17",
         subunits: "2",
         geneCount: "2",
         project: "dobermann",
@@ -208,7 +230,8 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein s",
         partner: "partner 23",
-        subunits: "1",
+        class: "class 1",
+        subunits: "3",
         geneCount: "5",
         project: "bulldog",
         plasmidCount: "4"
@@ -216,6 +239,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein z",
         partner: "partner 24",
+        class: "class 21",
         subunits: "3",
         geneCount: "6",
         project: "terrier",
@@ -224,6 +248,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein q",
         partner: "partner 25",
+        class: "class 2",
         subunits: "3",
         geneCount: "6",
         project: "mastiff",
@@ -232,6 +257,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         target: "protein m",
         partner: "partner 26",
+        class: "class 4",
         subunits: "1",
         geneCount: "1",
         project: "samoyed",

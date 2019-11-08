@@ -31,6 +31,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   columnDefs = [
     { headerName: "Target", field: "target", sortable: true, filter: true },
     { headerName: "Partner", field: "partner", sortable: true, filter: true },
+    { headerName: "Class", field: "class", sortable: true, filter: true },
     { headerName: "Subunits", field: "subunits", sortable: true, filter: true },
     { headerName: "Gene Count", field: "geneCount", sortable: true, filter: true },
     { headerName: "Project", field: "project", sortable: true, filter: true },

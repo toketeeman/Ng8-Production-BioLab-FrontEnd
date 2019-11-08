@@ -66,6 +66,7 @@ export interface IPostTranslationalModification {
 export interface IGridTarget {
   target: string;
   partner: string;
+  class: string;
   subunits: string;
   geneCount: string;
   project: string;
