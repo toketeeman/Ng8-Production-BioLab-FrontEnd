@@ -166,7 +166,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.agGrid.api.sizeColumnsToFit();
     window.onresize = () => {
       this.agGrid.api.sizeColumnsToFit();
-    }
+    };
   }
 
   onSelectionChanged() {
