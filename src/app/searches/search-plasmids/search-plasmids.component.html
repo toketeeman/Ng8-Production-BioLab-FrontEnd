@@ -11,16 +11,19 @@
   </span>
 </header>
 
-<ag-grid-angular
-  #agGrid
-  style="width: 1000px; height: 400px;"
-  class="ag-theme-balham"
-  [rowData]="rowData$ | async"
-  [rowSelection]="rowSelection"
-  (selectionChanged)="onSelectionChanged()"
-  [columnDefs]="columnDefs"
-  [pagination]="true"
-  [paginationPageSize]="paginationPagesize"
->
-</ag-grid-angular>
+<div style="width: 100%; height: 600px;">
+  <ag-grid-angular
+    #agGrid
+    style="width: 100%; height: 400px;"
+    class="ag-theme-balham"
+    [rowData]="rowData$ | async"
+    [rowSelection]="rowSelection"
+    (selectionChanged)="onSelectionChanged()"
+    [columnDefs]="columnDefs"
+    [pagination]="true"
+    [paginationPageSize]="paginationPagesize"
+  >
+  </ag-grid-angular>
+</div>
+
 

@@ -46,6 +46,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         headerName: "Feature Name",
         field: "name",
         autoHeight: true,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
         sortable: true,
         filter: true
       },
@@ -53,6 +54,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         headerName: "Feature Type",
         field: "feature_type",
         autoHeight: true,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '10%' },
         sortable: true,
         filter: true
       },
@@ -60,6 +62,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         headerName: "Position",
         field: "sequence_span",
         autoHeight: true,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '8%' },
         sortable: true,
         filter: true
       },
@@ -67,6 +70,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         headerName: "Strand",
         field: "strand",
         autoHeight: true,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '7%' },
         sortable: true,
         filter: true
       },
@@ -75,7 +79,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         field: "dna_sequence",
         autoHeight: true,
         width: 400,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%' },
         sortable: true,
         filter: true
       },
@@ -84,7 +88,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         field: "feature_qualifier",
         autoHeight: true,
         width: 400,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%'  },
         cellRendererFramework: FeatureQualifierRenderer
       }
     ];
@@ -110,7 +114,11 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
     this.agGrid.gridOptions.rowBuffer = 20;   // Default is 10.
 
+    // Responsive design
     this.agGrid.api.sizeColumnsToFit();
+    window.onresize = () => {
+      this.agGrid.api.sizeColumnsToFit();
+    }
   }
 
   onBack() {

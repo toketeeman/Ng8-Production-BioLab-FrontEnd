@@ -26,23 +26,41 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     {
       headerName: "PlasmidId",
       field: "plasmid_id",
+      autoHeight: true,
+      cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '10%' },
       sortable: true,
       filter: true
     },
     {
       headerName: "Description",
       field: "description",
+      autoHeight: true,
+      cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%' },
       sortable: true,
       filter: true
     },
     {
       headerName: "Selectable Markers",
-      field: "markers",
+      field: "marker",
+      autoHeight: true,
+      cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
       sortable: true,
       filter: true
     },
-    { headerName: "Target", field: "target_name", sortable: true, filter: true },
-    { headerName: "Project", field: "project_name", sortable: true, filter: true }
+    { headerName: "Target",
+      field: "target_name",
+      autoHeight: true,
+      cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
+      sortable: true,
+      filter: true
+    },
+    { headerName: "Project",
+      field: "project_name",
+      autoHeight: true,
+      cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
+      sortable: true,
+      filter: true
+    }
   ];
 
   constructor(
@@ -144,7 +162,11 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       filter: true
     };
 
+    // Responsive design
     this.agGrid.api.sizeColumnsToFit();
+    window.onresize = () => {
+      this.agGrid.api.sizeColumnsToFit();
+    }
   }
 
   onSelectionChanged() {

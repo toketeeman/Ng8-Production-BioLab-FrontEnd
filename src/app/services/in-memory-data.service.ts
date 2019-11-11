@@ -268,105 +268,105 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         plasmid_id: "PL4523",
         description: "Description A",
-        markers: "kanamycin",
+        marker: "kanamycin",
         target_name: "protein x",
         project_name: "Akita"
       },
       {
         plasmid_id: "PL4544",
         description: "Description B",
-        markers: "tetracycline",
+        marker: "tetracycline",
         target_name: "protein y",
         project_name: "Doberman"
       },
       {
         plasmid_id: "PL1233",
         description: "Description C",
-        markers: "ampicillin,kanamycin",
+        marker: "ampicillin,kanamycin",
         target_name: "protein z",
         project_name: "Daschhund"
       },
       {
         plasmid_id: "PL5678",
         description: "Description D",
-        markers: "carbenicillin",
+        marker: "carbenicillin",
         target_name: "protein d",
         project_name: "Collie"
       },
       {
         plasmid_id: "PL9821",
         description: "Description E",
-        markers: "clindamycin,trimethoprim",
+        marker: "clindamycin,trimethoprim",
         target_name: "protein e",
         project_name: "Retriever"
       },
       {
         plasmid_id: "PL1074",
         description: "Description F",
-        markers: "kanamycin",
+        marker: "kanamycin",
         target_name: "protein f",
         project_name: "Greyhound"
       },
       {
         plasmid_id:  "PL2223",
         description: "Description G",
-        markers: "sulfamethoxazole ",
+        marker: "sulfamethoxazole ",
         target_name: "protein x",
         project_name: "Pug"
       },
       {
         plasmid_id:  "PL4535",
         description: "Description H",
-        markers: "trimethoprim,metronidazole,doxycycline",
+        marker: "trimethoprim,metronidazole,doxycycline",
         target_name: "protein e",
         project_name: "Husky"
       },
       {
         plasmid_id:  "PL9623",
         description: "Description I",
-        markers: "clindamycin",
+        marker: "clindamycin",
         target_name: "protein s",
         project_name: "Bulldog"
       },
       {
         plasmid_id:  "PL0723",
         description: "Description J",
-        markers: "metronidazole",
+        marker: "metronidazole",
         target_name: "protein t",
         project_name: "Maltese"
       },
       {
         plasmid_id:  "PL5023",
         description: "Description K",
-        markers: "azithromycin",
+        marker: "azithromycin",
         target_name: "protein y",
         project_name: "Akita"
       },
       {
         plasmid_id: "PL5824",
         description: "Description L",
-        markers: "ciprofloxacin",
+        marker: "ciprofloxacin",
         target_name: "protein z",
         project_name: "Husky"
       },
       {
         plasmid_id: "PL8223",
         description: "Description M",
-        markers: "amoxicillin",
+        marker: "amoxicillin",
         target_name: "protein x",
         project_name: "Pug"
       },
       {
         plasmid_id: "PL3023",
         description: "Description N",
-        markers: "doxycycline",
+        marker: "doxycycline",
         target_name: "protein d",
         project_name: "Husky"
       },
       {
         plasmid_id: "PL9333",
         description: "Description O",
-        markers: "cephalexin",
+        marker: "cephalexin",
         target_name: "protein s",
         project_name: "Beagle"
       }

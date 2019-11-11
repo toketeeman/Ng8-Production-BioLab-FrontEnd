@@ -76,7 +76,7 @@ export interface IGridTarget {
 export interface IGridPlasmid {
   plasmid_id: string;
   description: string;
-  markers: string;
+  marker: string;
   target_name: string;
   project_name: string;
 }
