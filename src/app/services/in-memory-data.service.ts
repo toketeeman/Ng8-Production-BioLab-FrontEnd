@@ -378,7 +378,7 @@ export class InMemoryDataService implements InMemoryDbService {
         sequence_span: "[1778:1781](+)",
         strand: "1",
         dna_sequence: "TAA",
-        'feature-qualifier': [
+        feature_qualifier: [
           {
             type: "standard_name",
             value: "STOP"
@@ -391,7 +391,7 @@ export class InMemoryDataService implements InMemoryDbService {
         sequence_span: "[1781:1926](-)",
         strand: "-1",
         dna_sequence: "TACATTGACTATATACATACCGAGGACCATGCATAATT",
-        'feature-qualifier': [
+        feature_qualifier: [
           {
             type: "standard_name",
             value: "P_prpR"
@@ -409,7 +409,7 @@ export class InMemoryDataService implements InMemoryDbService {
         strand: "1",
         dna_sequence: "AAGCCTATGCCCTAGGCATCGACTACGACTACGACTACGCGTA" +
                   "CTCGCCGAAAGCCATAGGATTTCACGCTACGATACTGCATGACGTA",
-        'feature-qualifier': [
+        feature_qualifier: [
           {
             type: "standard_name",
             value: "P_prpR"
@@ -431,7 +431,7 @@ export class InMemoryDataService implements InMemoryDbService {
                   "TATGACATAATGCAGTACGCCAGTATTTTAAGCCTATG" +
                   "CCCTAGGCATCGACTACGACTACGACTACGCGTACTCG" +
                   "CCGAAAGCCATAGGATTTCACGCTACGATACTGCATGA",
-        'feature-qualifier': [
+        feature_qualifier: [
           {
             type: "pseudo",
             value: ""

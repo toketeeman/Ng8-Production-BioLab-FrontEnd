@@ -81,7 +81,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Feature Qualifier",
-        field: "feature-qualifier",
+        field: "feature_qualifier",
         autoHeight: true,
         width: 400,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word' },

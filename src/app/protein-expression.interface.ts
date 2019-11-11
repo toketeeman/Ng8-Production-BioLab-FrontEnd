@@ -87,7 +87,7 @@ export interface IGridPlasmidDetail {
   sequence_span: string;
   strand: string;
   dna_sequence: string;
-  'feature-qualifier': IGridFeatureQualifier[];
+  feature_qualifier: IGridFeatureQualifier[];
 }
 
 export interface IGridFeatureQualifier {
