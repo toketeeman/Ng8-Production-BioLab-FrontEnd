@@ -42,7 +42,7 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 import { environment } from "../environments/environment";
 import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
 import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
-import { AgGridModule } from "ag-grid-angular";
+import { AgGridModule } from "@ag-grid-community/angular";
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
