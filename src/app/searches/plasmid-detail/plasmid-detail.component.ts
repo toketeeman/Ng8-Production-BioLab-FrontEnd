@@ -25,6 +25,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
   currentPlasmidId: string;
   plasmidsDetailUrl: string;
   columnDefs;
+  statusBar;
 
   constructor(
     private http: HttpClient,
@@ -94,6 +95,19 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         cellRendererFramework: FeatureQualifierRenderer
       }
     ];
+
+    this.statusBar = {
+      statusPanels: [
+        {
+          statusPanel: "agTotalAndFilteredRowCountComponent",
+          align: "left"
+        },
+        {
+          statusPanel: "agTotalRowCountComponent",
+          align: "left"
+        }
+      ]
+    };
 
     this.rowData$ = this.http.get<IGridPlasmidDetail[]>(this.plasmidsDetailUrl)
                       .pipe(
