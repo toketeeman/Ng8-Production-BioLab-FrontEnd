@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
 import { AppModule } from "./app/app.module";
 import { environment } from "./environments/environment";
-import { LicenseManager } from "@ag-grid-enterprise/all-modules"
+import { LicenseManager } from "@ag-grid-enterprise/all-modules";
 
 if (environment.production) {
   enableProdMode();
