@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ICellRendererAngularComp } from "ag-grid-angular";
+import { ICellRendererAngularComp } from "@ag-grid-community/angular";
 
 @Component({
   templateUrl: './feature-qualifier-renderer.component.html',
@@ -17,8 +17,8 @@ export class FeatureQualifierRenderer implements ICellRendererAngularComp {
   agInit(params: any): void {
     this.featureQualifier = params.value;  // A feature qualifier is an array of qualifiers.
   }
-  
-  afterGuiAttached?(params?: import("ag-grid-community").IAfterGuiAttachedParams): void {
+
+  afterGuiAttached?(params?: import("@ag-grid-community/all-modules").IAfterGuiAttachedParams): void {
     throw new Error("Method not implemented.");
   }
 }

@@ -6,7 +6,8 @@ import { catchError } from 'rxjs/operators';
 
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import {  IGridPlasmid , IGridPlasmidDetail, IGridFeatureQualifier } from "../../protein-expression.interface";
-import { AgGridAngular } from "ag-grid-angular";
+import { AgGridAngular } from "@ag-grid-community/angular";
+import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
 import { AuthenticationService } from "../../services/authentication.service";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { FeatureQualifierRenderer } from './feature-qualifier-renderer.component';
@@ -19,6 +20,7 @@ import { FeatureQualifierRenderer } from './feature-qualifier-renderer.component
 export class PlasmidDetailComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
 
+  public modules: Module[] = AllModules;
   rowData$: Observable<IGridPlasmidDetail[]>;
   currentPlasmidId: string;
   plasmidsDetailUrl: string;
@@ -114,7 +116,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
     this.agGrid.gridOptions.rowBuffer = 20;   // Default is 10.
 
-    // Responsive design
+    // Responsive window behavior.
     this.agGrid.api.sizeColumnsToFit();
     window.onresize = () => {
       this.agGrid.api.sizeColumnsToFit();

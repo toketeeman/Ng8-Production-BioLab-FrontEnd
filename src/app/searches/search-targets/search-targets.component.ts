@@ -12,7 +12,8 @@ import { catchError } from 'rxjs/operators';
 
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import { IGridTarget } from "../../protein-expression.interface";
-import { AgGridAngular } from "ag-grid-angular";
+import { AgGridAngular } from "@ag-grid-community/angular";
+import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 
 @Component({
@@ -22,6 +23,7 @@ import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.serv
 export class SearchTargetsComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
 
+  public modules: Module[] = AllModules;
   searchSet: string[] = [];
   rowData$: Observable<IGridTarget[]>;
   rowSelection = "single";

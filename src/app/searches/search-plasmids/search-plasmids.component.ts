@@ -6,7 +6,8 @@ import { catchError } from 'rxjs/operators';
 
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import { IGridPlasmid } from "../../protein-expression.interface";
-import { AgGridAngular } from "ag-grid-angular";
+import { AgGridAngular } from "@ag-grid-community/angular";
+import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 
 @Component({
@@ -16,6 +17,7 @@ import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.serv
 export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
 
+  public modules: Module[] = AllModules;
   searchSet: string[] = [];
   rowData$: Observable<IGridPlasmid[]>;
   rowSelection = "single";
@@ -162,7 +164,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       filter: true
     };
 
-    // Responsive design
+    // Responsive window behavior.
     this.agGrid.api.sizeColumnsToFit();
     window.onresize = () => {
       this.agGrid.api.sizeColumnsToFit();
