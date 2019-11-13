@@ -20,50 +20,11 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   public modules: Module[] = AllModules;
   searchSet: string[] = [];
   rowData$: Observable<IGridPlasmid[]>;
-  rowSelection = "single";
+  rowSelection = "multiple";
   plasmidsUrl: string;
   paginationPagesize: number;
 
-  columnDefs = [
-    {
-      headerName: "PlasmidId",
-      field: "plasmid_id",
-      autoHeight: true,
-      cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '10%' },
-      sortable: true,
-      filter: true
-    },
-    {
-      headerName: "Description",
-      field: "description",
-      autoHeight: true,
-      cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%' },
-      sortable: true,
-      filter: true
-    },
-    {
-      headerName: "Selectable Markers",
-      field: "marker",
-      autoHeight: true,
-      cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
-      sortable: true,
-      filter: true
-    },
-    { headerName: "Target",
-      field: "target_name",
-      autoHeight: true,
-      cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
-      sortable: true,
-      filter: true
-    },
-    { headerName: "Project",
-      field: "project_name",
-      autoHeight: true,
-      cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
-      sortable: true,
-      filter: true
-    }
-  ];
+  columnDefs;
 
   constructor(
     private http: HttpClient,
@@ -76,6 +37,47 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     } else {
       this.plasmidsUrl = prodUrls.plasmidsUrl;
     }
+
+    this.columnDefs = [
+      {
+        headerName: "PlasmidId",
+        field: "plasmid_id",
+        autoHeight: true,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '10%' },
+        sortable: true,
+        filter: true
+      },
+      {
+        headerName: "Description",
+        field: "description",
+        autoHeight: true,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%' },
+        sortable: true,
+        filter: true
+      },
+      {
+        headerName: "Selectable Markers",
+        field: "marker",
+        autoHeight: true,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
+        sortable: true,
+        filter: true
+      },
+      { headerName: "Target",
+        field: "target_name",
+        autoHeight: true,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
+        sortable: true,
+        filter: true
+      },
+      { headerName: "Project",
+        field: "project_name",
+        autoHeight: true,
+        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
+        sortable: true,
+        filter: true
+      }
+    ];
 
     this.paginationPagesize = 10;
     this.rowData$ = this.http.get<IGridPlasmid[]>(this.plasmidsUrl)
@@ -177,6 +179,17 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   }
 
   onExcelExport() {
-    console.log("Excel Export!");
+    const params = {
+      onlySelectedAllPages: true
+    };
+
+    this.agGrid.api.forEachNode( (rowNode, index) => {
+      rowNode.setSelected(false, false);
+    });
+    this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
+      rowNode.setSelected(true, false);
+    });
+
+    this.agGrid.api.exportDataAsExcel(params);
   }
 }

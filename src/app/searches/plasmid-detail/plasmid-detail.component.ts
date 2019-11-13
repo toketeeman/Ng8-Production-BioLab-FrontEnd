@@ -22,6 +22,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
   public modules: Module[] = AllModules;
   rowData$: Observable<IGridPlasmidDetail[]>;
+  rowSelection = "multiple";
   currentPlasmidId: string;
   plasmidsDetailUrl: string;
   columnDefs;
@@ -139,6 +140,23 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
   onBack() {
     this.router.navigateByUrl('/home/search-plasmids');
+  }
+
+  onExcelExport() {
+    console.log("Excel Export!");
+
+    const params = {
+      onlySelected: true
+    };
+
+    this.agGrid.api.forEachNode( (rowNode, index) => {
+      rowNode.setSelected(false, false);
+    });
+    this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
+      rowNode.setSelected(true, false);
+    });
+
+    this.agGrid.api.exportDataAsExcel(params);
   }
 
 
