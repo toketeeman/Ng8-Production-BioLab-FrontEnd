@@ -175,4 +175,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     const selectedRow: IGridPlasmid = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
     this.router.navigateByUrl('/home/plasmid-detail/' + (selectedRow as IGridPlasmid).plasmid_id);
   }
+
+  onExcelExport() {
+    console.log("Excel Export!");
+  }
 }
