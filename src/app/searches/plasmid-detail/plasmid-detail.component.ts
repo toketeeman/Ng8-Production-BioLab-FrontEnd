@@ -146,6 +146,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     console.log("Excel Export!");
 
     const params = {
+      filename: this.currentPlasmidId,
       onlySelected: true
     };
 

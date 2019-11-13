@@ -23,6 +23,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   rowSelection = "multiple";
   plasmidsUrl: string;
   paginationPagesize: number;
+  ignoreSelectionChange = false;
 
   columnDefs;
 
@@ -174,14 +175,19 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   }
 
   onSelectionChanged() {
-    const selectedRow: IGridPlasmid = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
-    this.router.navigateByUrl('/home/plasmid-detail/' + (selectedRow as IGridPlasmid).plasmid_id);
+    if (!this.ignoreSelectionChange) {
+      const selectedRow: IGridPlasmid = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
+      this.router.navigateByUrl('/home/plasmid-detail/' + (selectedRow as IGridPlasmid).plasmid_id);
+    }
   }
 
   onExcelExport() {
     const params = {
+      filename: 'PlasmidsSearch',
       onlySelectedAllPages: true
     };
+
+    this.ignoreSelectionChange = true;
 
     this.agGrid.api.forEachNode( (rowNode, index) => {
       rowNode.setSelected(false, false);
@@ -191,5 +197,11 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     });
 
     this.agGrid.api.exportDataAsExcel(params);
+
+    this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
+      rowNode.setSelected(false, false);
+    });
+
+    setTimeout( () => { this.ignoreSelectionChange = false; }, 1000 );
   }
 }
