@@ -9,7 +9,7 @@ if (environment.production) {
   enableProdMode();
 }
 
-LicenseManager.setLicenseKey("124b6a9b7eaea9a1e95847a569e45996");
+LicenseManager.setLicenseKey("AbSci_Protein_Target_Database_single_1_Devs__11_November_2020_[v2]_MTYwNTA1MjgwMDAwMA==124b6a9b7eaea9a1e95847a569e45996");
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
