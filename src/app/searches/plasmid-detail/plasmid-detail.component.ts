@@ -90,7 +90,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%' },
         sortable: true,
         filter: true,
-        cellClass: ["text-is-wrapped","dna-sequence-font"]
+        cellClass: ["text-is-wrapped", "dna-sequence-font"]
       },
       {
         headerName: "Feature Qualifier",
