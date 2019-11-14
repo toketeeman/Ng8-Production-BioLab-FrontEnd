@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import {  IGridPlasmid , IGridPlasmidDetail, IGridFeatureQualifier } from "../../protein-expression.interface";
 import { AgGridAngular } from "@ag-grid-community/angular";
-import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
+import { AllModules, Module, ExcelData, ExcelCell, ExcelExportParams } from "@ag-grid-enterprise/all-modules";
 import { AuthenticationService } from "../../services/authentication.service";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { FeatureQualifierRenderer } from './feature-qualifier-renderer.component';
@@ -139,6 +139,13 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
     this.agGrid.gridOptions.excelStyles = [
       {
+        id: "header",
+        font: {
+          bold: true,
+          size: 20
+        }
+      },
+      {
         id: "text-is-wrapped",
         alignment: {
           wrapText: true,
@@ -151,6 +158,13 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         font: {
           bold: true,
           size: 10
+        }
+      },
+      {
+        id: "plasmid-detail-title",
+        font: {
+          bold: true,
+          size: 24
         }
       }
     ];
@@ -182,14 +196,24 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
   }
 
   onExcelExport() {
-    console.log("Excel Export!");
-
     const exportParams = {
-      filename: this.currentPlasmidId,
+      fileName: this.currentPlasmidId,
       onlySelected: true,
       processCellCallback: (params: any) => {
         return this.convertFeatureQualifiersToExport(params);
-      }
+      },
+      // customHeader: [
+      //                 [],
+      //                 [{
+      //                   styleId: 'plasmid-detail-title',
+      //                   data: {
+      //                     type: 'String',
+      //                     value: this.currentPlasmidId
+      //                   },
+      //                   mergeAcross: 5
+      //                 }],
+      //                 []
+      //               ]
     };
 
     this.agGrid.api.forEachNode( (rowNode, index) => {

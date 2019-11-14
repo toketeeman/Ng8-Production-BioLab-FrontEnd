@@ -183,7 +183,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
   onExcelExport() {
     const params = {
-      filename: 'PlasmidsSearch',
+      fileName: 'PlasmidsSearch',
       onlySelectedAllPages: true
     };
 
