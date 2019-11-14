@@ -143,9 +143,15 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
   }
 
   convertFeatureQualifiersToExport( params: any ): string {
-    // console.log("Column field: ", params.column.colDef.field);
-    if (params.value && params.column.colDef.field === 'feature_qualifier') {
-      return "To Be Processed!";
+    if (params.column.colDef.field === 'feature_qualifier' && params.value ) {
+      const qualifiers = params.value;
+      if (qualifiers instanceof Array && qualifiers.length > 0) {
+        let convertedQualifiers = "";
+        qualifiers.forEach( (qualifier) => {
+          convertedQualifiers = convertedQualifiers.concat(qualifier.type + ": " + qualifier.value + "  ");
+        });
+        return convertedQualifiers;
+      }
     } else {
       return params.value;
     }
