@@ -52,7 +52,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
         sortable: true,
-        filter: true
+        filter: true,
+        cellClass: "text-is-wrapped"
       },
       {
         headerName: "Feature Type",
@@ -60,7 +61,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '10%' },
         sortable: true,
-        filter: true
+        filter: true,
+        cellClass: "text-is-wrapped"
       },
       {
         headerName: "Position",
@@ -68,7 +70,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '8%' },
         sortable: true,
-        filter: true
+        filter: true,
+        cellClass: "text-is-wrapped"
       },
       {
         headerName: "Strand",
@@ -76,7 +79,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '7%' },
         sortable: true,
-        filter: true
+        filter: true,
+        cellClass: "text-is-wrapped"
       },
       {
         headerName: "Sequence",
@@ -85,7 +89,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         width: 400,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%' },
         sortable: true,
-        filter: true
+        filter: true,
+        cellClass: ["text-is-wrapped","dna-sequence-font"]
       },
       {
         headerName: "Feature Qualifier",
@@ -93,7 +98,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         width: 400,
         cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%'  },
-        cellRendererFramework: FeatureQualifierRenderer
+        cellRendererFramework: FeatureQualifierRenderer,
+        cellClass: "text-is-wrapped"
       }
     ];
 
@@ -129,7 +135,25 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       filter: true
     };
 
-    this.agGrid.gridOptions.rowBuffer = 20;   // Default is 10.
+    this.agGrid.gridOptions.rowBuffer = 20;   // Default is 10. Being generous.
+
+    this.agGrid.gridOptions.excelStyles = [
+      {
+        id: "text-is-wrapped",
+        alignment: {
+          wrapText: true,
+          vertical: "Top",
+          horizontal: "Left"
+        }
+      },
+      {
+        id: "dna-sequence-font",
+        font: {
+          bold: true,
+          size: 10
+        }
+      }
+    ];
 
     // Responsive window behavior.
     this.agGrid.api.sizeColumnsToFit();
@@ -148,7 +172,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       if (qualifiers instanceof Array && qualifiers.length > 0) {
         let convertedQualifiers = "";
         qualifiers.forEach( (qualifier) => {
-          convertedQualifiers = convertedQualifiers.concat(qualifier.type + ": " + qualifier.value + "  ");
+          convertedQualifiers = convertedQualifiers.concat(qualifier.type + ": " + qualifier.value + "\n");
         });
         return convertedQualifiers;
       }
