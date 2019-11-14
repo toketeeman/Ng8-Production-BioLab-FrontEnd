@@ -142,12 +142,24 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/home/search-plasmids');
   }
 
+  convertFeatureQualifiersToExport( params: any ): string {
+    // console.log("Column field: ", params.column.colDef.field);
+    if (params.value && params.column.colDef.field === 'feature_qualifier') {
+      return "To Be Processed!";
+    } else {
+      return params.value;
+    }
+  }
+
   onExcelExport() {
     console.log("Excel Export!");
 
-    const params = {
+    const exportParams = {
       filename: this.currentPlasmidId,
-      onlySelected: true
+      onlySelected: true,
+      processCellCallback: (params: any) => {
+        return this.convertFeatureQualifiersToExport(params);
+      }
     };
 
     this.agGrid.api.forEachNode( (rowNode, index) => {
@@ -157,8 +169,10 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       rowNode.setSelected(true, false);
     });
 
-    this.agGrid.api.exportDataAsExcel(params);
+    this.agGrid.api.exportDataAsExcel(exportParams);
+
+    this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
+      rowNode.setSelected(false, false);
+    });
   }
-
-
 }
