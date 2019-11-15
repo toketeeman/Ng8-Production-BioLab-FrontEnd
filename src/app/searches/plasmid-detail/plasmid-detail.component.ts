@@ -139,7 +139,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
     this.agGrid.gridOptions.excelStyles = [
       {
-        id: "header",
+        id: "header",   // This specific id is required here for the headers.
         font: {
           bold: true,
           size: 20
@@ -196,12 +196,12 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
   }
 
   onExcelExport() {
-    const exportParams = {
+    const exportParams: any = {
       fileName: this.currentPlasmidId,
       onlySelected: true,
       processCellCallback: (params: any) => {
         return this.convertFeatureQualifiersToExport(params);
-      },
+      }
       // customHeader: [
       //                 [],
       //                 [{
