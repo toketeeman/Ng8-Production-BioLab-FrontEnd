@@ -47,59 +47,87 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
     this.columnDefs = [
       {
-        headerName: "Feature Name",
-        field: "name",
-        autoHeight: true,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
-        sortable: true,
-        filter: true,
-        cellClass: "text-is-wrapped"
-      },
-      {
-        headerName: "Feature Type",
-        field: "feature_type",
-        autoHeight: true,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '10%' },
-        sortable: true,
-        filter: true,
-        cellClass: "text-is-wrapped"
-      },
-      {
-        headerName: "Position",
-        field: "sequence_span",
-        autoHeight: true,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '8%' },
-        sortable: true,
-        filter: true,
-        cellClass: "text-is-wrapped"
-      },
-      {
-        headerName: "Strand",
-        field: "strand",
-        autoHeight: true,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '7%' },
-        sortable: true,
-        filter: true,
-        cellClass: "text-is-wrapped"
-      },
-      {
-        headerName: "Sequence",
-        field: "dna_sequence",
-        autoHeight: true,
-        width: 400,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%' },
-        sortable: true,
-        filter: true,
-        cellClass: ["text-is-wrapped", "dna-sequence-font"]
-      },
-      {
-        headerName: "Feature Qualifier",
-        field: "feature_qualifier",
-        autoHeight: true,
-        width: 400,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%'  },
-        cellRendererFramework: FeatureQualifierRenderer,
-        cellClass: "text-is-wrapped"
+        headerName: this.currentPlasmidId,
+        children:
+          [
+            {
+              headerName: "Feature Name",
+              field: "name",
+              autoHeight: true,
+              cellStyle: {
+                'white-space': 'normal',
+                'overflow-wrap': 'break-word',
+                width: '20%'
+              },
+              sortable: true,
+              filter: true,
+              cellClass: "text-is-wrapped"
+            },
+            {
+              headerName: "Feature Type",
+              field: "feature_type",
+              autoHeight: true,
+              cellStyle: { 'white-space': 'normal',
+                'overflow-wrap': 'break-word',
+                width: '10%'
+              },
+              sortable: true,
+              filter: true,
+              cellClass: "text-is-wrapped"
+            },
+            {
+              headerName: "Position",
+              field: "sequence_span",
+              autoHeight: true,
+              cellStyle: { 'white-space': 'normal',
+                'overflow-wrap': 'break-word',
+                width: '8%'
+              },
+              sortable: true,
+              filter: true,
+              cellClass: "text-is-wrapped"
+            },
+            {
+              headerName: "Strand",
+              field: "strand",
+              autoHeight: true,
+              cellStyle: { 'white-space': 'normal',
+                'overflow-wrap': 'break-word',
+                width: '7%'
+              },
+              sortable: true,
+              filter: true,
+              cellClass: "text-is-wrapped"
+            },
+            {
+              headerName: "Sequence",
+              field: "dna_sequence",
+              autoHeight: true,
+              width: 400,
+              cellStyle: {
+                'white-space': 'normal',
+                'overflow-wrap': 'break-word',
+                'font-weight': 'bold',
+                'font-size': '8pt',
+                width: '25%'
+              },
+              sortable: true,
+              filter: true,
+              cellClass: ["text-is-wrapped", "dna-sequence-font"]
+            },
+            {
+              headerName: "Feature Qualifier",
+              field: "feature_qualifier",
+              autoHeight: true,
+              width: 400,
+              cellStyle: { 'white-space': 'normal',
+                'overflow-wrap': 'break-word',
+                width: '25%'
+              },
+              cellRendererFramework: FeatureQualifierRenderer,
+              cellClass: "text-is-wrapped"
+            }
+          ]
       }
     ];
 
@@ -164,7 +192,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         id: "plasmid-detail-title",
         font: {
           bold: true,
-          size: 24
+          size: 30
         }
       }
     ];
@@ -201,19 +229,19 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       onlySelected: true,
       processCellCallback: (params: any) => {
         return this.convertFeatureQualifiersToExport(params);
-      }
-      // customHeader: [
-      //                 [],
-      //                 [{
-      //                   styleId: 'plasmid-detail-title',
-      //                   data: {
-      //                     type: 'String',
-      //                     value: this.currentPlasmidId
-      //                   },
-      //                   mergeAcross: 5
-      //                 }],
-      //                 []
-      //               ]
+      },
+      customHeader: [
+                      [],
+                      [{
+                        styleId: 'plasmid-detail-title',
+                        data: {
+                          type: 'String',
+                          value: this.currentPlasmidId
+                        },
+                        mergeAcross: 6
+                      }],
+                      []
+                    ]
     };
 
     this.agGrid.api.forEachNode( (rowNode, index) => {
