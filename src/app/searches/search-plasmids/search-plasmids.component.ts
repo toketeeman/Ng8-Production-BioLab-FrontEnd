@@ -41,42 +41,67 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
     this.columnDefs = [
       {
-        headerName: "PlasmidId",
+        headerName: "Plasmid Id",
         field: "plasmid_id",
         autoHeight: true,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '10%' },
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '10%'
+        },
         sortable: true,
-        filter: true
+        filter: true,
+        cellClass: "text-is-wrapped"
       },
       {
         headerName: "Description",
         field: "description",
         autoHeight: true,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '25%' },
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '25%'
+        },
         sortable: true,
-        filter: true
+        filter: true,
+        cellClass: "text-is-wrapped"
       },
       {
         headerName: "Selectable Markers",
         field: "marker",
         autoHeight: true,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '20%'
+        },
         sortable: true,
-        filter: true
+        filter: true,
+        cellClass: "text-is-wrapped"
       },
       { headerName: "Target",
         field: "target_name",
         autoHeight: true,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '20%'
+        },
         sortable: true,
-        filter: true
+        filter: true,
+        cellClass: "text-is-wrapped"
       },
       { headerName: "Project",
         field: "project_name",
         autoHeight: true,
-        cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word', width: '20%' },
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '20%'
+        },
         sortable: true,
-        filter: true
+        filter: true,
+        cellClass: "text-is-wrapped"
       }
     ];
 
@@ -166,6 +191,26 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.defaultColDef = {
       filter: true
     };
+
+    this.agGrid.gridOptions.rowBuffer = 20;   // Default is 10. Being generous.
+
+    this.agGrid.gridOptions.excelStyles = [
+      {
+        id: "header",   // This specific id is required here for the headers.
+        font: {
+          bold: true,
+          size: 20
+        }
+      },
+      {
+        id: "text-is-wrapped",
+        alignment: {
+          wrapText: true,
+          vertical: "Top",
+          horizontal: "Left"
+        }
+      }
+    ];
 
     // Responsive window behavior.
     this.agGrid.api.sizeColumnsToFit();

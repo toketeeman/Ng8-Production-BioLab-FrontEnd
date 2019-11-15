@@ -5,7 +5,7 @@ import { Observable, of } from "rxjs";
 import { catchError } from 'rxjs/operators';
 
 import { devUrls, prodUrls } from "../../../environments/environment-urls";
-import {  IGridPlasmid , IGridPlasmidDetail, IGridFeatureQualifier } from "../../protein-expression.interface";
+import { IGridPlasmidDetail } from "../../protein-expression.interface";
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module, ExcelData, ExcelCell, ExcelExportParams } from "@ag-grid-enterprise/all-modules";
 import { AuthenticationService } from "../../services/authentication.service";
