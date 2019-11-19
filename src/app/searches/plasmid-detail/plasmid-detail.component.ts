@@ -27,6 +27,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
   plasmidsDetailUrl: string;
   columnDefs;
   statusBar;
+  showBackButton: boolean;
 
   constructor(
     private http: HttpClient,
@@ -35,8 +36,13 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     private errorDialogService: ErrorDialogService,
     private route: ActivatedRoute) {}
 
-
   ngOnInit() {
+    if ((document.referrer as string).toLowerCase().includes("slims")) {
+      this.showBackButton = false;
+    } else {
+       this.showBackButton = true;
+    }
+
     this.currentPlasmidId = this.route.snapshot.paramMap.get('id');
 
     if (isDevMode()) {

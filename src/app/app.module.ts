@@ -47,6 +47,7 @@ import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
 import { FeatureQualifierRenderer } from './searches/plasmid-detail/feature-qualifier-renderer.component';
+import { SlimsComponent } from './slims/slims/slims.component';
 
 const appImports = [
   BrowserModule,
@@ -107,7 +108,8 @@ if (!environment.production) {
     AutoFocusDirective,
     ErrorDialogComponent,
     PlasmidDetailComponent,
-    FeatureQualifierRenderer
+    FeatureQualifierRenderer,
+    SlimsComponent
   ],
   imports: appImports,
   providers: [

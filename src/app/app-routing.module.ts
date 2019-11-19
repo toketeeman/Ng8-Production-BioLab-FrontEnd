@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+
 import { NewTargetComponent } from "./new-target/new-target.component";
 import { SubunitInteractionsComponent } from "./subunit-interactions/subunit-interactions.component";
 import { LoginFormComponent } from "./auth/login-form/login-form.component";
@@ -13,6 +14,8 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
 import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
+import { SlimsComponent } from './slims/slims/slims.component';
+import { SlimsAccessGuard } from "./guards/slims-access.guard";
 
 const routes: Routes = [
   {
@@ -53,7 +56,18 @@ const routes: Routes = [
       {
         path: "plasmid-detail/:id",
         component: PlasmidDetailComponent
-      },
+      }
+    ]
+  },
+  {
+    path: "slims",
+    component: SlimsComponent,
+    canActivate: [SlimsAccessGuard],
+    children: [
+      {
+        path: "plasmids/:id",
+        component: PlasmidDetailComponent
+      }
     ]
   },
   { path: "", redirectTo: "home/add-target", pathMatch: "full" },
