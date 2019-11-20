@@ -1,4 +1,10 @@
-import { Component, OnInit, isDevMode, ViewChild, AfterViewInit } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  isDevMode,
+  ViewChild,
+  AfterViewInit
+} from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";

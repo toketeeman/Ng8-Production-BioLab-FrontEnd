@@ -26,19 +26,11 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   public modules: Module[] = AllModules;
   searchSet: string[] = [];
   rowData$: Observable<IGridTarget[]>;
-  rowSelection = "single";
+  rowSelection = "multiple";
   targetsUrl: string;
   paginationPagesize: number;
-
-  columnDefs = [
-    { headerName: "Target", field: "target", sortable: true, filter: true },
-    { headerName: "Partner", field: "partner", sortable: true, filter: true },
-    { headerName: "Class", field: "class", sortable: true, filter: true },
-    { headerName: "Subunits", field: "subunits", sortable: true, filter: true },
-    { headerName: "Gene Count", field: "geneCount", sortable: true, filter: true },
-    { headerName: "Project", field: "project", sortable: true, filter: true },
-    { headerName: "Plasmid Count", field: "plasmidCount", sortable: true, filter: true }
-  ];
+  ignoreSelectionChange = false;
+  columnDefs;
 
   constructor(
     private http: HttpClient,
@@ -51,6 +43,100 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     } else {
       this.targetsUrl = prodUrls.targetsUrl;
     }
+
+    this.columnDefs = [
+      {
+        headerName: "Target",
+        field: "target",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: true,
+        filter: true,
+        cellClass: "text-is-wrapped"
+      },
+      {
+        headerName: "Partner",
+        field: "partner",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: true,
+        filter: true,
+        cellClass: "text-is-wrapped"
+      },
+      {
+        headerName: "Class",
+        field: "class",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: true,
+        filter: true,
+        cellClass: "text-is-wrapped"
+      },
+      {
+        headerName: "Subunits",
+        field: "subunits",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: true,
+        filter: true,
+        cellClass: "text-is-wrapped"
+      },
+      {
+        headerName: "Gene Count",
+        field: "geneCount",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: true,
+        filter: true,
+        cellClass: "text-is-wrapped"
+      },
+      {
+        headerName: "Project",
+        field: "project",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: true,
+        filter: true,
+        cellClass: "text-is-wrapped"
+      },
+      {
+        headerName: "Plasmid Count",
+        field: "plasmidCount",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: true,
+        filter: true,
+        cellClass: "text-is-wrapped"
+      }
+    ];
 
     this.paginationPagesize = 10;
     this.rowData$ = this.http.get<IGridTarget[]>(this.targetsUrl)
@@ -139,6 +225,26 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       filter: true
     };
 
+    this.agGrid.gridOptions.rowBuffer = 20;   // Default is 10. Being generous.
+
+    this.agGrid.gridOptions.excelStyles = [
+      {
+        id: "header",   // This specific id is required here for the headers.
+        font: {
+          bold: true,
+          size: 20
+        }
+      },
+      {
+        id: "text-is-wrapped",
+        alignment: {
+          wrapText: true,
+          vertical: "Top",
+          horizontal: "Left"
+        }
+      }
+    ];
+
     // Responsive window behavior.
     this.agGrid.api.sizeColumnsToFit();
     window.onresize = () => {
@@ -152,6 +258,26 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   }
 
   onExcelExport() {
-    return null;
+    const params = {
+      fileName: 'TargetsSearch',
+      onlySelectedAllPages: true
+    };
+
+    this.ignoreSelectionChange = true;
+
+    this.agGrid.api.forEachNode( (rowNode, index) => {
+      rowNode.setSelected(false, false);
+    });
+    this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
+      rowNode.setSelected(true, false);
+    });
+
+    this.agGrid.api.exportDataAsExcel(params);
+
+    this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
+      rowNode.setSelected(false, false);
+    });
+
+    setTimeout( () => { this.ignoreSelectionChange = false; }, 1000 );
   }
 }
