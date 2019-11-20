@@ -248,6 +248,13 @@ tr {
   }
 }
 
+/* Needed to remove nasty 24pt white border around the error dialog modalscaused by angular material! */
+/* Also nicely removes ugly scrollbars from ag-Grid column filter menus! */
 ::-webkit-scrollbar {
   width: 0px;
+}
+
+/* Required for ag-Grid set filters due to reckless label styling at line 179 that overrode ag-Grid's styling! */
+label.ag-set-filter-item  {
+  margin: 0px 0px 16px 0px !important;
 }
