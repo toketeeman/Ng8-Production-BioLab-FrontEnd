@@ -24,7 +24,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   plasmidsUrl: string;
   paginationPagesize: number;
   ignoreSelectionChange = false;
-
   columnDefs;
 
   constructor(

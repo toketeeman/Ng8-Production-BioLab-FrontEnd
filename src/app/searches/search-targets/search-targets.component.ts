@@ -139,11 +139,17 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       filter: true
     };
 
+    // Responsive window behavior.
     this.agGrid.api.sizeColumnsToFit();
+    window.onresize = () => {
+      this.agGrid.api.sizeColumnsToFit();
+    };
   }
 
   onSelectionChanged() {
     const selectedRow: IGridTarget = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
     this.router.navigateByUrl('/home/target-detail/' + (selectedRow as IGridTarget).target);
   }
+
+  onExcelExport() {}
 }
