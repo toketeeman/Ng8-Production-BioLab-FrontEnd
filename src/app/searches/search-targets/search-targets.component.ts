@@ -151,5 +151,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/home/target-detail/' + (selectedRow as IGridTarget).target);
   }
 
-  onExcelExport() {}
+  onExcelExport() {
+    return null;
+  }
 }
