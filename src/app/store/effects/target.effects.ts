@@ -29,7 +29,7 @@ export class TargetEffects {
       return this.targetRegistrationService.registerTarget(data).pipe(
         map(targetObj => {
           return new NewTargetSuccess({
-            target: targetObj.target,
+            target: targetObj.target_name,
             partner: targetObj.partner,
             protein_class_pk: targetObj.protein_class_pk,
             notes: targetObj.notes,

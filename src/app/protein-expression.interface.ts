@@ -5,7 +5,7 @@ export interface IUser {
 }
 
 export interface ITarget {
-  target: string;
+  target_name: string;
   partner: string;
   protein_class_pk: number;
   notes: string;
@@ -48,17 +48,17 @@ export interface IFastaResponse {
 }
 
 export interface ISubunitInteraction {
-  subunit_one: number;
+  subunit_one_name: string;
   subunit_one_copy: number;
-  subunit_two: number;
+  subunit_two_name: string;
   subunit_two_copy: number;
   interaction: string;
 }
 
 export interface IPostTranslationalModification {
-  subunit_one: number;
+  subunit_one_name: string;
   subunit_one_residue: number;
-  subunit_two: number;
+  subunit_two_name: string;
   subunit_two_residue: number;
   ptm: string;
 }
@@ -93,4 +93,10 @@ export interface IGridPlasmidDetail {
 export interface IGridFeatureQualifier {
   type: string;
   value: string;
+}
+
+export interface IGridTargetDetail {
+  target: ITarget;
+  interactions: ISubunitInteraction[];
+  ptms: IPostTranslationalModification[];
 }

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { InMemoryDbService } from "angular-in-memory-web-api";
 import { devUrls } from "../../environments/environment-urls";
-import { IGridPlasmid, IGridPlasmidDetail, IGridTarget } from "../protein-expression.interface";
+import { IGridPlasmid, IGridPlasmidDetail, IGridTarget, IGridTargetDetail } from "../protein-expression.interface";
 
 import {
   ParsedRequestUrl,
@@ -22,12 +22,14 @@ const specialUsers = [
 @Injectable()
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
+
     const users = [
       {
         username: "user1",
         password: "password1"
       }
     ];
+
     const targets: IGridTarget[] = [
       {
         target: "protein x",
@@ -264,6 +266,7 @@ export class InMemoryDataService implements InMemoryDbService {
         plasmidCount: "2"
       }
     ];
+
     const plasmids: IGridPlasmid[]  = [
       {
         plasmid_id: "PL4523",
@@ -371,6 +374,7 @@ export class InMemoryDataService implements InMemoryDbService {
         project_name: "Beagle"
       }
     ];
+
     const plasmidsDetail: IGridPlasmidDetail[] = [
       {
         name: "STOP_TAA",
@@ -473,6 +477,45 @@ export class InMemoryDataService implements InMemoryDbService {
         ]
       }
     ];
+
+    const targetDetail: IGridTargetDetail = {
+      target: {
+        target_name: "test target",
+        partner: "test partner",
+        protein_class_pk: 1,
+        notes: "test notes",
+        project_name: "test project",
+        subunits: [
+          {
+            subunit_name: "test subunit",
+            copies: 2,
+            amino_acid_fasta_description: "aa description",
+            amino_acid_sequence: "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG",
+            dna_fasta_description: "dna description",
+            dna_sequence: "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+          }
+        ]
+      },
+      interactions: [
+        {
+          subunit_one_name: "interaction subunit name 1",
+          subunit_one_copy: 2,
+          subunit_two_name: "interaction subunit name 2",
+          subunit_two_copy: 1,
+          interaction: "covalent"
+        }
+      ],
+      ptms: [
+        {
+          subunit_one_name: "ptms subunit name 1",
+          subunit_one_residue: 3,
+          subunit_two_name: "ptms subunit name 1",
+          subunit_two_residue: 2,
+          ptm: "Disulfide"
+        }
+      ]
+    };
+
     const proteinClasses = [
       {
         protein_class_name: "protein class1 name",
@@ -502,6 +545,7 @@ export class InMemoryDataService implements InMemoryDbService {
       targets,
       plasmids,
       plasmidsDetail,
+      targetDetail,
       proteinClasses,
       proteinTargets,
       fastaFiles,

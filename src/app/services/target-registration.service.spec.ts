@@ -80,7 +80,7 @@ describe("TargetRegistrationService", () => {
 
   it("should register new target object", () => {
     const mockTarget: ITarget = {
-      target: "targetA",
+      target_name: "targetA",
       partner: "partnerA",
       protein_class_pk: 1,
       notes: "this is a note about targetA",
