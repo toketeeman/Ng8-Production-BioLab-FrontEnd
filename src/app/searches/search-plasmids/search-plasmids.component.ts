@@ -55,7 +55,12 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           width: '10%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       },
       {
@@ -68,7 +73,12 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           width: '25%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       },
       {
@@ -81,7 +91,12 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           width: '20%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       },
       { headerName: "Target",
@@ -93,7 +108,12 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           width: '20%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       },
       { headerName: "Project",
@@ -105,7 +125,12 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           width: '20%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       }
     ];

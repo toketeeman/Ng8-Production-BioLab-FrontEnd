@@ -73,7 +73,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           width: '14%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       },
       {
@@ -86,7 +91,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           width: '14%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       },
       {
@@ -99,7 +109,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           width: '14%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       },
       {
@@ -112,7 +127,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           width: '14%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       },
       {
@@ -125,7 +145,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           width: '14%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       },
       {
@@ -138,7 +163,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           width: '14%'
         },
         sortable: true,
-        filter: true,
+        filter: 'agSetColumnFilter',
+        filterParams: {
+          applyButton: false,
+          clearButton: false
+        },
+        menuTabs: ["filterMenuTab"],
         cellClass: "text-is-wrapped"
       }
     ];
