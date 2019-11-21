@@ -192,7 +192,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     });
 
     // Trigger the search here.
-    this.agGrid.gridOptions.api.onFilterChanged();
+    this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
+    this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
   }
 
   onRefresh() {
@@ -200,7 +201,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.searchSet = [];
 
     // Trigger the search here.
-    this.agGrid.gridOptions.api.onFilterChanged();
+    this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
+    this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
   }
 
   ngAfterViewInit() {
