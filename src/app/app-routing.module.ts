@@ -11,9 +11,10 @@ import { RegistrationSuccessComponent } from "./registration-success/registratio
 import { UnsavedChangesGuard } from "./guards/unsaved-changes.guard";
 import { CanAccessGuard } from "./guards/can-access.guard";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
-import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
 import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
+import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
+import { TargetDetailComponent } from './searches/target-detail/target-detail.component';
 import { SlimsComponent } from './slims/slims/slims.component';
 import { SlimsAccessGuard } from "./guards/slims-access.guard";
 
@@ -46,16 +47,20 @@ const routes: Routes = [
         canDeactivate: [CanAccessGuard]
       },
       {
-        path: "search-targets",
-        component: SearchTargetsComponent
-      },
-      {
         path: "search-plasmids",
         component: SearchPlasmidsComponent
       },
       {
         path: "plasmid-detail/:id",
         component: PlasmidDetailComponent
+      },
+      {
+        path: "search-targets",
+        component: SearchTargetsComponent
+      },
+      {
+        path: "target-detail/:id",
+        component: TargetDetailComponent
       }
     ]
   },

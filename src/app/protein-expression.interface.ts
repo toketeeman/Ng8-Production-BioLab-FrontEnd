@@ -66,6 +66,7 @@ export interface IPostTranslationalModification {
 
 export interface IGridTarget {
   target: string;
+  target_id?: string;
   partner: string;
   class: string;
   subunits: string;

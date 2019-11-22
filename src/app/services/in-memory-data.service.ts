@@ -33,6 +33,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const targets: IGridTarget[] = [
       {
         target: "protein x",
+        target_id: "2345601",
         partner: "partner 1",
         class: "class 2",
         subunits: "3",
@@ -42,6 +43,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein y",
+        target_id: "2345602",
         partner: "partner 2",
         class: "class 1",
         subunits: "4",
@@ -51,6 +53,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein z",
+        target_id: "2345603",
         partner: "partner 3",
         class: "class 6",
         subunits: "1",
@@ -60,6 +63,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein c",
+        target_id: "2345604",
         partner: "partner 4",
         class: "class 5",
         subunits: "2",
@@ -69,6 +73,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein d",
+        target_id: "2345605",
         partner: "partner 5",
         class: "class 12",
         subunits: "1",
@@ -78,6 +83,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein q",
+        target_id: "2345606",
         partner: "partner 6",
         class: "class 8",
         subunits: "1",
@@ -87,6 +93,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein f",
+        target_id: "2345607",
         partner: "partner 7",
         class: "class 4",
         subunits: "4",
@@ -96,6 +103,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein x",
+        target_id: "2345608",
         partner: "partner 8",
         class: "class 2",
         subunits: "4",
@@ -105,6 +113,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein d",
+        target_id: "2345609",
         partner: "partner 9",
         class: "class 9",
         subunits: "3",
@@ -114,6 +123,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein m",
+        target_id: "2345610",
         partner: "partner 10",
         class: "class 5",
         subunits: "1",
@@ -123,6 +133,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein q",
+        target_id: "2345611",
         partner: "partner 11",
         class: "class 4",
         subunits: "1",
@@ -132,6 +143,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein r",
+        target_id: "2345612",
         partner: "partner 12",
         class: "class 3",
         subunits: "2",
@@ -141,6 +153,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein x",
+        target_id: "2345613",
         partner: "partner 13",
         class: "class 6",
         subunits: "8",
@@ -150,6 +163,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein z",
+        target_id: "2345614",
         partner: "partner 14",
         class: "class 3",
         subunits: "4",
@@ -159,6 +173,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein c",
+        target_id: "2345615",
         partner: "partner 15",
         class: "class 5",
         subunits: "1",
@@ -168,6 +183,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein r",
+        target_id: "2345616",
         partner: "partner 16",
         class: "class 7",
         subunits: "1",
@@ -177,6 +193,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein m",
+        target_id: "2345617",
         partner: "partner 17",
         class: "class 21",
         subunits: "1",
@@ -186,6 +203,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein f",
+        target_id: "2345618",
         partner: "partner 18",
         class: "class 3",
         subunits: "3",
@@ -195,6 +213,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein e",
+        target_id: "2345619",
         partner: "partner 19",
         class: "class 6",
         subunits: "3",
@@ -204,6 +223,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein y",
+        target_id: "2345620",
         partner: "partner 20",
         class: "class 2",
         subunits: "1",
@@ -213,6 +233,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein g",
+        target_id: "2345621",
         partner: "partner 21",
         class: "class 5",
         subunits: "2",
@@ -222,6 +243,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein f",
+        target_id: "2345622",
         partner: "partner 22",
         class: "class 17",
         subunits: "2",
@@ -231,6 +253,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein s",
+        target_id: "2345623",
         partner: "partner 23",
         class: "class 1",
         subunits: "3",
@@ -240,6 +263,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein z",
+        target_id: "2345624",
         partner: "partner 24",
         class: "class 21",
         subunits: "3",
@@ -249,6 +273,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein q",
+        target_id: "2345625",
         partner: "partner 25",
         class: "class 2",
         subunits: "3",
@@ -258,6 +283,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         target: "protein m",
+        target_id: "234526",
         partner: "partner 26",
         class: "class 4",
         subunits: "1",

@@ -46,6 +46,10 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
 
     this.columnDefs = [
       {
+        field: "target_id",
+        hide: true
+      },
+      {
         headerName: "Target",
         field: "target",
         autoHeight: true,
@@ -291,7 +295,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
 
   onSelectionChanged() {
     const selectedRow: IGridTarget = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
-    this.router.navigateByUrl('/home/target-detail/' + (selectedRow as IGridTarget).target);
+    this.router.navigateByUrl('/home/target-detail/' + (selectedRow as IGridTarget).target_id);
   }
 
   onExcelExport() {
