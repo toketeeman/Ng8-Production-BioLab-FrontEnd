@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { InMemoryDbService } from "angular-in-memory-web-api";
 import { devUrls } from "../../environments/environment-urls";
-import { IGridPlasmid, IGridPlasmidDetail, IGridTarget, IGridTargetDetail } from "../protein-expression.interface";
+import { IGridPlasmid, IGridPlasmidDetail, IGridTarget, ITargetDetail } from "../protein-expression.interface";
 
 import {
   ParsedRequestUrl,
@@ -478,7 +478,7 @@ export class InMemoryDataService implements InMemoryDbService {
       }
     ];
 
-    const targetDetail: IGridTargetDetail = {
+    const targetDetail: ITargetDetail = {
       target: {
         target_name: "test target",
         partner: "test partner",

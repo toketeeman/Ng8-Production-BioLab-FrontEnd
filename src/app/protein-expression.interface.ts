@@ -6,6 +6,7 @@ export interface IUser {
 
 export interface ITarget {
   target_name: string;
+  target_id?: string;        // Mandatory on the fetch from the DB.
   partner: string;
   protein_class_pk: number;
   notes: string;
@@ -95,7 +96,7 @@ export interface IGridFeatureQualifier {
   value: string;
 }
 
-export interface IGridTargetDetail {
+export interface ITargetDetail {
   target: ITarget;
   interactions: ISubunitInteraction[];
   ptms: IPostTranslationalModification[];
