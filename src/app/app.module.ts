@@ -48,7 +48,7 @@ import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.compon
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
 import { FeatureQualifierRenderer } from './searches/plasmid-detail/feature-qualifier-renderer.component';
 import { SlimsComponent } from './slims/slims/slims.component';
-import { TargetDetailComponent } from './searches/target-detail/target-detail/target-detail.component';
+import { TargetDetailComponent } from './searches/target-detail/target-detail.component';
 
 const appImports = [
   BrowserModule,
