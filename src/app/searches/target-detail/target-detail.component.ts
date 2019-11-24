@@ -16,7 +16,7 @@ import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.serv
   templateUrl: './target-detail.component.html',
   styleUrls: ['./target-detail.component.scss']
 })
-export class TargetDetailComponent implements OnInit {
+export class TargetDetailComponent implements OnInit, AfterViewInit {
   detailData$: Observable<ITargetDetail>;
   currentTargetId: string;
   targetsDetailUrl: string;
@@ -50,4 +50,7 @@ export class TargetDetailComponent implements OnInit {
       );
   }
 
+  ngAfterViewInit(): void {
+    
+  }
 }

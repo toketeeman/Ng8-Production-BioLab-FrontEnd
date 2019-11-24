@@ -24,6 +24,7 @@ import {
   MatTooltipModule,
   MatDialogModule
 } from "@angular/material";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { InMemoryDataService } from "./services/in-memory-data.service";
@@ -74,6 +75,7 @@ const appImports = [
   MatTooltipModule,
   MatDialogModule,
   ReactiveFormsModule,
+  FlexLayoutModule,
   AgGridModule.withComponents([BrowserAnimationsModule, FeatureQualifierRenderer])
 ];
 
