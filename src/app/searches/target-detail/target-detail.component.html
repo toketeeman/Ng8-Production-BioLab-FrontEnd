@@ -1,4 +1,6 @@
 
 <div>
-  {{ (detailData$ | async).target.subunits[2].subunit_name }}
+  <mat-card fxLayout="column" *ngFor="let subunit of (detailData$ | async).target.subunits">
+    <p> {{ subunit.subunit_name }} </p>
+  </mat-card>
 </div>
