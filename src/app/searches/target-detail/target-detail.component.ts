@@ -39,18 +39,13 @@ export class TargetDetailComponent implements OnInit {
 
     // configure grid and carousel stuff here.
 
-    console.log("TargetsDetailUrl: ", JSON.stringify(this.targetsDetailUrl));
-
     this.detailData$ = this.http.get<ITargetDetail>(this.targetsDetailUrl)
       .pipe(
-        tap(response => {
-          console.log("Response: ", JSON.stringify(response));
-        }),
         catchError(error => {
           console.log(JSON.stringify(error));
           this.errorDialogService.openDialogForErrorResponse(error, ['message']);
-          const noResults: ITargetDetail = null;
-          return of(noResults);
+          const noResult: ITargetDetail = null;
+          return of(noResult);
         })
       );
   }
