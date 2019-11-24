@@ -513,12 +513,102 @@ export class InMemoryDataService implements InMemoryDbService {
         project_name: "test project",
         subunits: [
           {
-            subunit_name: "test subunit",
+            subunit_name: "test subunit A",
             copies: 2,
-            amino_acid_fasta_description: "aa description",
-            amino_acid_sequence: "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG",
-            dna_fasta_description: "dna description",
+            amino_acid_fasta_description: "AA aa description",
+            amino_acid_sequence: "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG",
+            dna_fasta_description: "DNA aa description",
             dna_sequence: "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+          },
+          {
+            subunit_name: "test subunit B",
+            copies: 1,
+            amino_acid_fasta_description: "AA bb description",
+            amino_acid_sequence: "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG",
+            dna_fasta_description: "DNA bb description",
+            dna_sequence: "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+          },
+          {
+            subunit_name: "test subunit C",
+            copies: 3,
+            amino_acid_fasta_description: "AA cc description",
+            amino_acid_sequence: "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG",
+            dna_fasta_description: "DNA cc description",
+            dna_sequence: "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+          },
+          {
+            subunit_name: "test subunit D",
+            copies: 1,
+            amino_acid_fasta_description: "AA dd description",
+            amino_acid_sequence: "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG",
+            dna_fasta_description: "DNA dd description",
+            dna_sequence: "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+          },
+          {
+            subunit_name: "test subunit E",
+            copies: 4,
+            amino_acid_fasta_description: "AA ee description",
+            amino_acid_sequence: "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG",
+            dna_fasta_description: "DNA ee description",
+            dna_sequence: "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+          },
+          {
+            subunit_name: "test subunit F",
+            copies: 3,
+            amino_acid_fasta_description: "AA ff description",
+            amino_acid_sequence: "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG",
+            dna_fasta_description: "DNA ff description",
+            dna_sequence: "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+          },
+          {
+            subunit_name: "test subunit G",
+            copies: 1,
+            amino_acid_fasta_description: "AA gg description",
+            amino_acid_sequence: "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG",
+            dna_fasta_description: "DNA gg description",
+            dna_sequence: "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
+              + "ACGACTGACATCGACGATCGTTCTGGATCGACTGCATACGACATCGACTGACCTGCACTG"
+              + "CGATATCATGATAACGATGCATGCAACTAATGCAATGCATGATGACACTAGACTAAGATGACTTCCGATAAATGCAGATCGAGACTACG"
           }
         ]
       },
@@ -529,6 +619,34 @@ export class InMemoryDataService implements InMemoryDbService {
           subunit_two_name: "interaction subunit name 2",
           subunit_two_copy: 1,
           interaction: "covalent"
+        },
+        {
+          subunit_one_name: "interaction subunit name 3",
+          subunit_one_copy: 2,
+          subunit_two_name: "interaction subunit name 4",
+          subunit_two_copy: 1,
+          interaction: "coolvalent"
+        },
+        {
+          subunit_one_name: "interaction subunit name 5",
+          subunit_one_copy: 1,
+          subunit_two_name: "interaction subunit name 6",
+          subunit_two_copy: 3,
+          interaction: "warmvalent"
+        },
+        {
+          subunit_one_name: "interaction subunit name 7",
+          subunit_one_copy: 2,
+          subunit_two_name: "interaction subunit name 8",
+          subunit_two_copy: 4,
+          interaction: "covalent"
+        },
+        {
+          subunit_one_name: "interaction subunit name 9",
+          subunit_one_copy: 1,
+          subunit_two_name: "interaction subunit name 10",
+          subunit_two_copy: 1,
+          interaction: "nicevalent"
         }
       ],
       ptms: [
@@ -536,6 +654,27 @@ export class InMemoryDataService implements InMemoryDbService {
           subunit_one_name: "ptms subunit name 1",
           subunit_one_residue: 3,
           subunit_two_name: "ptms subunit name 1",
+          subunit_two_residue: 2,
+          ptm: "disulfide_bond"
+        },
+        {
+          subunit_one_name: "ptms subunit name 1",
+          subunit_one_residue: 1,
+          subunit_two_name: "ptms subunit name 2",
+          subunit_two_residue: 2,
+          ptm: "trisulfide_bond"
+        },
+        {
+          subunit_one_name: "ptms subunit name 3",
+          subunit_one_residue: 1,
+          subunit_two_name: "ptms subunit name 4",
+          subunit_two_residue: 3,
+          ptm: "pentasulfide_bond"
+        },
+        {
+          subunit_one_name: "ptms subunit name 5",
+          subunit_one_residue: 2,
+          subunit_two_name: "ptms subunit name 6",
           subunit_two_residue: 2,
           ptm: "disulfide_bond"
         }
