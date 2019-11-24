@@ -504,7 +504,7 @@ export class InMemoryDataService implements InMemoryDbService {
       }
     ];
 
-    const targetDetail: ITargetDetail = {
+    const targetsDetail: ITargetDetail = {
       target: {
         target_name: "test target",
         partner: "test partner",
@@ -710,7 +710,7 @@ export class InMemoryDataService implements InMemoryDbService {
       targets,
       plasmids,
       plasmidsDetail,
-      targetDetail,
+      targetsDetail,
       proteinClasses,
       proteinTargets,
       fastaFiles,

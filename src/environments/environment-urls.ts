@@ -7,7 +7,8 @@ export const devUrls = {
   ptmsUrl: "api/v1/absci-targets/subunit-ptm/",
   plasmidsUrl: "api/plasmids",
   plasmidsDetailUrl: "api/plasmidsDetail",
-  targetsUrl: "api/targets"
+  targetsUrl: "api/targets",
+  targetsDetailUrl: "api/targetsDetail"
 };
 
 export const prodUrls = {
@@ -19,5 +20,6 @@ export const prodUrls = {
   ptmsUrl: "http://localhost:8000/api/v1/absci-targets/subunit-ptm/",
   plasmidsUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-view",
   plasmidsDetailUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-detail-view",
-  targetsUrl: "http://localhost:8000/api/v1/absci-targets/target/"
+  targetsUrl: "http://localhost:8000/api/v1/absci-targets/target/",
+  targetsDetailUrl: "http://localhost:8000/api/v1/absci-targets/target-detail-view",
 };
