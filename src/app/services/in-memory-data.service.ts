@@ -507,6 +507,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const targetsDetail: ITargetDetail = {
       target: {
         target_name: "test target",
+        target_id: "target_abcd",
         partner: "test partner",
         protein_class_pk: 1,
         notes: "test notes",
