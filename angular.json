@@ -52,6 +52,22 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "dev.local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.local.ts"
+                }
+              ]
+            },
+            "dev.remote": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.remote.ts"
+                }
+              ]
             }
           }
         },
@@ -63,6 +79,12 @@
           "configurations": {
             "production": {
               "browserTarget": "protein-expression-front-end:build:production"
+            },
+            "dev.local": {
+              "browserTarget": "protein-expression-front-end:build:dev.local"
+            },
+            "dev.remote": {
+              "browserTarget": "protein-expression-front-end:build:dev.remote"
             }
           }
         },
