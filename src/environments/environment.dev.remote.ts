@@ -1,3 +1,11 @@
+// The urls here are the true absolute paths to backend data sources for
+// direct testing purposes in development.
+
+// The app is built and served in this operating mode with the command:
+//
+//   >ng serve --configuration=dev.remote
+//
+
 export const environment = {
   production: false,
   inMemoryData: false,

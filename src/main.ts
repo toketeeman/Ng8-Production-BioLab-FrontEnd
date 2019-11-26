@@ -5,7 +5,13 @@ import { AppModule } from "./app/app.module";
 import { environment } from "./environments/environment";
 import { LicenseManager } from "@ag-grid-enterprise/all-modules";
 
-if (environment.production || !environment.inMemoryData) {
+// We want change detection to operate normally (single-detection) for ALL
+// environments outside of using in-memory mock data for realistic operation.
+//
+// When using in-memory data, we must eliminate all side-effect
+// change-detection errors via double-detection BEFORE moving to a more exterior environment.
+
+if (!environment.inMemoryData) {
   enableProdMode();
 }
 

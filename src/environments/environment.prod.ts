@@ -1,3 +1,11 @@
+// The urls here are the true relative paths using in various levels of
+// staging and production to backend data sources for deployment to users.
+
+// The app is built and served in this operating mode with the command:
+//
+//   >ng serve --configuration=production
+//
+
 export const environment = {
   production: true,
   inMemoryData: false,

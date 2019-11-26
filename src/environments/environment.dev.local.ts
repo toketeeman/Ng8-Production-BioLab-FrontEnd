@@ -1,3 +1,18 @@
+// The urls here are the mock paths to in-memory mock data.
+// The urls must be formed as aritrary relative urls with the
+// requirement that the last segment must match the data name used
+// inside createDb() for the corresponding data within in-memory-data.service.ts .
+
+// The app is built and served in this operating mode with the command:
+//
+//   >ng serve --configuration=dev.local
+//
+// OR simply by
+//
+//   >ng serve
+//
+// since it is also the default operating mode.
+
 export const environment = {
   production: false,
   inMemoryData: true,
