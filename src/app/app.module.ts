@@ -79,21 +79,20 @@ const appImports = [
   AgGridModule.withComponents([BrowserAnimationsModule, FeatureQualifierRenderer])
 ];
 
-if (!environment.production) {
+if (!environment.production && environment.inMemoryData) {
   console.log(
-    "In development mode. In-Memory DB will be the backend."
+    "In dev.local (default environment) mode. Double-change-detection will be active and in-Memory DB will be the backend."
   );
   appImports.push(
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false
     })
   );
 } else {
   console.log(
-    "In production mode. Docker server will be the backend."
+    "In Angular production mode, i.e. single-change-detection. Backend is dictated by replaced environment.ts ."
   );
 }
 

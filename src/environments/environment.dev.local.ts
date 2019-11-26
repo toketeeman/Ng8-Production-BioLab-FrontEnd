@@ -7,7 +7,7 @@
 //
 //   >ng serve --configuration=dev.local
 //
-// OR simply by
+// OR more simply by
 //
 //   >ng serve
 //

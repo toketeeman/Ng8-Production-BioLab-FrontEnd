@@ -2,26 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// export const environment = {
-//   production: false,
-//   inMemoryData: true,
-
-//   urls: {
-//     loginUrl: "api/v1/auth/login/",
-//     proteinClassesUrl: "api/v1/absci-targets/protein-class/",
-//     targetUrl: "api/v1/absci-targets/target-registration/",
-//     fastaUrl: "api/v1/absci-targets/fasta-file-parser/",
-//     interactionsUrl: "api/v1/absci-targets/subunit-interaction/",
-//     ptmsUrl: "api/v1/absci-targets/subunit-ptm/",
-//     plasmidsUrl: "api/v1/absci-targets/plasmid-view/",
-//     plasmidsDetailUrl: "api/v1/absci-targets/plasmid-detail-view/",
-//     targetsUrl: "api/v1/absci-targets/target/",
-//     targetsDetailUrl: "api/v1/absci-targets/target-detail-view/"
-//   }
-// };
-
-// This the "default" operating mode: using the in-memory mock data
-// and Angular development mode.
+// This the "default" operating mode: using the in-memory mock database
+// and Angular development mode. This is equivalent to dev.local mode.
 //
 // The app is built and served with the simple command:
 //

@@ -16,6 +16,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {
     this.loginUrl = environment.urls.loginUrl;
+    console.log("Login Url: ", this.loginUrl);
   }
 
   // Returns token from browser's SESSION storage.
