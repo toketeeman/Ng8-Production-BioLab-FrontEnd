@@ -68,6 +68,14 @@
                   "with": "src/environments/environment.dev.remote.ts"
                 }
               ]
+            },
+            "dev.docker": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.docker.ts"
+                }
+              ]
             }
           }
         },
@@ -85,6 +93,9 @@
             },
             "dev.remote": {
               "browserTarget": "protein-expression-front-end:build:dev.remote"
+            },
+            "dev.docker": {
+              "browserTarget": "protein-expression-front-end:build:dev.docker"
             }
           }
         },
