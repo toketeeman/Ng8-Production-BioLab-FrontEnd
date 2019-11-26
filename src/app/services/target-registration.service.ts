@@ -1,4 +1,4 @@
-import { Injectable, isDevMode } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -10,7 +10,7 @@ import {
   ISubunitInteraction,
   IPostTranslationalModification
 } from "../protein-expression.interface";
-import { devUrls, prodUrls } from "../../environments/environment-urls";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -26,19 +26,11 @@ export class TargetRegistrationService {
     private http: HttpClient,
     private authService: AuthenticationService
   ) {
-    if (isDevMode()) {
-      this.proteinClassesUrl = devUrls.proteinClassesUrl;
-      this.targetUrl = devUrls.targetUrl;
-      this.fastaUrl = devUrls.fastaUrl;
-      this.interactionsUrl = devUrls.interactionsUrl;
-      this.ptmsUrl = devUrls.ptmsUrl;
-    } else {
-      this.proteinClassesUrl = prodUrls.proteinClassesUrl;
-      this.targetUrl = prodUrls.targetUrl;
-      this.fastaUrl = prodUrls.fastaUrl;
-      this.interactionsUrl = prodUrls.interactionsUrl;
-      this.ptmsUrl = prodUrls.ptmsUrl;
-    }
+      this.proteinClassesUrl = environment.urls.proteinClassesUrl;
+      this.targetUrl = environment.urls.targetUrl;
+      this.fastaUrl = environment.urls.fastaUrl;
+      this.interactionsUrl = environment.urls.interactionsUrl;
+      this.ptmsUrl = environment.urls.ptmsUrl;
   }
 
   /** GET protein classes from backend

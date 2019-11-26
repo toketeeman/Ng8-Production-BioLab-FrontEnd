@@ -1,7 +1,7 @@
-import { Injectable, isDevMode } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { devUrls, prodUrls } from "../../environments/environment-urls";
+import { environment } from "../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -15,15 +15,10 @@ export class AuthenticationService {
   loginUrl: string;
 
   constructor(private http: HttpClient) {
-    if (isDevMode()) {
-      this.loginUrl = devUrls.loginUrl;
-    } else {
-      this.loginUrl = prodUrls.loginUrl;
-    }
+    this.loginUrl = environment.urls.loginUrl;
   }
 
-  /** Returns token from browser's local storage
-   */
+  // Returns token from browser's SESSION storage.
   getToken(): string {
     return sessionStorage.getItem("token");
   }

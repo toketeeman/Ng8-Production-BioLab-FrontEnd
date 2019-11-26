@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { InMemoryDbService } from "angular-in-memory-web-api";
-import { devUrls } from "../../environments/environment-urls";
+import { environment } from "../../environments/environment";
 import { IGridPlasmid, IGridPlasmidDetail, IGridTarget, ITargetDetail } from "../protein-expression.interface";
 
 import {
@@ -730,19 +730,19 @@ export class InMemoryDataService implements InMemoryDbService {
     //   JSON.stringify(reqInfo)
     // );
     const url = reqInfo.url;
-    if (url === devUrls.targetUrl) {
+    if (url === environment.urls.targetUrl) {
       return this.registerTarget(reqInfo);
     }
 
-    if (url === devUrls.fastaUrl) {
+    if (url === environment.urls.fastaUrl) {
       return this.uploadFastaFile(reqInfo);
     }
 
-    if (url === devUrls.loginUrl) {
+    if (url === environment.urls.loginUrl) {
       return this.handleAuth(reqInfo);
     }
 
-    if (url === devUrls.interactionsUrl || url === devUrls.ptmsUrl) {
+    if (url === environment.urls.interactionsUrl || url === environment.urls.ptmsUrl) {
       return this.registerInteractions(reqInfo);
     }
   }

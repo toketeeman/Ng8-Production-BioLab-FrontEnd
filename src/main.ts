@@ -5,7 +5,7 @@ import { AppModule } from "./app/app.module";
 import { environment } from "./environments/environment";
 import { LicenseManager } from "@ag-grid-enterprise/all-modules";
 
-if (environment.production) {
+if (environment.production || !environment.inMemoryData) {
   enableProdMode();
 }
 

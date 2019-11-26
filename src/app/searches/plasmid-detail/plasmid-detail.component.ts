@@ -1,16 +1,16 @@
-import { Component, OnInit, isDevMode, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError } from 'rxjs/operators';
 
-import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import { IGridPlasmidDetail } from "../../protein-expression.interface";
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module, ExcelData, ExcelCell, ExcelExportParams } from "@ag-grid-enterprise/all-modules";
 import { AuthenticationService } from "../../services/authentication.service";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { FeatureQualifierRenderer } from './feature-qualifier-renderer.component';
+import { environment } from "../../../environments/environment";
 
 
 @Component({
@@ -45,10 +45,10 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
     this.currentPlasmidId = this.route.snapshot.paramMap.get('id');
 
-    if (isDevMode()) {
-      this.plasmidsDetailUrl = devUrls.plasmidsDetailUrl;
+    if (environment.inMemoryData) {
+      this.plasmidsDetailUrl = environment.urls.plasmidsDetailUrl;
     } else {
-      this.plasmidsDetailUrl = prodUrls.plasmidsDetailUrl + '?plasmid_id=' + this.currentPlasmidId;
+      this.plasmidsDetailUrl = environment.urls.plasmidsDetailUrl + '?plasmid_id=' + this.currentPlasmidId;
     }
 
     this.columnDefs = [

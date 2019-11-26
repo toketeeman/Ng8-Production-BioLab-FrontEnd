@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  isDevMode,
   ViewChild,
   AfterViewInit
 } from "@angular/core";
@@ -10,11 +9,11 @@ import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError } from 'rxjs/operators';
 
-import { devUrls, prodUrls } from "../../../environments/environment-urls";
 import { IGridTarget } from "../../protein-expression.interface";
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
+import { environment } from "../../../environments/environment";
 
 @Component({
   templateUrl: "./search-targets.component.html",
@@ -38,11 +37,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     private errorDialogService: ErrorDialogService) {}
 
   ngOnInit() {
-    if (isDevMode()) {
-      this.targetsUrl = devUrls.targetsUrl;
-    } else {
-      this.targetsUrl = prodUrls.targetsUrl;
-    }
+    this.targetsUrl = environment.urls.targetsUrl;
 
     this.columnDefs = [
       {
