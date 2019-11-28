@@ -1,6 +1,6 @@
 
 <div>
-  <mat-card fxLayout="column" *ngFor="let subunit of (detailData$ | async).target.subunits">
+  <mat-card fxLayout="column" *ngFor="let subunit of (subunits$ | async)">
     <p> {{ subunit.subunit_name }} </p>
   </mat-card>
 </div>

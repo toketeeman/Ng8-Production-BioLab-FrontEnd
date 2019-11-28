@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, of } from "rxjs";
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 
-import { ITargetDetail } from "../../protein-expression.interface";
+import { ITargetDetail, ISubunit} from "../../protein-expression.interface";
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
 import { AuthenticationService } from "../../services/authentication.service";
@@ -16,8 +16,9 @@ import { environment } from "../../../environments/environment";
   templateUrl: './target-detail.component.html',
   styleUrls: ['./target-detail.component.scss']
 })
-export class TargetDetailComponent implements OnInit, AfterViewInit {
+export class TargetDetailComponent implements OnInit, AfterViewInit, AfterContentInit {
   detailData$: Observable<ITargetDetail>;
+  subunits$: Observable<ISubunit[]>;
   currentTargetId: string;
   targetsDetailUrl: string;
 
@@ -48,9 +49,17 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
           return of(noResult);
         })
       );
+    this.subunits$ = this.detailData$
+      .pipe(
+        map((targetDetail: ITargetDetail) => targetDetail.target.subunits)
+      );
   }
 
   ngAfterViewInit(): void {
+
+  }
+
+  ngAfterContentInit(): void {
 
   }
 }
