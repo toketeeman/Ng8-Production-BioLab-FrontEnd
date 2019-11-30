@@ -4,9 +4,11 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError, tap, map } from 'rxjs/operators';
 
-import { ITargetDetail, ISubunit} from "../../protein-expression.interface";
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
+import { NguCarouselConfig } from '@ngu/carousel';
+
+import { ITargetDetail, ISubunit} from "../../protein-expression.interface";
 import { AuthenticationService } from "../../services/authentication.service";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { environment } from "../../../environments/environment";
@@ -18,9 +20,19 @@ import { environment } from "../../../environments/environment";
 })
 export class TargetDetailComponent implements OnInit, AfterViewInit, AfterContentInit {
   detailData$: Observable<ITargetDetail>;
-  subunits$: Observable<ISubunit[]>;
+  subunits: ISubunit[] = [];
   currentTargetId: string;
   targetsDetailUrl: string;
+  carouselConfig: NguCarouselConfig = {
+    grid: { xs: 1, sm: 2, md: 2, lg: 2, all: 0 },
+    slide: 1,
+    speed: 400,
+    point: {
+      visible: true,
+      hideOnSingleSlide: true
+    },
+    easing: 'cubic-bezier(0, 0, 0.2, 1)'
+  };
 
   constructor(
     private http: HttpClient,
@@ -49,10 +61,12 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, AfterConten
           return of(noResult);
         })
       );
-    this.subunits$ = this.detailData$
+    this.detailData$
       .pipe(
         map((targetDetail: ITargetDetail) => targetDetail.target.subunits)
-      );
+      ).subscribe(subunits => {
+        this.subunits = subunits;
+      });
   }
 
   ngAfterViewInit(): void {

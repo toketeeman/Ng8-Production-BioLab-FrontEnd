@@ -258,3 +258,8 @@ tr {
 label.ag-set-filter-item  {
   margin: 0px 0px 16px 0px !important;
 }
+
+/* Needed to remove annoying blue border displayed by chrome when a button is clicked. */
+button:focus {
+  outline:0;
+}

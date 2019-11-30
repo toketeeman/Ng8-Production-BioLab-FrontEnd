@@ -26,6 +26,10 @@ import {
 } from "@angular/material";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
+
+import { NguCarouselModule } from "@ngu/carousel";
+import { AgGridModule } from "@ag-grid-community/angular";
+
 import { AppRoutingModule } from "./app-routing.module";
 import { InMemoryDataService } from "./services/in-memory-data.service";
 import { TokenInterceptor } from "./services/token.interceptor";
@@ -43,7 +47,6 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 import { environment } from "../environments/environment";
 import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
 import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
-import { AgGridModule } from "@ag-grid-community/angular";
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
@@ -76,6 +79,7 @@ const appImports = [
   MatDialogModule,
   ReactiveFormsModule,
   FlexLayoutModule,
+  NguCarouselModule,
   AgGridModule.withComponents([BrowserAnimationsModule, FeatureQualifierRenderer])
 ];
 

@@ -1,49 +1,68 @@
+<ngu-carousel #subunitCarousel [inputs]="carouselConfig" [dataSource]="subunits" >
+  <ngu-tile *nguCarouselDef="let subunit" fxLayout="row" fxLayoutAlign="space-evenly center">
 
-<div>
-  <mat-card class="target-detail-card" fxLayout="column" fxLayoutGap="10px" *ngFor="let subunit of (subunits$ | async)">
-    <div class="target-detail-subunit-top" fxLayout="row" fxLayoutAlign="space-between center">
-      <div class="target-detail-subunit-name" fxLayout="column">
-        <div class="target-detail-subunit-name-1">
-          {{subunit.subunit_name}}
-        </div>
-        <div class="target-detail-subunit-name-2">
-          Sub Unit Name
-        </div>
-      </div>
-      <div class="target-detail-subunit-copy" fxLayout="column">
-        <div class="target-detail-subunit-copy-1">
-          {{subunit.copies}}
-        </div>
-        <div class="target-detail-subunit-copy-2">
-          {{subunit.copies > 1 ? 'Copies' : 'Copy'}}
-        </div>
-      </div>
-    </div>
+    <mat-card class="target-detail-card" fxLayout="column" fxLayoutGap="10px" >
 
-    <div class="target-detail-aa-sequence" fxLayout="column">
-      <div class="target-detail-aa-sequence-1" fxLayout="row" fxLayoutAlign="end">
-        <div>
-          Amino acid sequence
+      <div class="target-detail-subunit-top" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="target-detail-subunit-name" fxLayout="column">
+          <div class="target-detail-subunit-name-1">
+            {{subunit.subunit_name}}
+          </div>
+          <div class="target-detail-subunit-name-2">
+            Sub Unit Name
+          </div>
+        </div>
+        <div class="target-detail-subunit-copy" fxLayout="column">
+          <div class="target-detail-subunit-copy-1">
+            {{subunit.copies}}
+          </div>
+          <div class="target-detail-subunit-copy-2">
+            {{subunit.copies > 1 ? 'Copies' : 'Copy'}}
+          </div>
         </div>
       </div>
-      <div class="target-detail-aa-sequence-2">
-        {{subunit.amino_acid_sequence}}
-      </div>
-    </div>
 
-    <div>
-      <hr>
-    </div>
-
-    <div class="target-detail-dna-sequence" fxLayout="column">
-      <div class="target-detail-dna-sequence-1" fxLayout="row" fxLayoutAlign="end">
-        <div>
-          DNA sequence
+      <div class="target-detail-aa-sequence" fxLayout="column">
+        <div class="target-detail-aa-sequence-1" fxLayout="row" fxLayoutAlign="end">
+          <div>
+            Amino acid sequence
+          </div>
+        </div>
+        <div class="target-detail-aa-sequence-2">
+          {{subunit.amino_acid_sequence}}
         </div>
       </div>
-      <div class="target-detail-dna-sequence-2">
-        {{subunit.dna_sequence}}
+
+      <div>
+        <hr>
       </div>
-    </div>
-  </mat-card>
-</div>
+
+      <div class="target-detail-dna-sequence" fxLayout="column">
+        <div class="target-detail-dna-sequence-1" fxLayout="row" fxLayoutAlign="end">
+          <div>
+            DNA sequence
+          </div>
+        </div>
+        <div class="target-detail-dna-sequence-2">
+          {{subunit.dna_sequence}}
+        </div>
+      </div>
+
+    </mat-card>
+
+  </ngu-tile>
+
+  <button NguCarouselPrev class="prevSubunitBtn"
+    [style.opacity]="subunitCarousel.isFirst && subunitCarousel.isHovered ? 0.3 : 1.0">&lt;</button>
+  <button NguCarouselNext class="nextSubunitBtn"
+    [style.opacity]="subunitCarousel.isLast && subunitCarousel.isHovered ? 0.3 : 1.0">&gt;</button>
+  <ul class="subunitPoint" NguCarouselPoint>
+    <li *ngFor="let i of subunitCarousel.pointNumbers; let i = index"
+      [class.active]="i==subunitCarousel.activePoint" (click)="subunitCarousel.moveTo(i)">
+    </li>
+  </ul>
+
+</ngu-carousel>
+
+
+
