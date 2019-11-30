@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  AfterContentInit,
+  ElementRef
+} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, of } from "rxjs";
@@ -19,6 +26,8 @@ import { environment } from "../../../environments/environment";
   styleUrls: ['./target-detail.component.scss']
 })
 export class TargetDetailComponent implements OnInit, AfterViewInit, AfterContentInit {
+  @ViewChild("subunitCarousel", { static: false }) subunitCarousel: ElementRef;
+
   detailData$: Observable<ITargetDetail>;
   subunits: ISubunit[] = [];
   currentTargetId: string;
@@ -33,6 +42,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, AfterConten
     },
     easing: 'cubic-bezier(0, 0, 0.2, 1)'
   };
+  subunitsAreHovered: false;
 
   constructor(
     private http: HttpClient,

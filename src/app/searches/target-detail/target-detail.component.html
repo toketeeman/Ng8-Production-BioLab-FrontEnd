@@ -52,10 +52,11 @@
 
   </ngu-tile>
 
-  <button NguCarouselPrev class="prevSubunitBtn"
-    [style.opacity]="subunitCarousel.isFirst && subunitCarousel.isHovered ? 0.3 : 1.0">&lt;</button>
-  <button NguCarouselNext class="nextSubunitBtn"
-    [style.opacity]="subunitCarousel.isLast && subunitCarousel.isHovered ? 0.3 : 1.0">&gt;</button>
+  <button NguCarouselPrev class="prevSubunitBtn" *ngIf="subunitsAreHovered"
+    [style.opacity]="subunitCarousel.isFirst ? 0.3 : 1.0">&lt;</button>
+  <button NguCarouselNext class="nextSubunitBtn" *ngIf="subunitsAreHovered"
+    [style.opacity]="subunitCarousel.isLast ? 0.3 : 1.0">&gt;</button>
+
   <ul class="subunitPoint" NguCarouselPoint>
     <li *ngFor="let i of subunitCarousel.pointNumbers; let i = index"
       [class.active]="i==subunitCarousel.activePoint" (click)="subunitCarousel.moveTo(i)">
