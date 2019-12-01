@@ -25,9 +25,7 @@ import { environment } from "../../../environments/environment";
   templateUrl: './target-detail.component.html',
   styleUrls: ['./target-detail.component.scss']
 })
-export class TargetDetailComponent implements OnInit, AfterViewInit, AfterContentInit {
-  @ViewChild("subunitCarousel", { static: false }) subunitCarousel: ElementRef;
-
+export class TargetDetailComponent implements OnInit {
   detailData$: Observable<ITargetDetail>;
   subunits: ISubunit[] = [];
   currentTargetId: string;
@@ -42,7 +40,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, AfterConten
     },
     easing: 'cubic-bezier(0, 0, 0.2, 1)'
   };
-  subunitsAreHovered: false;
+  subunitsAreHovered = false;
 
   constructor(
     private http: HttpClient,
@@ -60,7 +58,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, AfterConten
       this.targetsDetailUrl = environment.urls.targetsDetailUrl + '?target_id=' + this.currentTargetId;
     }
 
-    // Configure grid and carousel stuff here.
+    // Configure grid stuff here.
 
     this.detailData$ = this.http.get<ITargetDetail>(this.targetsDetailUrl)
       .pipe(
@@ -79,11 +77,11 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, AfterConten
       });
   }
 
-  ngAfterViewInit(): void {
-
+  enterSubunits(): void {
+    this.subunitsAreHovered = true;
   }
 
-  ngAfterContentInit(): void {
-
+  leaveSubunits(): void {
+    this.subunitsAreHovered = false;
   }
 }
