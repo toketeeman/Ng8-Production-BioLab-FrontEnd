@@ -2,9 +2,7 @@ import {
   Component,
   OnInit,
   ViewChild,
-  AfterViewInit,
-  AfterContentInit,
-  ElementRef
+  AfterViewInit
 } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -25,8 +23,14 @@ import { environment } from "../../../environments/environment";
   templateUrl: './target-detail.component.html',
   styleUrls: ['./target-detail.component.scss']
 })
-export class TargetDetailComponent implements OnInit {
+export class TargetDetailComponent implements OnInit, AfterViewInit {
+  @ViewChild("targetHeaderGrid", { static: false }) targetHeaderGrid: AgGridAngular;
+
+  public modules: Module[] = AllModules;
+  public domLayout;
   detailData$: Observable<ITargetDetail>;
+  targetHeaderData: any[];
+  targetHeaderColumnDefs;
   subunits: ISubunit[] = [];
   currentTargetId: string;
   targetsDetailUrl: string;
@@ -58,7 +62,77 @@ export class TargetDetailComponent implements OnInit {
       this.targetsDetailUrl = environment.urls.targetsDetailUrl + '?target_id=' + this.currentTargetId;
     }
 
-    // Configure grid stuff here.
+    this.domLayout = 'autoHeight';
+
+    // Configure target header grid.
+    this.targetHeaderColumnDefs = [
+      {
+        headerName: "Target Name",
+        field: "target_name",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Partner",
+        field: "partner",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: false,
+        menuTabs: [],
+      },
+      {
+        headerName: "Protein Class",
+        field: "class",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Project Name",
+        field: "project_name",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Notes",
+        field: "notes",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: false,
+        menuTabs: []
+      }
+    ];
+
+
+
+
+
+
 
     this.detailData$ = this.http.get<ITargetDetail>(this.targetsDetailUrl)
       .pipe(
@@ -71,9 +145,16 @@ export class TargetDetailComponent implements OnInit {
       );
     this.detailData$
       .pipe(
-        map((targetDetail: ITargetDetail) => targetDetail.target.subunits)
-      ).subscribe(subunits => {
-        this.subunits = subunits;
+        map((targetDetail: ITargetDetail) => targetDetail.target)
+      ).subscribe(targetDetailHeader => {
+        this.targetHeaderData = [{
+          target_name: targetDetailHeader.target_name,
+          partner: targetDetailHeader.partner,
+          class: targetDetailHeader.class,
+          project_name: targetDetailHeader.project_name,
+          notes: targetDetailHeader.notes
+        }];
+        this.subunits = targetDetailHeader.subunits;
       });
   }
 
@@ -83,5 +164,13 @@ export class TargetDetailComponent implements OnInit {
 
   leaveSubunits(): void {
     this.subunitsAreHovered = false;
+  }
+
+  ngAfterViewInit() {
+    // Responsive window behavior.
+    this.targetHeaderGrid.api.sizeColumnsToFit();
+    window.onresize = () => {
+      this.targetHeaderGrid.api.sizeColumnsToFit();
+    };
   }
 }

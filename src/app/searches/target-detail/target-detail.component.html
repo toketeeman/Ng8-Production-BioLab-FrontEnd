@@ -1,3 +1,17 @@
+<div style="width: 100%;" fxLayoutAlign="center">
+  <ag-grid-angular
+    #targetHeaderGrid
+    style="width: 90%;"
+    class="ag-theme-balham"
+    [rowData]="targetHeaderData"
+    [domLayout]="domLayout"
+    [columnDefs]="targetHeaderColumnDefs"
+    [modules]="modules"
+  >
+  </ag-grid-angular>
+</div>
+
+
 <div (mouseenter)="enterSubunits()" (mouseleave)="leaveSubunits()">
   <ngu-carousel #subunitCarousel [inputs]="carouselConfig" [dataSource]="subunits" >
     <ngu-tile *nguCarouselDef="let subunit" fxLayout="row" fxLayoutAlign="space-evenly center">

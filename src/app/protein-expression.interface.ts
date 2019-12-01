@@ -97,8 +97,20 @@ export interface IGridFeatureQualifier {
   value: string;
 }
 
+export interface ITargetDetailHeader {
+  target_name: string;
+  target_id?: string;        // Mandatory on the fetch from the DB.
+  partner: string;
+  class: string;
+  project_name: string;
+  notes: string;
+  subunits: ISubunit[];
+}
+
 export interface ITargetDetail {
-  target: ITarget;
+  target: ITargetDetailHeader;
   interactions: ISubunitInteraction[];
   ptms: IPostTranslationalModification[];
 }
+
+
