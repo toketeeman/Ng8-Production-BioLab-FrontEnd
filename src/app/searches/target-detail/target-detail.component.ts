@@ -147,13 +147,15 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
       .pipe(
         map((targetDetail: ITargetDetail) => targetDetail.target)
       ).subscribe(targetDetailHeader => {
-        this.targetHeaderData = [{
-          target_name: targetDetailHeader.target_name,
-          partner: targetDetailHeader.partner,
-          class: targetDetailHeader.class,
-          project_name: targetDetailHeader.project_name,
-          notes: targetDetailHeader.notes
-        }];
+        this.targetHeaderData = [
+          {
+            target_name: targetDetailHeader.target_name,
+            partner: targetDetailHeader.partner,
+            class: targetDetailHeader.class,
+            project_name: targetDetailHeader.project_name,
+            notes: targetDetailHeader.notes
+          }
+        ];
         this.subunits = targetDetailHeader.subunits;
       });
   }
