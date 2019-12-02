@@ -104,7 +104,7 @@ export interface ITargetDetailHeader {
   class: string;
   project_name: string;
   notes: string;
-  subunits: ISubunit[];
+  subunits?: ISubunit[];
 }
 
 export interface ITargetDetail {

@@ -13,7 +13,13 @@ import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
 import { NguCarouselConfig } from '@ngu/carousel';
 
-import { ITargetDetail, ISubunit} from "../../protein-expression.interface";
+import {
+  ITargetDetail,
+  ISubunit,
+  ISubunitInteraction,
+  ITargetDetailHeader,
+  IPostTranslationalModification
+} from "../../protein-expression.interface";
 import { AuthenticationService } from "../../services/authentication.service";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { environment } from "../../../environments/environment";
@@ -25,12 +31,18 @@ import { environment } from "../../../environments/environment";
 })
 export class TargetDetailComponent implements OnInit, AfterViewInit {
   @ViewChild("targetHeaderGrid", { static: false }) targetHeaderGrid: AgGridAngular;
+  @ViewChild("subunitInteractionsGrid", { static: false }) subunitInteractionsGrid: AgGridAngular;
+  @ViewChild("ptmsGrid", { static: false }) ptmsGrid: AgGridAngular;
 
   public modules: Module[] = AllModules;
   public domLayout;
   detailData$: Observable<ITargetDetail>;
-  targetHeaderData: any[];
+  targetHeaderData: ITargetDetailHeader[];
+  subunitInteractionsData: ISubunitInteraction[];
+  ptmsData: IPostTranslationalModification[];
   targetHeaderColumnDefs;
+  subunitInteractionsColumnDefs;
+  ptmsColumnDefs;
   subunits: ISubunit[] = [];
   currentTargetId: string;
   targetsDetailUrl: string;
@@ -128,11 +140,131 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
       }
     ];
 
+    // Configure sub unit interactions grid.
+    this.subunitInteractionsColumnDefs = [
+      {
+        headerName: "Sub Unit Name",
+        field: "subunit_one_name",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '24%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Copy #",
+        field: "subunit_one_copy",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Interaction Type",
+        field: "interaction",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Sub Unit Name",
+        field: "subunit_two_name",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '24%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Copy #",
+        field: "subunit_two_copy",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: false,
+        menuTabs: []
+      }
+    ];
 
-
-
-
-
+    // Configure post translation modifications grid.
+    this.ptmsColumnDefs = [
+      {
+        headerName: "Sub Unit Name",
+        field: "subunit_one_name",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '22%'
+        }
+      },
+      {
+        headerName: "Residue Number",
+        field: "subunit_one_residue",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Sub Unit Name",
+        field: "subunit_two_name",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '22%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Residue Number",
+        field: "subunit_two_residue",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '14%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Post Translational Modification",
+        field: "ptm",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '22%'
+        },
+        sortable: false,
+        menuTabs: []
+      }
+    ];
 
     this.detailData$ = this.http.get<ITargetDetail>(this.targetsDetailUrl)
       .pipe(
@@ -158,6 +290,20 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
         ];
         this.subunits = targetDetailHeader.subunits;
       });
+
+    this.detailData$
+      .pipe(
+        map((targetDetail: ITargetDetail) => targetDetail.interactions)
+      ).subscribe(subunitInteractions => {
+        this.subunitInteractionsData = subunitInteractions;
+      });
+      
+    this.detailData$
+      .pipe(
+        map((targetDetail: ITargetDetail) => targetDetail.ptms)
+      ).subscribe(ptms => {
+        this.ptmsData = ptms;
+      });
   }
 
   enterSubunits(): void {
@@ -171,8 +317,12 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // Responsive window behavior.
     this.targetHeaderGrid.api.sizeColumnsToFit();
+    this.subunitInteractionsGrid.api.sizeColumnsToFit();
+    this.ptmsGrid.api.sizeColumnsToFit();
     window.onresize = () => {
       this.targetHeaderGrid.api.sizeColumnsToFit();
+      this.subunitInteractionsGrid.api.sizeColumnsToFit();
+      this.ptmsGrid.api.sizeColumnsToFit();
     };
   }
 }

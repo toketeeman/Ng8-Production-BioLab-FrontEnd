@@ -82,3 +82,28 @@
 </div>
 
 
+<div style="width: 100%;" fxLayoutAlign="center">
+  <ag-grid-angular
+    #subunitInteractionsGrid
+    style="width: 90%;"
+    class="ag-theme-balham"
+    [rowData]="subunitInteractionsData"
+    [domLayout]="domLayout"
+    [columnDefs]="subunitInteractionsColumnDefs"
+    [modules]="modules"
+  >
+  </ag-grid-angular>
+</div>
+
+<div style="width: 100%;" fxLayoutAlign="center">
+  <ag-grid-angular
+    #ptmsGrid
+    style="width: 90%;"
+    class="ag-theme-balham"
+    [rowData]="ptmsData"
+    [domLayout]="domLayout"
+    [columnDefs]="ptmsColumnDefs"
+    [modules]="modules"
+  >
+  </ag-grid-angular>
+</div>
