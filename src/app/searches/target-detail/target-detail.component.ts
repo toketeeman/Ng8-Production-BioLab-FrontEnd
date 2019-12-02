@@ -7,7 +7,7 @@ import {
 import { HttpClient } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, of } from "rxjs";
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap, map, take } from 'rxjs/operators';
 
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
@@ -275,8 +275,10 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
           return of(noResult);
         })
       );
+
     this.detailData$
       .pipe(
+        take(1),
         map((targetDetail: ITargetDetail) => targetDetail.target)
       ).subscribe(targetDetailHeader => {
         this.targetHeaderData = [
@@ -293,13 +295,15 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
 
     this.detailData$
       .pipe(
+        take(1),
         map((targetDetail: ITargetDetail) => targetDetail.interactions)
       ).subscribe(subunitInteractions => {
         this.subunitInteractionsData = subunitInteractions;
       });
-      
+
     this.detailData$
       .pipe(
+        take(1),
         map((targetDetail: ITargetDetail) => targetDetail.ptms)
       ).subscribe(ptms => {
         this.ptmsData = ptms;
