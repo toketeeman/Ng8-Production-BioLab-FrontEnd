@@ -65,13 +65,13 @@ export interface IPostTranslationalModification {
 }
 
 export interface IGridTarget {
-  target: string;
+  target_name: string;
   target_id?: string;
   partner: string;
   class: string;
   subunits: string;
   geneCount: string;
-  project: string;
+  project_name: string;
   plasmidCount: string;
 }
 

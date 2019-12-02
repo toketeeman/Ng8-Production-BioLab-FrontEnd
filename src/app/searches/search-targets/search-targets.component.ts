@@ -7,7 +7,7 @@ import {
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 import { IGridTarget } from "../../protein-expression.interface";
 import { AgGridAngular } from "@ag-grid-community/angular";
@@ -46,7 +46,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Target",
-        field: "target",
+        field: "target_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -136,7 +136,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Project",
-        field: "project",
+        field: "project_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -175,6 +175,10 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     this.paginationPagesize = 10;
     this.rowData$ = this.http.get<IGridTarget[]>(this.targetsUrl)
                       .pipe(
+                        // tap((response) => {
+                        //   console.log("RESPONSE: ", JSON.stringify(response));
+                        //   console.log("END OF RESPONSE");
+                        // }),
                         catchError(error => {
                           this.errorDialogService.openDialogForErrorResponse(error, ['message']);
                           const noResults: IGridTarget[] = [];
@@ -191,7 +195,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     // The row fields are at node.data.* .
     // console.log("node: ", JSON.stringify(node.data));
     // console.log("node.data.target: ", node.data.target);
-    return this.filterMatch((node.data as IGridTarget).target);
+    return this.filterMatch((node.data as IGridTarget).target_name);
   }
 
   filterMatch(nodeField: string): boolean {
