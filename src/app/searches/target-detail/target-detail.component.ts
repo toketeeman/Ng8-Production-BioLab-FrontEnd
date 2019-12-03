@@ -291,7 +291,14 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
             class: targetDetailHeader.class,
             project_name: targetDetailHeader.project_name,
             notes: targetDetailHeader.notes
-          }
+          },
+          {
+            target_name: null,      // Dirty fix to prevent resizing flicking by grid.
+            partner: null,
+            class: null,
+            project_name: null,
+            notes: null
+          },
         ];
         this.subunits = targetDetailHeader.subunits;
       });
@@ -302,6 +309,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         take(1),
         takeUntil(this.destroyed$)
       ).subscribe(subunitInteractions => {
+        subunitInteractions.push({    // Dirty fix to prevent resizing flicking by grid.
+          subunit_one_name: null,
+          subunit_one_copy: null,
+          subunit_two_name: null,
+          subunit_two_copy: null,
+          interaction: null
+        });
         this.subunitInteractionsData = subunitInteractions;
       });
 
@@ -311,6 +325,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         take(1),
         takeUntil(this.destroyed$)
       ).subscribe(ptms => {
+        ptms.push({                   // Dirty fix to prevent resizing flicking by grid.
+          subunit_one_name: null,
+          subunit_one_residue: null,
+          subunit_two_name: null,
+          subunit_two_residue: null,
+          ptm: null
+        });
         this.ptmsData = ptms;
       });
   }
