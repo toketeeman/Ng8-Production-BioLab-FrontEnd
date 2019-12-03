@@ -2,12 +2,13 @@ import {
   Component,
   OnInit,
   ViewChild,
-  AfterViewInit
+  AfterViewInit,
+  OnDestroy
 } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Observable, of } from "rxjs";
-import { catchError, tap, map, take } from 'rxjs/operators';
+import { Observable, of, Subject } from "rxjs";
+import { catchError, tap, map, take, takeUntil } from 'rxjs/operators';
 
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
@@ -29,11 +30,12 @@ import { environment } from "../../../environments/environment";
   templateUrl: './target-detail.component.html',
   styleUrls: ['./target-detail.component.scss']
 })
-export class TargetDetailComponent implements OnInit, AfterViewInit {
+export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("targetHeaderGrid", { static: false }) targetHeaderGrid: AgGridAngular;
   @ViewChild("subunitInteractionsGrid", { static: false }) subunitInteractionsGrid: AgGridAngular;
   @ViewChild("ptmsGrid", { static: false }) ptmsGrid: AgGridAngular;
 
+  private destroyed$ = new Subject();
   public modules: Module[] = AllModules;
   public domLayout;
   detailData$: Observable<ITargetDetail>;
@@ -278,8 +280,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
 
     this.detailData$
       .pipe(
+        map((targetDetail: ITargetDetail) => targetDetail.target),
         take(1),
-        map((targetDetail: ITargetDetail) => targetDetail.target)
+        takeUntil(this.destroyed$)
       ).subscribe(targetDetailHeader => {
         this.targetHeaderData = [
           {
@@ -295,16 +298,18 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
 
     this.detailData$
       .pipe(
+        map((targetDetail: ITargetDetail) => targetDetail.interactions),
         take(1),
-        map((targetDetail: ITargetDetail) => targetDetail.interactions)
+        takeUntil(this.destroyed$)
       ).subscribe(subunitInteractions => {
         this.subunitInteractionsData = subunitInteractions;
       });
 
     this.detailData$
       .pipe(
+        map((targetDetail: ITargetDetail) => targetDetail.ptms),
         take(1),
-        map((targetDetail: ITargetDetail) => targetDetail.ptms)
+        takeUntil(this.destroyed$)
       ).subscribe(ptms => {
         this.ptmsData = ptms;
       });
@@ -323,10 +328,25 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
     this.targetHeaderGrid.api.sizeColumnsToFit();
     this.subunitInteractionsGrid.api.sizeColumnsToFit();
     this.ptmsGrid.api.sizeColumnsToFit();
+
+    let timeout;
     window.onresize = () => {
-      this.targetHeaderGrid.api.sizeColumnsToFit();
-      this.subunitInteractionsGrid.api.sizeColumnsToFit();
-      this.ptmsGrid.api.sizeColumnsToFit();
+      if (timeout) {
+        window.cancelAnimationFrame(timeout);
+      }
+      timeout = window.requestAnimationFrame(
+        () => {
+          this.targetHeaderGrid.api.sizeColumnsToFit();
+          this.subunitInteractionsGrid.api.sizeColumnsToFit();
+          this.ptmsGrid.api.sizeColumnsToFit();
+        }
+      )
     };
+  }
+
+  // Clean up the subscriptions.
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }
