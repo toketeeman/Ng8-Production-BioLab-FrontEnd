@@ -361,7 +361,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           this.subunitInteractionsGrid.api.sizeColumnsToFit();
           this.ptmsGrid.api.sizeColumnsToFit();
         }
-      )
+      );
     };
   }
 
