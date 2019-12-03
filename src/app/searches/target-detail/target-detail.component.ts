@@ -253,7 +253,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit {
         menuTabs: []
       },
       {
-        headerName: "Post Translational Modification",
+        headerName: "PTM",
         field: "ptm",
         autoHeight: true,
         cellStyle: {

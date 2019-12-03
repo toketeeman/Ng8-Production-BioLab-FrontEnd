@@ -659,28 +659,28 @@ export class InMemoryDataService implements InMemoryDbService {
         {
           subunit_one_name: "ptms subunit name 1",
           subunit_one_residue: 3,
-          subunit_two_name: "ptms subunit name 1",
-          subunit_two_residue: 2,
-          ptm: "disulfide_bond"
-        },
-        {
-          subunit_one_name: "ptms subunit name 1",
-          subunit_one_residue: 1,
           subunit_two_name: "ptms subunit name 2",
           subunit_two_residue: 2,
-          ptm: "trisulfide_bond"
+          ptm: "disulfide_bond"
         },
         {
           subunit_one_name: "ptms subunit name 3",
           subunit_one_residue: 1,
           subunit_two_name: "ptms subunit name 4",
+          subunit_two_residue: 2,
+          ptm: "trisulfide_bond"
+        },
+        {
+          subunit_one_name: "ptms subunit name 5",
+          subunit_one_residue: 1,
+          subunit_two_name: "ptms subunit name 6",
           subunit_two_residue: 3,
           ptm: "pentasulfide_bond"
         },
         {
-          subunit_one_name: "ptms subunit name 5",
+          subunit_one_name: "ptms subunit name 7",
           subunit_one_residue: 2,
-          subunit_two_name: "ptms subunit name 6",
+          subunit_two_name: "ptms subunit name 8",
           subunit_two_residue: 2,
           ptm: "disulfide_bond"
         }
