@@ -82,11 +82,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.targetHeaderColumnDefs = [
       {
         headerName: "Target Name",
+        headerClass: "target-detail-header",
         field: "target_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '14%'
         },
         sortable: false,
@@ -94,11 +96,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "Partner",
+        headerClass: "target-detail-header",
         field: "partner",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '14%'
         },
         sortable: false,
@@ -106,11 +110,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "Protein Class",
+        headerClass: "target-detail-header",
         field: "class",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '14%'
         },
         sortable: false,
@@ -118,11 +124,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "Project Name",
+        headerClass: "target-detail-header",
         field: "project_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '14%'
         },
         sortable: false,
@@ -130,11 +138,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "Notes",
+        headerClass: "target-detail-header",
         field: "notes",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '14%'
         },
         sortable: false,
@@ -146,11 +156,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subunitInteractionsColumnDefs = [
       {
         headerName: "Sub Unit Name",
+        headerClass: "target-detail-header",
         field: "subunit_one_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '24%'
         },
         sortable: false,
@@ -158,11 +170,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "Copy #",
+        headerClass: "target-detail-header",
         field: "subunit_one_copy",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '14%'
         },
         sortable: false,
@@ -170,11 +184,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "Interaction Type",
+        headerClass: "target-detail-header",
         field: "interaction",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '14%'
         },
         sortable: false,
@@ -182,11 +198,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "Sub Unit Name",
+        headerClass: "target-detail-header",
         field: "subunit_two_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '24%'
         },
         sortable: false,
@@ -194,11 +212,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "Copy #",
+        headerClass: "target-detail-header",
         field: "subunit_two_copy",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '14%'
         },
         sortable: false,
@@ -210,21 +230,25 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ptmsColumnDefs = [
       {
         headerName: "Sub Unit Name",
+        headerClass: "target-detail-header",
         field: "subunit_one_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '22%'
         }
       },
       {
         headerName: "Residue Number",
+        headerClass: "target-detail-header",
         field: "subunit_one_residue",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '14%'
         },
         sortable: false,
@@ -232,11 +256,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "Sub Unit Name",
+        headerClass: "target-detail-header",
         field: "subunit_two_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '22%'
         },
         sortable: false,
@@ -244,11 +270,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "Residue Number",
+        headerClass: "target-detail-header",
         field: "subunit_two_residue",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '14%'
         },
         sortable: false,
@@ -256,11 +284,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       {
         headerName: "PTM",
+        headerClass: "target-detail-header",
         field: "ptm",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
           width: '22%'
         },
         sortable: false,
