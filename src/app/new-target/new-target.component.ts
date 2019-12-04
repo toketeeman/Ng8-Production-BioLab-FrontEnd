@@ -157,4 +157,8 @@ export class NewTargetComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.stateSubscription.unsubscribe();
   }
+
+  isPositive(n: number): boolean {
+    return n > 0;
+  }
 }
