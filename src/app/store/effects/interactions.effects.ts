@@ -24,10 +24,10 @@ export class InteractionsEffects {
     ofType(InteractionsRegistrationActionTypes.SUBUNIT_INTERACTIONS),
     map((action: SubunitInteractions) => action.data),
     switchMap(data => {
-      return forkJoin(
+      return forkJoin([
         this.targetRegistrationService.registerInteractions(data.interactions),
         this.targetRegistrationService.registerPtms(data.ptms)
-      );
+      ]);
     }),
     map(([interactions, ptms]) => {
       return new SubunitInteractionsSuccess({
