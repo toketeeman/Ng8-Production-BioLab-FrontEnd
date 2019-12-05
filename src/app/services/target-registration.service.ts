@@ -33,12 +33,6 @@ export class TargetRegistrationService {
       this.ptmsUrl = environment.urls.ptmsUrl;
   }
 
-  getProteinClasses(): Observable<IProteinClass[]> {
-    return this.http
-      .get<IProteinClass[]>(this.proteinClassesUrl)
-      .pipe(catchError(this.handleError<IProteinClass[]>("getProteinClasses")));
-  }
-
   uploadFastaFile(
     type: "amino_acid" | "dna",
     file: any
@@ -74,17 +68,6 @@ export class TargetRegistrationService {
 
   registerPtms(ptms: IPostTranslationalModification[]): Observable<any> {
     return this.http.post<any>(this.ptmsUrl, ptms);
-  }
-
-  /**
-   * Handle failed http operation
-   * @param operation - name of failed http operation
-   */
-  private handleError<T>(operation: string) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return;
-    };
   }
 
   private formatTarget(targetObject: any) {
