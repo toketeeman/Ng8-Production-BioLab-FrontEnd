@@ -33,19 +33,11 @@ export class TargetRegistrationService {
       this.ptmsUrl = environment.urls.ptmsUrl;
   }
 
-  /** GET protein classes from backend
-   * @returns Observable<IProteinClass[]>
-   */
   getProteinClasses(): Observable<IProteinClass[]> {
     return this.http
       .get<IProteinClass[]>(this.proteinClassesUrl)
       .pipe(catchError(this.handleError<IProteinClass[]>("getProteinClasses")));
   }
-
-  /** POST upload individual FASTA file
-   * @params  type: "amino_acid" | "dna", file
-   * @returns Observable<IFastaResponse>
-   */
 
   uploadFastaFile(
     type: "amino_acid" | "dna",
@@ -53,8 +45,8 @@ export class TargetRegistrationService {
   ): Observable<IFastaResponse> {
     const formData = new FormData();
     const fastaFile = {
-      sequence_type: type,
-      expected_entry_count: 1,
+      sequence_type: type,        // Requesting type validation here.
+      expected_entry_count: 1,    // Requesting number-of-records validation here.
       fasta_file: file
     };
 
@@ -64,10 +56,6 @@ export class TargetRegistrationService {
     return this.http.post<IFastaResponse>(this.fastaUrl, formData);
   }
 
-  /** POST register new protein target
-   * @params target
-   * @returns Observable<ITarget>
-   */
   registerTarget(targetData): Observable<ITarget> {
     return this.http.post<ITarget>(
       this.targetUrl,
@@ -75,10 +63,6 @@ export class TargetRegistrationService {
     );
   }
 
-  /** POST register subunit interactions
-   * @params subunitInteractions: ISubunitInteraction[]
-   * @returns Observable<any>
-   */
   registerInteractions(
     subunitInteractions: ISubunitInteraction[]
   ): Observable<any> {
@@ -87,11 +71,6 @@ export class TargetRegistrationService {
       subunitInteractions
     );
   }
-
-  /** POST register post translational modifications
-   * @params ptms: IPostTranslationalModification[]
-   * @returns Observable<any>
-   */
 
   registerPtms(ptms: IPostTranslationalModification[]): Observable<any> {
     return this.http.post<any>(this.ptmsUrl, ptms);
