@@ -867,10 +867,6 @@ export class InMemoryDataService implements InMemoryDbService {
     });
   }
 
-  getProteinClasses(reqInfo: any) {
-    return true;
-  }
-
   /////////// helpers ///////////////
   private finishOptions(
     options: ResponseOptions,
