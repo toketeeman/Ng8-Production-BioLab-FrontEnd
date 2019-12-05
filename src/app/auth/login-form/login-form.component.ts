@@ -2,9 +2,11 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Observable, Subscription } from "rxjs";
+
 import { AppState, selectAuthState } from "../../store/app.states";
 import { LogIn } from "../../store/actions/auth.actions";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
+import { ProteinClassesService } from "../../services/protein-classes.service";
 
 @Component({
   selector: "app-login-form",
@@ -19,9 +21,10 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   errorMessage: string | null;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private store: Store<AppState>,
-    private errorDialogService: ErrorDialogService) {
+    private errorDialogService: ErrorDialogService,
+    private proteinClassesService: ProteinClassesService) {
       this.state$ = this.store.select(selectAuthState);
     }
 
@@ -34,6 +37,8 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     this.stateSubscription = this.state$.subscribe(state => {
       this.errorMessage = state.errorMessage;
     });
+
+    this.proteinClassesService.initProteinClasses();
   }
 
   login(): void {

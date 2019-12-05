@@ -41,7 +41,6 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
 
     this.stateSubscription = this.state$.subscribe(state => {
       if (state) {
-        console.log(state);
         this.target = state.target;
         this.subunits = state.subunits;
         this.errorMessage = state.errorMessage;

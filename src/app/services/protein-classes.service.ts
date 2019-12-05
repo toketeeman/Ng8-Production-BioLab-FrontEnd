@@ -28,7 +28,7 @@ export class ProteinClassesService {
       .pipe(
         catchError(error => {
           console.log(JSON.stringify(error));
-          this.errorDialogService.openDialogForMessages('System Error: Protein classes are not available. Contact admin.');
+          this.errorDialogService.openDialogForMessages('System Error: You may log in but protein classes will not be available. Contact admin.');
           const noResults: IProteinClass[] = [];
           return of(noResults);
         })
