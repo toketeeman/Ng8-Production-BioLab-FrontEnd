@@ -250,6 +250,7 @@ tr {
 
 /* Needed to remove nasty 24pt white border around the error dialog modals caused by angular material! */
 /* Also nicely removes ugly scrollbars from ag-Grid column filter menus! */
+/* Also removes scrollbars from ag-Grid when configured with domLayout="autoHeight".
 ::-webkit-scrollbar {
   width: 0px;
 }
