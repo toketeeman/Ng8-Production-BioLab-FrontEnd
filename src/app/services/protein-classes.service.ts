@@ -14,8 +14,8 @@ import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service
 export class ProteinClassesService {
   proteinClassesUrl: string;
   private proteinClassesSubject = new BehaviorSubject<IProteinClass[]>([]);
-  proteinClasses$ = this.proteinClassesSubject.asObservable();
-  proteinClasses: IProteinClass[] = [];
+  proteinClasses$ = this.proteinClassesSubject.asObservable();      // For asynchronous bindings.
+  proteinClasses: IProteinClass[] = [];                             // For synchronous conversions.
 
   constructor(
     private errorDialogService: ErrorDialogService,
