@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
+
 import { AuthenticationService } from "./authentication.service";
 import {
   IProteinClass,
@@ -10,6 +11,7 @@ import {
   ISubunitInteraction,
   IPostTranslationalModification
 } from "../protein-expression.interface";
+import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
 import { environment } from "../../environments/environment";
 
 @Injectable({
@@ -24,7 +26,8 @@ export class TargetRegistrationService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private errorDialogService: ErrorDialogService
   ) {
       this.proteinClassesUrl = environment.urls.proteinClassesUrl;
       this.targetUrl = environment.urls.targetUrl;
@@ -33,11 +36,27 @@ export class TargetRegistrationService {
       this.ptmsUrl = environment.urls.ptmsUrl;
   }
 
+  // getProteinClasses(): Observable<IProteinClass[]> {
+  //   return this.http
+  //     .get<IProteinClass[]>(this.proteinClassesUrl)
+  //     .pipe(catchError(this.handleError<IProteinClass[]>("getProteinClasses")));
+  // }
   getProteinClasses(): Observable<IProteinClass[]> {
     return this.http
       .get<IProteinClass[]>(this.proteinClassesUrl)
-      .pipe(catchError(this.handleError<IProteinClass[]>("getProteinClasses")));
+      .pipe(
+        catchError(error => {
+          console.log(JSON.stringify(error));
+          this.errorDialogService.openDialogForMessages('Protein class selection is not be available. Contact admin.');
+          const noClasses: IProteinClass[] = [];
+          return of(noClasses);
+        })
+      );
   }
+
+
+
+
 
   uploadFastaFile(
     type: "amino_acid" | "dna",

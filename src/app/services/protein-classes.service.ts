@@ -33,25 +33,25 @@ export class ProteinClassesService {
       this.proteinClassesSubject.next(proteinClasses);
     } else {
       this.http.get<IProteinClass[]>(this.proteinClassesUrl)
-      .pipe(
-        tap((classes: IProteinClass[]) => {
-          this.proteinClassesSubject.next(classes);
-          this.proteinClasses = classes;
-        }),
-        catchError(error => {
-          console.log(JSON.stringify(error));
-          this.errorDialogService.openDialogForMessages('Protein class selection is not be available. Contact admin.');
-          const noClasses: IProteinClass[] = [];
-          return of(noClasses);
-        })
-      )
-      .subscribe(
-        classes => {
-          if (!classes.length) {
-            this.router.navigateByUrl("/login");
+        .pipe(
+          tap((classes: IProteinClass[]) => {
+            this.proteinClassesSubject.next(classes);
+            this.proteinClasses = classes;
+          }),
+          catchError(error => {
+            console.log(JSON.stringify(error));
+            this.errorDialogService.openDialogForMessages('Protein class selection is not be available. Contact admin.');
+            const noClasses: IProteinClass[] = [];
+            return of(noClasses);
+          })
+        )
+        .subscribe(
+          classes => {
+            if (!classes.length) {
+              this.router.navigateByUrl("/login");
+            }
           }
-        }
-      );
+        );
     }
   }
 
