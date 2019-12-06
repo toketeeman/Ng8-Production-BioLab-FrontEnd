@@ -36,11 +36,6 @@ export class TargetRegistrationService {
       this.ptmsUrl = environment.urls.ptmsUrl;
   }
 
-  // getProteinClasses(): Observable<IProteinClass[]> {
-  //   return this.http
-  //     .get<IProteinClass[]>(this.proteinClassesUrl)
-  //     .pipe(catchError(this.handleError<IProteinClass[]>("getProteinClasses")));
-  // }
   getProteinClasses(): Observable<IProteinClass[]> {
     return this.http
       .get<IProteinClass[]>(this.proteinClassesUrl)
@@ -53,10 +48,6 @@ export class TargetRegistrationService {
         })
       );
   }
-
-
-
-
 
   uploadFastaFile(
     type: "amino_acid" | "dna",
