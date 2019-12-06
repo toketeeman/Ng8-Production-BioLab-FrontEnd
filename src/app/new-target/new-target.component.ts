@@ -16,6 +16,8 @@ import { AppState, selectTargetState } from "../store/app.states";
 import { NewTarget } from "../store/actions/target.actions";
 import { ValidateNumberInput } from "../validators/numberInput.validator";
 import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
+import { ProteinClassesService } from "../services/protein-classes.service";
+import { tap } from 'rxjs/operators';
 
 @Component({
   templateUrl: "./new-target.component.html",
@@ -56,7 +58,8 @@ export class NewTargetComponent implements OnInit, OnDestroy {
     private targetService: TargetRegistrationService,
     private store: Store<AppState>,
     private alert: AlertService,
-    private errorDialogService: ErrorDialogService
+    private errorDialogService: ErrorDialogService,
+    private proteinClassesService: ProteinClassesService
   ) {
     this.state$ = this.store.select(selectTargetState);
   }
@@ -77,7 +80,12 @@ export class NewTargetComponent implements OnInit, OnDestroy {
       subunits: this.fb.array([this.createSubunit()])
     });
 
-    this.proteinClasses$ = this.targetService.getProteinClasses();
+    this.proteinClasses$ = this.targetService.getProteinClasses()
+                            .pipe(
+                              tap( (classes: IProteinClass[]) => {
+                                this.proteinClassesService.initProteinClasses(classes);
+                              }
+                            ));
   }
 
   createSubunit(): FormGroup {
