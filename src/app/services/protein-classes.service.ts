@@ -55,6 +55,8 @@ export class ProteinClassesService {
     }
   }
 
+  // Do not call any of the methods below until after this service has been initialized above.
+
   getProteinClasses(): Observable<IProteinClass[]> {
     return this.proteinClasses$;
   }
