@@ -55,7 +55,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private targetService: TargetRegistrationService,
+    private targetRegistrationService: TargetRegistrationService,
     private store: Store<AppState>,
     private alert: AlertService,
     private errorDialogService: ErrorDialogService,
@@ -80,7 +80,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
       subunits: this.fb.array([this.createSubunit()])
     });
 
-    this.proteinClasses$ = this.targetService.getProteinClasses()
+    this.proteinClasses$ = this.targetRegistrationService.getProteinClasses()
                             .pipe(
                               tap( (classes: IProteinClass[]) => {
                                 this.proteinClassesService.initProteinClasses(classes);
@@ -123,7 +123,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
 
-      this.targetService.uploadFastaFile(type, file).subscribe(
+      this.targetRegistrationService.uploadFastaFile(type, file).subscribe(
         (response: IFastaResponse) => {
           const fastaEntry = response.fasta_entries[0];
 
