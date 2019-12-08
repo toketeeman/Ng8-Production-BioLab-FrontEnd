@@ -39,9 +39,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   public modules: Module[] = AllModules;
   public domLayout;
   detailData$: Observable<ITargetDetail>;
-  targetHeaderData: ITargetDetailHeader[];
-  subunitInteractionsData: ISubunitInteraction[];
-  ptmsData: IPostTranslationalModification[];
+  targetHeaderData: ITargetDetailHeader[];          // UI-bound data.
+  subunitInteractionsData: ISubunitInteraction[];   // UI-bound data.
+  ptmsData: IPostTranslationalModification[];       // UI-bound data.
   targetHeaderColumnDefs;
   subunitInteractionsColumnDefs;
   ptmsColumnDefs;

@@ -51,4 +51,8 @@ export class TargetDetailStoreService {
       });
     return updateSubscription;
   }
+
+  resetTargetDetailStore() {
+    this.targetDetailStoreSubject.next({} as ITargetDetail);
+  }
 }

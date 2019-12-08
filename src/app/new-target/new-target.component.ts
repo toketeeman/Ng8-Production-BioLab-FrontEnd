@@ -73,12 +73,16 @@ export class NewTargetComponent implements OnInit, OnDestroy {
       subunits: this.fb.array([this.createSubunit()])
     });
 
+    // Initialize the protein classes lookup service.
     this.proteinClasses$ = this.targetRegistrationService.getProteinClasses()
                             .pipe(
                               tap( (classes: IProteinClass[]) => {
                                 this.proteinClassesService.initProteinClasses(classes);
                               }
                             ));
+
+    // Reset the target detail store.
+    this.targetDetailStoreService.resetTargetDetailStore();
   }
 
   createSubunit(): FormGroup {
