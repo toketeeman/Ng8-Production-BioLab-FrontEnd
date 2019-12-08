@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Store } from "@ngrx/store";
 import {
   FormBuilder,
   FormArray,
@@ -7,17 +6,20 @@ import {
   Validators,
   FormControl
 } from "@angular/forms";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, of } from "rxjs";
 
 import { TargetRegistrationService } from "../services/target-registration.service";
+import { TargetDetailStoreService } from "../services/target-detail-store.service";
 import { AlertService } from "../services/alert.service";
-import { IProteinClass, IFastaResponse } from "../protein-expression.interface";
-import { AppState, selectTargetState } from "../store/app.states";
-import { NewTarget } from "../store/actions/target.actions";
+import {
+  IProteinClass,
+  IFastaResponse,
+  ITargetDetailHeader
+} from '../protein-expression.interface';
 import { ValidateNumberInput } from "../validators/numberInput.validator";
 import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
 import { ProteinClassesService } from "../services/protein-classes.service";
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 
 @Component({
   templateUrl: "./new-target.component.html",
@@ -26,10 +28,9 @@ import { tap } from 'rxjs/operators';
 export class NewTargetComponent implements OnInit, OnDestroy {
   targetForm: FormGroup;
   proteinClasses$: Observable<IProteinClass[]>;
-  state$: Observable<any>;
-  stateSubscription: Subscription;
   errorMessage: string | null;
   disableDeactivateGuard = false;
+  targetUpdateSubscription: Subscription = null;
 
   /** getters allow the new-target form template to refer to individual controls by variable name
    */
@@ -56,21 +57,13 @@ export class NewTargetComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private targetRegistrationService: TargetRegistrationService,
-    private store: Store<AppState>,
     private alert: AlertService,
     private errorDialogService: ErrorDialogService,
-    private proteinClassesService: ProteinClassesService
-  ) {
-    this.state$ = this.store.select(selectTargetState);
-  }
+    private proteinClassesService: ProteinClassesService,
+    private targetDetailStoreService: TargetDetailStoreService
+  ) { }
 
   ngOnInit() {
-    this.stateSubscription = this.state$.subscribe(state => {
-      if (state) {
-        this.errorMessage = state.errorMessage;
-      }
-    });
-
     this.targetForm = this.fb.group({
       target: ["", Validators.required],
       partner: ["", Validators.required],
@@ -106,12 +99,12 @@ export class NewTargetComponent implements OnInit, OnDestroy {
     });
   }
 
-  /** Add new instance of subunit formGroup to the subunits formArray */
+  // Add new instance of subunit formGroup to the subunits formArray.
   addSubunit() {
     this.subunits.push(this.createSubunit());
   }
 
-  /** Remove subunit formGroup at provided index of subunits FormArray */
+ // Remove subunit formGroup at provided index of subunits FormArray.
   deleteSubunit(index: number) {
     this.subunits.removeAt(index);
   }
@@ -159,12 +152,32 @@ export class NewTargetComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.disableDeactivateGuard = true;
-    const data = this.targetForm.value;
-    this.store.dispatch(new NewTarget(data));
+    this.targetRegistrationService.registerTarget(this.targetForm.value)
+      .pipe(
+        tap( (targetResponseData) => {
+          const targetUpdate: ITargetDetailHeader = {
+            target_name: targetResponseData.target_name,
+            target_id: targetResponseData.target_id,
+            partner: targetResponseData.partner,
+            class: this.proteinClassesService.pkToProteinClassName(targetResponseData.protein_class_pk),
+            notes: targetResponseData.notes,
+            project_name: targetResponseData.project_name,
+            subunits: targetResponseData.subunits
+          };
+          this.targetUpdateSubscription = this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, "/home/subunit-interactions");
+        }),
+        catchError(error => {
+          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy() {
-    this.stateSubscription.unsubscribe();
+    if (this.targetUpdateSubscription) {
+      this.targetUpdateSubscription.unsubscribe();
+    }
   }
 
   isPositive(n: number): boolean {

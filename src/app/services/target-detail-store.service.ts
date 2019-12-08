@@ -22,7 +22,7 @@ export class TargetDetailStoreService {
   ) { }
 
 
-  retrieveProteinClasses(): Observable<ITargetDetail> {
+  retrieveTargetDetail(): Observable<ITargetDetail> {
     return this.targetDetailStore$;
   }
 
@@ -30,12 +30,12 @@ export class TargetDetailStoreService {
     return this.updateTargetDetailStore( { target: targetHeader }, nextRoute);
   }
 
-  storeTargetDetailInteractions(targetInteractions: ISubunitInteraction[], nextRoute: string): Subscription {
-    return this.updateTargetDetailStore( { interactions: targetInteractions }, nextRoute);
-  }
-
-  storeTargetDetailPtms(targetPtms: IPostTranslationalModification[], nextRoute: string): Subscription {
-    return this.updateTargetDetailStore( { ptms: targetPtms }, nextRoute);
+  storeTargetDetailInteractionsAndPtms(
+    targetInteractions: ISubunitInteraction[],
+    targetPtms: IPostTranslationalModification[],
+    nextRoute: string
+  ): Subscription {
+    return this.updateTargetDetailStore( { interactions: targetInteractions, ptms: targetPtms }, nextRoute);
   }
 
   updateTargetDetailStore(update: any, nextRoute?: string): Subscription {

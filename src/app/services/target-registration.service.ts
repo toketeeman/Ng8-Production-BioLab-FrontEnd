@@ -69,7 +69,7 @@ export class TargetRegistrationService {
   registerTarget(targetData): Observable<ITarget> {
     return this.http.post<ITarget>(
       this.targetUrl,
-      this.formatTarget(targetData)
+      this.formatTargetRegistration(targetData)
     );
   }
 
@@ -83,17 +83,19 @@ export class TargetRegistrationService {
   }
 
   registerPtms(ptms: IPostTranslationalModification[]): Observable<any> {
-    return this.http.post<any>(this.ptmsUrl, ptms);
+    return this.http.post<any>(
+      this.ptmsUrl,
+      ptms);
   }
 
-  private handleError<T>(operation: string) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return;
-    };
-  }
+  // private handleError<T>(operation: string) {
+  //   return (error: any): Observable<T> => {
+  //     console.error(`${operation} failed: ${error.message}`);
+  //     return;
+  //   };
+  // }
 
-  private formatTarget(targetObject: any) {
+  private formatTargetRegistration(targetObject: any) {
     const formattedUnits = targetObject.subunits.map(unit => {
       return {
         subunit_name: unit.subunit_name,

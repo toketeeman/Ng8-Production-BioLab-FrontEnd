@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Store } from "@ngrx/store";
 import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
-import { Observable, Subscription } from "rxjs";
-import { AppState, selectTargetState } from "../store/app.states";
-import { ISubunit } from "../protein-expression.interface";
-import { SubunitInteractions } from "../store/actions/interactions.actions";
+import { Observable, Subscription, forkJoin, of } from "rxjs";
+import { tap, catchError } from 'rxjs/operators';
+
+import { ISubunit, ISubunitInteraction, IPostTranslationalModification } from "../protein-expression.interface";
 import { ValidateNumberInput } from "../validators/numberInput.validator";
 import { AlertService } from "../services/alert.service";
+import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
+import { TargetRegistrationService } from "../services/target-registration.service";
+import { TargetDetailStoreService } from "../services/target-detail-store.service";
 
 @Component({
   templateUrl: "./subunit-interactions.component.html",
@@ -20,6 +22,7 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   subunits: ISubunit[];
   errorMessage: string | null;
   disableDeactivateGuard = false;
+  interactionAndPtmSubscription: Subscription = null;
 
   // getters allow the subunit interactions form template to refer to dynamic formArrays by variable name
   get subunitsArray() {
@@ -29,9 +32,13 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
     return this.interactionForm.get("ptmsArray") as FormArray;
   }
 
-  constructor(private fb: FormBuilder, private alert: AlertService, private store: Store<AppState>) {
-    this.state$ = this.store.select(selectTargetState);
-  }
+  constructor(
+    private fb: FormBuilder,
+    private alert: AlertService,
+    private errorDialogService: ErrorDialogService,
+    private targetRegistrationService: TargetRegistrationService,
+    private targetDetailStoreService: TargetDetailStoreService
+  ) {}
 
   ngOnInit() {
     this.interactionForm = this.fb.group({
@@ -129,11 +136,44 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.disableDeactivateGuard = true;
-    const data = {
-      interactions: this.interactionForm.value.subunitsArray,
-      ptms: this.interactionForm.value.ptmsArray
-    };
-    this.store.dispatch(new SubunitInteractions(data));
+
+    forkJoin([
+      this.targetRegistrationService.registerInteractions(this.interactionForm.value.subunitsArray),
+      this.targetRegistrationService.registerPtms(this.interactionForm.value.ptmsArray)
+    ])
+      .pipe(
+        tap(([interactionsResponseData, ptmsResponseData]) => {
+          const subunitInteractionsUpdate: ISubunitInteraction[] = [];
+          for (const interactionResponse of interactionsResponseData as ISubunitInteraction[]) {
+            const interactionUpdate: ISubunitInteraction = {
+              subunit_one_name: interactionResponse.subunit_one_name,
+              subunit_one_copy: interactionResponse.subunit_one_copy,
+              subunit_two_name: interactionResponse.subunit_two_name,
+              subunit_two_copy: interactionResponse.subunit_two_copy,
+              interaction: interactionResponse.interaction
+            };
+            subunitInteractionsUpdate.push(interactionUpdate);
+          };
+          const ptmsUpdate: IPostTranslationalModification[] = [];
+          for (const ptmResponse of ptmsResponseData as IPostTranslationalModification[]) {
+            const ptmUpdate: IPostTranslationalModification = {
+              subunit_one_name: ptmResponse.subunit_one_name,
+              subunit_one_residue: ptmResponse.subunit_one_residue,
+              subunit_two_name: ptmResponse.subunit_two_name,
+              subunit_two_residue: ptmResponse.subunit_two_residue,
+              ptm: ptmResponse.ptm
+            };
+            ptmsUpdate.push(ptmUpdate);
+          }
+          this.interactionAndPtmSubscription =
+            this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, "/home/success");
+        }),
+        catchError(error => {
+          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 
   canDeactivate() {
