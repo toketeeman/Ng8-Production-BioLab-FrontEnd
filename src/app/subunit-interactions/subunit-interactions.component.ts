@@ -153,7 +153,7 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
               interaction: interactionResponse.interaction
             };
             subunitInteractionsUpdate.push(interactionUpdate);
-          };
+          }
           const ptmsUpdate: IPostTranslationalModification[] = [];
           for (const ptmResponse of ptmsResponseData as IPostTranslationalModification[]) {
             const ptmUpdate: IPostTranslationalModification = {
