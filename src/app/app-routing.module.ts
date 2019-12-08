@@ -7,7 +7,7 @@ import { LoginFormComponent } from "./auth/login-form/login-form.component";
 import { HomeComponent } from "./home/home.component";
 import { AuthGuard } from "./guards/auth.guard";
 import { SignedOutGuard } from "./guards/signed-out.guard";
-import { RegistrationSuccessComponent } from "./registration-success/registration-success.component";
+import { RegistrationSummaryComponent } from './registration-summary/registration-summary.component';
 import { UnsavedChangesGuard } from "./guards/unsaved-changes.guard";
 import { CanAccessGuard } from "./guards/can-access.guard";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
@@ -42,7 +42,7 @@ const routes: Routes = [
       },
       {
         path: "success",
-        component: RegistrationSuccessComponent,
+        component: RegistrationSummaryComponent,
         canActivate: [CanAccessGuard],
         canDeactivate: [CanAccessGuard]
       },

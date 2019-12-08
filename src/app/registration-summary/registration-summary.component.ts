@@ -5,10 +5,8 @@ import {
   AfterViewInit,
   OnDestroy
 } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { ActivatedRoute } from "@angular/router";
-import { Observable, of, Subject } from "rxjs";
-import { catchError, map, take, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from "rxjs";
+import { map, take, takeUntil } from 'rxjs/operators';
 
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
@@ -20,15 +18,14 @@ import {
   ISubunitInteraction,
   ITargetDetailHeader,
   IPostTranslationalModification
-} from "../../protein-expression.interface";
-import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
-import { environment } from "../../../environments/environment";
+} from "../protein-expression.interface";
+import { TargetDetailStoreService } from "../services/target-detail-store.service";
 
 @Component({
-  templateUrl: './target-detail.component.html',
-  styleUrls: ['./target-detail.component.scss']
+  templateUrl: './registration-summary.component.html',
+  styleUrls: ['./registration-summary.component.scss']
 })
-export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("targetHeaderGrid", { static: false }) targetHeaderGrid: AgGridAngular;
   @ViewChild("subunitInteractionsGrid", { static: false }) subunitInteractionsGrid: AgGridAngular;
   @ViewChild("ptmsGrid", { static: false }) ptmsGrid: AgGridAngular;
@@ -59,19 +56,10 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   subunitsAreHovered = false;
 
   constructor(
-    private http: HttpClient,
-    private errorDialogService: ErrorDialogService,
-    private route: ActivatedRoute) {}
+    private targetDetailStoreService: TargetDetailStoreService
+  ) {}
 
   ngOnInit() {
-    this.currentTargetId = this.route.snapshot.paramMap.get('id');
-
-    if (environment.inMemoryData) {
-      this.targetsDetailUrl = environment.urls.targetsDetailUrl;
-    } else {
-      this.targetsDetailUrl = environment.urls.targetsDetailUrl + '?target_id=' + this.currentTargetId;
-    }
-
     this.domLayout = 'autoHeight';
 
     // Configure target header grid.
@@ -294,15 +282,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     ];
 
-    this.detailData$ = this.http.get<ITargetDetail>(this.targetsDetailUrl)
-      .pipe(
-        catchError(error => {
-          console.log(JSON.stringify(error));
-          this.errorDialogService.openDialogForErrorResponse(error, ['message']);
-          const noResult: ITargetDetail = null;
-          return of(noResult);
-        })
-      );
+    this.detailData$ = this.targetDetailStoreService.retrieveTargetDetailStore();
 
     this.detailData$
       .pipe(

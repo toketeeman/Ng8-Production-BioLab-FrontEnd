@@ -32,7 +32,6 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private authService: AuthenticationService,
     private errorDialogService: ErrorDialogService,
     private route: ActivatedRoute) {}
 

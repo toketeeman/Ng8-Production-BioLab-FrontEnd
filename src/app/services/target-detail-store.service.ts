@@ -22,7 +22,7 @@ export class TargetDetailStoreService {
   ) { }
 
 
-  retrieveTargetDetail(): Observable<ITargetDetail> {
+  retrieveTargetDetailStore(): Observable<ITargetDetail> {
     return this.targetDetailStore$;
   }
 

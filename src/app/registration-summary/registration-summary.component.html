@@ -1,0 +1,119 @@
+<div class="target-detail-room" fxLayout="column" fxLayoutGap="20px">
+
+  <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center">
+    <ag-grid-angular
+      #targetHeaderGrid
+      style="width: 90%;"
+      class="ag-theme-balham"
+      [rowData]="targetHeaderData"
+      [domLayout]="domLayout"
+      [columnDefs]="targetHeaderColumnDefs"
+      [modules]="modules"
+    >
+    </ag-grid-angular>
+  </div>
+
+  <div (mouseenter)="enterSubunits()" (mouseleave)="leaveSubunits()">
+    <ngu-carousel #subunitCarousel [inputs]="carouselConfig" [dataSource]="subunits" >
+      <ngu-tile *nguCarouselDef="let subunit" fxLayout="row" fxLayoutAlign="space-evenly center">
+
+        <mat-card class="target-detail-card" fxLayout="column" fxLayoutGap="10px" >
+
+          <div class="target-detail-subunit-top" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="target-detail-subunit-name" fxLayout="column">
+              <div class="target-detail-subunit-name-1">
+                {{subunit.subunit_name}}
+              </div>
+              <div class="target-detail-subunit-name-2">
+                Sub Unit Name
+              </div>
+            </div>
+            <div class="target-detail-subunit-copy" fxLayout="column">
+              <div class="target-detail-subunit-copy-1">
+                {{subunit.copies}}
+              </div>
+              <div class="target-detail-subunit-copy-2">
+                {{subunit.copies > 1 ? 'Copies' : 'Copy'}}
+              </div>
+            </div>
+          </div>
+
+          <div class="target-detail-aa-sequence" fxLayout="column">
+            <div class="target-detail-aa-sequence-1" fxLayout="row" fxLayoutAlign="end">
+              <div>
+                Amino acid sequence
+              </div>
+            </div>
+            <div class="target-detail-aa-sequence-2">
+              {{subunit.amino_acid_sequence}}
+            </div>
+          </div>
+
+          <div>
+            <hr>
+          </div>
+
+          <div class="target-detail-dna-sequence" fxLayout="column">
+            <div class="target-detail-dna-sequence-1" fxLayout="row" fxLayoutAlign="end">
+              <div>
+                DNA sequence
+              </div>
+            </div>
+            <div class="target-detail-dna-sequence-2">
+              {{subunit.dna_sequence}}
+            </div>
+          </div>
+
+        </mat-card>
+
+      </ngu-tile>
+
+      <button NguCarouselPrev class="prevSubunitBtn" *ngIf="subunitsAreHovered"
+        [style.opacity]="subunitCarousel.isFirst ? 0.3 : 1.0">&lt;</button>
+      <button NguCarouselNext class="nextSubunitBtn" *ngIf="subunitsAreHovered"
+        [style.opacity]="subunitCarousel.isLast ? 0.3 : 1.0">&gt;</button>
+
+      <ul class="subunitPoint" NguCarouselPoint>
+        <li *ngFor="let i of subunitCarousel.pointNumbers; let i = index"
+          [class.active]="i==subunitCarousel.activePoint" (click)="subunitCarousel.moveTo(i)">
+        </li>
+      </ul>
+
+    </ngu-carousel>
+  </div>
+
+  <div style="width: 100%;">
+    <h3>Sub Unit Interactions</h3>
+  </div>
+
+  <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center">
+    <ag-grid-angular
+      #subunitInteractionsGrid
+      style="width: 90%;"
+      class="ag-theme-balham"
+      [rowData]="subunitInteractionsData"
+      [domLayout]="domLayout"
+      [columnDefs]="subunitInteractionsColumnDefs"
+      [modules]="modules"
+    >
+    </ag-grid-angular>
+  </div>
+
+  <div style="width: 100%;">
+    <h3>Post Translation Modifications</h3>
+  </div>
+
+  <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center">
+    <ag-grid-angular
+      #ptmsGrid
+      style="width: 90%;"
+      class="ag-theme-balham"
+      [rowData]="ptmsData"
+      [domLayout]="domLayout"
+      [columnDefs]="ptmsColumnDefs"
+      [modules]="modules"
+    >
+    </ag-grid-angular>
+  </div>
+
+</div>

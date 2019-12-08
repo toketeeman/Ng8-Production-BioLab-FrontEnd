@@ -26,7 +26,6 @@ export class TargetRegistrationService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthenticationService,
     private errorDialogService: ErrorDialogService
   ) {
       this.proteinClassesUrl = environment.urls.proteinClassesUrl;

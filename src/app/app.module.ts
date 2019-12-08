@@ -53,6 +53,7 @@ import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail
 import { FeatureQualifierRenderer } from './searches/plasmid-detail/feature-qualifier-renderer.component';
 import { SlimsComponent } from './slims/slims/slims.component';
 import { TargetDetailComponent } from './searches/target-detail/target-detail.component';
+import { RegistrationSummaryComponent } from './registration-summary/registration-summary.component';
 
 const appImports = [
   BrowserModule,
@@ -116,7 +117,8 @@ if (!environment.production && environment.inMemoryData) {
     PlasmidDetailComponent,
     FeatureQualifierRenderer,
     SlimsComponent,
-    TargetDetailComponent
+    TargetDetailComponent,
+    RegistrationSummaryComponent
   ],
   imports: appImports,
   providers: [
