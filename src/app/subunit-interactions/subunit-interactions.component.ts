@@ -22,7 +22,7 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   subunits: ISubunit[];
   errorMessage: string | null;
   disableDeactivateGuard = false;
-  interactionAndPtmSubscription: Subscription = null;
+  interactionAndPtmUpdateSubscription: Subscription = null;
 
   // getters allow the subunit interactions form template to refer to dynamic formArrays by variable name
   get subunitsArray() {
@@ -165,7 +165,7 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
             };
             ptmsUpdate.push(ptmUpdate);
           }
-          this.interactionAndPtmSubscription =
+          this.interactionAndPtmUpdateSubscription =
             this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, "/home/success");
         }),
         catchError(error => {
@@ -184,6 +184,8 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stateSubscription.unsubscribe();
+    if (this.interactionAndPtmUpdateSubscription) {
+      this.interactionAndPtmUpdateSubscription.unsubscribe();
+    }
   }
 }
