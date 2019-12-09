@@ -65,8 +65,8 @@ export class TargetRegistrationService {
     return this.http.post<IFastaResponse>(this.fastaUrl, formData);
   }
 
-  registerTarget(targetData): Observable<ITarget> {
-    return this.http.post<ITarget>(
+  registerTarget(targetData: ITarget): Observable<ITarget> {
+    return this.http.post<any>(
       this.targetUrl,
       this.formatTargetRegistration(targetData)
     );
@@ -94,7 +94,8 @@ export class TargetRegistrationService {
   //   };
   // }
 
-  private formatTargetRegistration(targetObject: any) {
+  // Moving from UI format to back-end format.
+  private formatTargetRegistration(targetObject: ITarget): any {
     const formattedUnits = targetObject.subunits.map(unit => {
       return {
         subunit_name: unit.subunit_name,
@@ -106,11 +107,12 @@ export class TargetRegistrationService {
       };
     });
     return {
-      target: targetObject.target,
+      // Note that the backend expects different keys for target and project values!
+      target: targetObject.target_name,
       partner: targetObject.partner,
       protein_class_pk: targetObject.protein_class_pk,
       notes: targetObject.notes,
-      project_name: targetObject.project,
+      project: targetObject.project_name,
       subunits: formattedUnits
     };
   }

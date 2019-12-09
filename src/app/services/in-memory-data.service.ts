@@ -774,7 +774,7 @@ export class InMemoryDataService implements InMemoryDbService {
       : 1;
   }
 
-  registerTarget(reqInfo: any) {
+  registerTarget(reqInfo: any): ResponseOptions {
     return reqInfo.utils.createResponse$(() => {
       const responseData = this.formatTargetResponse(reqInfo.req.body);
       const options: ResponseOptions = {
@@ -785,6 +785,7 @@ export class InMemoryDataService implements InMemoryDbService {
     });
   }
 
+  // Respond back with back-end format with updated target id.
   formatTargetResponse(data: any) {
     const subunits = data.subunits.map(unit => {
       unit.subunit_id = Math.floor(Math.random() * Math.floor(99));
@@ -797,7 +798,7 @@ export class InMemoryDataService implements InMemoryDbService {
       id: 1234,
       protein_class_pk: data.protein_class_pk,
       notes: data.notes,
-      project_name: data.project_name,
+      project: data.project,
       subunits
     };
   }
@@ -871,7 +872,7 @@ export class InMemoryDataService implements InMemoryDbService {
   private finishOptions(
     options: ResponseOptions,
     { headers, url }: RequestInfo
-  ) {
+  ): ResponseOptions {
     options.statusText = getStatusText(options.status);
     options.headers = headers;
     options.url = url;

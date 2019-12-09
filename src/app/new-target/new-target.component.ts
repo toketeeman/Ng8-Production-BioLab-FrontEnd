@@ -159,6 +159,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
     this.targetRegistrationService.registerTarget(this.targetForm.value)
       .pipe(
         tap( (targetResponseData) => {
+          console.log("Target Registration Response: ", JSON.stringify(targetResponseData));
           const targetUpdate: ITargetDetailHeader = {
             target_name: targetResponseData.target_name,
             target_id: targetResponseData.target_id,
@@ -168,7 +169,9 @@ export class NewTargetComponent implements OnInit, OnDestroy {
             project_name: targetResponseData.project_name,
             subunits: targetResponseData.subunits
           };
-          this.targetUpdateSubscription = this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, "/home/subunit-interactions");
+          console.log("Target Registration Update: ", JSON.stringify(targetUpdate));
+          // this.targetUpdateSubscription =
+          //   this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, "/home/subunit-interactions");
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);
