@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
 import { Observable, Subscription, forkJoin, of } from "rxjs";
 import { tap, catchError } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { TargetDetailStoreService } from "../services/target-detail-store.servic
   templateUrl: "./subunit-interactions.component.html",
   styleUrls: ["./subunit-interactions.component.scss"]
 })
-export class SubunitInteractionsComponent implements OnInit, OnDestroy {
+export class SubunitInteractionsComponent implements OnInit {
   state$: Observable<any>;
   stateSubscription: Subscription;
   interactionForm: FormGroup;
@@ -165,8 +165,7 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
             };
             ptmsUpdate.push(ptmUpdate);
           }
-          this.interactionAndPtmUpdateSubscription =
-            this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, "/home/success");
+          this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, "/home/success");
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);
@@ -183,9 +182,4 @@ export class SubunitInteractionsComponent implements OnInit, OnDestroy {
     return this.alert.confirm("Discard changes?");
   }
 
-  ngOnDestroy() {
-    if (this.interactionAndPtmUpdateSubscription) {
-      this.interactionAndPtmUpdateSubscription.unsubscribe();
-    }
-  }
 }

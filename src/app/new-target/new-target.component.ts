@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormArray,
@@ -25,7 +25,7 @@ import { tap, catchError } from 'rxjs/operators';
   templateUrl: "./new-target.component.html",
   styleUrls: ["./new-target.component.scss"]
 })
-export class NewTargetComponent implements OnInit, OnDestroy {
+export class NewTargetComponent implements OnInit {
   targetForm: FormGroup;
   proteinClasses$: Observable<IProteinClass[]>;
   errorMessage: string | null;
@@ -49,7 +49,6 @@ export class NewTargetComponent implements OnInit, OnDestroy {
   get protein_class_pk() {
     return this.targetForm.get("protein_class_pk") as FormControl;
   }
-
   get notes() {
     return this.targetForm.get("notes") as FormControl;
   }
@@ -170,9 +169,11 @@ export class NewTargetComponent implements OnInit, OnDestroy {
             project_name: targetResponseData.project,
             subunits: targetResponseData.subunits
           };
-          console.log("Target Registration Update: ", JSON.stringify(targetUpdate));
-          // this.targetUpdateSubscription =
-          //   this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, "/home/subunit-interactions");
+
+          // console.log("Target Registration Update: ", JSON.stringify(targetUpdate));
+          this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, "/home/subunit-interactions");
+          // this.targetDetailStoreService.retrieveTargetDetailStore()
+          //   .subscribe( (td) => console.log("RetrievedTargetDetail: ", JSON.stringify(td)));
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);
@@ -180,12 +181,6 @@ export class NewTargetComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
-  }
-
-  ngOnDestroy() {
-    if (this.targetUpdateSubscription) {
-      this.targetUpdateSubscription.unsubscribe();
-    }
   }
 
   isPositive(n: number): boolean {

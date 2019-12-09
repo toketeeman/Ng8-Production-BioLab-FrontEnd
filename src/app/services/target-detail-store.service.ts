@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Router } from "@angular/router";
 
 import {
@@ -7,18 +7,17 @@ import {
   ITargetDetailHeader,
   ISubunitInteraction,
   IPostTranslationalModification } from '../protein-expression.interface';
-import { ProteinClassesService } from "../services/protein-classes.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TargetDetailStoreService {
-  private targetDetailStoreSubject = new BehaviorSubject<ITargetDetail>( {} as ITargetDetail );
+  private targetDetailStoreSubject = new BehaviorSubject<ITargetDetail>( null );
   targetDetailStore$ = this.targetDetailStoreSubject.asObservable();
+  lastTargetDetail: any = {};
 
   constructor(
-    private router: Router,
-    private proteinClassesService: ProteinClassesService
+    private router: Router
   ) { }
 
 
@@ -26,33 +25,32 @@ export class TargetDetailStoreService {
     return this.targetDetailStore$;
   }
 
-  storeTargetDetailHeader(targetHeader: ITargetDetailHeader, nextRoute?: string): Subscription {
-    return this.updateTargetDetailStore( { target: targetHeader }, nextRoute);
+  storeTargetDetailHeader(
+    targetHeader: ITargetDetailHeader,
+    nextRoute?: string
+  ): void {
+    this.updateTargetDetailStore( { target: targetHeader }, nextRoute );
   }
 
   storeTargetDetailInteractionsAndPtms(
     targetInteractions: ISubunitInteraction[],
     targetPtms: IPostTranslationalModification[],
-    nextRoute: string
-  ): Subscription {
-    return this.updateTargetDetailStore( { interactions: targetInteractions, ptms: targetPtms }, nextRoute);
+    nextRoute?: string
+  ): void {
+    this.updateTargetDetailStore( { interactions: targetInteractions, ptms: targetPtms }, nextRoute );
   }
 
-  updateTargetDetailStore(update: any, nextRoute?: string): Subscription {
-    const updateSubscription =
-      this.targetDetailStore$.subscribe( (targetDetail: ITargetDetail) => {
-        const updatedTargetDetail: ITargetDetail = Object.assign(targetDetail, update);
-        const immutableTargetDetail: ITargetDetail = { ...updatedTargetDetail };
-        this.targetDetailStoreSubject.next(immutableTargetDetail);
+  updateTargetDetailStore(update: any, nextRoute?: string): void {
+    this.lastTargetDetail = Object.assign(this.lastTargetDetail, update);
+    this.targetDetailStoreSubject.next(this.lastTargetDetail);
 
-        if (nextRoute !== undefined) {
-          this.router.navigateByUrl(nextRoute);
-        }
-      });
-    return updateSubscription;
+    if (nextRoute !== undefined) {
+      this.router.navigateByUrl(nextRoute);
+    }
   }
 
   resetTargetDetailStore() {
-    this.targetDetailStoreSubject.next({} as ITargetDetail);
+    this.lastTargetDetail = {};
+    this.targetDetailStoreSubject.next( null);
   }
 }
