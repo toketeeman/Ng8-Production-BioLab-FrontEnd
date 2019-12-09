@@ -156,11 +156,9 @@ export class NewTargetComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.disableDeactivateGuard = true;
-    console.log("Target form Value: ", JSON.stringify(this.targetForm.value));
     this.targetRegistrationService.registerTarget(this.targetForm.value)
       .pipe(
         tap( (targetResponseData) => {
-          console.log("Target Registration Response: ", JSON.stringify(targetResponseData));
 
           // Move from back-end format to UI format.
           const targetUpdate: ITargetDetailHeader = {
@@ -177,7 +175,6 @@ export class NewTargetComponent implements OnInit, OnDestroy {
           //   this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, "/home/subunit-interactions");
         }),
         catchError(error => {
-          console.log("Registration Error: ", JSON.stringify(error));
           this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);
           return of(null);
         })

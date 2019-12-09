@@ -775,9 +775,7 @@ export class InMemoryDataService implements InMemoryDbService {
   }
 
   registerTarget(reqInfo: any): ResponseOptions {
-    console.log("Request Info: ", JSON.stringify(reqInfo));
     return reqInfo.utils.createResponse$(() => {
-      console.log("Request Body: ", JSON.stringify(reqInfo.req.body));
       const responseData = this.formatTargetResponse(reqInfo.req.body);
       const options: ResponseOptions = {
         body: responseData,
