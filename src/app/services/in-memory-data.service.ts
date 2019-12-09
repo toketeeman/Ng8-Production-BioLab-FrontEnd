@@ -690,19 +690,19 @@ export class InMemoryDataService implements InMemoryDbService {
     const proteinClasses: IProteinClass[] = [
       {
         protein_class_name: "protein class1 name",
-        protein_class_pk: 1
+        protein_class_pk: "1"
       },
       {
         protein_class_name: "protein class2 name",
-        protein_class_pk: 2
+        protein_class_pk: "2"
       },
       {
         protein_class_name: "protein class3 name",
-        protein_class_pk: 3
+        protein_class_pk: "3"
       },
       {
         protein_class_name: "protein class4 name",
-        protein_class_pk: 4
+        protein_class_pk: "4"
       }
     ];
 
@@ -775,7 +775,9 @@ export class InMemoryDataService implements InMemoryDbService {
   }
 
   registerTarget(reqInfo: any): ResponseOptions {
+    console.log("Request Info: ", JSON.stringify(reqInfo));
     return reqInfo.utils.createResponse$(() => {
+      console.log("Request Body: ", JSON.stringify(reqInfo.req.body));
       const responseData = this.formatTargetResponse(reqInfo.req.body);
       const options: ResponseOptions = {
         body: responseData,

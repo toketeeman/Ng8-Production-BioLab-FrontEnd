@@ -36,8 +36,7 @@ export class TargetRegistrationService {
   }
 
   getProteinClasses(): Observable<IProteinClass[]> {
-    return this.http
-      .get<IProteinClass[]>(this.proteinClassesUrl)
+    return this.http.get<IProteinClass[]>(this.proteinClassesUrl)
       .pipe(
         catchError(error => {
           console.log(JSON.stringify(error));
@@ -65,7 +64,7 @@ export class TargetRegistrationService {
     return this.http.post<IFastaResponse>(this.fastaUrl, formData);
   }
 
-  registerTarget(targetData: ITarget): Observable<ITarget> {
+  registerTarget(targetData: ITarget): Observable<any> {
     return this.http.post<any>(
       this.targetUrl,
       this.formatTargetRegistration(targetData)

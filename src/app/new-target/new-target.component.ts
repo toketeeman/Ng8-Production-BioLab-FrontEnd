@@ -38,13 +38,13 @@ export class NewTargetComponent implements OnInit, OnDestroy {
     return this.targetForm.get("subunits") as FormArray;
   }
   get target() {
-    return this.targetForm.get("target") as FormControl;
+    return this.targetForm.get("target_name") as FormControl;
   }
   get partner() {
     return this.targetForm.get("partner") as FormControl;
   }
   get project() {
-    return this.targetForm.get("project") as FormControl;
+    return this.targetForm.get("project_name") as FormControl;
   }
   get protein_class_pk() {
     return this.targetForm.get("protein_class_pk") as FormControl;
@@ -65,11 +65,11 @@ export class NewTargetComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.targetForm = this.fb.group({
-      target: ["", Validators.required],
+      target_name: ["", Validators.required],
       partner: ["", Validators.required],
       protein_class_pk: ["", Validators.required],
       notes: [""],
-      project: ["", Validators.required],
+      project_name: ["", Validators.required],
       subunits: this.fb.array([this.createSubunit()])
     });
 
@@ -156,17 +156,20 @@ export class NewTargetComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.disableDeactivateGuard = true;
+    console.log("Target form Value: ", JSON.stringify(this.targetForm.value));
     this.targetRegistrationService.registerTarget(this.targetForm.value)
       .pipe(
         tap( (targetResponseData) => {
           console.log("Target Registration Response: ", JSON.stringify(targetResponseData));
+
+          // Move from back-end format to UI format.
           const targetUpdate: ITargetDetailHeader = {
-            target_name: targetResponseData.target_name,
-            target_id: targetResponseData.target_id,
+            target_name: targetResponseData.target,
+            target_id: targetResponseData.id,
             partner: targetResponseData.partner,
             class: this.proteinClassesService.pkToProteinClassName(targetResponseData.protein_class_pk),
             notes: targetResponseData.notes,
-            project_name: targetResponseData.project_name,
+            project_name: targetResponseData.project,
             subunits: targetResponseData.subunits
           };
           console.log("Target Registration Update: ", JSON.stringify(targetUpdate));
@@ -174,6 +177,7 @@ export class NewTargetComponent implements OnInit, OnDestroy {
           //   this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, "/home/subunit-interactions");
         }),
         catchError(error => {
+          console.log("Registration Error: ", JSON.stringify(error));
           this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);
           return of(null);
         })

@@ -8,7 +8,7 @@ export interface ITarget {
   target_name: string;
   target_id?: string;        // Mandatory on the fetch from the DB.
   partner: string;
-  protein_class_pk: number;
+  protein_class_pk: string;
   notes: string;
   project_name: string;
   subunits: ISubunit[];
@@ -26,7 +26,7 @@ export interface ISubunit {
 
 export interface IProteinClass {
   protein_class_name: string;
-  protein_class_pk: number;
+  protein_class_pk: string;
 }
 
 export interface IFastaFile {

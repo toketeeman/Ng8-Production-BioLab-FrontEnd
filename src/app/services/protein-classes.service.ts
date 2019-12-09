@@ -26,10 +26,11 @@ export class ProteinClassesService {
   }
 
   // Retrieve the protein classes lookup table from backend if necessary.
-  // Otherwise used the passed classes. Then initialize the observable
+  // Otherwise used the passed classes instead. Then initialize the observable
   // with these classes for general accessibility.
   initProteinClasses(proteinClasses?: IProteinClass[]): void {
     if (proteinClasses !== undefined && proteinClasses !== null) {
+      this.proteinClasses = proteinClasses;
       this.proteinClassesSubject.next(proteinClasses);
     } else {
       this.http.get<IProteinClass[]>(this.proteinClassesUrl)
@@ -61,12 +62,13 @@ export class ProteinClassesService {
     return this.proteinClasses$;
   }
 
-  proteinClassNameToPk(name: string): number {
+  proteinClassNameToPk(name: string): string {
     return this.proteinClasses
       .find((proteinClass: IProteinClass) => proteinClass.protein_class_name === name).protein_class_pk;
   }
 
-  pkToProteinClassName(pk: number): string {
+  pkToProteinClassName(pk: string): string {
+
     return this.proteinClasses
       .find((proteinClass: IProteinClass) => proteinClass.protein_class_pk === pk).protein_class_name;
   }

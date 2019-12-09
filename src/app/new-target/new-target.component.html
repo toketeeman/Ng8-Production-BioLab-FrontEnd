@@ -4,7 +4,7 @@
 <form class="flex container" [formGroup]="targetForm">
   <div class="flex flex-item flex-column section">
     <label class="label-block" for="target" appAutoFocus>Target Name</label>
-    <input [class.error-icon]="target.touched && target.invalid" [class.success-icon]="target.valid" type="text" id="target" formControlName="target" required>
+    <input [class.error-icon]="target.touched && target.invalid" [class.success-icon]="target.valid" type="text" id="target" formControlName="target_name" required>
     <div class="error-msg" *ngIf="target.touched && target.invalid">Target name is required.</div>
 
     <label class="label-block" for="partner">Partner</label>
@@ -22,7 +22,7 @@
     <textarea id="notes" rows="3" formControlName="notes"></textarea>
 
     <label class="label-block" for="project">Project Name</label>
-    <input [class.error-icon]="project.touched && project.invalid" [class.success-icon]="project.valid"  type="text" id="project" formControlName="project" required>
+    <input [class.error-icon]="project.touched && project.invalid" [class.success-icon]="project.valid"  type="text" id="project" formControlName="project_name" required>
     <div class="error-msg" *ngIf="project.touched && project.invalid">Project name is required.</div>
 
     <div>
