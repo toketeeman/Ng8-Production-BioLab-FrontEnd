@@ -1,0 +1,146 @@
+.target-detail-card {
+  height: 400px;
+  width: 400px;
+  background-color: #e3e3e3;
+  padding: 20px;
+}
+
+.target-detail-subunit-top
+{
+  height: 15%;
+  width: 100%;
+}
+
+.target-detail-subunit-name {
+  height: 60%;
+  width: 35%;
+}
+
+.target-detail-subunit-name-1 {
+  font-weight: bold;
+  font-size: 1.0rem
+}
+
+.target-detail-subunit-name-2 {
+  font-size: 0.6rem;
+  color: #535353;
+}
+
+.target-detail-subunit-copy {
+  height: 60%;
+  width: 15%;
+}
+
+.target-detail-subunit-copy-1 {
+  font-weight: bold;
+  font-size: 1.0rem
+}
+
+.target-detail-subunit-copy-2 {
+  font-size: 0.6rem;
+  color: #535353;
+}
+
+.target-detail-aa-sequence {
+  height: 35%;
+  width: 100%;
+}
+
+.target-detail-aa-sequence-1 {
+  height: 15%;
+  width: 100%;
+  font-size: 0.6rem;
+  color:#535353;
+}
+
+.target-detail-aa-sequence-2 {
+  height: 80%;
+  width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  font-weight: bold;
+  font-size: 8pt;
+  overflow-y: auto;
+}
+
+.target-detail-dna-sequence {
+  height: 45%;
+  width: 100%;
+}
+
+.target-detail-dna-sequence-1 {
+  height: 12%;
+  width: 100%;
+  font-size: 0.6rem;
+  color: #535353;
+}
+
+.target-detail-dna-sequence-2 {
+  height: 83%;
+  width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  font-weight: bold;
+  font-size: 8pt;
+  overflow-y: auto;
+}
+
+.prevSubunitBtn {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, 0.3);
+  border-radius: 999px;
+  left: 0;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.nextSubunitBtn {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, 0.3);
+  border-radius: 999px;
+  right: 0;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.subunitPoint {
+  list-style-type: none;
+  text-align: center;
+  padding: 12px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: auto;
+  box-sizing: border-box;
+  li {
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.55);
+    padding: 4px;
+    margin: 0 3px;
+    transition-timing-function: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    transition: 0.4s;
+    &.active {
+      background: #6b6b6b;
+      transform: scale(1.2);
+    }
+  }
+}
+
+.target-detail-room {
+  margin: 40px 0px 40px 0px;
+}
+
+div h3 {
+  margin-left: 5%;
+  margin-bottom: 0px;
+}

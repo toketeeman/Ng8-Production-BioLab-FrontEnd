@@ -173,12 +173,7 @@ export class SubunitInteractionsComponent implements OnInit {
             ptmsUpdate.push(ptmUpdate);
           }
 
-          console.log("Interaction Registration Update: ", JSON.stringify(subunitInteractionsUpdate));
-          console.log("Ptm Registration Update: ", JSON.stringify(ptmsUpdate));
-          // this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, "/home/success");
-          // this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, null);
-          // this.targetDetailStoreService.retrieveTargetDetailStore()
-          //   .subscribe( (td) => console.log("RetrievedTargetDetail: ", JSON.stringify(td)));
+          this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, "/home/success");
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);

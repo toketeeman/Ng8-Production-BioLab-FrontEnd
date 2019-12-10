@@ -3,7 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
 
-import { AuthenticationService } from "./authentication.service";
 import {
   IProteinClass,
   ITarget,
@@ -39,7 +38,6 @@ export class TargetRegistrationService {
     return this.http.get<IProteinClass[]>(this.proteinClassesUrl)
       .pipe(
         catchError(error => {
-          console.log(JSON.stringify(error));
           this.errorDialogService.openDialogForMessages('Protein class selection is not be available. Contact admin.');
           const noClasses: IProteinClass[] = [];
           return of(noClasses);
