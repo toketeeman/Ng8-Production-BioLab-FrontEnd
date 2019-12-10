@@ -1,38 +1,27 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router, NavigationEnd } from "@angular/router";
-import { Store } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
-import {
-  AppState,
-  selectAuthState,
-  selectTargetState
-} from "../store/app.states";
-import { LogOut } from "../store/actions/auth.actions";
+
+import { AuthenticationService } from "../services/authentication.service";
+
 
 @Component({
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"]
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  state$: Observable<any>;
+export class HomeComponent implements OnInit {
   url = "";
-  stateSubscription: Subscription;
-  isAuthenticated: false;
+  isAuthenticated = false;
 
-  constructor(private router: Router, private store: Store<AppState>) {
-    this.state$ = this.store.select(selectAuthState);
-  }
+  constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.stateSubscription = this.state$.subscribe(state => {
-      this.isAuthenticated = state.isAuthenticated;
-    });
+    this.isAuthenticated = !!this.authenticationService.getToken();
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        if (event.url.startsWith('/home/plasmid-detail')) {
+        if (event.url.startsWith('/home/plasmid-detail')) {  // This url suffixes a plasmid id.
           this.url = '/home/plasmid-detail';
-        } else if (event.url.startsWith('/home/target-detail')) {
+        } else if (event.url.startsWith('/home/target-detail')) {   // This url suffixes a target id.
           this.url = '/home/target-detail';
         } else {
           this.url = event.url;
@@ -41,14 +30,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Logout dispatches LogOut action to store, which in turn removes token from sessionStorage and changes user's status to logged out.
-   */
   logout(): void {
-    this.store.dispatch(new LogOut());
+    sessionStorage.removeItem("token");
+    this.router.navigateByUrl("/login");
   }
 
-  ngOnDestroy() {
-    this.stateSubscription.unsubscribe();
-  }
 }

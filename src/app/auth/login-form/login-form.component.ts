@@ -1,39 +1,34 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Store } from "@ngrx/store";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, of } from "rxjs";
+import { catchError, tap } from 'rxjs/operators';
+import { Router } from "@angular/router";
 
-import { AppState, selectAuthState } from "../../store/app.states";
-import { LogIn } from "../../store/actions/auth.actions";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
+import { AuthenticationService } from "../../services/authentication.service";
 
 @Component({
   selector: "app-login-form",
   templateUrl: "./login-form.component.html",
   styleUrls: ["./login-form.component.scss"]
 })
-export class LoginFormComponent implements OnInit, OnDestroy {
+export class LoginFormComponent implements OnInit {
   loginForm: FormGroup;
-  state$: Observable<any>;
-  stateSubscription: Subscription;
 
   errorMessage: string | null;
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<AppState>,
-    private errorDialogService: ErrorDialogService) {
-      this.state$ = this.store.select(selectAuthState);
-    }
+    private errorDialogService: ErrorDialogService,
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) { }
+
 
   ngOnInit() {
     this.loginForm = this.fb.group({
       username: ["", Validators.required],
       password: ["", Validators.required]
-    });
-
-    this.stateSubscription = this.state$.subscribe(state => {
-      this.errorMessage = state.errorMessage;
     });
   }
 
@@ -42,10 +37,17 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       username: this.loginForm.value.username,
       password: this.loginForm.value.password
     };
-    this.store.dispatch(new LogIn(data));
+    this.authenticationService.logIn(data.username, data.password)
+      .pipe(
+        tap( (user) => {
+          this.router.navigateByUrl("/home/add-target");
+        }),
+        catchError(error => {
+          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'message']);
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 
-  ngOnDestroy() {
-    this.stateSubscription.unsubscribe();
-  }
 }

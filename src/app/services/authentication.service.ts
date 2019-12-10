@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { environment } from "../../environments/environment";
+import { tap } from 'rxjs/operators';
 
-const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" })
-};
+import { environment } from "../../environments/environment";
+import { LogOut } from '../store/actions/auth.actions';
 
 @Injectable({
   providedIn: "root"
@@ -16,16 +15,23 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {
     this.loginUrl = environment.urls.loginUrl;
-    console.log("Login Url: ", this.loginUrl);
   }
 
-  // Returns token from browser's SESSION storage.
+  // Returns token (or null) from browser's SESSION storage.
   getToken(): string {
     return sessionStorage.getItem("token");
   }
 
   logIn(username: string, password: string): Observable<any> {
-    const user = { username, password };
-    return this.http.post(this.loginUrl, user, httpOptions);
+    return this.http.post<any>(this.loginUrl, { username, password })
+      .pipe(
+        tap( (user) => {
+          sessionStorage.setItem("token", user.token);
+        })
+      );
+  }
+
+  logOut() {
+    sessionStorage.removeItem("token");
   }
 }

@@ -1,12 +1,9 @@
 import { Injectable } from "@angular/core";
 import {
   Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree
+  CanActivate
 } from "@angular/router";
-import { Observable } from "rxjs";
+
 import { AuthenticationService } from "../services/authentication.service";
 
 @Injectable({
@@ -15,11 +12,13 @@ import { AuthenticationService } from "../services/authentication.service";
 export class SignedOutGuard implements CanActivate {
   constructor(
     private router: Router,
-    private authService: AuthenticationService
+    private authenticationService: AuthenticationService
   ) {}
 
   canActivate(): boolean {
-    if (this.authService.getToken()) {
+    // If we have been routed to the login page but are already logged in,
+    // then we instead go direct to the add-new-target page.
+    if (this.authenticationService.getToken()) {
       this.router.navigate(["/home/add-target"]);
       return false;
     }

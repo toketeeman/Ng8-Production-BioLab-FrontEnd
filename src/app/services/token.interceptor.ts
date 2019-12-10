@@ -10,19 +10,16 @@ import { AuthenticationService } from "./authentication.service";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  private authService: AuthenticationService;
+  private authenticationService: AuthenticationService;
+
   constructor(private injector: Injector) {}
 
-  /** intercepts any http request and if a token exists, adds it to the Authorization headers
-   * @param request: HttpRequest<any>
-   * @param next: HttpHandler
-   */
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
 
-    this.authService = this.injector.get(AuthenticationService);
+    this.authenticationService = this.injector.get(AuthenticationService);
 
     if (request.url.includes('/login')) {
 
@@ -32,7 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }
       });
     } else if (request.url.includes('/fasta-file-parser')) {
-      const token: string = this.authService.getToken();
+      const token: string = this.authenticationService.getToken();
 
       request = request.clone({
         setHeaders: {
@@ -40,7 +37,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }
       });
     } else {
-      const token: string = this.authService.getToken();
+      const token: string = this.authenticationService.getToken();
 
       request = request.clone({
         setHeaders: {
