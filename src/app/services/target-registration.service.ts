@@ -86,13 +86,6 @@ export class TargetRegistrationService {
       ptms);
   }
 
-  // private handleError<T>(operation: string) {
-  //   return (error: any): Observable<T> => {
-  //     console.error(`${operation} failed: ${error.message}`);
-  //     return;
-  //   };
-  // }
-
   // Moving from UI format to back-end format.
   private formatTargetRegistration(targetObject: ITarget): any {
     const formattedUnits = targetObject.subunits.map(unit => {

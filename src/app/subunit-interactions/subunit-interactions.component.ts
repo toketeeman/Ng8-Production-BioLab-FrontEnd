@@ -1,9 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
-import { Observable, Subscription, forkJoin, of } from "rxjs";
+import { forkJoin, of } from "rxjs";
 import { tap, catchError } from 'rxjs/operators';
 
-import { ISubunit, ISubunitInteraction, IPostTranslationalModification } from "../protein-expression.interface";
+import {
+  ITargetDetail,
+  ISubunit,
+  ISubunitInteraction,
+  IPostTranslationalModification
+} from "../protein-expression.interface";
 import { ValidateNumberInput } from "../validators/numberInput.validator";
 import { AlertService } from "../services/alert.service";
 import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
@@ -15,16 +20,12 @@ import { TargetDetailStoreService } from "../services/target-detail-store.servic
   styleUrls: ["./subunit-interactions.component.scss"]
 })
 export class SubunitInteractionsComponent implements OnInit {
-  state$: Observable<any>;
-  stateSubscription: Subscription;
   interactionForm: FormGroup;
   target: string;
   subunits: ISubunit[];
-  errorMessage: string | null;
   disableDeactivateGuard = false;
-  interactionAndPtmUpdateSubscription: Subscription = null;
 
-  // getters allow the subunit interactions form template to refer to dynamic formArrays by variable name
+  // Getters allow the subunit interactions form template to refer to dynamic formArrays by variable name.
   get subunitsArray() {
     return this.interactionForm.get("subunitsArray") as FormArray;
   }
@@ -46,13 +47,11 @@ export class SubunitInteractionsComponent implements OnInit {
       ptmsArray: this.fb.array([this.createPtm()])
     });
 
-    this.stateSubscription = this.state$.subscribe(state => {
-      if (state) {
-        this.target = state.target;
-        this.subunits = state.subunits;
-        this.errorMessage = state.errorMessage;
-      }
-    });
+    this.targetDetailStoreService.retrieveTargetDetailStore()
+      .subscribe( (targetDetail: ITargetDetail) => {
+        this.subunits = targetDetail.target.subunits;
+        this.target = targetDetail.target.target_name;
+      });
   }
 
   createSubUnitInteraction() {
@@ -82,12 +81,12 @@ export class SubunitInteractionsComponent implements OnInit {
   }
 
   addSubUnitInteraction() {
-    // adds new instance of subunitInteraction formGroup to subunitInteractions formArray
+    // Adds new instance of subunitInteraction formGroup to subunitInteractions formArray.
     this.subunitsArray.push(this.createSubUnitInteraction());
   }
 
   addPtm() {
-    // adds new instance of ptm formGroup to ptms formArray
+    // Adds new instance of ptm formGroup to ptms formArray.
     this.ptmsArray.push(this.createPtm());
   }
 
@@ -100,7 +99,7 @@ export class SubunitInteractionsComponent implements OnInit {
     const copyNumber = this.subunits.filter(unit => unit.subunit_id === id)[0]
       .copies;
 
-    // set the maximum range of the appropriate copy number control to the subunit's number of copies
+    // Set the maximum range of the appropriate copy number control to the subunit's number of copies.
     // tslint:disable-next-line:no-string-literal
     const control = this.subunitsArray.at(index)["controls"][controlName];
     control.setValidators([
@@ -130,8 +129,12 @@ export class SubunitInteractionsComponent implements OnInit {
   }
 
   deleteInteraction(groupName: "subunitsArray" | "ptmsArray", index: number) {
-    // removes instance of formGroup at specified index from specified formArray
+    // Removes instance of formGroup at specified index from specified formArray.
     this[groupName].removeAt(index);
+  }
+
+  SubunitIDToName(id: any): string {
+    return this.subunits.find((subunit) => id.toString() === subunit.subunit_id.toString()).subunit_name;
   }
 
   onSubmit(): void {
@@ -143,29 +146,39 @@ export class SubunitInteractionsComponent implements OnInit {
     ])
       .pipe(
         tap(([interactionsResponseData, ptmsResponseData]) => {
+
+          // Move from back-end format to UI format.
           const subunitInteractionsUpdate: ISubunitInteraction[] = [];
-          for (const interactionResponse of interactionsResponseData as ISubunitInteraction[]) {
+          for (const interactionResponse of interactionsResponseData as any[]) {
             const interactionUpdate: ISubunitInteraction = {
-              subunit_one_name: interactionResponse.subunit_one_name,
+              subunit_one_name: this.SubunitIDToName(interactionResponse.subunit_one),
               subunit_one_copy: interactionResponse.subunit_one_copy,
-              subunit_two_name: interactionResponse.subunit_two_name,
+              subunit_two_name: this.SubunitIDToName(interactionResponse.subunit_two),
               subunit_two_copy: interactionResponse.subunit_two_copy,
               interaction: interactionResponse.interaction
             };
             subunitInteractionsUpdate.push(interactionUpdate);
           }
+
+          // Move from back-end format to UI format.
           const ptmsUpdate: IPostTranslationalModification[] = [];
-          for (const ptmResponse of ptmsResponseData as IPostTranslationalModification[]) {
+          for (const ptmResponse of ptmsResponseData as any[]) {
             const ptmUpdate: IPostTranslationalModification = {
-              subunit_one_name: ptmResponse.subunit_one_name,
+              subunit_one_name: this.SubunitIDToName(ptmResponse.subunit_one),
               subunit_one_residue: ptmResponse.subunit_one_residue,
-              subunit_two_name: ptmResponse.subunit_two_name,
+              subunit_two_name: this.SubunitIDToName(ptmResponse.subunit_two),
               subunit_two_residue: ptmResponse.subunit_two_residue,
               ptm: ptmResponse.ptm
             };
             ptmsUpdate.push(ptmUpdate);
           }
-          this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, "/home/success");
+
+          console.log("Interaction Registration Update: ", JSON.stringify(subunitInteractionsUpdate));
+          console.log("Ptm Registration Update: ", JSON.stringify(ptmsUpdate));
+          // this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, "/home/success");
+          // this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, null);
+          // this.targetDetailStoreService.retrieveTargetDetailStore()
+          //   .subscribe( (td) => console.log("RetrievedTargetDetail: ", JSON.stringify(td)));
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);

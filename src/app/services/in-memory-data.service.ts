@@ -747,8 +747,12 @@ export class InMemoryDataService implements InMemoryDbService {
       return this.handleAuth(reqInfo);
     }
 
-    if (url === environment.urls.interactionsUrl || url === environment.urls.ptmsUrl) {
+    if (url === environment.urls.interactionsUrl) {
       return this.registerInteractions(reqInfo);
+    }
+
+    if (url === environment.urls.ptmsUrl) {
+      return this.registerPtms(reqInfo);
     }
   }
 
@@ -803,6 +807,30 @@ export class InMemoryDataService implements InMemoryDbService {
     };
   }
 
+  registerInteractions(reqInfo: any) {
+    return reqInfo.utils.createResponse$(() => {
+      const responseData = reqInfo.req.body;
+      const options: ResponseOptions = {
+        body: responseData,
+        status: STATUS.OK
+      };
+
+      return this.finishOptions(options, reqInfo);
+    });
+  }
+
+  registerPtms(reqInfo: any) {
+    return reqInfo.utils.createResponse$(() => {
+      const responseData = reqInfo.req.body;
+      const options: ResponseOptions = {
+        body: responseData,
+        status: STATUS.OK
+      };
+
+      return this.finishOptions(options, reqInfo);
+    });
+  }
+
   uploadFastaFile(reqInfo: any) {
     return reqInfo.utils.createResponse$(() => {
       const responseData = {
@@ -855,18 +883,7 @@ export class InMemoryDataService implements InMemoryDbService {
     return filtered.length > 0 ? true : false;
   }
 
-  registerInteractions(reqInfo: any) {
-    return reqInfo.utils.createResponse$(() => {
-      const responseData = reqInfo.req.body;
 
-      const options: ResponseOptions = {
-        body: responseData,
-        status: STATUS.OK
-      };
-
-      return this.finishOptions(options, reqInfo);
-    });
-  }
 
   /////////// helpers ///////////////
   private finishOptions(
