@@ -218,9 +218,9 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
       const qualifiers = params.value;
       if (qualifiers instanceof Array && qualifiers.length > 0) {
         let convertedQualifiers = "";
-        qualifiers.forEach( (qualifier) => {
+        for ( const qualifier of qualifiers ) {
           convertedQualifiers = convertedQualifiers.concat(qualifier.type + ": " + qualifier.value + "\n");
-        });
+        }
         return convertedQualifiers;
       }
     } else {

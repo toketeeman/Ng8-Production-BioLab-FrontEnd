@@ -225,12 +225,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     // Compute the search set here from the entered search args.
     const rawSet: string[] = searchArgs.split(',');
     this.searchSet = [];
-    rawSet.forEach((value: string) => {
+    for ( const value of rawSet ) {
       const cleanedValue = value.replace(/\s/g, "").toLowerCase();
       if (cleanedValue.length) {
         this.searchSet.push(cleanedValue);
       }
-    });
+    }
 
     // Trigger the search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
