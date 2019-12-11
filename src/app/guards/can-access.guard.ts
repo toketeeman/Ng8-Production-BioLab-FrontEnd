@@ -5,18 +5,16 @@ import {
   CanDeactivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  UrlTree,
-  RouterState,
-  ActivatedRoute
+  UrlTree
 } from "@angular/router";
 import { Observable } from "rxjs";
-import { RegistrationSuccessComponent } from "../registration-success/registration-success.component";
+import { RegistrationSummaryComponent } from "../registration-summary/registration-summary.component";
 
 @Injectable({
   providedIn: "root"
 })
 export class CanAccessGuard
-  implements CanActivate, CanDeactivate<RegistrationSuccessComponent> {
+  implements CanActivate, CanDeactivate<RegistrationSummaryComponent> {
   constructor(private router: Router) {}
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -34,7 +32,7 @@ export class CanAccessGuard
   }
 
   canDeactivate(
-    component: RegistrationSuccessComponent,
+    component: RegistrationSummaryComponent,
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
     next: RouterStateSnapshot

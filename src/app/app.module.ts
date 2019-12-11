@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { EffectsModule } from "@ngrx/effects";
-import { StoreModule } from "@ngrx/store";
 import {
   MatCardModule,
   MatButtonToggleModule,
@@ -33,16 +32,11 @@ import { AgGridModule } from "@ag-grid-community/angular";
 import { AppRoutingModule } from "./app-routing.module";
 import { InMemoryDataService } from "./services/in-memory-data.service";
 import { TokenInterceptor } from "./services/token.interceptor";
-import { AuthEffects } from "./store/effects/auth.effects";
-import { TargetEffects } from "./store/effects/target.effects";
-import { InteractionsEffects } from "./store/effects/interactions.effects";
-import { reducers } from "./store/app.states";
 import { AppComponent } from "./app.component";
 import { NewTargetComponent } from "./new-target/new-target.component";
 import { SubunitInteractionsComponent } from "./subunit-interactions/subunit-interactions.component";
 import { LoginFormComponent } from "./auth/login-form/login-form.component";
 import { HomeComponent } from "./home/home.component";
-import { RegistrationSuccessComponent } from "./registration-success/registration-success.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { environment } from "../environments/environment";
 import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
@@ -60,8 +54,6 @@ const appImports = [
   AppRoutingModule,
   BrowserAnimationsModule,
   HttpClientModule,
-  StoreModule.forRoot(reducers, {}),
-  EffectsModule.forRoot([AuthEffects, TargetEffects, InteractionsEffects]),
   MatCardModule,
   MatButtonToggleModule,
   MatCheckboxModule,
@@ -108,7 +100,6 @@ if (!environment.production && environment.inMemoryData) {
     SubunitInteractionsComponent,
     LoginFormComponent,
     HomeComponent,
-    RegistrationSuccessComponent,
     PageNotFoundComponent,
     SearchPlasmidsComponent,
     SearchTargetsComponent,

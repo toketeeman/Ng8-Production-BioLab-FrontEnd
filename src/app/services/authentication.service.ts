@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 import { tap } from 'rxjs/operators';
 
 import { environment } from "../../environments/environment";
-import { LogOut } from '../store/actions/auth.actions';
 
 @Injectable({
   providedIn: "root"
