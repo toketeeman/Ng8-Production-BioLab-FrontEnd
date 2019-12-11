@@ -73,7 +73,7 @@ export class NewTargetComponent implements OnInit {
     });
 
     // Initialize the protein classes lookup service.
-    this.proteinClasses$ = this.targetRegistrationService.getProteinClasses()
+    this.proteinClasses$ = this.targetRegistrationService.retrieveProteinClasses()
                             .pipe(
                               tap( (classes: IProteinClass[]) => {
                                 this.proteinClassesService.initProteinClasses(classes);
@@ -170,10 +170,7 @@ export class NewTargetComponent implements OnInit {
             subunits: targetResponseData.subunits
           };
 
-          // console.log("Target Registration Update: ", JSON.stringify(targetUpdate));
           this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, "/home/subunit-interactions");
-          // this.targetDetailStoreService.retrieveTargetDetailStore()
-          //   .subscribe( (td) => console.log("RetrievedTargetDetail: ", JSON.stringify(td)));
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);

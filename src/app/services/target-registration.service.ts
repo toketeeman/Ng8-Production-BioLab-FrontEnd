@@ -34,7 +34,7 @@ export class TargetRegistrationService {
       this.ptmsUrl = environment.urls.ptmsUrl;
   }
 
-  getProteinClasses(): Observable<IProteinClass[]> {
+  retrieveProteinClasses(): Observable<IProteinClass[]> {
     return this.http.get<IProteinClass[]>(this.proteinClassesUrl)
       .pipe(
         catchError(error => {
