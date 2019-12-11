@@ -19,7 +19,7 @@ export const environment = {
     ptmsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/subunit-ptm/",
     plasmidsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-view/",
     plasmidsDetailUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-detail-view/",
-    targetsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target/",
+    targetsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-view/",
     targetsDetailUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-detail-view/"
   }
 };

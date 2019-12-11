@@ -19,7 +19,7 @@ export const environment = {
     ptmsUrl: "api/v1/absci-targets/subunit-ptm/",
     plasmidsUrl: "api/v1/absci-targets/plasmid-view/",
     plasmidsDetailUrl: "api/v1/absci-targets/plasmid-detail-view/",
-    targetsUrl: "api/v1/absci-targets/target/",
+    targetsUrl: "api/v1/absci-targets/target-view/",
     targetsDetailUrl: "api/v1/absci-targets/target-detail-view/"
   }
 };

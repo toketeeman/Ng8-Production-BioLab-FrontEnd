@@ -7,7 +7,7 @@ import {
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
-import { catchError, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 import { IGridTarget } from "../../protein-expression.interface";
 import { AgGridAngular } from "@ag-grid-community/angular";
@@ -64,7 +64,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Partner",
-        field: "partner",
+        field: "partner_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -82,7 +82,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Class",
-        field: "class",
+        field: "class_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -100,7 +100,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Subunits",
-        field: "subunits",
+        field: "subunit_count",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -118,7 +118,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Gene Count",
-        field: "geneCount",
+        field: "gene_count",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -154,7 +154,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       },
       {
         headerName: "Plasmid Count",
-        field: "plasmidCount",
+        field: "plasmid_count",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',

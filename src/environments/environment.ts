@@ -21,9 +21,9 @@ export const environment = {
     fastaUrl: "api/v1/absci-targets/fasta-file-parser/",
     interactionsUrl: "api/v1/absci-targets/subunit-interaction/",
     ptmsUrl: "api/v1/absci-targets/subunit-ptm/",
-    plasmidsUrl: "api/plasmids",
+    plasmidsUrl: "api/plasmids",              // tslint objects to "plasmid-view" in back-end. No bother. (or use get() interceptor)
     plasmidsDetailUrl: "api/plasmidsDetail",
-    targetsUrl: "api/targets",
+    targetsUrl: "api/targets",                // tslint objects to "target-view" in back-end. No bother. (or use get() interceptor)
     targetsDetailUrl: "api/targetsDetail"
   }
 };
