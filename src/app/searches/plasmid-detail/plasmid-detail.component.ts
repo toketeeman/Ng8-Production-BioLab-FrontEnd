@@ -11,6 +11,7 @@ import { AuthenticationService } from "../../services/authentication.service";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { FeatureQualifierRenderer } from './feature-qualifier-renderer.component';
 import { environment } from "../../../environments/environment";
+import { PageNotFoundComponent } from 'src/app/page-not-found/page-not-found.component';
 
 
 @Component({
@@ -153,7 +154,11 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
                       .pipe(
                         catchError(error => {
                           console.log(JSON.stringify(error));
-                          this.errorDialogService.openDialogForErrorResponse(error, ['message']);
+                          this.errorDialogService.openDialogForErrorResponse(
+                            error,
+                            ['message'],
+                            "Details for this plasmid could not be found."
+                          );
                           const noResults: IGridPlasmidDetail[] = [];
                           return of(noResults);
                         })

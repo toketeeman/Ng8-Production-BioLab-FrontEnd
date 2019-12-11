@@ -140,7 +140,11 @@ export class NewTargetComponent implements OnInit {
         },
         (error: any) => {
           control.patchValue(null);
-          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors']);
+          this.errorDialogService.openDialogForErrorResponse(
+            error,
+            ['non_field_errors'],
+            type === "amino_acid" ? "Invaild FASTA Amino Acid file." : "Invaild FASTA DNA file."
+          );
         }
       );
     }
@@ -173,7 +177,11 @@ export class NewTargetComponent implements OnInit {
           this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, "/home/subunit-interactions");
         }),
         catchError(error => {
-          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);
+          this.errorDialogService.openDialogForErrorResponse(
+            error,
+            ['non_field_errors', 'target', 'detail', 'errors'],
+            "Target registration failed."
+          );
           return of(null);
         })
       )

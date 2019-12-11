@@ -180,7 +180,11 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
                         //   console.log("END OF RESPONSE");
                         // }),
                         catchError(error => {
-                          this.errorDialogService.openDialogForErrorResponse(error, ['message']);
+                          this.errorDialogService.openDialogForErrorResponse(
+                            error,
+                            ['message'],
+                            "The target inventory is not available."
+                          );
                           const noResults: IGridTarget[] = [];
                           return of(noResults);
                         })

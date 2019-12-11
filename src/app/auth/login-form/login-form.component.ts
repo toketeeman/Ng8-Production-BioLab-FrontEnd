@@ -43,7 +43,11 @@ export class LoginFormComponent implements OnInit {
           this.router.navigateByUrl("/home/add-target");
         }),
         catchError(error => {
-          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'message']);
+          this.errorDialogService.openDialogForErrorResponse(
+            error,
+            ['non_field_errors', 'message'],
+            "Invalid credentials."
+          );
           return of(null);
         })
       )

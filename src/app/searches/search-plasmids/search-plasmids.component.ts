@@ -134,7 +134,11 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.rowData$ = this.http.get<IGridPlasmid[]>(this.plasmidsUrl)
                       .pipe(
                         catchError(error => {
-                          this.errorDialogService.openDialogForErrorResponse(error, ['message']);
+                          this.errorDialogService.openDialogForErrorResponse(
+                            error,
+                            ['message'],
+                            "The plasmid inventory is not available."
+                          );
                           const noResults: IGridPlasmid[] = [];
                           return of(noResults);
                         })

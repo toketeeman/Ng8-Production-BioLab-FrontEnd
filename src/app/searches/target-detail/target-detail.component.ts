@@ -298,7 +298,11 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(
         catchError(error => {
           console.log(JSON.stringify(error));
-          this.errorDialogService.openDialogForErrorResponse(error, ['message']);
+          this.errorDialogService.openDialogForErrorResponse(
+            error,
+            ['message'],
+            "Details for this target could not be found."
+          );
           const noResult: ITargetDetail = null;
           return of(noResult);
         })

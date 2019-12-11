@@ -25,8 +25,13 @@ export class ErrorDialogService {
     this.dialog.open(ErrorDialogComponent, dialogConfig);
   }
 
-  openDialogForErrorResponse(errorResponse: object, errorKeys: string[]): void {
+  openDialogForErrorResponse(errorResponse: object, errorKeys: string[], errorDefaultMessage?: string): void {
     let combinedMessages: string[] = [];
+
+    if ( errorDefaultMessage !== undefined && errorDefaultMessage !== null ) {
+      combinedMessages.push(errorDefaultMessage);
+    }
+
     for (const errorKey of errorKeys) {
       const errorValue: string[] = this.findValueForErrorKey( errorResponse, errorKey );
       if (errorValue) {
@@ -41,7 +46,7 @@ export class ErrorDialogService {
     dialogConfig.data = {
       errorMessages: combinedMessages
     };
-    dialogConfig.width = "300px";
+    dialogConfig.width = "400px";
 
     this.dialog.open(ErrorDialogComponent, dialogConfig);
   }

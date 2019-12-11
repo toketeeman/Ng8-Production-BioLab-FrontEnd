@@ -176,7 +176,11 @@ export class SubunitInteractionsComponent implements OnInit {
           this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, "/home/success");
         }),
         catchError(error => {
-          this.errorDialogService.openDialogForErrorResponse(error, ['non_field_errors', 'target', 'detail', 'errors']);
+          this.errorDialogService.openDialogForErrorResponse(
+            error,
+            ['non_field_errors', 'target', 'detail', 'errors'],
+            "Registration of interactions and PTMS failed."
+          );
           return of(null);
         })
       )
