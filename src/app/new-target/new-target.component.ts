@@ -180,7 +180,7 @@ export class NewTargetComponent implements OnInit {
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['non_field_errors', 'target', 'detail', 'errors'],
-            "Target registration failed."
+            "This target cannot be registered."
           );
           return of(null);
         })
