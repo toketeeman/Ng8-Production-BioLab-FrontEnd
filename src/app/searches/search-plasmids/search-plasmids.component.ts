@@ -164,7 +164,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       return true;
     }
     const cleanNodeField = nodeField.replace(/\s/g, "").toLowerCase();
-    for (const searchValue of this.searchSet) {
+    for ( const searchValue of this.searchSet as string[] ) {
       if (cleanNodeField === searchValue) {
         return true;
       }
@@ -183,7 +183,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     // Compute the search set here from the entered search args.
     const rawSet: string[] = searchArgs.split(',');
     this.searchSet = [];
-    for (const value of rawSet ) {
+    for ( const value of rawSet as string[] ) {
       const cleanedValue = value.replace(/\s/g, "").toLowerCase();
       if (cleanedValue.length) {
         this.searchSet.push(cleanedValue);

@@ -56,7 +56,7 @@ export class TargetRegistrationService {
       fasta_file: file
     };
 
-    for (const [key, value] of Object.entries(fastaFile)) {
+    for ( const [key, value] of Object.entries(fastaFile) ) {
       formData.append(key, value);
     }
     return this.http.post<IFastaResponse>(this.fastaUrl, formData);

@@ -32,7 +32,7 @@ export class ErrorDialogService {
       combinedMessages.push(errorDefaultMessage);
     }
 
-    for (const errorKey of errorKeys) {
+    for ( const errorKey of errorKeys as string[] ) {
       const errorValue: string[] = this.findValueForErrorKey( errorResponse, errorKey );
       if (errorValue) {
         combinedMessages = combinedMessages.concat(errorValue);
@@ -54,7 +54,7 @@ export class ErrorDialogService {
   // It is presumed an object is being supplied at the top level and the value of the desired key is a string array.
   findValueForErrorKey(obj: any, errorKey: string): string[] {
     let value = null;
-    for (const key in obj) {
+    for ( const key in obj ) {
       if (!obj.hasOwnProperty(key)) {
         continue;
       }

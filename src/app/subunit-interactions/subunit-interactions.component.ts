@@ -149,7 +149,7 @@ export class SubunitInteractionsComponent implements OnInit {
 
           // Move from back-end format to UI format.
           const subunitInteractionsUpdate: ISubunitInteraction[] = [];
-          for (const interactionResponse of interactionsResponseData as any[]) {
+          for ( const interactionResponse of interactionsResponseData as any[] ) {
             const interactionUpdate: ISubunitInteraction = {
               subunit_one_name: this.SubunitIDToName(interactionResponse.subunit_one),
               subunit_one_copy: interactionResponse.subunit_one_copy,
@@ -162,7 +162,7 @@ export class SubunitInteractionsComponent implements OnInit {
 
           // Move from back-end format to UI format.
           const ptmsUpdate: IPostTranslationalModification[] = [];
-          for (const ptmResponse of ptmsResponseData as any[]) {
+          for ( const ptmResponse of ptmsResponseData as any[] ) {
             const ptmUpdate: IPostTranslationalModification = {
               subunit_one_name: this.SubunitIDToName(ptmResponse.subunit_one),
               subunit_one_residue: ptmResponse.subunit_one_residue,
@@ -173,7 +173,10 @@ export class SubunitInteractionsComponent implements OnInit {
             ptmsUpdate.push(ptmUpdate);
           }
 
-          this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(subunitInteractionsUpdate, ptmsUpdate, "/home/success");
+          this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(
+            subunitInteractionsUpdate,
+            ptmsUpdate,
+            "/home/success");
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(
