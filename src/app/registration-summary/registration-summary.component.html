@@ -74,8 +74,8 @@
         [style.opacity]="subunitCarousel.isLast ? 0.3 : 1.0">&gt;</button>
 
       <ul class="subunitPoint" NguCarouselPoint>
-        <li *ngFor="let i of subunitCarousel.pointNumbers; let i = index"
-          [class.active]="i==subunitCarousel.activePoint" (click)="subunitCarousel.moveTo(i)">
+        <li *ngFor="let pointNumber of subunitCarousel.pointNumbers; let pointIndex = index"
+          [class.active]="pointNumber==subunitCarousel.activePoint" (click)="subunitCarousel.moveTo(pointIndex)">
         </li>
       </ul>
 

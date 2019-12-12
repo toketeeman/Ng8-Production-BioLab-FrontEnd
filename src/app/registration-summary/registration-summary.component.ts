@@ -3,7 +3,9 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectionStrategy,  // Needed only to handle ngu-carousel Github issue #83.
+  ChangeDetectorRef         // Needed only to handle ngu-carousel Github issue #83.
 } from '@angular/core';
 import { Observable, Subject } from "rxjs";
 import { map, take, takeUntil } from 'rxjs/operators';
@@ -23,7 +25,8 @@ import { TargetDetailStoreService } from "../services/target-detail-store.servic
 
 @Component({
   templateUrl: './registration-summary.component.html',
-  styleUrls: ['./registration-summary.component.scss']
+  styleUrls: ['./registration-summary.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("targetHeaderGrid", { static: false }) targetHeaderGrid: AgGridAngular;
@@ -56,7 +59,8 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
   subunitsAreHovered = false;
 
   constructor(
-    private targetDetailStoreService: TargetDetailStoreService
+    private targetDetailStoreService: TargetDetailStoreService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -369,6 +373,8 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         }
       );
     };
+
+    this.cdr.detectChanges();
   }
 
   // Clean up the subscriptions.
