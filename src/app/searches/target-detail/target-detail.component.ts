@@ -3,9 +3,7 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit,
-  OnDestroy,
-  ChangeDetectionStrategy,    // Needed only to handle ngu-carousel Github issue #83.
-  ChangeDetectorRef           // Needed only to handle ngu-carousel Github issue #83.
+  OnDestroy
 } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute } from "@angular/router";
@@ -28,8 +26,7 @@ import { environment } from "../../../environments/environment";
 
 @Component({
   templateUrl: './target-detail.component.html',
-  styleUrls: ['./target-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./target-detail.component.scss']
 })
 export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("targetHeaderGrid", { static: false }) targetHeaderGrid: AgGridAngular;
@@ -64,8 +61,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private errorDialogService: ErrorDialogService,
-    private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -398,8 +394,6 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       );
     };
-
-    this.cdr.detectChanges();
   }
 
   // Clean up the subscriptions.
