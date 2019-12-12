@@ -141,56 +141,104 @@ export class SubunitInteractionsComponent implements OnInit {
     this.disableDeactivateGuard = true;
 
     forkJoin([
-      this.targetRegistrationService.registerInteractions(this.interactionForm.value.subunitsArray),
+      this.targetRegistrationService.registerInteractions(this.interactionForm.value.subunitsArray)
+        .pipe(
+          catchError(error => {
+            this.errorDialogService.openDialogForErrorResponse(
+              error,
+              ['message'],
+              "The interaction(s) cannot be registered."
+            );
+            const noResults: any[] = [];
+            return of(noResults);
+          })
+        ),
       this.targetRegistrationService.registerPtms(this.interactionForm.value.ptmsArray)
+        .pipe(
+          catchError(error => {
+            this.errorDialogService.openDialogForErrorResponse(
+              error,
+              ['message'],
+              "The PTM(s) cannot be registered."
+            );
+            const noResults: any[] = [];
+            return of(noResults);
+          })
+        ),
     ])
       .pipe(
         tap(([interactionsResponseData, ptmsResponseData]) => {
+          // Check for failures.
+          const interactionsFailed = (interactionsResponseData as any[]).length === 0;
+          const ptmsFailed = (ptmsResponseData as any[]).length === 0;
 
-          // Move from back-end format to UI format.
-          const subunitInteractionsUpdate: ISubunitInteraction[] = [];
-          for ( const interactionResponse of interactionsResponseData as any[] ) {
-            const interactionUpdate: ISubunitInteraction = {
-              subunit_one_name: this.SubunitIDToName(interactionResponse.subunit_one),
-              subunit_one_copy: interactionResponse.subunit_one_copy,
-              subunit_two_name: this.SubunitIDToName(interactionResponse.subunit_two),
-              subunit_two_copy: interactionResponse.subunit_two_copy,
-              interaction: interactionResponse.interaction
-            };
-            subunitInteractionsUpdate.push(interactionUpdate);
+          if ( interactionsFailed || ptmsFailed) {
+            if ( interactionsFailed !== ptmsFailed) {
+              if ( interactionsFailed ) {
+                // TODO: Undo the ptms registration here.
+
+                // Report the interactions failure.
+                this.errorDialogService.openDialogForMessages(
+                  "The interaction(s) cannot be registered."
+                );
+              } else {
+                // TODO: Undo the interactions registration here.
+
+                // Report the ptms failure.
+                this.errorDialogService.openDialogForMessages(
+                  "The PTMs cannot be registered."
+                );
+              }
+            } else {
+              // Report the mutual interactions and ptms failures.
+              this.errorDialogService.openDialogForMessages(
+                "Both the interaction(s) and the PTM(s) cannot be registered."
+              );
+            }
+            // TODO: Undo parent target registration here.
+
+          } else {
+            // Successful registrations for both interactions and ptms.
+
+            // Move from back-end format to UI format.
+            const subunitInteractionsUpdate: ISubunitInteraction[] = [];
+            for ( const interactionResponse of interactionsResponseData as any[] ) {
+              const interactionUpdate: ISubunitInteraction = {
+                subunit_one_name: this.SubunitIDToName(interactionResponse.subunit_one),
+                subunit_one_copy: interactionResponse.subunit_one_copy,
+                subunit_two_name: this.SubunitIDToName(interactionResponse.subunit_two),
+                subunit_two_copy: interactionResponse.subunit_two_copy,
+                interaction: interactionResponse.interaction
+              };
+              subunitInteractionsUpdate.push(interactionUpdate);
+            }
+
+            // Move from back-end format to UI format.
+            const ptmsUpdate: IPostTranslationalModification[] = [];
+            for ( const ptmResponse of ptmsResponseData as any[] ) {
+              const ptmUpdate: IPostTranslationalModification = {
+                subunit_one_name: this.SubunitIDToName(ptmResponse.subunit_one),
+                subunit_one_residue: ptmResponse.subunit_one_residue,
+                subunit_two_name: this.SubunitIDToName(ptmResponse.subunit_two),
+                subunit_two_residue: ptmResponse.subunit_two_residue,
+                ptm: ptmResponse.ptm
+              };
+              ptmsUpdate.push(ptmUpdate);
+            }
+
+            this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(
+              subunitInteractionsUpdate,
+              ptmsUpdate,
+              "/home/success");
           }
-
-          // Move from back-end format to UI format.
-          const ptmsUpdate: IPostTranslationalModification[] = [];
-          for ( const ptmResponse of ptmsResponseData as any[] ) {
-            const ptmUpdate: IPostTranslationalModification = {
-              subunit_one_name: this.SubunitIDToName(ptmResponse.subunit_one),
-              subunit_one_residue: ptmResponse.subunit_one_residue,
-              subunit_two_name: this.SubunitIDToName(ptmResponse.subunit_two),
-              subunit_two_residue: ptmResponse.subunit_two_residue,
-              ptm: ptmResponse.ptm
-            };
-            ptmsUpdate.push(ptmUpdate);
-          }
-
-          this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(
-            subunitInteractionsUpdate,
-            ptmsUpdate,
-            "/home/success");
-        }),
-        catchError(error => {
-          this.errorDialogService.openDialogForErrorResponse(
-            error,
-            ['non_field_errors', 'target', 'detail', 'errors'],
-            "Registration of interactions and PTMS failed."
-          );
-          return of(null);
         })
       )
       .subscribe();
   }
 
   canDeactivate() {
+    // TODO: Need logic here to handle option to cancel the parent target registration!
+
     if (this.interactionForm.untouched || this.disableDeactivateGuard) {
       return true;
     }

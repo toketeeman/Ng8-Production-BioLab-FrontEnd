@@ -6,13 +6,10 @@ import { catchError } from 'rxjs/operators';
 
 import { IGridPlasmidDetail } from "../../protein-expression.interface";
 import { AgGridAngular } from "@ag-grid-community/angular";
-import { AllModules, Module, ExcelData, ExcelCell, ExcelExportParams } from "@ag-grid-enterprise/all-modules";
-import { AuthenticationService } from "../../services/authentication.service";
+import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { FeatureQualifierRenderer } from './feature-qualifier-renderer.component';
 import { environment } from "../../../environments/environment";
-import { PageNotFoundComponent } from 'src/app/page-not-found/page-not-found.component';
-
 
 @Component({
   templateUrl: './plasmid-detail.component.html',
@@ -153,7 +150,6 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     this.rowData$ = this.http.get<IGridPlasmidDetail[]>(this.plasmidsDetailUrl)
                       .pipe(
                         catchError(error => {
-                          console.log(JSON.stringify(error));
                           this.errorDialogService.openDialogForErrorResponse(
                             error,
                             ['message'],
