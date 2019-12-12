@@ -144,11 +144,6 @@ export class SubunitInteractionsComponent implements OnInit {
       this.targetRegistrationService.registerInteractions(this.interactionForm.value.subunitsArray)
         .pipe(
           catchError(error => {
-            this.errorDialogService.openDialogForErrorResponse(
-              error,
-              ['message'],
-              "The interaction(s) cannot be registered."
-            );
             const noResults: any[] = [];
             return of(noResults);
           })
@@ -156,11 +151,6 @@ export class SubunitInteractionsComponent implements OnInit {
       this.targetRegistrationService.registerPtms(this.interactionForm.value.ptmsArray)
         .pipe(
           catchError(error => {
-            this.errorDialogService.openDialogForErrorResponse(
-              error,
-              ['message'],
-              "The PTM(s) cannot be registered."
-            );
             const noResults: any[] = [];
             return of(noResults);
           })
@@ -179,20 +169,20 @@ export class SubunitInteractionsComponent implements OnInit {
 
                 // Report the interactions failure.
                 this.errorDialogService.openDialogForMessages(
-                  "The interaction(s) cannot be registered."
+                  "The interaction(s) cannot be registered. So your ptm(s) and target registrations will be cancelled."
                 );
               } else {
                 // TODO: Undo the interactions registration here.
 
                 // Report the ptms failure.
                 this.errorDialogService.openDialogForMessages(
-                  "The PTMs cannot be registered."
+                  "The PTMs cannot be registered. So your interaction(s) and target registrations will be cancelled."
                 );
               }
             } else {
               // Report the mutual interactions and ptms failures.
               this.errorDialogService.openDialogForMessages(
-                "Both the interaction(s) and the PTM(s) cannot be registered."
+                "Both the interaction(s) and the PTM(s) cannot be registered. So your target registration will be cancelled."
               );
             }
             // TODO: Undo parent target registration here.
