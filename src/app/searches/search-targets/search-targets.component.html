@@ -1,4 +1,4 @@
-<header class="flex">
+<header fxLayout="row" fxLayoutAlign="space-evenly center">
   <input #searchArgs placeholder=" Enter targets here . . ." type="text" size="80" (keyup.enter)="onReturnSearch($event)">
   <button mat-button (click)="onSearch(searchArgs.value)">Search</button>
   <button id="refresh" mat-button (click)="onRefresh()">Refresh</button>

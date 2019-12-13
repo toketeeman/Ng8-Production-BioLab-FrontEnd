@@ -9,9 +9,11 @@ import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError } from 'rxjs/operators';
 
-import { IGridPlasmid } from "../../protein-expression.interface";
+import { MatRadioChange } from '@angular/material';
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
+
+import { IGridPlasmid } from "../../protein-expression.interface";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { environment } from "../../../environments/environment";
 
@@ -30,6 +32,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   paginationPagesize: number;
   ignoreSelectionChange = false;
   columnDefs;
+  downloadMode: string = null;
 
   constructor(
     private http: HttpClient,
@@ -202,6 +205,12 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     // Trigger the search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
     this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
+  }
+
+  OnDownloadModeChange(change: MatRadioChange) {
+    // change.source
+    // change.value
+    // enable the download cloud here.
   }
 
   ngAfterViewInit() {
