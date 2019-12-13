@@ -33,6 +33,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   ignoreSelectionChange = false;
   columnDefs;
   downloadMode: string = null;
+  downloadIconOpacity = 0.2;
+  downloadIconCursor = 'default';
 
   constructor(
     private http: HttpClient,
@@ -208,6 +210,10 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   }
 
   OnDownloadModeChange(change: MatRadioChange) {
+    this.downloadIconCursor = 'pointer';
+    this.downloadIconOpacity = 1.0;
+    this.downloadMode = change.value;
+    console.log("Download Mode: ", this.downloadMode);
     // change.source
     // change.value
     // enable the download cloud here.
@@ -267,6 +273,10 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   }
 
   onExcelExport() {
+    if (!this.downloadMode) {
+      return;
+    }
+
     const params = {
       fileName: 'PlasmidsSearch',
       onlySelectedAllPages: true
