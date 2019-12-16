@@ -25,7 +25,7 @@ export class AuthenticationService {
     return this.http.post<any>(this.loginUrl, { username, password })
       .pipe(
         tap( (user) => {
-          sessionStorage.setItem("token", user.token);
+          sessionStorage.setItem("token", user.key);
         })
       );
   }
