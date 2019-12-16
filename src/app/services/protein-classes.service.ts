@@ -40,7 +40,7 @@ export class ProteinClassesService {
             this.proteinClasses = classes;
           }),
           catchError(error => {
-            this.errorDialogService.openDialogForMessages('Protein class selection is not be available. Contact admin.');
+            this.errorDialogService.openDialogForMessages('Protein class selection is not available. Contact admin.');
             const noClasses: IProteinClass[] = [];
             return of(noClasses);
           })

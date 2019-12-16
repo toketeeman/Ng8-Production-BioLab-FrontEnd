@@ -38,7 +38,7 @@ export class TargetRegistrationService {
     return this.http.get<IProteinClass[]>(this.proteinClassesUrl)
       .pipe(
         catchError(error => {
-          this.errorDialogService.openDialogForMessages('Protein class selection is not be available. Contact admin.');
+          this.errorDialogService.openDialogForMessages('Protein class selection is not available. Contact admin.');
           const noClasses: IProteinClass[] = [];
           return of(noClasses);
         })
