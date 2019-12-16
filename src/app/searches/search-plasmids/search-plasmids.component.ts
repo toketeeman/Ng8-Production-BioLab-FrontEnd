@@ -213,7 +213,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.downloadIconCursor = 'pointer';
     this.downloadIconOpacity = 1.0;
     this.downloadMode = change.value;
-    console.log("Download Mode: ", this.downloadMode);
+    console.log("Set Download Mode: ", this.downloadMode);
     // change.source
     // change.value
     // enable the download cloud here.
@@ -272,15 +272,10 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onExcelExport() {
+  onDownload() {
     if (!this.downloadMode) {
       return;
     }
-
-    const params = {
-      fileName: 'PlasmidsSearch',
-      onlySelectedAllPages: true
-    };
 
     this.ignoreSelectionChange = true;
 
@@ -291,7 +286,25 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       rowNode.setSelected(true, false);
     });
 
-    this.agGrid.api.exportDataAsExcel(params);
+    // Excel download here.
+    if (this.downloadMode === "excel") {
+      const params = {
+        fileName: 'PlasmidsSearch',
+        onlySelectedAllPages: true
+      };
+
+      this.agGrid.api.exportDataAsExcel(params);
+    }
+
+    // FASTA download here.
+    if (this.downloadMode === "fasta") {
+      console.log("FASTA download executed.");
+    }
+
+    // GenBank download here.
+    if (this.downloadMode === "genbank") {
+      console.log("GenBank download executed.");
+    }
 
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
       rowNode.setSelected(false, false);
