@@ -29,6 +29,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   rowData$: Observable<IGridPlasmid[]>;
   rowSelection = "multiple";
   plasmidsUrl: string;
+  plasmidSequenceDownloadUrl: string;
   paginationPagesize: number;
   ignoreSelectionChange = false;
   columnDefs;
@@ -43,6 +44,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.plasmidsUrl = environment.urls.plasmidsUrl;
+    this.plasmidSequenceDownloadUrl = environment.urls.plasmidSequenceDownloadUrl;
 
     this.columnDefs = [
       {
@@ -299,6 +301,13 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     // FASTA download here.
     if (this.downloadMode === "fasta") {
       console.log("FASTA download executed.");
+
+    // Build the URL from the displayed plasmids.
+
+
+
+
+
     }
 
     // GenBank download here.

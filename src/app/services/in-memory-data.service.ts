@@ -888,7 +888,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
 
 
-  /////////// helpers ///////////////
+  // Common response interceptor.
   private finishOptions(
     options: ResponseOptions,
     { headers, url }: RequestInfo
