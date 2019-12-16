@@ -175,10 +175,6 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     this.paginationPagesize = 10;
     this.rowData$ = this.http.get<IGridTarget[]>(this.targetsUrl)
                       .pipe(
-                        // tap((response) => {
-                        //   console.log("RESPONSE: ", JSON.stringify(response));
-                        //   console.log("END OF RESPONSE");
-                        // }),
                         catchError(error => {
                           this.errorDialogService.openDialogForErrorResponse(
                             error,
@@ -197,8 +193,6 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
 
   doesExternalFilterPass(node): boolean {
     // The row fields are at node.data.* .
-    // console.log("node: ", JSON.stringify(node.data));
-    // console.log("node.data.target: ", node.data.target);
     return this.filterMatch((node.data as IGridTarget).target_name);
   }
 
