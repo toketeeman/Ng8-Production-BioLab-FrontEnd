@@ -20,6 +20,7 @@ export const environment = {
     plasmidsUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-view",
     plasmidsDetailUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-detail-view",
     targetsUrl: "http://localhost:8000/api/v1/absci-targets/target-view/",
-    targetsDetailUrl: "http://localhost:8000/api/v1/absci-targets/target-detail-view"
+    targetsDetailUrl: "http://localhost:8000/api/v1/absci-targets/target-detail-view",
+    plasmidSequenceDownloadUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-sequence-download/"
   }
 };

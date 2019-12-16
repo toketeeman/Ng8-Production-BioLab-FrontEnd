@@ -24,7 +24,8 @@ export const environment = {
     plasmidsUrl: "api/plasmids",              // tslint objects to "plasmid-view" in back-end. No bother. (or use get() interceptor)
     plasmidsDetailUrl: "api/plasmidsDetail",
     targetsUrl: "api/targets",                // tslint objects to "target-view" in back-end. No bother. (or use get() interceptor)
-    targetsDetailUrl: "api/targetsDetail"
+    targetsDetailUrl: "api/targetsDetail",
+    plasmidSequenceDownloadUrl: "api/plasmid-sequence-download"
   }
 };
 

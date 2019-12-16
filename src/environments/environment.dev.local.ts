@@ -27,6 +27,7 @@ export const environment = {
     plasmidsUrl: "api/plasmids",
     plasmidsDetailUrl: "api/plasmidsDetail",
     targetsUrl: "api/targets",
-    targetsDetailUrl: "api/targetsDetail"
+    targetsDetailUrl: "api/targetsDetail",
+    plasmidSequenceDownloadUrl: "api/plasmid-sequence-download"
   }
 };

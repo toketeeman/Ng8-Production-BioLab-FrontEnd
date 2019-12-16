@@ -20,6 +20,7 @@ export const environment = {
     plasmidsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-view/",
     plasmidsDetailUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-detail-view/",
     targetsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-view/",
-    targetsDetailUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-detail-view/"
+    targetsDetailUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-detail-view/",
+    plasmidSequenceDownloadUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-sequence-download/"
   }
 };
