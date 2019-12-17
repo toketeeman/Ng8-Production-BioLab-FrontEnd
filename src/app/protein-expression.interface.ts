@@ -101,7 +101,7 @@ export interface ITargetDetailHeader {
   target_name: string;
   target_id?: string;        // Mandatory on the fetch from the DB.
   partner: string;
-  class: string;
+  protein_class_name: string;
   project_name: string;
   notes: string;
   subunits?: ISubunit[];

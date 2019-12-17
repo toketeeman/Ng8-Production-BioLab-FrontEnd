@@ -99,7 +99,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
       {
         headerName: "Protein Class",
         headerClass: "target-detail-header",
-        field: "class",
+        field: "protein_class_name",
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -298,14 +298,14 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
           {
             target_name: targetDetailHeader.target_name,
             partner: targetDetailHeader.partner,
-            class: targetDetailHeader.class,
+            protein_class_name: targetDetailHeader.protein_class_name,
             project_name: targetDetailHeader.project_name,
             notes: targetDetailHeader.notes
           },
           {
             target_name: null,      // Dirty fix to prevent resizing flicking by grid.
             partner: null,
-            class: null,
+            protein_class_name: null,
             project_name: null,
             notes: null
           },

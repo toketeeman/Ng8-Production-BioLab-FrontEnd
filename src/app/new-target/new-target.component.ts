@@ -168,7 +168,7 @@ export class NewTargetComponent implements OnInit {
             target_name: targetResponseData.target,
             target_id: targetResponseData.id,
             partner: targetResponseData.partner,
-            class: this.proteinClassesService.pkToProteinClassName(targetResponseData.protein_class_pk),
+            protein_class_name: this.proteinClassesService.pkToProteinClassName(targetResponseData.protein_class_pk),
             notes: targetResponseData.notes,
             project_name: targetResponseData.project,
             subunits: targetResponseData.subunits

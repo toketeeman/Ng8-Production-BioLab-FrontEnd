@@ -509,7 +509,7 @@ export class InMemoryDataService implements InMemoryDbService {
         target_name: "test target",
         target_id: "target_abcd",
         partner: "test partner",
-        class: "Protein Class C",
+        protein_class_name: "Protein Class C",
         notes: "test notes - lots of them actually, incessantly on and on and on . . .",
         project_name: "test project",
         subunits: [
