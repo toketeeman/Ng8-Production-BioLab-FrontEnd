@@ -310,6 +310,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
         .pipe(
           catchError(error => {
+            console.log("ERROR: ", JSON.stringify(error));
             this.errorDialogService.openDialogForErrorResponse(
               error,
               ['message'],
@@ -319,9 +320,11 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           })
         )
         .subscribe((response: HttpResponse<any>) => {
-          const contentDispositionHeader = response.headers.get('Content-Disposition');
-          const fileName = contentDispositionHeader.split(';')[1].trim().split('=')[1].replace(/"/g, '');
-          this.fileSaverService.save(response.body, fileName);
+          if (response) {
+            const contentDispositionHeader = response.headers.get('Content-Disposition');
+            const fileName = contentDispositionHeader.split(';')[1].trim().split('=')[1].replace(/"/g, '');
+            this.fileSaverService.save(response.body, fileName);
+          }
         });
     }
 
