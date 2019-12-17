@@ -4,7 +4,7 @@ import {
   ViewChild,
   AfterViewInit
 } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { catchError } from 'rxjs/operators';
 import { MatRadioChange } from '@angular/material';
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
+import { FileSaverService } from "ngx-filesaver";
 
 import { IGridPlasmid } from "../../protein-expression.interface";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
@@ -40,7 +41,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private errorDialogService: ErrorDialogService) {}
+    private errorDialogService: ErrorDialogService,
+    private fileSaverService: FileSaverService) {}
 
   ngOnInit() {
     this.plasmidsUrl = environment.urls.plasmidsUrl;
@@ -305,7 +307,22 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       const downloadUrl = this.buildPlasmidSequenceDownloadUrl('fasta');
       console.log("FASTA URL: ", downloadUrl);
 
-      
+      this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
+        .pipe(
+          catchError(error => {
+            this.errorDialogService.openDialogForErrorResponse(
+              error,
+              ['message'],
+              "FASTA downloads failed. See admin."
+            );
+            return of(null);
+          })
+        )
+        .subscribe((response: HttpResponse<any>) => {
+          const contentDispositionHeader = response.headers.get('Content-Disposition');
+          const fileName = contentDispositionHeader.split(';')[1].trim().split('=')[1].replace(/"/g, '');
+          this.fileSaverService.save(response.body, fileName);
+        });
     }
 
     // GenBank download here.

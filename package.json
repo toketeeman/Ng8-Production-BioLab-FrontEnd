@@ -27,6 +27,8 @@
     "@angular/router": "^8.2.14",
     "@ngu/carousel": "^1.5.5",
     "angular-in-memory-web-api": "^0.9.0",
+    "file-saver": "^2.0.2",
+    "ngx-filesaver": "^8.1.0",
     "rxjs": "~6.5.3",
     "tslib": "^1.10.0",
     "tslint": "^5.20.1",

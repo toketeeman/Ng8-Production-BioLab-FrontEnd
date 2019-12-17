@@ -27,6 +27,7 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { NguCarouselModule } from "@ngu/carousel";
 import { AgGridModule } from "@ag-grid-community/angular";
+import { FileSaverModule } from "ngx-filesaver";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { InMemoryDataService } from "./services/in-memory-data.service";
@@ -72,7 +73,8 @@ const appImports = [
   ReactiveFormsModule,
   FlexLayoutModule,
   NguCarouselModule,
-  AgGridModule.withComponents([BrowserAnimationsModule, FeatureQualifierRenderer])
+  AgGridModule.withComponents([BrowserAnimationsModule, FeatureQualifierRenderer]),
+  FileSaverModule
 ];
 
 if (!environment.production && environment.inMemoryData) {
