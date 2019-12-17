@@ -159,7 +159,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   doesExternalFilterPass(node): boolean {
     // The row fields are at node.data.* .
     // console.log("node: ", JSON.stringify(node.data));
-    // console.log("node.data.plasmidId: ", node.data.plasmidId);
+    // console.log("node.data.plasmid_id: ", node.data.plasmid_id);
     return this.filterMatch((node.data as IGridPlasmid).plasmid_id);
   }
 
@@ -302,17 +302,18 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     if (this.downloadMode === "fasta") {
       console.log("FASTA download executed.");
 
-    // Build the URL from the displayed plasmids.
+      const downloadUrl = this.buildPlasmidSequenceDownloadUrl('fasta');
+      console.log("FASTA URL: ", downloadUrl);
 
-
-
-
-
+      
     }
 
     // GenBank download here.
     if (this.downloadMode === "genbank") {
       console.log("GenBank download executed.");
+
+      const downloadUrl = this.buildPlasmidSequenceDownloadUrl('gb');
+      console.log("GenBank URL: ", downloadUrl);
     }
 
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
@@ -320,5 +321,22 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     });
 
     setTimeout( () => { this.ignoreSelectionChange = false; }, 1000 );
+  }
+
+  // Build the URL for downloading FASTA/GenBank files corresponding to the
+  // currently displayed plasmids. If no plasmids are displayed, a null is returned.
+  buildPlasmidSequenceDownloadUrl(downloadMode: string): string {
+    let rowCount = 0;
+    let fullPlasmidSequenceDownloadUrl = '';
+    fullPlasmidSequenceDownloadUrl = this.plasmidSequenceDownloadUrl + '?plasmid_id=';
+    this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
+      if (!rowCount) {
+        fullPlasmidSequenceDownloadUrl = fullPlasmidSequenceDownloadUrl.concat(rowNode.data.plasmid_id);
+      } else {
+        fullPlasmidSequenceDownloadUrl = fullPlasmidSequenceDownloadUrl.concat(',' + rowNode.data.plasmid_id);
+      }
+      rowCount++;
+    });
+    return rowCount ? fullPlasmidSequenceDownloadUrl.concat(`&file_format=${downloadMode}`) : null;
   }
 }
