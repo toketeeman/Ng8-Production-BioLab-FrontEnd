@@ -17,6 +17,7 @@ import { FileSaverService } from "ngx-filesaver";
 import { IGridPlasmid } from "../../protein-expression.interface";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { environment } from "../../../environments/environment";
+import { GridColumnStyleBuilder } from '@angular/flex-layout/grid/typings/column/column';
 
 @Component({
   templateUrl: "./search-plasmids.component.html",
@@ -37,6 +38,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   downloadMode: string = null;
   downloadIconOpacity = 0.2;
   downloadIconCursor = 'default';
+  firstDownloadPlasmidId: string = null;
+  downloadRowCount: number = null;
 
   constructor(
     private http: HttpClient,
@@ -302,12 +305,10 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
     // FASTA download here.
     if (this.downloadMode === "fasta") {
-      console.log("FASTA download executed.");
+      const downloadUrl = this.buildPlasmidSequenceDownloadUrl();
 
-      const downloadUrl = this.buildPlasmidSequenceDownloadUrl('fasta');
-      console.log("FASTA URL: ", downloadUrl);
-
-      this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
+      if (downloadUrl) {
+        this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
         .pipe(
           catchError(error => {
             console.log("ERROR: ", JSON.stringify(error));
@@ -321,19 +322,43 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
         )
         .subscribe((response: HttpResponse<any>) => {
           if (response) {
-            const contentDispositionHeader = response.headers.get('Content-Disposition');
-            const fileName = contentDispositionHeader.split(';')[1].trim().split('=')[1].replace(/"/g, '');
-            this.fileSaverService.save(response.body, fileName);
+            this.downloadRowCount === 1 ?
+              this.fileSaverService.save(response.body, `${this.firstDownloadPlasmidId}.fasta`) :
+              this.fileSaverService.save(response.body, 'FASTA_files.zip');
           }
         });
+      } else {
+        this.errorDialogService.openDialogForMessages("No plasmids have been chosen. FASTA download is cancelled. Try again.");
+      }
     }
 
     // GenBank download here.
-    if (this.downloadMode === "genbank") {
-      console.log("GenBank download executed.");
+    if (this.downloadMode === "gb") {
+      const downloadUrl = this.buildPlasmidSequenceDownloadUrl();
 
-      const downloadUrl = this.buildPlasmidSequenceDownloadUrl('gb');
-      console.log("GenBank URL: ", downloadUrl);
+      if (downloadUrl) {
+        this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
+        .pipe(
+          catchError(error => {
+            console.log("ERROR: ", JSON.stringify(error));
+            this.errorDialogService.openDialogForErrorResponse(
+              error,
+              ['message'],
+              "GenBank downloads failed. See admin."
+            );
+            return of(null);
+          })
+        )
+        .subscribe((response: HttpResponse<any>) => {
+          if (response) {
+            this.downloadRowCount === 1 ?
+              this.fileSaverService.save(response.body, `${this.firstDownloadPlasmidId}.gb`) :
+              this.fileSaverService.save(response.body, 'GenBank_files.zip');
+          }
+        });
+      } else {
+        this.errorDialogService.openDialogForMessages("No plasmids have been chosen. GenBank download is cancelled. Try again.");
+      }
     }
 
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
@@ -345,18 +370,21 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
   // Build the URL for downloading FASTA/GenBank files corresponding to the
   // currently displayed plasmids. If no plasmids are displayed, a null is returned.
-  buildPlasmidSequenceDownloadUrl(downloadMode: string): string {
+  // Note the two side effects here.
+  buildPlasmidSequenceDownloadUrl(): string {
     let rowCount = 0;
     let fullPlasmidSequenceDownloadUrl = '';
     fullPlasmidSequenceDownloadUrl = this.plasmidSequenceDownloadUrl + '?plasmid_id=';
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
       if (!rowCount) {
+        this.firstDownloadPlasmidId = rowNode.data.plasmid_id;   // Side effect.
         fullPlasmidSequenceDownloadUrl = fullPlasmidSequenceDownloadUrl.concat(rowNode.data.plasmid_id);
       } else {
         fullPlasmidSequenceDownloadUrl = fullPlasmidSequenceDownloadUrl.concat(',' + rowNode.data.plasmid_id);
       }
       rowCount++;
     });
-    return rowCount ? fullPlasmidSequenceDownloadUrl.concat(`&file_format=${downloadMode}`) : null;
+    this.downloadRowCount = rowCount;      // Side effect.
+    return rowCount ? fullPlasmidSequenceDownloadUrl.concat(`&file_format=${this.downloadMode}`) : null;
   }
 }

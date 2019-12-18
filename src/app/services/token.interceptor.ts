@@ -36,6 +36,15 @@ export class TokenInterceptor implements HttpInterceptor {
           Authorization: `Token ${token}`
         }
       });
+    } else if (request.url.includes('/plasmid-sequence-download')) {
+      const token: string = this.authenticationService.getToken();
+
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Token ${token}`,
+          Accept: "*/*"
+        }
+      });
     } else {
       const token: string = this.authenticationService.getToken();
 
