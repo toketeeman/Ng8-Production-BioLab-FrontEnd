@@ -279,10 +279,22 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   }
 
   onDownload() {
-    if (!this.downloadMode) {
-      return;
+    switch(this.downloadMode) {
+      case 'excel':
+        this.plasmidExcelDownload();
+        break;
+      case 'fasta':
+        this.fastaDownload();
+        break;
+      case 'gb':
+        this.genbankDownload();
+        break;
+      default:
+        break;
     }
+  }
 
+  plasmidExcelDownload() {
     this.ignoreSelectionChange = true;
 
     this.agGrid.api.forEachNode( (rowNode, index) => {
@@ -292,79 +304,73 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       rowNode.setSelected(true, false);
     });
 
-    // Excel download here.
-    if (this.downloadMode === "excel") {
-      const params = {
-        fileName: 'PlasmidsSearch',
-        onlySelectedAllPages: true
-      };
-
-      this.agGrid.api.exportDataAsExcel(params);
-    }
-
-    // FASTA download here.
-    if (this.downloadMode === "fasta") {
-      const downloadUrl = this.buildPlasmidSequenceDownloadUrl();
-
-      if (downloadUrl) {
-        this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
-        .pipe(
-          catchError(error => {
-            console.log("ERROR: ", JSON.stringify(error));
-            this.errorDialogService.openDialogForErrorResponse(
-              error,
-              ['message'],
-              "FASTA downloads failed. See admin."
-            );
-            return of(null);
-          })
-        )
-        .subscribe((response: HttpResponse<any>) => {
-          if (response) {
-            this.downloadRowCount === 1 ?
-              this.fileSaverService.save(response.body, `${this.firstDownloadPlasmidId}.fasta`) :
-              this.fileSaverService.save(response.body, 'FASTA_files.zip');
-          }
-        });
-      } else {
-        this.errorDialogService.openDialogForMessages("No plasmids have been chosen. FASTA download is cancelled. Try again.");
-      }
-    }
-
-    // GenBank download here.
-    if (this.downloadMode === "gb") {
-      const downloadUrl = this.buildPlasmidSequenceDownloadUrl();
-
-      if (downloadUrl) {
-        this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
-        .pipe(
-          catchError(error => {
-            console.log("ERROR: ", JSON.stringify(error));
-            this.errorDialogService.openDialogForErrorResponse(
-              error,
-              ['message'],
-              "GenBank downloads failed. See admin."
-            );
-            return of(null);
-          })
-        )
-        .subscribe((response: HttpResponse<any>) => {
-          if (response) {
-            this.downloadRowCount === 1 ?
-              this.fileSaverService.save(response.body, `${this.firstDownloadPlasmidId}.gb`) :
-              this.fileSaverService.save(response.body, 'GenBank_files.zip');
-          }
-        });
-      } else {
-        this.errorDialogService.openDialogForMessages("No plasmids have been chosen. GenBank download is cancelled. Try again.");
-      }
-    }
+    const params = {
+      fileName: 'PlasmidsSearch',
+      onlySelectedAllPages: true
+    };
+    this.agGrid.api.exportDataAsExcel(params);
 
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
       rowNode.setSelected(false, false);
     });
 
     setTimeout( () => { this.ignoreSelectionChange = false; }, 1000 );
+  }
+
+  fastaDownload() {
+    const downloadUrl = this.buildPlasmidSequenceDownloadUrl();
+
+    if (downloadUrl) {
+      this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
+      .pipe(
+        catchError(error => {
+          console.log("ERROR: ", JSON.stringify(error));
+          this.errorDialogService.openDialogForErrorResponse(
+            error,
+            ['message'],
+            "FASTA downloads failed. See admin."
+          );
+          return of(null);
+        })
+      )
+      .subscribe((response: HttpResponse<any>) => {
+        if (response) {
+          this.downloadRowCount === 1 ?
+            this.fileSaverService.save(response.body, `${this.firstDownloadPlasmidId}.fasta`) :
+            this.fileSaverService.save(response.body, 'FASTA_files.zip');
+        }
+      });
+    } else {
+      this.errorDialogService.openDialogForMessages("No plasmids have been chosen. FASTA download is cancelled. Try again.");
+    }
+  }
+
+  genbankDownload() {
+    const downloadUrl = this.buildPlasmidSequenceDownloadUrl();
+
+    if (downloadUrl) {
+      this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
+      .pipe(
+        catchError(error => {
+          console.log("ERROR: ", JSON.stringify(error));
+          this.errorDialogService.openDialogForErrorResponse(
+            error,
+            ['message'],
+            "GenBank downloads failed. See admin."
+          );
+          return of(null);
+        })
+      )
+      .subscribe((response: HttpResponse<any>) => {
+        if (response) {
+          this.downloadRowCount === 1 ?
+            this.fileSaverService.save(response.body, `${this.firstDownloadPlasmidId}.gb`) :
+            this.fileSaverService.save(response.body, 'GenBank_files.zip');
+        }
+      });
+    } else {
+      this.errorDialogService.openDialogForMessages("No plasmids have been chosen. GenBank download is cancelled. Try again.");
+    }
   }
 
   // Build the URL for downloading FASTA/GenBank files corresponding to the
