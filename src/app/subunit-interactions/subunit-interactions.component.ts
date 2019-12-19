@@ -35,7 +35,7 @@ export class SubunitInteractionsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private alert: AlertService,
+    private alertService: AlertService,
     private errorDialogService: ErrorDialogService,
     private targetRegistrationService: TargetRegistrationService,
     private targetDetailStoreService: TargetDetailStoreService
@@ -232,7 +232,7 @@ export class SubunitInteractionsComponent implements OnInit {
     if (this.interactionForm.untouched || this.disableDeactivateGuard) {
       return true;
     }
-    return this.alert.confirm("Discard changes?");
+    return this.alertService.confirmDeactivation("Discard changes?");
   }
 
 }

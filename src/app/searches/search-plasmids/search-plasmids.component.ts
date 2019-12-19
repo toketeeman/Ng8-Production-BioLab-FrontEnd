@@ -17,6 +17,7 @@ import { FileSaverService } from "ngx-filesaver";
 import { IGridPlasmid } from "../../protein-expression.interface";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { environment } from "../../../environments/environment";
+import { AlertService } from "../../services/alert.service";
 
 @Component({
   templateUrl: "./search-plasmids.component.html",
@@ -44,7 +45,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     private http: HttpClient,
     private router: Router,
     private errorDialogService: ErrorDialogService,
-    private fileSaverService: FileSaverService) {}
+    private fileSaverService: FileSaverService,
+    private alertService: AlertService) {}
 
   ngOnInit() {
     this.plasmidsUrl = environment.urls.plasmidsUrl;
@@ -327,6 +329,12 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     const downloadUrl = this.buildPlasmidSequenceDownloadUrl();
 
     if (downloadUrl) {
+      if (this.downloadRowCount > 5) {
+        if (!this.alertService.confirmGeneral('You will download more than FIVE files. Do you wish to proceed?')) {
+          return;
+        }
+      }
+
       this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
       .pipe(
         catchError(error => {
@@ -355,6 +363,12 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     const downloadUrl = this.buildPlasmidSequenceDownloadUrl();
 
     if (downloadUrl) {
+      if (this.downloadRowCount > 5) {
+        if (!this.alertService.confirmGeneral('You will download more than FIVE files. Do you wish to proceed?')) {
+          return;
+        }
+      }
+      
       this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
       .pipe(
         catchError(error => {

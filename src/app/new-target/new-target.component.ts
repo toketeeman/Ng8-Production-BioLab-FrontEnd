@@ -56,7 +56,7 @@ export class NewTargetComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private targetRegistrationService: TargetRegistrationService,
-    private alert: AlertService,
+    private alertService: AlertService,
     private errorDialogService: ErrorDialogService,
     private proteinClassesService: ProteinClassesService,
     private targetDetailStoreService: TargetDetailStoreService
@@ -154,7 +154,7 @@ export class NewTargetComponent implements OnInit {
     if (this.targetForm.untouched || this.disableDeactivateGuard) {
       return true;
     }
-    return this.alert.confirm("Discard changes?");
+    return this.alertService.confirmDeactivation("Discard changes?");
   }
 
   onSubmit(): void {

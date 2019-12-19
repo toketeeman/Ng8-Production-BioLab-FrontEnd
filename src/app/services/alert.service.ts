@@ -5,8 +5,13 @@ import { Observable, of } from "rxjs";
   providedIn: "root"
 })
 export class AlertService {
-  confirm(message?: string): Observable<boolean> {
+  confirmDeactivation(message?: string): Observable<boolean> {
     const confirmation = window.confirm(message || "Click Ok to continue.");
     return of(confirmation);
+  }
+
+  confirmGeneral(message?: string): boolean {
+    const confirmation = window.confirm(message || "Click Ok to continue.");
+    return confirmation;
   }
 }
