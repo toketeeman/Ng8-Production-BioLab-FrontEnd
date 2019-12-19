@@ -17,7 +17,6 @@ import { FileSaverService } from "ngx-filesaver";
 import { IGridPlasmid } from "../../protein-expression.interface";
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { environment } from "../../../environments/environment";
-import { GridColumnStyleBuilder } from '@angular/flex-layout/grid/typings/column/column';
 
 @Component({
   templateUrl: "./search-plasmids.component.html",

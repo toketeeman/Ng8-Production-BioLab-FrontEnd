@@ -8,9 +8,9 @@
   <div fxLayout="row" fxLayoutAlign="space-between" id="downloadMode">
     <div>
       <mat-radio-group fxLayout="column" fxLayoutAlign="start start" fxFlexAlign="start">
-        <mat-radio-button [value]="'excel'" (change)="OnDownloadModeChange($event)">Excel</mat-radio-button>
+        <mat-radio-button [value]="'excel'" (change)="OnDownloadModeChange($event)">Plasmid Export (.xls)</mat-radio-button>
         <mat-radio-button [value]="'fasta'" (change)="OnDownloadModeChange($event)">FASTA</mat-radio-button>
-        <mat-radio-button [value]="'genbank'" (change)="OnDownloadModeChange($event)">GenBank</mat-radio-button>
+        <mat-radio-button [value]="'gb'" (change)="OnDownloadModeChange($event)">GenBank</mat-radio-button>
       </mat-radio-group>
     </div>
 
