@@ -279,7 +279,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   }
 
   onDownload() {
-    switch(this.downloadMode) {
+    switch (this.downloadMode) {
       case 'excel':
         this.plasmidExcelDownload();
         break;
