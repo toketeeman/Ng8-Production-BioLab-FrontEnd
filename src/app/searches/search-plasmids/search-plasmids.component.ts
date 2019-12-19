@@ -296,19 +296,25 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
   plasmidExcelDownload() {
     this.ignoreSelectionChange = true;
+    let rowCount = 0;
 
     this.agGrid.api.forEachNode( (rowNode, index) => {
       rowNode.setSelected(false, false);
     });
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
+      rowCount++;
       rowNode.setSelected(true, false);
     });
 
-    const params = {
-      fileName: 'PlasmidsSearch',
-      onlySelectedAllPages: true
-    };
-    this.agGrid.api.exportDataAsExcel(params);
+    if (rowCount > 0) {
+      const params = {
+        fileName: 'PlasmidsSearch',
+        onlySelectedAllPages: true
+      };
+      this.agGrid.api.exportDataAsExcel(params);
+    } else {
+      this.errorDialogService.openDialogForMessages("No plasmids have been chosen. Plasmid Export is cancelled. Try again.");
+    }
 
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
       rowNode.setSelected(false, false);
