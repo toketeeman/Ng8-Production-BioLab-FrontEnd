@@ -4,7 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "large-start": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve",
+    "large-start-local": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration=dev.local",
+    "large-start-docker": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration=dev.docker",
+    "large-start-remote": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration=dev.remote",
+    "large-start-prod": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration=dev.prod",
     "build": "ng build",
+    "large-build": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng build",
+    "large-build-prod": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng build --prod",
     "test": "ng test --watch false",
     "test:watch": "ng test",
     "lint": "ng lint --format stylish",
@@ -12,8 +19,8 @@
   },
   "private": true,
   "dependencies": {
-    "@ag-grid-community/angular": "22.1.0",
-    "@ag-grid-enterprise/all-modules": "22.1.0",
+    "@ag-grid-community/angular": "22.1.1",
+    "@ag-grid-enterprise/all-modules": "22.1.1",
     "@angular/animations": "^8.2.14",
     "@angular/cdk": "^8.2.3",
     "@angular/common": "^8.2.14",
@@ -35,7 +42,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.20",
+    "@angular-devkit/build-angular": "^0.803.21",
     "@angular/cli": "^8.3.20",
     "@angular/compiler-cli": "^8.2.14",
     "@angular/language-service": "^8.2.14",
