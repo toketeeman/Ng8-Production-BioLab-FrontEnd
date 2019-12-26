@@ -247,7 +247,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
 
   onRestore(event: FirstDataRenderedEvent) {
     // Retrieve the last search state and set it here.
-    this.searchSet = ['proteind','proteinq','proteinf'];
+    this.searchSet = ['proteind', 'proteinq', 'proteinf'];
 
     // Trigger the restored target search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
