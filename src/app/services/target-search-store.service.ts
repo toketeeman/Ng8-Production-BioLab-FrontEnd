@@ -10,7 +10,7 @@ export class TargetSearchStoreService {
 
   resetTargetSearchState() {
     this.searchState = [];
-  };
+  }
 
   retrieveTargetSearchState(): string[] {
     return this.searchState;
