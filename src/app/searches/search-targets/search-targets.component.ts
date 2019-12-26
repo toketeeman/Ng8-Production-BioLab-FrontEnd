@@ -9,10 +9,11 @@ import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError } from 'rxjs/operators';
 
-import { IGridTarget } from "../../protein-expression.interface";
 import { AgGridAngular } from "@ag-grid-community/angular";
-import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
+import { AllModules, Module, FirstDataRenderedEvent } from "@ag-grid-enterprise/all-modules";
+
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
+import { IGridTarget } from "../../protein-expression.interface";
 import { environment } from "../../../environments/environment";
 
 @Component({
@@ -230,7 +231,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       }
     }
 
-    // Trigger the search here.
+    // Trigger the entered target search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
     this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
   }
@@ -239,7 +240,16 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     // Reset the search args to "everything".
     this.searchSet = [];
 
-    // Trigger the search here.
+    // Trigger the refresh target search here.
+    this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
+    this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
+  }
+
+  onRestore(event: FirstDataRenderedEvent) {
+    // Retrieve the last search state and set it here.
+    this.searchSet = ['proteind','proteinq','proteinf'];
+
+    // Trigger the restored target search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
     this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
   }
@@ -282,6 +292,9 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
         }
       }
     ];
+
+    this.agGrid.gridOptions.onFirstDataRendered = this.onRestore.bind(this);
+    setTimeout( () => { document.getElementById("griddiv").style.visibility = "visible"; }, 1000 );
 
     // Responsive window behavior.
     this.agGrid.api.sizeColumnsToFit();
