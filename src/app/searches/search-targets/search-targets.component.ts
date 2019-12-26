@@ -13,6 +13,7 @@ import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module, FirstDataRenderedEvent } from "@ag-grid-enterprise/all-modules";
 
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
+import { TargetSearchStoreService } from "../../services/target-search-store.service";
 import { IGridTarget } from "../../protein-expression.interface";
 import { environment } from "../../../environments/environment";
 
@@ -35,7 +36,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private errorDialogService: ErrorDialogService) {}
+    private errorDialogService: ErrorDialogService,
+    private targetSearchStoreService: TargetSearchStoreService) {}
 
   ngOnInit() {
     this.targetsUrl = environment.urls.targetsUrl;
@@ -213,7 +215,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  onReturnSearch(event: KeyboardEvent) {
+  onReturnKeySearch(event: KeyboardEvent) {
     event.stopPropagation();
     event.preventDefault();
     const searchArgs = (event.target as HTMLInputElement).value;
@@ -231,6 +233,9 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       }
     }
 
+    // Store the new search state.
+    this.targetSearchStoreService.storeTargetSearchState(this.searchSet);
+
     // Trigger the entered target search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
     this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
@@ -239,6 +244,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   onRefresh() {
     // Reset the search args to "everything".
     this.searchSet = [];
+    this.targetSearchStoreService.storeTargetSearchState(this.searchSet);
 
     // Trigger the refresh target search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
@@ -247,7 +253,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
 
   onRestore(event: FirstDataRenderedEvent) {
     // Retrieve the last search state and set it here.
-    this.searchSet = ['proteind', 'proteinq', 'proteinf'];
+    this.searchSet = this.targetSearchStoreService.retrieveTargetSearchState();
 
     // Trigger the restored target search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.

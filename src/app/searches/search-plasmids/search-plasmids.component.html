@@ -1,6 +1,6 @@
 <header fxLayout="row" fxLayoutAlign="space-between center">
   <div >
-    <input #searchArgs appAutoFocus placeholder=" Enter plasmid ids here . . ." type="text" size="60" (keyup.enter)="onReturnSearch($event)">
+    <input #searchArgs appAutoFocus placeholder=" Enter plasmid ids here . . ." type="text" size="60" (keyup.enter)="onReturnKeySearch($event)">
     <button mat-button (click)="onSearch(searchArgs.value)">Search</button>
     <button id="refresh" mat-button (click)="onRefresh()">Refresh</button>
   </div>

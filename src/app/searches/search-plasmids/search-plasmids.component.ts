@@ -185,7 +185,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  onReturnSearch(event: KeyboardEvent) {
+  onReturnKeySearch(event: KeyboardEvent) {
     event.stopPropagation();
     event.preventDefault();
     const searchArgs = (event.target as HTMLInputElement).value;
@@ -368,7 +368,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           return;
         }
       }
-      
+
       this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
       .pipe(
         catchError(error => {
