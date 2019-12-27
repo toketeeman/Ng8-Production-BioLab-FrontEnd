@@ -410,6 +410,6 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Go inspect the biophysical properties.
   onBiophysicalProperties() {
-    this.router.navigateByUrl("/home/search-targets");
+    this.router.navigateByUrl("/home/target-property/" + this.currentTargetId);
   }
 }

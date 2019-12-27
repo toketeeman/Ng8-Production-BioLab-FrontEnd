@@ -15,6 +15,7 @@ import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasm
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
 import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
 import { TargetDetailComponent } from './searches/target-detail/target-detail.component';
+import { TargetPropertyComponent } from './searches/target-property/target-property.component';
 import { SlimsComponent } from './slims/slims/slims.component';
 import { SlimsAccessGuard } from "./guards/slims-access.guard";
 
@@ -61,6 +62,10 @@ const routes: Routes = [
       {
         path: "target-detail/:id",
         component: TargetDetailComponent
+      },
+      {
+        path: "target-property/:id",
+        component: TargetPropertyComponent
       }
     ]
   },
