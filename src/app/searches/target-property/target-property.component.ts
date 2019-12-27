@@ -30,4 +30,14 @@ export class TargetPropertyComponent implements OnInit {
 
   }
 
+    // Go back to the current target search.
+    onBackToSearch() {
+      this.router.navigateByUrl("/home/search-targets");
+    }
+
+    // Go inspect the biophysical properties.
+    onBackToDetails() {
+      this.router.navigateByUrl("/home/target-detail/" + this.currentTargetId);
+    }
+
 }

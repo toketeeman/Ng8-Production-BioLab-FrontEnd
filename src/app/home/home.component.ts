@@ -27,7 +27,9 @@ export class HomeComponent implements OnInit {
           this.url = '/home/plasmid-detail';
         } else if (event.url.startsWith('/home/target-detail')) {   // This url suffixes a target id.
           this.url = '/home/target-detail';
-        } else {
+        } else if (event.url.startsWith('/home/target-property')) {   // This url suffixes a target id.
+          this.url = '/home/target-property';
+        }else {
           this.url = event.url;
         }
       }
