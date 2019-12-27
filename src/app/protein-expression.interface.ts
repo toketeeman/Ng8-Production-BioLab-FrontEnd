@@ -113,4 +113,20 @@ export interface ITargetDetail {
   ptms: IPostTranslationalModification[];
 }
 
+export interface ITargetProperty {
+  protein: ITargetPropertyList;
+  subunits: ITargetPropertyList[];
+}
 
+export interface ITargetPropertyList {
+  name: string;
+  monoiso_mw_ox: string;
+  ave_mw_red: string;
+  monoiso_mw_red: string;
+  isoelect_pt: string;
+  gravy: string;
+  aromaticity: string;
+  mol_ext_coeff_280_nm_ox: string;
+  mol_ext_coeff_280_nm_red: string;
+  mol_ext_coeff_214_nm: string;
+}
