@@ -312,7 +312,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   }
 
   onSelectionChanged() {
-    // Store the current search state before going to the target details.
+    // Store the current target search state before going to the target details.
     this.searchSet = [];
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
       const cleanedValue = (rowNode.data as IGridTarget).target_name.replace(/\s/g, "").toLowerCase();
