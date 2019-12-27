@@ -6,7 +6,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Observable, of, Subject } from "rxjs";
 import { catchError, map, take, takeUntil } from 'rxjs/operators';
 
@@ -61,7 +61,8 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private errorDialogService: ErrorDialogService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -400,5 +401,15 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
+  }
+
+  // Go back to the current target search.
+  onBackToSearch() {
+    this.router.navigateByUrl("/home/search-targets");
+  }
+
+  // Go inspect the biophysical properties.
+  onBiophysicalProperties() {
+    this.router.navigateByUrl("/home/search-targets");
   }
 }
