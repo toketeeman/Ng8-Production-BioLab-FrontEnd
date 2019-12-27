@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router, NavigationEnd } from "@angular/router";
 
 import { AuthenticationService } from "../services/authentication.service";
+import { TargetSearchStoreService } from "../services/target-search-store.service";
 
 
 @Component({
@@ -12,7 +13,10 @@ export class HomeComponent implements OnInit {
   url = "";
   isAuthenticated = false;
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private targetSearchStoreService: TargetSearchStoreService) { }
 
   ngOnInit() {
     this.isAuthenticated = !!this.authenticationService.getToken();
@@ -33,6 +37,21 @@ export class HomeComponent implements OnInit {
   logout(): void {
     this.authenticationService.logOut();
     this.router.navigateByUrl("/login");
+  }
+
+  goToRegisterNewTarget() {
+    this.targetSearchStoreService.resetTargetSearchState();
+    this.router.navigateByUrl("/home/add-target");
+  }
+
+  goToSearchTargets() {
+    this.targetSearchStoreService.resetTargetSearchState();
+    this.router.navigateByUrl("/home/search-targets");
+  }
+
+  goToSearchPlasmids() {
+    this.targetSearchStoreService.resetTargetSearchState();
+    this.router.navigateByUrl("/home/search-plasmids");
   }
 
 }

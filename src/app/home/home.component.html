@@ -20,9 +20,9 @@
 
 <mat-menu #menu="matMenu">
   <!-- <button mat-menu-item routerLink="/">Home</button> -->
-  <button mat-menu-item routerLink="/home/add-target">Register New Target</button>
-  <button mat-menu-item routerLink="/home/search-targets">Search Targets</button>
-  <button mat-menu-item routerLink="/home/search-plasmids">Search Plasmids</button>
+  <button mat-menu-item (click)="goToRegisterNewTarget()">Register New Target</button>
+  <button mat-menu-item (click)="goToSearchTargets()">Search Targets</button>
+  <button mat-menu-item (click)="goToSearchPlasmids()">Search Plasmids</button>
 </mat-menu>
 
 <router-outlet></router-outlet>
