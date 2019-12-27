@@ -312,6 +312,17 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   }
 
   onSelectionChanged() {
+    // Store the current search state before going to the target details.
+    this.searchSet = [];
+    this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
+      const cleanedValue = (rowNode.data as IGridTarget).target_name.replace(/\s/g, "").toLowerCase();
+      if (cleanedValue.length) {
+        this.searchSet.push(cleanedValue);
+      }
+    });
+    this.targetSearchStoreService.storeTargetSearchState(this.searchSet);
+
+    // Now compute the destination of the details and go there.
     const selectedRow: IGridTarget = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
     this.router.navigateByUrl('/home/target-detail/' + (selectedRow as IGridTarget).target_id);
   }
