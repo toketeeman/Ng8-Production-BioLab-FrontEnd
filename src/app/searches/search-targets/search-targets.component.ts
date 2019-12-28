@@ -63,7 +63,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           clearButton: false
         },
         menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        cellClass: "text-is-wrapped",
+        hide: true
       },
       {
         headerName: "Partner",
@@ -81,7 +82,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           clearButton: false
         },
         menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        cellClass: "text-is-wrapped",
+        hide: true
       },
       {
         headerName: "Class",
@@ -99,7 +101,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           clearButton: false
         },
         menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        cellClass: "text-is-wrapped",
+        hide: true
       },
       {
         headerName: "Subunits",
@@ -117,7 +120,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           clearButton: false
         },
         menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        cellClass: "text-is-wrapped",
+        hide: true
       },
       {
         headerName: "Gene Count",
@@ -135,7 +139,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           clearButton: false
         },
         menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        cellClass: "text-is-wrapped",
+        hide: true
       },
       {
         headerName: "Project",
@@ -153,7 +158,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           clearButton: false
         },
         menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        cellClass: "text-is-wrapped",
+        hide: true
       },
       {
         headerName: "Plasmid Count",
@@ -171,7 +177,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           clearButton: false
         },
         menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        cellClass: "text-is-wrapped",
+        hide: true
       }
     ];
 
@@ -260,6 +267,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     // Trigger the restored target search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
     this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
+
+    // Now display the restored search state.
+    this.agGrid.gridOptions.columnApi
+      .setColumnsVisible([
+        'target_name', 'partner_name', 'class_name', 'subunit_count', 'gene_count', 'project_name', 'plasmid_count'
+      ], true);
   }
 
   ngAfterViewInit() {
@@ -281,7 +294,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       filter: true
     };
 
-    this.agGrid.gridOptions.rowBuffer = 20;   // Default is 10. Being generous.
+    this.agGrid.gridOptions.rowBuffer = 10;   // In fact, the default is also 10.
 
     this.agGrid.gridOptions.excelStyles = [
       {
@@ -301,8 +314,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       }
     ];
 
+    // Restore the current search state once the grid cache has been loaded.
     this.agGrid.gridOptions.onFirstDataRendered = this.onRestore.bind(this);
-    setTimeout( () => { document.getElementById("griddiv").style.visibility = "visible"; }, 1000 );
 
     // Responsive window behavior.
     this.agGrid.api.sizeColumnsToFit();
