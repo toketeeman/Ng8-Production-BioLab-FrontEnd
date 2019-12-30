@@ -1,9 +1,7 @@
 import { Injectable } from "@angular/core";
-import { InMemoryDbService } from "angular-in-memory-web-api";
-import { environment } from "../../environments/environment";
-import { IGridPlasmid, IGridPlasmidDetail, IGridTarget, ITargetDetail, IProteinClass } from "../protein-expression.interface";
 
 import {
+  InMemoryDbService ,
   ParsedRequestUrl,
   RequestInfo,
   RequestInfoUtilities,
@@ -11,7 +9,16 @@ import {
   getStatusText,
   STATUS
 } from "angular-in-memory-web-api";
-import { ITarget } from "../protein-expression.interface";
+
+import { environment } from "../../environments/environment";
+import {
+  IGridPlasmid,
+  IGridPlasmidDetail,
+  IGridTarget,
+  ITargetDetail,
+  IProteinClass,
+  ITargetProperties,
+  ITargetPropertyList } from "../protein-expression.interface";
 
 const specialUsers = [
   {
@@ -706,6 +713,59 @@ export class InMemoryDataService implements InMemoryDbService {
       }
     ];
 
+    const targetsProperty: ITargetProperties = {
+      protein: {
+        name: "Heavy Fat Protein",
+        monoiso_mw_ox: "43469.9230",
+        ave_mw_red: "43502.4876",
+        monoiso_mw_red: "7.2296",
+        isoelect_pt: "-0.21",
+        gravy: "-3.500",
+        aromaticity: "-9.9",
+        mol_ext_coeff_280_nm_ox: "60390",
+        mol_ext_coeff_280_nm_red: "43722",
+        mol_ext_coeff_214_nm: "824289"
+      },
+      subunits: [
+        {
+          name: "ABC-123",
+          monoiso_mw_ox: "5369.5550",
+          ave_mw_red: "43502.4876",
+          monoiso_mw_red: "9.2296",
+          isoelect_pt: "-0.21",
+          gravy: "-3.500",
+          aromaticity: "-9.9",
+          mol_ext_coeff_280_nm_ox: "60390",
+          mol_ext_coeff_280_nm_red: "43722",
+          mol_ext_coeff_214_nm: "824289"
+        },
+        {
+          name: "DEF-456",
+          monoiso_mw_ox: "1347.4730",
+          ave_mw_red: "43502.4876",
+          monoiso_mw_red: "7.2296",
+          isoelect_pt: "-0.21",
+          gravy: "=3.500",
+          aromaticity: "-9.9",
+          mol_ext_coeff_280_nm_ox: "60390",
+          mol_ext_coeff_280_nm_red: "43722",
+          mol_ext_coeff_214_nm: "446289"
+        },
+        {
+          name: "GHI-789",
+          monoiso_mw_ox: "22369.0030",
+          ave_mw_red: "47.4876",
+          monoiso_mw_red: "7.2296",
+          isoelect_pt: "-0.21",
+          gravy: "=3.500",
+          aromaticity: "-9.9",
+          mol_ext_coeff_280_nm_ox: "26490",
+          mol_ext_coeff_280_nm_red: "43722",
+          mol_ext_coeff_214_nm: "6689"
+        }
+      ]
+    };
+
     const proteinTargets = [];
     const fastaFiles = [];
     const subunitInteractions = [];
@@ -718,6 +778,7 @@ export class InMemoryDataService implements InMemoryDbService {
       plasmidsDetail,
       targetsDetail,
       proteinClasses,
+      targetsProperty,
       proteinTargets,
       fastaFiles,
       subunitInteractions,
