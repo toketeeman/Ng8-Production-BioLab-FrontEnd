@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
-import { MatRadioChange } from '@angular/material';
 import { Observable, of } from "rxjs";
 import { catchError, map, take, takeUntil } from 'rxjs/operators';
 
@@ -18,6 +17,7 @@ import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.serv
   styleUrls: ['./target-property.component.scss']
 })
 export class TargetPropertyComponent implements OnInit, AfterViewInit {
+  @ViewChild("proteinPropertiesButton", { static: false }) proteinPropertiesButton: ElementRef<HTMLElement>;
   @ViewChild("targetPropertyGrid", { static: false }) targetPropertyGrid: AgGridAngular;
 
   currentTargetId: string;
@@ -111,6 +111,9 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // Pre-select the protein radio button for user's convenience.
+    this.proteinPropertiesButton.nativeElement.click();
+
     // Responsive window behavior.
     this.targetPropertyGrid.api.sizeColumnsToFit();
 
@@ -166,7 +169,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
       this.router.navigateByUrl("/home/search-targets");
     }
 
-    // Go inspect the biophysical properties.
+    // Go back to the current target details.
     onBackToDetails() {
       this.router.navigateByUrl("/home/target-detail/" + this.currentTargetId);
     }

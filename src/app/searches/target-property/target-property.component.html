@@ -8,7 +8,7 @@
 <div style="width: 100%;" fxLayout="row" fxLayoutAlign="space-between center">
 
   <mat-radio-group style="width: 20%;" fxLayout="column" fxLayoutAlign="start start" fxFlexAlign="start">
-      <mat-radio-button [value]="'protein'" *ngIf="(propertyData$ | async).protein as proteinPropertyList"
+      <mat-radio-button #proteinPropertiesButton [value]="'protein'" *ngIf="(propertyData$ | async).protein as proteinPropertyList"
         (change)="OnPropertySelectionChange(proteinPropertyList)">{{proteinPropertyList.name}}</mat-radio-button>
       <mat-radio-button *ngFor="let subunitPropertyList of (propertyData$ | async).subunits; let subunitIndex = index"
         [value]="subunitIndex" (change)="OnPropertySelectionChange(subunitPropertyList)">{{subunitPropertyList.name}}</mat-radio-button>
