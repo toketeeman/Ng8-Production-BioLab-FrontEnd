@@ -265,7 +265,7 @@ button:focus {
   outline:0;
 }
 
-/* Overrides the ag-Grid's default column header style for the target-detail page. */
-.target-detail-header {
+/* Overrides the ag-Grid's default column header style for the target-detail and target-property pages. */
+.target-detail-header, .target-property-header{
   font-weight: normal;
 }

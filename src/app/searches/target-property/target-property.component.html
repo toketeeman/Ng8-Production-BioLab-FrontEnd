@@ -5,26 +5,46 @@
   </div>
 </header>
 
-<div style="width: 100%;" fxLayout="row" fxLayoutAlign="space-between center">
+<div style="width: 100%;" fxLayout="row" fxLayoutAlign="space-evenly start">
 
   <mat-radio-group style="width: 20%;" fxLayout="column" fxLayoutAlign="start start" fxFlexAlign="start">
-      <mat-radio-button #proteinPropertiesButton [value]="'protein'" *ngIf="(propertyData$ | async).protein as proteinPropertyList"
-        (change)="OnPropertySelectionChange(proteinPropertyList)">{{proteinPropertyList.name}}</mat-radio-button>
-      <mat-radio-button *ngFor="let subunitPropertyList of (propertyData$ | async).subunits; let subunitIndex = index"
-        [value]="subunitIndex" (change)="OnPropertySelectionChange(subunitPropertyList)">{{subunitPropertyList.name}}</mat-radio-button>
+
+      <mat-radio-button id="propList0" [value]="'0'" style="visibility: hidden" #proteinPropertiesButton
+        (change)="OnPropertyListSelectionChange($event)">{{propertyLists[0]?.name}}</mat-radio-button>
+      <mat-radio-button id="propList1" [value]="'1'" style="visibility: hidden"
+        (change)="OnPropertyListSelectionChange($event)">{{propertyLists[1]?.name}}</mat-radio-button>
+      <mat-radio-button id="propList2" [value]="'2'" style="visibility: hidden"
+        (change)="OnPropertyListSelectionChange($event)">{{propertyLists[2]?.name}}</mat-radio-button>
+      <mat-radio-button id="propList3" [value]="'3'" style="visibility: hidden"
+        (change)="OnPropertyListSelectionChange($event)">{{propertyLists[3]?.name}}</mat-radio-button>
+      <mat-radio-button id="propList4" [value]="'4'" style="visibility: hidden"
+        (change)="OnPropertyListSelectionChange($event)">{{propertyLists[4]?.name}}</mat-radio-button>
+
   </mat-radio-group>
 
   <div style="width: 75%;">
       <ag-grid-angular
-        #targetPropertyGrid
-        style="width: 100%;"
-        class="ag-theme-balham"
-        [rowData]="propertyListData$ | async"
-        [domLayout]="domLayout"
-        [columnDefs]="propertyColumnDefs"
-        [modules]="modules"
+      #targetPropertyGrid
+      style="width: 100%;"
+      class="ag-theme-balham"
+      [rowData]="propertyListGridData$ | async"
+      [domLayout]="domLayout"
+      [columnDefs]="propertyColumnDefs"
+      [modules]="modules"
       >
     </ag-grid-angular>
   </div>
 
 </div>
+
+<!-- <ng-container *ngIf="(propertyData$ | async).protein as proteinPropertyList">
+  <mat-radio-button #proteinPropertiesButton [value]="'protein'"
+    (change)="OnPropertySelectionChange(proteinPropertyList)">{{proteinPropertyList.name}}
+  </mat-radio-button>
+</ng-container>
+
+<ng-container *ngFor="let subunitPropertyList of (propertyData$ | async).subunits; let subunitIndex = index">
+  <mat-radio-button [value]="'subunitIndex'"
+    (change)="OnPropertySelectionChange(subunitPropertyList)">{{subunitPropertyList.name}}
+  </mat-radio-button>
+</ng-container> -->
