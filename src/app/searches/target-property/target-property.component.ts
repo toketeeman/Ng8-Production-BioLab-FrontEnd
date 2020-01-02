@@ -114,9 +114,6 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Pre-select the protein radio button for user's convenience.
-    // this.proteinPropertiesButton.nativeElement.click();
-
     // Responsive window behavior, with debouncing.
     this.targetPropertyGrid.api.sizeColumnsToFit();
     let timeout;
