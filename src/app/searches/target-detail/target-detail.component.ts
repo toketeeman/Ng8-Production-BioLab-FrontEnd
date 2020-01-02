@@ -40,6 +40,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   targetHeaderData: ITargetDetailHeader[];          // UI-bound data.
   subunitInteractionsData: ISubunitInteraction[];   // UI-bound data.
   ptmsData: IPostTranslationalModification[];       // UI-bound data.
+  defaultColDef;
   targetHeaderColumnDefs;
   subunitInteractionsColumnDefs;
   ptmsColumnDefs;
@@ -75,6 +76,11 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.domLayout = 'autoHeight';
+
+    // Shared by all grids.
+    this.defaultColDef = {
+      resizable: true
+    };
 
     // Configure target header grid.
     this.targetHeaderColumnDefs = [

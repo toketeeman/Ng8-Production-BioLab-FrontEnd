@@ -24,6 +24,7 @@
     [rowData]="rowData$ | async"
     [rowSelection]="rowSelection"
     (selectionChanged)="onSelectionChanged()"
+    [defaultColDef]="defaultColDef"
     [columnDefs]="columnDefs"
     [pagination]="true"
     [paginationPageSize]="paginationPagesize"

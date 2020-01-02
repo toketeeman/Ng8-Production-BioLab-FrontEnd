@@ -32,6 +32,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   paginationPagesize: number;
   ignoreSelectionChange = false;
   columnDefs;
+  defaultColDef;
 
   constructor(
     private http: HttpClient,
@@ -41,6 +42,10 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.targetsUrl = environment.urls.targetsUrl;
+
+    this.defaultColDef = {
+      resizable: true
+    };
 
     this.columnDefs = [
       {

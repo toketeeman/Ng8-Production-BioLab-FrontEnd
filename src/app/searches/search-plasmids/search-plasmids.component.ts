@@ -35,6 +35,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   paginationPagesize: number;
   ignoreSelectionChange = false;
   columnDefs;
+  defaultColDef;
   downloadMode: string = null;
   downloadIconOpacity = 0.2;
   downloadIconCursor = 'default';
@@ -51,6 +52,10 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.plasmidsUrl = environment.urls.plasmidsUrl;
     this.plasmidSequenceDownloadUrl = environment.urls.plasmidSequenceDownloadUrl;
+
+    this.defaultColDef = {
+      resizable: true
+    };
 
     this.columnDefs = [
       {

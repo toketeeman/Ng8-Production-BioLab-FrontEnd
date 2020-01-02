@@ -23,6 +23,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
   rowSelection = "multiple";
   currentPlasmidId: string;
   plasmidsDetailUrl: string;
+  defaultColDef;
   columnDefs;
   statusBar;
   showBackButton: boolean;
@@ -47,6 +48,10 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     } else {
       this.plasmidsDetailUrl = environment.urls.plasmidsDetailUrl + '?plasmid_id=' + this.currentPlasmidId;
     }
+
+    this.defaultColDef = {
+      resizable: true
+    };
 
     this.columnDefs = [
       {
