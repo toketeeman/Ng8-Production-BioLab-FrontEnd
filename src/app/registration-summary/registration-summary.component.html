@@ -1,4 +1,4 @@
-<div class="target-detail-room" fxLayout="column" fxLayoutGap="20px">
+<div class="target-detail-room" style="width: 100%;" fxLayout="column" fxLayoutGap="20px">
 
   <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center">
     <ag-grid-angular
@@ -13,7 +13,8 @@
     </ag-grid-angular>
   </div>
 
-  <div (mouseenter)="enterSubunits()" (mouseleave)="leaveSubunits()">
+  <div style="width: 90%; padding-left: 5%;"
+    (mouseenter)="enterSubunits()" (mouseleave)="leaveSubunits()">
     <ngu-carousel #subunitCarousel [inputs]="carouselConfig" [dataSource]="subunits" >
       <ngu-tile *nguCarouselDef="let subunit" fxLayout="row" fxLayoutAlign="space-evenly center">
 
