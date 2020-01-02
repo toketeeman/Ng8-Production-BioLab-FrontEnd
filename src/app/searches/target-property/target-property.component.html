@@ -9,6 +9,7 @@
 
   <mat-radio-group style="width: 20%;" fxLayout="column" fxLayoutAlign="start start" fxFlexAlign="start">
 
+      <!-- This long list is necessitated by Angular material radio buttons' intolerance of structural directives. -->
       <mat-radio-button id="propList0" [value]="'0'" style="visibility: hidden" #proteinPropertiesButton
         (change)="OnPropertyListSelectionChange($event)">{{propertyLists[0]?.name}}</mat-radio-button>
 
@@ -110,7 +111,7 @@
         (change)="OnPropertyListSelectionChange($event)">{{propertyLists[44]?.name}}</mat-radio-button>
       <mat-radio-button id="propList45" [value]="'45'" style="visibility: hidden"
         (change)="OnPropertyListSelectionChange($event)">{{propertyLists[45]?.name}}</mat-radio-button>
-        
+
       <mat-radio-button id="propList46" [value]="'46'" style="visibility: hidden"
         (change)="OnPropertyListSelectionChange($event)">{{propertyLists[46]?.name}}</mat-radio-button>
       <mat-radio-button id="propList47" [value]="'47'" style="visibility: hidden"
@@ -119,6 +120,8 @@
         (change)="OnPropertyListSelectionChange($event)">{{propertyLists[48]?.name}}</mat-radio-button>
       <mat-radio-button id="propList49" [value]="'49'" style="visibility: hidden"
         (change)="OnPropertyListSelectionChange($event)">{{propertyLists[49]?.name}}</mat-radio-button>
+      <mat-radio-button id="propList50" [value]="'50'" style="visibility: hidden"
+        (change)="OnPropertyListSelectionChange($event)">{{propertyLists[50]?.name}}</mat-radio-button>
 
   </mat-radio-group>
 

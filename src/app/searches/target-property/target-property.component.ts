@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angula
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable, of } from "rxjs";
-import { catchError, map, take, takeUntil, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { MatRadioChange, MatRadioButton } from '@angular/material';
 
 import { AgGridAngular } from "@ag-grid-community/angular";
