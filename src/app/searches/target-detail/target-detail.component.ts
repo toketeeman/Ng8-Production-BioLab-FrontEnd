@@ -8,7 +8,7 @@ import {
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable, of, Subject } from "rxjs";
-import { catchError, map, take, takeUntil } from 'rxjs/operators';
+import { catchError, map, take, takeUntil, tap } from 'rxjs/operators';
 
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
@@ -318,10 +318,14 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.detailData$
       .pipe(
+        tap((targetDetail: ITargetDetail) => {
+          console.log("TargetDetail: ", JSON.stringify(targetDetail));
+        }),
         map((targetDetail: ITargetDetail) => targetDetail.target),
         take(1),
         takeUntil(this.destroyed$)
       ).subscribe(targetDetailHeader => {
+        console.log("TargetDetailHeader: ", JSON.stringify(targetDetailHeader));
         this.targetHeaderData = [
           {
             target_name: targetDetailHeader.target_name,

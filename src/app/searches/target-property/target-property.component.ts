@@ -170,19 +170,19 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
                             unit: 'pH'});
     gridPropertyList.push({ name: 'Average Hydrophobicity (Gravy)',
                             value: propertyList.gravy,
-                            unit: 'H/#Residues'});
+                            unit: 'Average hydropathy (Kyte-Doolittle)'});
     gridPropertyList.push({ name: 'Aromaticity',
                             value: propertyList.aromaticity,
-                            unit: 'ppm (NICS)'});
+                            unit: 'Relative % of Phe+Trp+Tyr'});
     gridPropertyList.push({ name: 'Mass Extinction Coefficient @ 280nm (Oxidized)',
                             value: propertyList.e280_mass_ox,
-                            unit: 'M^(-1) cm^(-1)'});
+                            unit: 'm^2 kg^(-1)'});
     gridPropertyList.push({ name: 'Mass Extinction Coefficient @ 280nm (Reduced)',
                             value: propertyList.e280_mass_red,
-                            unit: 'M^(-1) cm^(-1)'});
+                            unit: 'm^2 kg^(-1)'});
     gridPropertyList.push({ name: 'Mass Extinction Coefficient @ 214nm',
                             value: propertyList.e214_mass,
-                            unit: 'M^(-1) cm^(-1)'});
+                            unit: 'm^2 kg^(-1)'});
     gridPropertyList.push({ name: 'Molar Extinction Coefficient @ 280nm (Oxidized)',
                             value: propertyList.e280_molar_ox,
                             unit: 'M^(-1) cm^(-1)'});
