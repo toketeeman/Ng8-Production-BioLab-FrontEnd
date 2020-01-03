@@ -168,7 +168,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     gridPropertyList.push({ name: 'Isoelectric Point',
                             value: propertyList.isoelectric_point,
                             unit: 'pH'});
-    gridPropertyList.push({ name: 'Average Hydrophobicity (Gravy)',
+    gridPropertyList.push({ name: 'Average Hydropathy (Gravy)',
                             value: propertyList.gravy,
                             unit: 'Average hydropathy (Kyte-Doolittle)'});
     gridPropertyList.push({ name: 'Aromaticity',
