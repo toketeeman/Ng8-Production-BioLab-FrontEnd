@@ -120,15 +120,19 @@ export interface ITargetProperties {
 
 export interface ITargetPropertyList {
   name: string;
-  monoiso_mw_ox: string;
-  ave_mw_red: string;
-  monoiso_mw_red: string;
-  isoelect_pt: string;
+  avg_molecular_weight_ox: string;
+  monoisotopic_weight_ox: string;
+  avg_molecular_weight_red: string;
+  monoisotopic_weight_red: string;
+  isoelectric_point: string;
   gravy: string;
   aromaticity: string;
-  mol_ext_coeff_280_nm_ox: string;
-  mol_ext_coeff_280_nm_red: string;
-  mol_ext_coeff_214_nm: string;
+  e280_mass_ox: string;
+  e280_mass_red: string;
+  e214_mass: string;
+  e280_molar_ox: string;
+  e280_molar_red: string;
+  e214_molar: string;
 }
 
 export interface IGridBioProperty {

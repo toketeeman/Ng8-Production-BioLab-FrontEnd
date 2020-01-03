@@ -21,7 +21,7 @@ export const environment = {
     plasmidsDetailUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-detail-view/",
     targetsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-view/",
     targetsDetailUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-detail-view/",
-    targetsPropertyUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-property-view/",
+    targetsPropertyUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-biophysical-properties-view/",
     plasmidSequenceDownloadUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-sequence-download/"
   }
 };

@@ -153,32 +153,44 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     const propertyList = this.propertyLists[propertyListIndex];
 
     const gridPropertyList: IGridBioProperty[] = [];
-    gridPropertyList.push({ name: 'Monoisotropic MW Oxidized',
-                            value: propertyList.monoiso_mw_ox,
+    gridPropertyList.push({ name: 'Average Molecular Weight (Oxidized)',
+                            value: propertyList.avg_molecular_weight_ox,
                             unit: 'Da'});
-    gridPropertyList.push({ name: 'Average MW Reduced',
-                            value: propertyList.ave_mw_red,
+    gridPropertyList.push({ name: 'Average Molecular Weight (Reduced)',
+                            value: propertyList.avg_molecular_weight_red,
                             unit: 'Da'});
-    gridPropertyList.push({ name: 'Monoisotropic MW Reduced',
-                            value: propertyList.monoiso_mw_red,
+    gridPropertyList.push({ name: 'Monoisotopic Molecular Weight (Oxidized)',
+                            value: propertyList.monoisotopic_weight_ox,
+                            unit: 'Da'});
+    gridPropertyList.push({ name: 'Monoisotopic Molecular Weight (Reduced)',
+                            value: propertyList.monoisotopic_weight_red,
                             unit: 'Da'});
     gridPropertyList.push({ name: 'Isoelectric Point',
-                            value: propertyList.isoelect_pt,
+                            value: propertyList.isoelectric_point,
                             unit: 'pH'});
-    gridPropertyList.push({ name: 'Gravy',
+    gridPropertyList.push({ name: 'Average Hydrophobicity (Gravy)',
                             value: propertyList.gravy,
                             unit: 'H/#Residues'});
     gridPropertyList.push({ name: 'Aromaticity',
                             value: propertyList.aromaticity,
                             unit: 'ppm (NICS)'});
-    gridPropertyList.push({ name: 'Molar Extinction Coefficient 280 NM Oxidized',
-                            value: propertyList.mol_ext_coeff_280_nm_ox,
+    gridPropertyList.push({ name: 'Mass Extinction Coefficient @ 280nm (Oxidized)',
+                            value: propertyList.e280_mass_ox,
                             unit: 'M^(-1) cm^(-1)'});
-    gridPropertyList.push({ name: 'Molar Extinction Coefficient 280 NM Reduced',
-                            value: propertyList.mol_ext_coeff_280_nm_red,
+    gridPropertyList.push({ name: 'Mass Extinction Coefficient @ 280nm (Reduced)',
+                            value: propertyList.e280_mass_red,
                             unit: 'M^(-1) cm^(-1)'});
-    gridPropertyList.push({ name: 'Molar Extinction Coefficient 214 NM',
-                            value: propertyList.mol_ext_coeff_214_nm,
+    gridPropertyList.push({ name: 'Mass Extinction Coefficient @ 214nm',
+                            value: propertyList.e214_mass,
+                            unit: 'M^(-1) cm^(-1)'});
+    gridPropertyList.push({ name: 'Molar Extinction Coefficient @ 280nm (Oxidized)',
+                            value: propertyList.e280_molar_ox,
+                            unit: 'M^(-1) cm^(-1)'});
+    gridPropertyList.push({ name: 'Molar Extinction Coefficient @ 280nm (Reduced)',
+                            value: propertyList.e280_molar_red,
+                            unit: 'M^(-1) cm^(-1)'});
+    gridPropertyList.push({ name: 'Molar Extinction Coefficient @ 214nm',
+                            value: propertyList.e214_molar,
                             unit: 'M^(-1) cm^(-1)'});
     gridPropertyList.push({ name: null,     // Work-around to avoid ag-Grid's flickering/obscuring the last data row.
                             value: null,
