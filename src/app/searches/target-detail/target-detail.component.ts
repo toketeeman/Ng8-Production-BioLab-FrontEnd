@@ -318,14 +318,14 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.detailData$
       .pipe(
-        tap((targetDetail: ITargetDetail) => {
-          console.log("TargetDetail: ", JSON.stringify(targetDetail));
-        }),
+        // tap((targetDetail: ITargetDetail) => {
+        //   console.log("TargetDetail: ", JSON.stringify(targetDetail));
+        // }),
         map((targetDetail: ITargetDetail) => targetDetail.target),
         take(1),
         takeUntil(this.destroyed$)
       ).subscribe(targetDetailHeader => {
-        console.log("TargetDetailHeader: ", JSON.stringify(targetDetailHeader));
+        // console.log("TargetDetailHeader: ", JSON.stringify(targetDetailHeader));
         this.targetHeaderData = [
           {
             target_name: targetDetailHeader.target_name,
@@ -335,7 +335,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
             notes: targetDetailHeader.notes
           },
           {
-            target_name: null,      // Dirty fix to prevent resizing flicking by grid.
+            target_name: null,      // Dirty fix to prevent resizing flickering by grid.
             partner: null,
             protein_class_name: null,
             project_name: null,
