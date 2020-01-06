@@ -135,11 +135,13 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     const proteinRadioButtonElement = document.getElementById(propListButtonId);
     proteinRadioButtonElement.style.visibility = 'visible';
 
-    let subunitIndex = 1;
-    for ( const subunitPropertyList of response.subunits ) {
-      this.propertyLists[subunitIndex] = subunitPropertyList;
-      propListButtonId = 'propList' + subunitIndex++;
-      document.getElementById(propListButtonId).style.visibility = 'visible';
+    if (response.subunits.length >= 2) {
+      let subunitIndex = 1;
+      for ( const subunitPropertyList of response.subunits ) {
+        this.propertyLists[subunitIndex] = subunitPropertyList;
+        propListButtonId = 'propList' + subunitIndex++;
+        document.getElementById(propListButtonId).style.visibility = 'visible';
+      }
     }
 
     this.proteinPropertiesButton.checked = true;
