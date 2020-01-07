@@ -25,7 +25,7 @@ export class SlimsAccessGuard implements CanActivate, CanActivateChild {
     // Only requests from SLIMS are allowed through.
     this.referrer = document.referrer;
     console.log("SLIMS Referrer: ", this.referrer);
-    alert("Referrer: " + this.referrer);
+    alert("Referrer from SLIMS Received! : " + this.referrer);   // To be used in connectivity test.
 
     if ((document.referrer as string).toLowerCase().includes("slims")) {
       return true;
