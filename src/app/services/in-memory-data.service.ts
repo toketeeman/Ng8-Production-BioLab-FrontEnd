@@ -303,9 +303,9 @@ export class InMemoryDataService implements InMemoryDbService {
     const plasmids: IGridPlasmid[]  = [
       {
         plasmid_id: "PL4523",
-        description: "Description A",
+        description: "Description A, extra long very long description, incredibly effusive description right here",
         marker: "kanamycin",
-        target_name: "protein x",
+        target_name: "protein x,protein y,protein x,protein abc,protein def",
         project_name: "Akita"
       },
       {

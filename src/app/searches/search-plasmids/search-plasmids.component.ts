@@ -80,10 +80,10 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
         headerName: "Description",
         field: "description",
         autoHeight: true,
+        width: 300,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '25%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
@@ -98,10 +98,10 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
         headerName: "Selectable Markers",
         field: "marker",
         autoHeight: true,
+        width: 200,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '20%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
@@ -115,10 +115,10 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       { headerName: "Target",
         field: "target_name",
         autoHeight: true,
+        width: 200,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '20%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
