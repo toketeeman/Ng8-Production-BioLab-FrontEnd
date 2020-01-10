@@ -8,7 +8,7 @@ import {
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable, of, Subject } from "rxjs";
-import { catchError, map, take, takeUntil, tap } from 'rxjs/operators';
+import { catchError, map, take, takeUntil } from 'rxjs/operators';
 
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
@@ -145,11 +145,11 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         headerClass: "target-detail-header",
         field: "notes",
         autoHeight: true,
+        width: 400,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -318,14 +318,10 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.detailData$
       .pipe(
-        tap((targetDetail: ITargetDetail) => {
-          console.log("TargetDetail: ------ ", JSON.stringify(targetDetail));
-        }),
         map((targetDetail: ITargetDetail) => targetDetail.target),
         take(1),
         takeUntil(this.destroyed$)
       ).subscribe(targetDetailHeader => {
-        console.log("TargetDetailHeader: ------ ", JSON.stringify(targetDetailHeader));
         this.targetHeaderData = [
           {
             target_name: targetDetailHeader.target_name,

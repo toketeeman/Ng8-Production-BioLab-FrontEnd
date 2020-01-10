@@ -79,6 +79,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       {
         headerName: "Description",
         field: "description",
+        valueFormatter: this.longValueFormatter,
         autoHeight: true,
         width: 300,
         cellStyle: {
@@ -97,6 +98,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       {
         headerName: "Selectable Markers",
         field: "marker",
+        valueFormatter: this.longValueFormatter,
         autoHeight: true,
         width: 200,
         cellStyle: {
@@ -114,6 +116,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       },
       { headerName: "Target",
         field: "target_name",
+        valueFormatter: this.longValueFormatter,
         autoHeight: true,
         width: 200,
         cellStyle: {
@@ -161,6 +164,14 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
                           return of(noResults);
                         })
                       );
+  }
+
+  // This formatter should be used for any field that was generated
+  // by the back-end as a comma-separated list string for improved UI visibility.
+  longValueFormatter(params) {
+    const unspacedValue = params.value.replace(/,\s/g, ",");
+    const respacedValue = params.value.replace(/,/g, ", ");
+    return respacedValue;
   }
 
   isExternalFilterPresent(): boolean {

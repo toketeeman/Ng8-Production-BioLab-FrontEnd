@@ -58,10 +58,10 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
         headerClass: "target-property-header",
         field: "name",
         autoHeight: true,
+        width: 400,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '50%'
+          'overflow-wrap': 'break-word'
         },
         sortable: false,
         menuTabs: []
