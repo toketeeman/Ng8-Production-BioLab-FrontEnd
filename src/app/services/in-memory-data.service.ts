@@ -837,7 +837,7 @@ export class InMemoryDataService implements InMemoryDbService {
       // roles: [ AppSettings.VIEWER_ROLE ]                           // Testing option
       // roles: [ AppSettings.SUBMITTER_ROLE ]                        // Testing option
       // roles: []                                                    // Testing option
-    }
+    };
 
     const proteinTargets = [];
     const fastaFiles = [];
