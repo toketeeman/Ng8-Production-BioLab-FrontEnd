@@ -18,9 +18,7 @@ export class SlimsAccessGuard implements CanActivate, CanActivateChild {
     private router: Router
   ) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(): boolean {
 
     // Only requests from SLIMS are allowed through.
     this.referrer = document.referrer;
@@ -36,6 +34,6 @@ export class SlimsAccessGuard implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(): boolean {
-    return this.canActivateChild();
+    return this.canActivate();
   }
 }

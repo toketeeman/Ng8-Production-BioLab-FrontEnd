@@ -10,6 +10,8 @@ import { SignedOutGuard } from "./guards/signed-out.guard";
 import { RegistrationSummaryComponent } from './registration-summary/registration-summary.component';
 import { UnsavedChangesGuard } from "./guards/unsaved-changes.guard";
 import { CanAccessGuard } from "./guards/can-access.guard";
+import { SubmitAccessGuard } from "./guards/submit-access.guard";
+import { ViewAccessGuard } from "./guards/view-access.guard";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
@@ -33,6 +35,7 @@ const routes: Routes = [
       {
         path: "add-target",
         component: NewTargetComponent,
+        canActivate: [SubmitAccessGuard],
         canDeactivate: [UnsavedChangesGuard]
       },
       {
@@ -49,6 +52,7 @@ const routes: Routes = [
       },
       {
         path: "search-plasmids",
+        canActivate: [ViewAccessGuard],
         component: SearchPlasmidsComponent
       },
       {
@@ -57,6 +61,7 @@ const routes: Routes = [
       },
       {
         path: "search-targets",
+        canActivate: [ViewAccessGuard],
         component: SearchTargetsComponent
       },
       {
