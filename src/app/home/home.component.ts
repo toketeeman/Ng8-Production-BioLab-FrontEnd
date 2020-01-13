@@ -56,4 +56,17 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl("/home/search-plasmids");
   }
 
+  disableForNonSubmitter(): boolean {
+    if (!this.authenticationService.hasSubmitterRole()) {
+      return true;
+    }
+    return false;
+  }
+
+  disableForNonViewer(): boolean {
+    if (!this.authenticationService.hasViewerRole()) {
+      return true;
+    }
+    return false;
+  }
 }

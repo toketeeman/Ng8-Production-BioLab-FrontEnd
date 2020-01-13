@@ -21,9 +21,9 @@
 
 <mat-menu #menu="matMenu">
   <!-- <button mat-menu-item routerLink="/">Home</button> -->
-  <button mat-menu-item (click)="goToRegisterNewTarget()">Register New Target</button>
-  <button mat-menu-item (click)="goToSearchTargets()">Search Targets</button>
-  <button mat-menu-item (click)="goToSearchPlasmids()">Search Plasmids</button>
+  <button mat-menu-item (click)="goToRegisterNewTarget()" [disabled]="disableForNonSubmitter()">Register New Target</button>
+  <button mat-menu-item (click)="goToSearchTargets()" [disabled]="disableForNonViewer()">Search Targets</button>
+  <button mat-menu-item (click)="goToSearchPlasmids()" [disabled]="disableForNonViewer()">Search Plasmids</button>
 </mat-menu>
 
 <router-outlet></router-outlet>
