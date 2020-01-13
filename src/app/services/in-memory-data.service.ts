@@ -18,7 +18,9 @@ import {
   ITargetDetail,
   IProteinClass,
   ITargetProperties,
-  ITargetPropertyList } from "../protein-expression.interface";
+  ITargetPropertyList,
+  ICurrentRoles} from "../protein-expression.interface";
+import { AppSettings } from "../appsettings/appsettings";
 
 const specialUsers = [
   {
@@ -830,6 +832,13 @@ export class InMemoryDataService implements InMemoryDbService {
       ]
     };
 
+    const currentRoles: ICurrentRoles = {
+      roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]  // Testing option
+      // roles: [ AppSettings.VIEWER_ROLE ]                           // Testing option
+      // roles: [ AppSettings.SUBMITTER_ROLE ]                        // Testing option
+      // roles: []                                                    // Testing option
+    }
+
     const proteinTargets = [];
     const fastaFiles = [];
     const subunitInteractions = [];
@@ -843,6 +852,7 @@ export class InMemoryDataService implements InMemoryDbService {
       targetsDetail,
       proteinClasses,
       targetsProperty,
+      currentRoles,
       proteinTargets,
       fastaFiles,
       subunitInteractions,

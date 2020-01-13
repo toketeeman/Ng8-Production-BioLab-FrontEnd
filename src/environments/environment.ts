@@ -26,7 +26,8 @@ export const environment = {
     targetsUrl: "api/targets",                // tslint objects to "target-view" in back-end. No bother. (or use get() interceptor)
     targetsDetailUrl: "api/targetsDetail",
     targetsPropertyUrl: "api/targetsProperty",
-    plasmidSequenceDownloadUrl: "api/plasmid-sequence-download"
+    plasmidSequenceDownloadUrl: "api/plasmid-sequence-download",
+    currentRolesUrl: "api/currentRoles"
   }
 };
 

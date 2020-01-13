@@ -140,3 +140,11 @@ export interface IGridBioProperty {
   value: string;
   unit: string;
 }
+
+export interface ICurrentRoles {
+  roles: string[];
+}
+
+
+
+

@@ -22,6 +22,7 @@ export const environment = {
     targetsUrl: "http://localhost:8000/api/v1/absci-targets/target-view/",
     targetsDetailUrl: "http://localhost:8000/api/v1/absci-targets/target-detail-view",
     targetsPropertyUrl: "http://localhost:8000/api/v1/absci-targets/target-biophysical-properties-view/",
-    plasmidSequenceDownloadUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-sequence-download"
+    plasmidSequenceDownloadUrl: "http://localhost:8000/api/v1/absci-targets/plasmid-sequence-download",
+    currentRolesUrl: "http://localhost:8000/api/v1/absci-targets/current-roles/"
   }
 };
