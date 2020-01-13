@@ -58,9 +58,23 @@ export class AuthenticationService {
       }))
       .subscribe((currentRoles) => {
         if (currentRoles) {
-          this.router.navigateByUrl("/home/add-target");
+          if (this.hasSubmitterRole()) {
+            this.router.navigateByUrl("/home/add-target");
+          }
+          else if (this.hasViewerRole()) {
+            this.router.navigateByUrl("/home/search-targets");
+          }
         }
+        // Fall through to remain on login page.
       });
+  }
+
+  hasSubmitterRole(): boolean {
+    return true;
+  }
+
+  hasViewerRole(): boolean {
+    return true;
   }
 
   logOut() {
