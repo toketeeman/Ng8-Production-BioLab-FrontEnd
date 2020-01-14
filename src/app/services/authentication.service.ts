@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
 import { ICurrentRoles } from '../protein-expression.interface';
 import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
+import { AppSettings } from "../appsettings/appsettings";
 
 @Injectable({
   providedIn: "root"
@@ -47,12 +48,13 @@ export class AuthenticationService {
           for ( const role of currentRoles.roles ) {
             roles.push(role);
           }
+          // Put the array of roles for the user into session storage.
           sessionStorage.setItem("currentRoles", JSON.stringify(roles));
         }
       ),
       catchError(error => {
         this.errorDialogService.openDialogForMessages(
-          "No roles are available. See admin."
+          "Roles database is not available. See admin."
         );
         return of(null);
       }))
@@ -64,17 +66,24 @@ export class AuthenticationService {
           else if (this.hasViewerRole()) {
             this.router.navigateByUrl("/home/search-targets");
           }
+          else if (!currentRoles.roles.length) {
+            this.errorDialogService.openDialogForMessages(
+              "No roles have been approved for you. See admin."
+            );
+          }
         }
-        // Fall through to remain on login page.
+        // Fall through to remain on login page due to insufficient role priviledges.
       });
   }
 
   hasSubmitterRole(): boolean {
-    return true;
+    const currentRoles: string[] = JSON.parse(sessionStorage.getItem("currentRoles"));
+    return currentRoles.includes(AppSettings.SUBMITTER_ROLE);
   }
 
   hasViewerRole(): boolean {
-    return true;
+    const currentRoles: string[] = JSON.parse(sessionStorage.getItem("currentRoles"));
+    return currentRoles.includes(AppSettings.VIEWER_ROLE);
   }
 
   logOut() {

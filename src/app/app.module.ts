@@ -80,7 +80,7 @@ const appImports = [
 
 if (!environment.production && environment.inMemoryData) {
   console.log(
-    "In dev.local (default environment) mode. Double-change-detection will be active and in-Memory DB will be the backend."
+    "FYI: In dev.local (default environment) mode. Double-change-detection will be active and in-Memory DB will be the backend."
   );
   appImports.push(
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
@@ -91,7 +91,7 @@ if (!environment.production && environment.inMemoryData) {
   );
 } else {
   console.log(
-    "In Angular production mode, i.e. single-change-detection. Backend is dictated by replaced environment.ts ."
+    "FYI: In Angular production mode, i.e. single-change-detection. Backend is dictated by replaced environment.ts ."
   );
 }
 

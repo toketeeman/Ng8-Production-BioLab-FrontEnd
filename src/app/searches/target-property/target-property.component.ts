@@ -42,7 +42,6 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.currentTargetId = this.route.snapshot.paramMap.get('id');
-    console.log("Property Target Id: ", this.currentTargetId);
 
     if (environment.inMemoryData) {
       this.targetsPropertyUrl = environment.urls.targetsPropertyUrl;
@@ -101,7 +100,6 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
           this.activatePropertyListSelection(response);
         }),
         catchError(error => {
-          console.log(JSON.stringify(error));
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['message'],

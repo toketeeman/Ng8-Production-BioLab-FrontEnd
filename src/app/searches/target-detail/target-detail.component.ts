@@ -305,7 +305,6 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.detailData$ = this.http.get<ITargetDetail>(this.targetsDetailUrl)
       .pipe(
         catchError(error => {
-          console.log(JSON.stringify(error));
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['message'],

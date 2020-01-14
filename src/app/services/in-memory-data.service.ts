@@ -18,7 +18,6 @@ import {
   ITargetDetail,
   IProteinClass,
   ITargetProperties,
-  ITargetPropertyList,
   ICurrentRoles} from "../protein-expression.interface";
 import { AppSettings } from "../appsettings/appsettings";
 
@@ -833,10 +832,10 @@ export class InMemoryDataService implements InMemoryDbService {
     };
 
     const currentRoles: ICurrentRoles = {
-      roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]  // Testing option
-      // roles: [ AppSettings.VIEWER_ROLE ]                           // Testing option
-      // roles: [ AppSettings.SUBMITTER_ROLE ]                        // Testing option
-      // roles: []                                                    // Testing option
+      roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]      // Testing option - view and submit
+      // roles: [ AppSettings.VIEWER_ROLE ]                               // Testing option - view only
+      // roles: [ AppSettings.SUBMITTER_ROLE ]                            // Testing option - submit only
+      // roles: []                                                        // Testing option - no roles approved
     };
 
     const proteinTargets = [];

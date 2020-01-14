@@ -237,10 +237,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.downloadIconCursor = 'pointer';
     this.downloadIconOpacity = 1.0;
     this.downloadMode = change.value;
-    console.log("Set Download Mode: ", this.downloadMode);
-    // change.source
-    // change.value
-    // enable the download cloud here.
   }
 
   ngAfterViewInit() {
@@ -354,7 +350,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
       .pipe(
         catchError(error => {
-          console.log("ERROR: ", JSON.stringify(error));
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['message'],
@@ -388,7 +383,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       this.http.get(downloadUrl, { observe: 'response', responseType: 'blob' })
       .pipe(
         catchError(error => {
-          console.log("ERROR: ", JSON.stringify(error));
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['message'],

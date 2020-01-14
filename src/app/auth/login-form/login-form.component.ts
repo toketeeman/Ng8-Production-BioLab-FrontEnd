@@ -40,8 +40,8 @@ export class LoginFormComponent implements OnInit {
     this.authenticationService.logIn(data.username, data.password)
       .pipe(
         tap( (user) => {
-          // this.authenticationService.initializeRoles();
-          this.router.navigateByUrl("/home/add-target");
+          this.authenticationService.initializeRoles();
+          // this.router.navigateByUrl("/home/add-target");
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(
