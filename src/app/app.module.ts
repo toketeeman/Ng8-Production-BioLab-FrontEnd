@@ -78,7 +78,7 @@ const appImports = [
   FileSaverModule
 ];
 
-console.log("FYI: PTDB is running in " + environment.configuration + " configuration mode.")
+console.log("FYI: PTDB is running in " + environment.configuration + " configuration mode.");
 
 if (!environment.production && environment.inMemoryData) {
   console.log(
