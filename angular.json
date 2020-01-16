@@ -138,12 +138,21 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
+            "protractorConfig": "e2e/protractor.conf.ts",
             "devServerTarget": "protein-expression-front-end:serve"
           },
           "configurations": {
             "production": {
               "devServerTarget": "protein-expression-front-end:serve:production"
+            },
+            "dev.local": {
+              "devServerTarget": "protein-expression-front-end:serve:dev.local"
+            },
+            "dev.remote": {
+              "devServerTarget": "protein-expression-front-end:serve:dev.remote"
+            },
+            "dev.docker": {
+              "devServerTarget": "protein-expression-front-end:serve:dev.docker"
             }
           }
         }
