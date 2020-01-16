@@ -9,6 +9,7 @@
 export const environment = {
   production: false,    // Means app is NOT deployed.
   inMemoryData: false,  // Means app is running in Angular production mode.
+  configuration: "dev.remote",   // For logging during start-up and automated testing.
 
   urls: {
     loginUrl: "https://ptdb-dev.intranet.absci.com/api/v1/auth/login/",

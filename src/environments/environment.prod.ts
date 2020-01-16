@@ -9,6 +9,7 @@
 export const environment = {
   production: true,     // Means app is deployed.
   inMemoryData: false,  // Means app is running in Angular production mode.
+  configuration: "production",   // For logging during start-up and automated testing.
 
   urls: {
     loginUrl: "api/v1/auth/login/",

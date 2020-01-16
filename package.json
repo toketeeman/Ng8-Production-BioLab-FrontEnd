@@ -8,14 +8,18 @@
     "large-start-local": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration=dev.local",
     "large-start-docker": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration=dev.docker",
     "large-start-remote": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration=dev.remote",
-    "large-start-prod": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration=dev.prod",
+    "large-start-prod": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration=production",
     "build": "ng build",
     "large-build": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng build",
     "large-build-prod": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng build --prod",
     "test": "ng test --watch false",
     "test:watch": "ng test",
     "lint": "ng lint --format stylish",
-    "e2e": "ng e2e --protractorConfig=e2e/protractor.conf.ts"
+    "e2e": "ng e2e --protractorConfig=e2e/protractor.conf.ts",
+    "e2e-local": "ng e2e --protractorConfig=e2e/protractor.conf.ts --configuration=dev.local",
+    "e2e-docker": "ng e2e --protractorConfig=e2e/protractor.conf.ts --configuration=dev.docker",
+    "e2e-remote": "ng e2e --protractorConfig=e2e/protractor.conf.ts --configuration=dev.remote",
+    "e2e-prod": "ng e2e --protractorConfig=e2e/protractor.conf.ts --configuration=production"
   },
   "private": true,
   "dependencies": {

@@ -9,6 +9,7 @@
 export const environment = {
   production: false,    // Means app is NOT deployed.
   inMemoryData: false,  // Means app is running in Angular production mode.
+  configuration: "dev.docker",   // For logging during start-up and automated testing.
 
   urls: {
     loginUrl: "http://localhost:8000/api/v1/auth/login/",
