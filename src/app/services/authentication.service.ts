@@ -65,7 +65,6 @@ export class AuthenticationService {
           // );                                                                                //
           // return of({ roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]});     //
       }))
-
       .subscribe((currentRoles) => {
         if (currentRoles) {
           if (this.hasSubmitterRole()) {
