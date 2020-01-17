@@ -51,13 +51,21 @@ export class AuthenticationService {
           // Put the array of roles for the user into session storage.
           sessionStorage.setItem("currentRoles", JSON.stringify(roles));
         }
-      ),
-      catchError(error => {
-        this.errorDialogService.openDialogForMessages(
-          "Roles database is not available. See admin."
-        );
-        return of(null);
+        ),
+        catchError(error => {
+          this.errorDialogService.openDialogForMessages(                                 // Use inside dev.local when testing
+            "Roles database is not available. See admin."                                // (final production code after
+          );                                                                             // roles endpoint has been established)
+          return of(null);                                                               //
+
+          // sessionStorage.setItem("currentRoles",                                            // Use outside dev.local when testing
+          //   JSON.stringify(                                                                 // (temporary code to be removed after
+          //     { roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]}             // roles endpoint has been established)
+          //   )                                                                               //
+          // );                                                                                //
+          // return of({ roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]});     //
       }))
+
       .subscribe((currentRoles) => {
         if (currentRoles) {
           if (this.hasSubmitterRole()) {
