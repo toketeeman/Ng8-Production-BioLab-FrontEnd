@@ -1,16 +1,16 @@
 import { AppPage } from "./app.po";
-import { browser, element, by, ExpectedConditions, logging } from "protractor";
+import { browser, element, by, ExpectedConditions, logging, promise } from "protractor";
 
 describe("workspace-project App", () => {
   let page: AppPage;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     page = new AppPage();
   });
 
-  it("should display welcome message", () => {
+  it("should display welcome message", async () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual("Log in to the AbSci Target Database");
+    expect(await page.getTitleText()).toEqual("Log in to the AbSci Target Database");
   });
 
   afterEach(async () => {
