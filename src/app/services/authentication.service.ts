@@ -53,17 +53,17 @@ export class AuthenticationService {
         }
         ),
         catchError(error => {
-          this.errorDialogService.openDialogForMessages(                                 // Use inside dev.local when testing
-            "Roles database is not available. See admin."                                // (final production code after
-          );                                                                             // roles endpoint has been established)
-          return of(null);                                                               //
+          // this.errorDialogService.openDialogForMessages(                                 // Final production code after
+          //   "Roles database is not available. See admin."                                // roles endpoint has been established.
+          // );                                                                             //
+          // return of(null);                                                               //
 
-          // sessionStorage.setItem("currentRoles",                                            // Use outside dev.local when testing
-          //   JSON.stringify(                                                                 // (temporary code to be removed after
-          //     { roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]}             // roles endpoint has been established)
-          //   )                                                                               //
-          // );                                                                                //
-          // return of({ roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]});     //
+          sessionStorage.setItem("currentRoles",                                            // Temporary work-around code to be
+            JSON.stringify(                                                                 // removed after roles endpoint has
+              { roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]}             // been established.
+            )                                                                               //
+          );                                                                                //
+          return of({ roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]});     //
       }))
       .subscribe((currentRoles) => {
         if (currentRoles) {
