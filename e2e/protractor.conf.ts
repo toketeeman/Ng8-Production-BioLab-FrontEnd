@@ -4,7 +4,7 @@
 const { SpecReporter } = require('jasmine-spec-reporter');
 
 exports.config = {
-  // SELENIUM_PROMISE_MANAGER: false,
+  SELENIUM_PROMISE_MANAGER: false,   // Work-around for imminent Protractor 6 / Selenium 4 releases.
   allScriptsTimeout: 11000,
   specs: [
     './src/**/*.e2e-spec.ts'
