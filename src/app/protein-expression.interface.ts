@@ -142,7 +142,8 @@ export interface IGridBioProperty {
 }
 
 export interface ICurrentRoles {
-  roles: string[];
+  groups: string[];
+  permissions: string[];
 }
 
 

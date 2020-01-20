@@ -832,10 +832,11 @@ export class InMemoryDataService implements InMemoryDbService {
     };
 
     const currentRoles: ICurrentRoles = {
-      roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]      // Testing option - view and submit
-      // roles: [ AppSettings.VIEWER_ROLE ]                               // Testing option - view only
-      // roles: [ AppSettings.SUBMITTER_ROLE ]                            // Testing option - submit only
-      // roles: []                                                        // Testing option - no roles approved
+      groups: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ],  // Testing option - view and submit
+      // groups: [ AppSettings.VIEWER_ROLE ],                              // Testing option - view only
+      // groups: [ AppSettings.SUBMITTER_ROLE ],                           // Testing option - submit only
+      // groups: [],                                                       // Testing option - no roles approved
+      permissions: []
     };
 
     const proteinTargets = [];

@@ -24,6 +24,6 @@ export const environment = {
     targetsDetailUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-detail-view/",
     targetsPropertyUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-biophysical-properties-view/",
     plasmidSequenceDownloadUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-sequence-download/",
-    currentRolesUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/current-roles/"
+    currentRolesUrl: "https://ptdb-dev.intranet.absci.com/api/v1/users/current-user-permissions/"
   }
 };

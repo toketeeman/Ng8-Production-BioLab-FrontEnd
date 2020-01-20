@@ -45,26 +45,31 @@ export class AuthenticationService {
       .pipe(
         tap ( (currentRoles: ICurrentRoles) => {
           const roles: string[] = [];
-          for ( const role of currentRoles.roles ) {
+          for ( const role of currentRoles.groups ) {
             roles.push(role);
           }
-          // Put the array of roles for the user into session storage.
+          // Put (only) the array of roles for the user into session storage.
           sessionStorage.setItem("currentRoles", JSON.stringify(roles));
-        }
-        ),
+        }),
         catchError(error => {
-          // this.errorDialogService.openDialogForMessages(                                 // Final production code after
-          //   "Roles database is not available. See admin."                                // roles endpoint has been established.
-          // );                                                                             //
-          // return of(null);                                                               //
+          // this.errorDialogService.openDialogForMessages(                               // Final production code to be used after
+          //   "Roles database is not available. See admin."                              // roles endpoint has been established.
+          // );                                                                           //
+          // return of(null);                                                             //
 
-          sessionStorage.setItem("currentRoles",                                            // Temporary work-around code to be
-            JSON.stringify(                                                                 // removed after roles endpoint has
-              { roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]}             // been established.
-            )                                                                               //
-          );                                                                                //
-          return of({ roles: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]});     //
-      }))
+          sessionStorage.setItem("currentRoles",                                          // Temporary work-around code to be
+            JSON.stringify(                                                               // REMOVED after roles endpoint has
+                  [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]                 // been established.
+                )                                                                         //
+          );                                                                              //
+          return of(                                                                      //
+            {                                                                             //
+              groups: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ],            //
+              permissions: []                                                             //
+            }                                                                             //
+          );                                                                              //
+        })
+      )
       .subscribe((currentRoles) => {
         if (currentRoles) {
           if (this.hasSubmitterRole()) {
@@ -73,7 +78,7 @@ export class AuthenticationService {
           else if (this.hasViewerRole()) {
             this.router.navigateByUrl("/home/search-targets");
           }
-          else if (!currentRoles.roles.length) {
+          else if (!currentRoles.groups.length) {
             this.errorDialogService.openDialogForMessages(
               "No roles have been approved for you. See admin."
             );
