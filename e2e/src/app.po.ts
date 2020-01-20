@@ -1,13 +1,13 @@
 import { browser, by, element } from "protractor";
 
-export class AppPage {
+export class LoginPage {
   navigateTo() {
     return browser.get(browser.baseUrl);
   }
 
   getTitleText() {
     return element(
-      by.css("app-root app-login-form div form h3")
+      by.css("h3")
     ).getText();
   }
 }
