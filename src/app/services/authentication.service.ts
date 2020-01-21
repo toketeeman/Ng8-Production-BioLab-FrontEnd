@@ -78,9 +78,9 @@ export class AuthenticationService {
           else if (this.hasViewerRole()) {
             this.router.navigateByUrl("/home/search-targets");
           }
-          else if (!currentRoles.groups.length) {
+          else {
             this.errorDialogService.openDialogForMessages(
-              "No roles have been approved for you. See admin."
+              "No roles appropriate for this app have been approved for you. See admin."
             );
           }
         }
