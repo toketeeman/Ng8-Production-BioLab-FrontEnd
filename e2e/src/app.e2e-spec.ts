@@ -1,10 +1,11 @@
 import { LoginPage } from "./app.po";
-import { browser, element, by, ExpectedConditions, logging, promise } from "protractor";
+import { browser, element, by, ExpectedConditions, logging, promise, protractor } from "protractor";
 import { environment } from "../../src/environments/environment";
 import { AppSettings } from "../../src/app/appsettings/appsettings";
 
 describe("workspace-project App", () => {
   let page: LoginPage;
+  const EC = protractor.ExpectedConditions;
 
   beforeEach(async () => {
     // No preparation at this time.
@@ -39,6 +40,11 @@ describe("workspace-project App", () => {
       expect(newUrl).toContain('/home/search-targets');
     } else {
       expect(newUrl).toContain('/login');
+
+      // Verify error dialog has appeared.
+      const errorHeader = element(by.css('mat-dialog-container header div'));
+      browser.wait(EC.visibilityOf(errorHeader), 5000);
+      expect(await errorHeader.getText()).toEqual('Error');
     }
   });
 
