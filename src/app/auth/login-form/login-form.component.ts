@@ -41,7 +41,7 @@ export class LoginFormComponent implements OnInit {
       .pipe(
         tap( (user) => {
           this.authenticationService.initializeRoles();
-          // this.router.navigateByUrl("/home/add-target");
+          // this.router.navigateByUrl("/home/add-target");    // Remove when roles endpoint has been established.
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(
