@@ -2,7 +2,6 @@ import { LoginPage } from "./app.po";
 import { browser, element, by, ExpectedConditions, logging, promise, protractor } from "protractor";
 import { environment } from "../../src/environments/environment";
 import { AppSettings } from "../../src/app/appsettings/appsettings";
-import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 
 describe("workspace-project App", () => {
   let loginPage: LoginPage;
@@ -21,8 +20,13 @@ describe("workspace-project App", () => {
     await loginButton.click();
   }
 
+  async function logoutToRecycle() {
+    const logoutButton = await element(by.cssContainingText('.btn-nav', 'Log Out'));
+    await logoutButton.click();
+  }
 
-  it('Any user should successfully bring up login page.', async () => {
+
+  it('1. Any user should successfully bring up login page.', async () => {
     // Bring up the login page.
     loginPage = new LoginPage();
     await loginPage.navigateTo();
@@ -33,13 +37,12 @@ describe("workspace-project App", () => {
     expect(await loginPage.getTitleText()).toEqual("Log in to the AbSci Target Database");
   });
 
-  it('Valid user should log in successfully to correct initial page according to roles.', async () => {
+  it('2. Valid user should log in successfully to correct initial page according to roles.', async () => {
     // Enter login credentials of a valid user.
     await loginWithCredentials('user1', 'password1');
 
     // Start verification that we entered correct first page after login as per our roles.
     const newUrl = await browser.getCurrentUrl();
-    console.log("E2E - New URL: ", newUrl);
     const currentRoles: string[] | null = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
     console.log("E2E - Current Roles: ", JSON.stringify(currentRoles));
     if (currentRoles.includes(AppSettings.SUBMITTER_ROLE)) {
@@ -64,16 +67,29 @@ describe("workspace-project App", () => {
     }
   });
 
-  it('Valid user should have correct menu as per roles.', async () => {
+  it('3. Valid user should have correct menu as per roles.', async () => {
 
 
 
   });
 
-  it('Invalid user should be denied login.', async () => {
+  it('4. Invalid user should be denied login.', async () => {
+    // Recycle by logging out.
+    await logoutToRecycle();
 
+    // Enter login credentials of an invalid user.
+    await loginWithCredentials('userx', 'passwordx');
 
+    // Check that an invalid user will be immediately returned to login after login attempt.
+    const newUrl = await browser.getCurrentUrl();
+    expect(newUrl).toContain('/login');
 
+    // Start verification of an error dialog for a non-submitter non-viewer user.
+    const errorHeader = element(by.css('mat-dialog-container header div'));
+    browser.wait(EC.visibilityOf(errorHeader), 5000);
+
+    // Check that an error dialog has appeared for a non-submitter non-viewer user.
+    expect(await errorHeader.getText()).toEqual('Error');
   });
 
   afterEach(async () => {
