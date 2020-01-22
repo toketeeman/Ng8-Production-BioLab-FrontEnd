@@ -43,7 +43,7 @@ describe("workspace-project App", () => {
   }
 
 
-  it('1. Any user should successfully bring up login page.', async () => {
+  it('1. Any user - valid or invalid - should successfully bring up login page.', async () => {
     // Bring up the login page.
     loginPage = new LoginPage();
     await loginPage.navigateTo();
@@ -84,7 +84,7 @@ describe("workspace-project App", () => {
     }
   });
 
-  it('3. Valid user should have correct menu activation as per roles.', async () => {
+  it('3. Valid user should have correct menu activation as per roles upon login.', async () => {
     // Recycle by logging out. (Pre-condition: previous test has user logged in.)
     await logoutToRecycle();
 
