@@ -55,24 +55,34 @@ describe("workspace-project App", () => {
   });
 
   it('2. Valid user should log in successfully to correct initial page according to roles.', async () => {
+    // Pre-condition: we are now at the login page.
+
     // Enter login credentials of a valid user.
     await loginWithCredentials('user1', 'password1');
 
     // Start verification that we entered correct first page after login as per our roles.
     const newUrl = await browser.getCurrentUrl();
     const currentRoles: string[] | null = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
-    console.log("E2E - Current Roles: ", JSON.stringify(currentRoles));
+    console.log("E2E Test 2 - Current Roles: ", JSON.stringify(currentRoles));
     if (currentRoles.includes(AppSettings.SUBMITTER_ROLE)) {
 
       // Check that user with at least submitter role will reach add-target page from login.
       expect(newUrl).toContain('/home/add-target');
+
+      // Recycle for next test by logging out.
+      await logoutToRecycle();
+
     } else if (currentRoles.includes(AppSettings.VIEWER_ROLE)) {
 
       // Check that user with only viewer role will reach target search page from login.
       expect(newUrl).toContain('/home/search-targets');
+
+      // Recycle for next test by logging out.
+      await logoutToRecycle();
+
     } else {
 
-      // Check that a non-submitter non-viewer user will be immediately returned to login after login attempt.
+      // Check that a non-submitter non-viewer valid user will be immediately returned to login after login attempt.
       expect(newUrl).toContain('/login');
 
       // Start verification of an error dialog for a non-submitter non-viewer user.
@@ -81,56 +91,70 @@ describe("workspace-project App", () => {
 
       // Check that an error dialog has appeared for a non-submitter non-viewer user.
       expect(await errorHeader.getText()).toEqual('Error');
+
+      // Recycle for next test by dismissing error dialog.
+      const errorDialogCloseButton = await element(by.cssContainingText('footer span', 'Close'));
+      await errorDialogCloseButton.click();
     }
   });
 
-  it('3. Valid user should have correct menu activation as per roles upon login.', async () => {
-    // Recycle by logging out. (Pre-condition: previous test has user logged in.)
-    await logoutToRecycle();
+  it('3. Valid user with at least one role should have correct menu activation as per roles upon login.', async () => {
+    // Pre-condition: we are now at the login page.
 
-    // Enter login credentials of an valid user.
+    // Enter login credentials of an VALID user with at least one role.
     await loginWithCredentials('user1', 'password1');
 
-    // Click on menu to see options.
-    let menuButton = null;
-    menuButton = await element(by.id('e2e-mat-menu'));
-    await menuButton.click();
+    // Allow test only if user has at least one role.
+    await browser.getCurrentUrl();
+    const currentRoles: string[] = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
+    console.log("E2E Test 3 - Current Roles: ", JSON.stringify(currentRoles));
+    if (currentRoles.length) {
 
-    // Inspect activation of menu options.
-    const currentRoles: string[] | null = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
-    const registerNewTargetButtonDisabled =
-      await element(by.cssContainingText('.mat-menu-content button', 'Register New Target')).getAttribute('disabled');
-    const searchTargetsButtonDisabled =
-      await element(by.cssContainingText('.mat-menu-content button', 'Search Targets')).getAttribute('disabled');
-    const searchPlasmidsButtonDisabled =
-      await element(by.cssContainingText('.mat-menu-content button', 'Search Plasmids')).getAttribute('disabled');
+      // Click on menu to see options.
+      let menuButton = null;
+      menuButton = await element(by.id('e2e-mat-menu'));
+      await menuButton.click();
 
-    // Test for correct activation for submitter role.
-    if (currentRoles.includes(AppSettings.SUBMITTER_ROLE)) {
-      expect(registerNewTargetButtonDisabled).toBeFalsy();
+      // Inspect activation of menu options.
+      const registerNewTargetButtonDisabled =
+        await element(by.cssContainingText('.mat-menu-content button', 'Register New Target')).getAttribute('disabled');
+      const searchTargetsButtonDisabled =
+        await element(by.cssContainingText('.mat-menu-content button', 'Search Targets')).getAttribute('disabled');
+      const searchPlasmidsButtonDisabled =
+        await element(by.cssContainingText('.mat-menu-content button', 'Search Plasmids')).getAttribute('disabled');
+
+      // Test for correct activation for submitter role.
+      if (currentRoles.includes(AppSettings.SUBMITTER_ROLE)) {
+        expect(registerNewTargetButtonDisabled).toBeFalsy();
+      } else {
+        expect(registerNewTargetButtonDisabled).toBeTruthy();
+      }
+
+      // Test for correct activation for view role.
+      if (currentRoles.includes(AppSettings.VIEWER_ROLE)) {
+        expect(searchTargetsButtonDisabled).toBeFalsy();
+        expect(searchPlasmidsButtonDisabled).toBeFalsy();
+      } else {
+        expect(searchTargetsButtonDisabled).toBeTruthy();
+        expect(searchPlasmidsButtonDisabled).toBeTruthy();
+      }
+
+      // Close the menu without making a selection.
+      const body = await element(by.css('body'));
+      await browser.actions().mouseMove(body, {x: 0, y: 0}).click().perform();
+
+      // Recycle for next test by logging out.
+      await logoutToRecycle();
     } else {
-      expect(registerNewTargetButtonDisabled).toBeTruthy();
+      console.log("E2E - Test 3 was not run. Requires valid user with at least one role.")
     }
 
-    // Test for correct activation for view role.
-    if (currentRoles.includes(AppSettings.VIEWER_ROLE)) {
-      expect(searchTargetsButtonDisabled).toBeFalsy();
-      expect(searchPlasmidsButtonDisabled).toBeFalsy();
-    } else {
-      expect(searchTargetsButtonDisabled).toBeTruthy();
-      expect(searchPlasmidsButtonDisabled).toBeTruthy();
-    }
-
-    // Close the menu without making a selection. Also enables logout recycling below.
-    const body = await element(by.css('body'));
-    await browser.actions().mouseMove(body, {x: 0, y: 0}).click().perform();
   });
 
-  it('4. Invalid user should be denied login.', async () => {
-    // Recycle by logging out. (Pre-condition: previous test has user logged in.)
-    await logoutToRecycle();
+  it('4. Invalid user should be denied login with error message.', async () => {
+    // Pre-condition: we are now at the login page.
 
-    // Enter login credentials of an invalid user.
+    // Enter login credentials of an INVALID user.
     await loginWithCredentials('userx', 'passwordx');
 
     // Check that an invalid user will be immediately returned to login after login attempt.
@@ -143,6 +167,20 @@ describe("workspace-project App", () => {
 
     // Check that an error dialog has appeared for a non-submitter non-viewer user.
     expect(await errorHeader.getText()).toEqual('Error');
+
+    // Recycle for next test by dismissing error dialog.
+    const errorDialogCloseButton = await element(by.cssContainingText('footer span', 'Close'));
+    await errorDialogCloseButton.click();
+  });
+
+  it('5. Valid viewer user should be able to access target search page.', async () => {
+    // Pre-condition: we are now at the login page.
+
+    // Enter login credentials of an valid user.
+    await loginWithCredentials('user1', 'password1');
+
+
+
   });
 
   afterEach(async () => {
@@ -158,3 +196,5 @@ describe("workspace-project App", () => {
     );
   });
 });
+
+
