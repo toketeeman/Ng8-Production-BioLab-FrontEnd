@@ -146,7 +146,7 @@ describe("workspace-project App", () => {
       // Recycle for next test by logging out.
       await logoutToRecycle();
     } else {
-      console.log("E2E - Test 3 was not run. Requires valid user with at least one role.")
+      console.log("E2E - Test 3 was not run. Requires valid user with at least one role.");
     }
 
   });
