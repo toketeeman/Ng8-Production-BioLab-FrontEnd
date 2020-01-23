@@ -221,8 +221,15 @@ describe("workspace-project App", () => {
       const newUrl = await browser.getCurrentUrl();
       expect(newUrl).toContain('/home/search-targets');
 
-    }
+      // Check that at least one target row was retrieved from the backend.
+      const firstRow = element(by.css('ag-body-viewport div.ag-row-first'));
+      expect(firstRow.isPresent()).toBeTruthy();
 
+
+
+    } else {
+      console.log("\n----E2E - Test 5 was not run. Requires valid user to be a viewer.");
+    }
   });
 
   afterEach(async () => {
