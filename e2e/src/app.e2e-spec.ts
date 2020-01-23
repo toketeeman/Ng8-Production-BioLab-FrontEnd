@@ -203,12 +203,23 @@ describe("workspace-project App", () => {
 
     // Enter login credentials of a valid viewer user.
     await loginWithCredentials('user1', 'password1');
-    const newUrl = await browser.getCurrentUrl();
+    await browser.getCurrentUrl();
 
     // Allow test only if user has at least viewer role.
     const currentRoles: string[] = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
     console.log("\n----E2E Test 5 - Current Roles: ", JSON.stringify(currentRoles));
     if (currentRoles.includes(AppSettings.VIEWER_ROLE)) {
+
+      // Click on menu to see options. Then click on the Search Targets option.
+      let menuButton = null;
+      menuButton = await element(by.id('e2e-mat-menu'));
+      await menuButton.click();
+      const searchTargetsSelection = await element(by.cssContainingText('.mat-menu-content button', 'Search Targets'));
+      await searchTargetsSelection.click();
+
+      // Check that the target search page has come up.
+      const newUrl = await browser.getCurrentUrl();
+      expect(newUrl).toContain('/home/search-targets');
 
     }
 
