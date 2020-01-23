@@ -19,6 +19,15 @@ import { AppSettings } from "../../src/app/appsettings/appsettings";
 // very specific searches, those tests should be conditioned to run ONLY in dev.docker
 // because dev.local only simulates some of those operations. After each e2e run in dev.docker,
 // the Docker Desktop environment must be recycled to restore the initial test databases.
+//
+// The first test covers accessing the deployed app.
+//
+// Each subsequent test starts with the login page and ends on the login page.
+//
+// For asynchonous stability, a flow-restart is placed at each test's beginning,
+// to shield it from possible effects from the immediately-preceding test, although
+// it is often not needed.
+//
 
 describe("workspace-project App", () => {
   let loginPage: LoginPage;
@@ -27,6 +36,11 @@ describe("workspace-project App", () => {
   beforeEach(async () => {
     // No preparation at this time.
   });
+
+  async function restartAppFlow() {
+    loginPage = new LoginPage();
+    await loginPage.navigateTo();
+  }
 
   async function loginWithCredentials( username: string, password: string) {
     const user = element(by.id('username'));
@@ -44,11 +58,12 @@ describe("workspace-project App", () => {
 
 
   it('1. Any user - valid or invalid - should successfully bring up login page.', async () => {
-    // Bring up the login page.
-    loginPage = new LoginPage();
-    await loginPage.navigateTo();
+    // Pre-condition: none.
+
+    await restartAppFlow();
+
     const newUrl = await browser.getCurrentUrl();
-    console.log("E2E - Initial Access URL: ", newUrl);
+    console.log("\n----E2E Test 1 - Initial Access URL: ", newUrl);
 
     // Check that the real login page actually loaded.
     expect(await loginPage.getTitleText()).toEqual("Log in to the AbSci Target Database");
@@ -58,13 +73,15 @@ describe("workspace-project App", () => {
     // Pre-condition: we are now at the login page.
     // Pre-condition: supplied user must be valid with zero or more roles.
 
+    await restartAppFlow();
+
     // Enter login credentials of a valid user.
     await loginWithCredentials('user1', 'password1');
 
     // Start verification that we entered correct first page after login as per our roles.
     const newUrl = await browser.getCurrentUrl();
     const currentRoles: string[] | null = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
-    console.log("E2E Test 2 - Current Roles: ", JSON.stringify(currentRoles));
+    console.log("\n----E2E Test 2 - Current Roles: ", JSON.stringify(currentRoles));
     if (currentRoles.includes(AppSettings.SUBMITTER_ROLE)) {
 
       // Check that user with at least submitter role will reach add-target page from login.
@@ -103,13 +120,15 @@ describe("workspace-project App", () => {
     // Pre-condition: we are now at the login page.
     // Pre-condition: supplied user must be valid with one or more roles.
 
+    await restartAppFlow();
+
     // Enter login credentials of an VALID user.
     await loginWithCredentials('user1', 'password1');
 
     // Allow test only if user has at least one role.
     await browser.getCurrentUrl();
     const currentRoles: string[] = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
-    console.log("E2E Test 3 - Current Roles: ", JSON.stringify(currentRoles));
+    console.log("\n----E2E Test 3 - Current Roles: ", JSON.stringify(currentRoles));
     if (currentRoles.length) {
 
       // Click on menu to see options.
@@ -148,13 +167,15 @@ describe("workspace-project App", () => {
       // Recycle for next test by logging out.
       await logoutToRecycle();
     } else {
-      console.log("E2E - Test 3 was not run. Requires valid user with at least one role.");
+      console.log("\n----E2E - Test 3 was not run. Requires valid user with at least one role.");
     }
   });
 
   it('4. Invalid user should be denied login with error message.', async () => {
     // Pre-condition: we are now at the login page.
     // Pre-condition: supplied user must be invalid.
+
+    await restartAppFlow();
 
     // Enter login credentials of an INVALID user.
     await loginWithCredentials('userx', 'passwordx');
@@ -178,10 +199,18 @@ describe("workspace-project App", () => {
   it('5. Valid viewer user should be able to access target search page.', async () => {
     // Pre-condition: we are now at the login page.
 
-    // Enter login credentials of an valid viewer user.
+    await restartAppFlow();
+
+    // Enter login credentials of a valid viewer user.
     await loginWithCredentials('user1', 'password1');
+    const newUrl = await browser.getCurrentUrl();
 
+    // Allow test only if user has at least viewer role.
+    const currentRoles: string[] = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
+    console.log("\n----E2E Test 5 - Current Roles: ", JSON.stringify(currentRoles));
+    if (currentRoles.includes(AppSettings.VIEWER_ROLE)) {
 
+    }
 
   });
 
