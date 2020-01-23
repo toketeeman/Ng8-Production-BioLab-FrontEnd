@@ -56,6 +56,7 @@ describe("workspace-project App", () => {
 
   it('2. Valid user should log in successfully to correct initial page according to roles.', async () => {
     // Pre-condition: we are now at the login page.
+    // Pre-condition: supplied user must be valid with zero or more roles.
 
     // Enter login credentials of a valid user.
     await loginWithCredentials('user1', 'password1');
@@ -100,8 +101,9 @@ describe("workspace-project App", () => {
 
   it('3. Valid user with at least one role should have correct menu activation as per roles upon login.', async () => {
     // Pre-condition: we are now at the login page.
+    // Pre-condition: supplied user must be valid with one or more roles.
 
-    // Enter login credentials of an VALID user with at least one role.
+    // Enter login credentials of an VALID user.
     await loginWithCredentials('user1', 'password1');
 
     // Allow test only if user has at least one role.
@@ -152,6 +154,7 @@ describe("workspace-project App", () => {
 
   it('4. Invalid user should be denied login with error message.', async () => {
     // Pre-condition: we are now at the login page.
+    // Pre-condition: supplied user must be invalid.
 
     // Enter login credentials of an INVALID user.
     await loginWithCredentials('userx', 'passwordx');
