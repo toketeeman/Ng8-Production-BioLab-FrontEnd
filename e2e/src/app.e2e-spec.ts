@@ -196,7 +196,7 @@ describe("workspace-project App", () => {
     await errorDialogCloseButton.click();
   });
 
-  it('5. Valid viewer user should be able to access target search page.', async () => {
+  it('5. Valid viewer user should be able to access target search page and target detail page.', async () => {
     // Pre-condition: we are now at the login page.
 
     await restartAppFlow();
@@ -218,14 +218,19 @@ describe("workspace-project App", () => {
       await searchTargetsSelection.click();
 
       // Check that the target search page has come up.
-      const newUrl = await browser.getCurrentUrl();
-      expect(newUrl).toContain('/home/search-targets');
+      const searchTargetUrl = await browser.getCurrentUrl();
+      expect(searchTargetUrl).toContain('/home/search-targets');
 
       // Check that at least one target row was retrieved from the backend.
-      const firstRow = element(by.css('ag-body-viewport div.ag-row-first'));
-      expect(firstRow.isPresent()).toBeTruthy();
+      const allRowsOnPage = element.all(by.css('div.ag-center-cols-container div.ag-row'));
+      expect(allRowsOnPage.count()).toBeGreaterThan(0);
 
-
+      // Check that clicking some targeet row will retrieve the target detail page.
+      const anyRow = element(by.css('.ag-body-viewport'));
+      expect(anyRow.isPresent()).toBeTruthy();
+      await anyRow.click();
+      const targetDetailUrl = await browser.getCurrentUrl();
+      expect(targetDetailUrl).toMatch(/.+\/home\/target-detail\/\d+/);
 
     } else {
       console.log("\n----E2E - Test 5 was not run. Requires valid user to be a viewer.");
