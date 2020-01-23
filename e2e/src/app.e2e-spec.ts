@@ -148,7 +148,6 @@ describe("workspace-project App", () => {
     } else {
       console.log("E2E - Test 3 was not run. Requires valid user with at least one role.");
     }
-
   });
 
   it('4. Invalid user should be denied login with error message.', async () => {
@@ -176,7 +175,7 @@ describe("workspace-project App", () => {
   it('5. Valid viewer user should be able to access target search page.', async () => {
     // Pre-condition: we are now at the login page.
 
-    // Enter login credentials of an valid user.
+    // Enter login credentials of an valid viewer user.
     await loginWithCredentials('user1', 'password1');
 
 
