@@ -48,26 +48,15 @@ export class AuthenticationService {
           for ( const role of currentRoles.groups ) {
             roles.push(role);
           }
+
           // Put (only) the array of roles for the user into session storage.
           sessionStorage.setItem("currentRoles", JSON.stringify(roles));
         }),
         catchError(error => {
-          // this.errorDialogService.openDialogForMessages(                               // Final production code to be used after
-          //   "Roles database is not available. See admin."                              // roles endpoint has been established.
-          // );                                                                           //
-          // return of(null);                                                             //
-
-          sessionStorage.setItem("currentRoles",                                          // Temporary work-around code to be
-            JSON.stringify(                                                               // REMOVED after roles endpoint has
-                  [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ]                 // been established.
-                )                                                                         //
-          );                                                                              //
-          return of(                                                                      //
-            {                                                                             //
-              groups: [ AppSettings.VIEWER_ROLE, AppSettings.SUBMITTER_ROLE ],            //
-              permissions: []                                                             //
-            }                                                                             //
-          );                                                                              //
+          this.errorDialogService.openDialogForMessages(
+            "Roles database is not available. See admin."
+          );
+          return of(null);
         })
       )
       .subscribe((currentRoles) => {
