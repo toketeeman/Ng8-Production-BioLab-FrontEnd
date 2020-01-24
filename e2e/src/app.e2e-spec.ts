@@ -43,6 +43,13 @@ describe("workspace-project App", () => {
   }
 
   async function loginWithCredentials( username: string, password: string) {
+    
+    // Use only in-memory-DB login/password if running in dev.local.
+    if (environment.configuration === 'dev.local' && username !== 'userx') {
+      username = 'user1';
+      password = 'password1';
+    }
+
     const user = element(by.id('username'));
     await user.sendKeys(username);
     const pwd = element(by.id('password'));
@@ -69,7 +76,7 @@ describe("workspace-project App", () => {
     expect(await loginPage.getTitleText()).toEqual("Log in to the AbSci Target Database");
   });
 
-  it('2. Valid user should log in successfully to correct initial page according to roles.', async () => {
+  it('2. Valid user should log in successfully to appropriate initial page according to roles.', async () => {
     // Pre-condition: we are now at the login page.
     // Pre-condition: supplied user must be valid with zero or more roles.
 
@@ -225,12 +232,18 @@ describe("workspace-project App", () => {
       const allRowsOnPage = element.all(by.css('div.ag-center-cols-container div.ag-row'));
       expect(allRowsOnPage.count()).toBeGreaterThan(0);
 
-      // Check that clicking some targeet row will retrieve the target detail page.
+      // Check that clicking some target row will retrieve the target detail page.
       const anyRow = element(by.css('.ag-body-viewport'));
       expect(anyRow.isPresent()).toBeTruthy();
       await anyRow.click();
       const targetDetailUrl = await browser.getCurrentUrl();
       expect(targetDetailUrl).toMatch(/.+\/home\/target-detail\/\d+/);
+
+      // Check that a target has been loaded into the target details page.
+
+
+
+
 
     } else {
       console.log("\n----E2E - Test 5 was not run. Requires valid user to be a viewer.");
