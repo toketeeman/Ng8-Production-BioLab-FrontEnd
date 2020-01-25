@@ -5,15 +5,22 @@ import { AppSettings } from "../../src/app/appsettings/appsettings";
 
 // NOTES:
 //
+// This e2e test has been coded in latest Protractor 6-ish that supports the new
+// async/await control flow coming in Selenium 4.
+//
 // A set of special (phantom) VALID user accounts are required to be established
-// beforehand in order to run this e2e test.
+// beforehand in order to run this e2e test. (Has been provided.)
 //
 // One special valid user is needed for possessing each combination of roles, respectively.
+// (Has been provided.)
 //
 // One additional user who is non-existant (i.e. clearly invalid) is needed. Make one up.
+// (We're using userx/passwordx here.)
 //
 // This test can only be run only in the dev.local and dev.docker configurations because it will
-// need to be easily repeatable against the backend (in-memory-DB or Docker Desktop).
+// need to be easily repeatable against the backend (in-memory-DB or Docker Desktop) in the presence
+// of posts. (It could be run in dev.remote if there are no POSTS to a DB caused by these tests,
+// or if those tests that do posts are conditionally excluded!)
 //
 // If very detailed tests are added that checks the results of very specific updates or
 // very specific searches, those tests should be conditioned to run ONLY in dev.docker
@@ -37,19 +44,27 @@ describe("workspace-project App", () => {
     // No preparation at this time.
   });
 
-  async function restartAppFlow() {
+
+  // ----------------- Test helpers -----------------------
+
+  async function restartAppSession() {
     loginPage = new LoginPage();
     await loginPage.navigateTo();
   }
 
   async function loginWithCredentials( username: string, password: string) {
-    
+
+    // The code below must be activated ONLY for dev.local mode!
+    // Otherwise it is to be left commented out. Thus it is
+    // intended only for aiding the development of tests in dev.local.
+    //
     // Use only in-memory-DB login/password if running in dev.local.
     if (environment.configuration === 'dev.local' && username !== 'userx') {
       username = 'user1';
       password = 'password1';
     }
 
+    console.log("\n----E2E - Current Username: ", username);
     const user = element(by.id('username'));
     await user.sendKeys(username);
     const pwd = element(by.id('password'));
@@ -63,32 +78,16 @@ describe("workspace-project App", () => {
     await logoutButton.click();
   }
 
-
-  it('1. Any user - valid or invalid - should successfully bring up login page.', async () => {
-    // Pre-condition: none.
-
-    await restartAppFlow();
-
-    const newUrl = await browser.getCurrentUrl();
-    console.log("\n----E2E Test 1 - Initial Access URL: ", newUrl);
-
-    // Check that the real login page actually loaded.
-    expect(await loginPage.getTitleText()).toEqual("Log in to the AbSci Target Database");
-  });
-
-  it('2. Valid user should log in successfully to appropriate initial page according to roles.', async () => {
-    // Pre-condition: we are now at the login page.
-    // Pre-condition: supplied user must be valid with zero or more roles.
-
-    await restartAppFlow();
+  async function initialPageTest(userName, password) {
 
     // Enter login credentials of a valid user.
-    await loginWithCredentials('user1', 'password1');
+    await loginWithCredentials(userName, password);
 
     // Start verification that we entered correct first page after login as per our roles.
     const newUrl = await browser.getCurrentUrl();
-    const currentRoles: string[] | null = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
-    console.log("\n----E2E Test 2 - Current Roles: ", JSON.stringify(currentRoles));
+    const currentRoles: string[] | null =
+      await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
+    console.log("\n----E2E - Current Roles: ", JSON.stringify(currentRoles));
     if (currentRoles.includes(AppSettings.SUBMITTER_ROLE)) {
 
       // Check that user with at least submitter role will reach add-target page from login.
@@ -121,68 +120,143 @@ describe("workspace-project App", () => {
       const errorDialogCloseButton = await element(by.cssContainingText('footer span', 'Close'));
       await errorDialogCloseButton.click();
     }
-  });
+  }
 
-  it('3. Valid user with at least one role should have correct menu activation as per roles upon login.', async () => {
-    // Pre-condition: we are now at the login page.
-    // Pre-condition: supplied user must be valid with one or more roles.
-
-    await restartAppFlow();
+  async function menuActivationTest(userName, password) {
 
     // Enter login credentials of an VALID user.
-    await loginWithCredentials('user1', 'password1');
+    await loginWithCredentials(userName, password);
 
-    // Allow test only if user has at least one role.
+    // Find user's roles.
     await browser.getCurrentUrl();
-    const currentRoles: string[] = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
-    console.log("\n----E2E Test 3 - Current Roles: ", JSON.stringify(currentRoles));
-    if (currentRoles.length) {
+    const currentRoles: string[] =
+      await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
+    console.log("\n----E2E - Current Roles: ", JSON.stringify(currentRoles));
 
-      // Click on menu to see options.
-      let menuButton = null;
-      menuButton = await element(by.id('e2e-mat-menu'));
-      await menuButton.click();
+    // Click on menu to see options.
+    let menuButton = null;
+    menuButton = await element(by.id('e2e-mat-menu'));
+    await menuButton.click();
 
-      // Inspect activation of menu options.
-      const registerNewTargetButtonDisabled =
-        await element(by.cssContainingText('.mat-menu-content button', 'Register New Target')).getAttribute('disabled');
-      const searchTargetsButtonDisabled =
-        await element(by.cssContainingText('.mat-menu-content button', 'Search Targets')).getAttribute('disabled');
-      const searchPlasmidsButtonDisabled =
-        await element(by.cssContainingText('.mat-menu-content button', 'Search Plasmids')).getAttribute('disabled');
+    // Inspect activation of menu options.
+    const registerNewTargetButtonDisabled =
+      await element(by.cssContainingText('.mat-menu-content button', 'Register New Target')).getAttribute('disabled');
+    const searchTargetsButtonDisabled =
+      await element(by.cssContainingText('.mat-menu-content button', 'Search Targets')).getAttribute('disabled');
+    const searchPlasmidsButtonDisabled =
+      await element(by.cssContainingText('.mat-menu-content button', 'Search Plasmids')).getAttribute('disabled');
 
-      // Test for correct activation for submitter role.
-      if (currentRoles.includes(AppSettings.SUBMITTER_ROLE)) {
-        expect(registerNewTargetButtonDisabled).toBeFalsy();
-      } else {
-        expect(registerNewTargetButtonDisabled).toBeTruthy();
-      }
-
-      // Test for correct activation for view role.
-      if (currentRoles.includes(AppSettings.VIEWER_ROLE)) {
-        expect(searchTargetsButtonDisabled).toBeFalsy();
-        expect(searchPlasmidsButtonDisabled).toBeFalsy();
-      } else {
-        expect(searchTargetsButtonDisabled).toBeTruthy();
-        expect(searchPlasmidsButtonDisabled).toBeTruthy();
-      }
-
-      // Close the menu without making a selection.
-      const body = await element(by.css('body'));
-      await browser.actions().mouseMove(body, {x: 0, y: 0}).click().perform();
-
-      // Recycle for next test by logging out.
-      await logoutToRecycle();
+    // Test for correct activation for submitter role.
+    if (currentRoles.includes(AppSettings.SUBMITTER_ROLE)) {
+      expect(registerNewTargetButtonDisabled).toBeFalsy();
     } else {
-      console.log("\n----E2E - Test 3 was not run. Requires valid user with at least one role.");
+      expect(registerNewTargetButtonDisabled).toBeTruthy();
     }
+
+    // Test for correct activation for view role.
+    if (currentRoles.includes(AppSettings.VIEWER_ROLE)) {
+      expect(searchTargetsButtonDisabled).toBeFalsy();
+      expect(searchPlasmidsButtonDisabled).toBeFalsy();
+    } else {
+      expect(searchTargetsButtonDisabled).toBeTruthy();
+      expect(searchPlasmidsButtonDisabled).toBeTruthy();
+    }
+
+    // Close the menu without making a selection.
+    const body = await element(by.css('body'));
+    await browser.actions().mouseMove(body, {x: 0, y: 0}).click().perform();
+
+    // Recycle for next test by logging out.
+    await logoutToRecycle();
+  }
+
+
+
+
+  // -------------------- Test Sequence Below ---------------------
+
+  it('1. Any user - valid or invalid - should successfully bring up login page.', async () => {
+    // Pre-condition: none.
+
+    await restartAppSession();
+
+    const newUrl = await browser.getCurrentUrl();
+
+    // Check that the real login page actually loaded.
+    expect(await loginPage.getTitleText()).toEqual("Log in to the AbSci Target Database");
   });
 
-  it('4. Invalid user should be denied login with error message.', async () => {
-    // Pre-condition: we are now at the login page.
+  it('2. Valid viewer-only user should log in successfully to appropriate initial page according to roles.', async () => {
+    // Pre-condition: supplied user must be valid with only viewer role.
+
+    await restartAppSession();
+
+    // await initialPageTest('testuser_VIEWER', '%aEX@D4ez@DT');
+    await initialPageTest('testuser_VIEWER', '%aEX@D4ez@DT');
+
+  });
+
+  it('3. Valid submitter-only user should log in successfully to appropriate initial page according to roles.', async () => {
+    // Pre-condition: supplied user must be valid with only submitter role.
+
+    await restartAppSession();
+
+    await initialPageTest('testuser_SUBMITTER', 'k6AaV#&H%0nn');
+
+  });
+
+  it('4. Valid viewer-submitter user should log in successfully to appropriate initial page according to roles.', async () => {
+    // Pre-condition: supplied user must be valid with both viewer and submitter roles.
+
+    await restartAppSession();
+
+    await initialPageTest('testuser_VIEWER_SUBMITTER', 'U7f$kn&VoAzM');
+
+  });
+
+  it('5. Valid no-role user should log in successfully to appropriate initial page according to roles.', async () => {
+    // Pre-condition: supplied user must be valid with no roles.
+
+    await restartAppSession();
+
+    await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
+
+  });
+
+  it('6. Valid viewer-only user should have correct menu activation as per roles upon login.', async () => {
+    // Pre-condition: supplied user must be valid with viewer role.
+
+    await restartAppSession();
+
+    const newUrl = await browser.getCurrentUrl();
+    console.log("\n----E2E - Test 6 Url: ", newUrl);
+
+    await menuActivationTest('dspencer', 'Dls11016');
+
+  });
+
+  it('7. Valid submitter-only user should have correct menu activation as per roles upon login.', async () => {
+    // Pre-condition: supplied user must be valid with submitter role.
+
+    await restartAppSession();
+
+    await menuActivationTest('testuser_SUBMITTER', 'k6AaV#&H%0nn');
+
+  });
+
+  it('8. Valid viewer-submitter user should have correct menu activation as per roles upon login.', async () => {
+    // Pre-condition: supplied user must be valid with viewer and submitter roles.
+
+    await restartAppSession();
+
+    await menuActivationTest('testuser_VIEWER_SUBMITTER', 'U7f$kn&VoAzM');
+
+  });
+
+  it('9. Invalid user should be denied login with error message.', async () => {
     // Pre-condition: supplied user must be invalid.
 
-    await restartAppFlow();
+    await restartAppSession();
 
     // Enter login credentials of an INVALID user.
     await loginWithCredentials('userx', 'passwordx');
@@ -203,51 +277,46 @@ describe("workspace-project App", () => {
     await errorDialogCloseButton.click();
   });
 
-  it('5. Valid viewer user should be able to access target search page and target detail page.', async () => {
-    // Pre-condition: we are now at the login page.
+  it('10. Valid viewer user should be able to access target search page and target detail page.', async () => {
 
-    await restartAppFlow();
+    await restartAppSession();
 
     // Enter login credentials of a valid viewer user.
-    await loginWithCredentials('user1', 'password1');
+    await loginWithCredentials('testuser_VIEWER', '%aEX@D4ez@DT');
     await browser.getCurrentUrl();
 
     // Allow test only if user has at least viewer role.
-    const currentRoles: string[] = await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
-    console.log("\n----E2E Test 5 - Current Roles: ", JSON.stringify(currentRoles));
-    if (currentRoles.includes(AppSettings.VIEWER_ROLE)) {
+    const currentRoles: string[] =
+      await browser.driver.executeScript('return JSON.parse(window.sessionStorage.getItem("currentRoles"))');
+    console.log("\n----E2E - Current Roles: ", JSON.stringify(currentRoles));
 
-      // Click on menu to see options. Then click on the Search Targets option.
-      let menuButton = null;
-      menuButton = await element(by.id('e2e-mat-menu'));
-      await menuButton.click();
-      const searchTargetsSelection = await element(by.cssContainingText('.mat-menu-content button', 'Search Targets'));
-      await searchTargetsSelection.click();
+    // Click on menu to see options. Then click on the Search Targets option.
+    let menuButton = null;
+    menuButton = await element(by.id('e2e-mat-menu'));
+    await menuButton.click();
+    const searchTargetsSelection = await element(by.cssContainingText('.mat-menu-content button', 'Search Targets'));
+    await searchTargetsSelection.click();
 
-      // Check that the target search page has come up.
-      const searchTargetUrl = await browser.getCurrentUrl();
-      expect(searchTargetUrl).toContain('/home/search-targets');
+    // Check that the target search page has come up.
+    const searchTargetUrl = await browser.getCurrentUrl();
+    expect(searchTargetUrl).toContain('/home/search-targets');
 
-      // Check that at least one target row was retrieved from the backend.
-      const allRowsOnPage = element.all(by.css('div.ag-center-cols-container div.ag-row'));
-      expect(allRowsOnPage.count()).toBeGreaterThan(0);
+    // Check that at least one target row was retrieved from the backend.
+    const allRowsOnPage = element.all(by.css('div.ag-center-cols-container div.ag-row'));
+    expect(allRowsOnPage.count()).toBeGreaterThan(0);
 
-      // Check that clicking some target row will retrieve the target detail page.
-      const anyRow = element(by.css('.ag-body-viewport'));
-      expect(anyRow.isPresent()).toBeTruthy();
-      await anyRow.click();
-      const targetDetailUrl = await browser.getCurrentUrl();
-      expect(targetDetailUrl).toMatch(/.+\/home\/target-detail\/\d+/);
+    // Check that clicking some target row will retrieve the target detail page.
+    const anyRow = element(by.css('.ag-body-viewport'));
+    expect(anyRow.isPresent()).toBeTruthy();
+    await anyRow.click();
+    const targetDetailUrl = await browser.getCurrentUrl();
+    expect(targetDetailUrl).toMatch(/.+\/home\/target-detail\/\d+/);
 
-      // Check that a target has been loaded into the target details page.
-
-
+    // Check that a target has been loaded into the target details page.
 
 
 
-    } else {
-      console.log("\n----E2E - Test 5 was not run. Requires valid user to be a viewer.");
-    }
+
   });
 
   afterEach(async () => {

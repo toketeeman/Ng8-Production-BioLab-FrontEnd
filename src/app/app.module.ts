@@ -78,11 +78,11 @@ const appImports = [
   FileSaverModule
 ];
 
-console.log("FYI: PTDB is running in " + environment.configuration + " configuration mode.");
+console.log("STARTUP: PTDB is running in " + environment.configuration + " configuration mode.");
 
 if (!environment.production && environment.inMemoryData) {
   console.log(
-    "FYI: PTDB is running in Angular development mode, i.e. double-change-detection. In-Memory DB will be the backend."
+    "STARTUP: PTDB is running in Angular development mode, i.e. double-change-detection. In-Memory DB will be the backend."
   );
   appImports.push(
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
@@ -93,7 +93,7 @@ if (!environment.production && environment.inMemoryData) {
   );
 } else {
   console.log(
-    "FYI: PTDB is running Angular production mode, i.e. single-change-detection. Backend is dictated by replaced environment.ts ."
+    "STARTUP: PTDB is running Angular production mode, i.e. single-change-detection. Backend is dictated by replaced environment.ts ."
   );
 }
 
