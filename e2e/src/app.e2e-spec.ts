@@ -68,10 +68,10 @@ describe("workspace-project App", () => {
     // intended only for aiding the development of tests in dev.local.
     //
     // Use if-statement below ONLY for dev.local!
-    if (username !== 'userx') {
-      username = 'user1';
-      password = 'password1';
-    }
+    // if (username !== 'userx') {
+    //   username = 'user1';
+    //   password = 'password1';
+    // }
 
     console.log("\n----E2E - Current Username: ", username);
     const user = element(by.id('username'));
@@ -221,14 +221,14 @@ describe("workspace-project App", () => {
 
   });
 
-  it('5. Valid no-role user should be denied login according to roles.', async () => {
-    // Pre-condition: supplied user must be valid with no roles.
+  // it('5. Valid no-role user should be denied login according to roles.', async () => {
+  //   // Pre-condition: supplied user must be valid with no roles.
 
-    await restartAppSession();
+  //   await restartAppSession();
 
-    await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
+  //   await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
 
-  });
+  // });
 
   it('6. Valid viewer-only user should have correct menu activation as per roles upon login.', async () => {
     // Pre-condition: supplied user must be valid with viewer role.
@@ -279,6 +279,10 @@ describe("workspace-project App", () => {
     // Recycle for next test by dismissing error dialog.
     const errorDialogCloseButton = await element(by.cssContainingText('footer span', 'Close'));
     await errorDialogCloseButton.click();
+
+    // Check that we get back to the login page.
+    browser.wait(EC.urlContains('login'), 10000);
+    expect(browser.getCurrentUrl()).toMatch(/.+\/login/);
   });
 
   it('10. Valid viewer user should be able to access target search page and target detail page.', async () => {
@@ -313,8 +317,10 @@ describe("workspace-project App", () => {
     const anyRow = element(by.css('.ag-body-viewport'));
     expect(anyRow.isPresent()).toBeTruthy();
     await anyRow.click();
-    const targetDetailUrl = await browser.getCurrentUrl();
-    expect(targetDetailUrl).toMatch(/.+\/home\/target-detail\/\d+/);
+
+    // Check that the target detail page has been reachedwith some target id.
+    browser.wait(EC.urlContains('target-detail'), 10000);
+    expect(browser.getCurrentUrl()).toMatch(/.+\/home\/target-detail\/\d+/);
 
     // Check that a target has been loaded into the target details page.
 
@@ -324,16 +330,7 @@ describe("workspace-project App", () => {
   });
 
   afterEach(async () => {
-    // Assert that there are no errors emitted from the browser.
-    const logs = await browser
-      .manage()
-      .logs()
-      .get(logging.Type.BROWSER);
-    expect(logs).not.toContain(
-      jasmine.objectContaining({
-        level: logging.Level.SEVERE
-      } as logging.Entry)
-    );
+
   });
 });
 
