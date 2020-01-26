@@ -1,39 +1,48 @@
 import { LoginPage } from "./app.po";
 import { browser, element, by, ExpectedConditions, logging, promise, protractor } from "protractor";
-import { environment } from "../../src/environments/environment";
 import { AppSettings } from "../../src/app/appsettings/appsettings";
 
 // NOTES:
 //
-// This e2e test has been coded in latest Protractor 6-ish that supports the new
-// async/await control flow coming in Selenium 4.
+// This test is run by the command below in the VS Code terminal in the root folder:
 //
-// A set of special (phantom) VALID user accounts are required to be established
-// beforehand in order to run this e2e test. (Has been provided.)
+//     ng e2e --protractorConfig=e2e/protractor.conf.ts --configuration=dev.local
+// OR
+//     ng e2e --protractorConfig=e2e/protractor.conf.ts --configuration=dev.docker
 //
-// One special valid user is needed for possessing each combination of roles, respectively.
-// (Has been provided.)
+// When developing these tests further, do NOT import and use environment.ts! Unlike
+// ng build and ng serve, the command ng e2e does NOT automatically replace environment.ts
+// with another environment file specified by the --configuration switch!
 //
-// One additional user who is non-existant (i.e. clearly invalid) is needed. Make one up.
-// (We're using userx/passwordx here.)
+// This e2e test has been coded in latest Protractor 6-ish style (we're actually running
+// protractor 5.4.2) that supports the new async/await control flow coming in Selenium 4.
+// Protractor 6 is now in alpha and will be arriving soon. This code should migrate
+// into the new protractor withoout changes.
+//
+// A set of special (phantom) VALID user accounts have been installed
+// beforehand in order to run this e2e test. One special valid user possessing each
+// combination of roles, respectively, has been provided. (See Evan for info.)
+//
+// One additional user who is non-existant (i.e. clearly invalid) is also used.
+// (We're simply using userx/passwordx here for that.)
 //
 // This test can only be run only in the dev.local and dev.docker configurations because it will
 // need to be easily repeatable against the backend (in-memory-DB or Docker Desktop) in the presence
-// of posts. (It could be run in dev.remote if there are no POSTS to a DB caused by these tests,
-// or if those tests that do posts are conditionally excluded!)
+// of posts. (It could also be run in dev.remote if there are no POSTS to a DB caused by these tests,
+// or if those tests that do posts are conditionally excluded from the test!)
 //
 // If very detailed tests are added that checks the results of very specific updates or
 // very specific searches, those tests should be conditioned to run ONLY in dev.docker
-// because dev.local only simulates some of those operations. After each e2e run in dev.docker,
+// because dev.local ONLY SIMULATES some of those operations. After each e2e run in dev.docker,
 // the Docker Desktop environment must be recycled to restore the initial test databases.
 //
 // The first test covers accessing the deployed app.
 //
 // Each subsequent test starts with the login page and ends on the login page.
 //
-// For asynchonous stability, a flow-restart is placed at each test's beginning,
-// to shield it from possible effects from the immediately-preceding test, although
-// it is often not needed.
+// For asynchonous stability, a test-flow-restart is placed at each test's beginning - unless
+// the PRECEDING test did not do an explicit logout - to shield it from possible
+// side-effects from the preceding test, although it is often not needed.
 //
 
 describe("workspace-project App", () => {
@@ -58,8 +67,8 @@ describe("workspace-project App", () => {
     // Otherwise it is to be left commented out. Thus it is
     // intended only for aiding the development of tests in dev.local.
     //
-    // Use only in-memory-DB login/password if running in dev.local.
-    // if (environment.configuration === 'dev.local' && username !== 'userx') {
+    // Use if-statement below ONLY for dev.local!
+    // if (username !== 'userx') {
     //   username = 'user1';
     //   password = 'password1';
     // }
@@ -214,7 +223,7 @@ describe("workspace-project App", () => {
 
   });
 
-  // it('5. Valid no-role user should log in successfully to appropriate initial page according to roles.', async () => {
+  // it('5. Valid no-role user should be denied login according to roles.', async () => {
   //   // Pre-condition: supplied user must be valid with no roles.
 
   //   await restartAppSession();
@@ -231,7 +240,7 @@ describe("workspace-project App", () => {
     const newUrl = await browser.getCurrentUrl();
     console.log("\n----E2E - Test 6 Url: ", newUrl);
 
-    await menuActivationTest('dspencer', 'Dls11016');
+    await menuActivationTest('testuser_VIEWER', '%aEX@D4ez@DT');
 
   });
 
