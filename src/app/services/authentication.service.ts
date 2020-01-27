@@ -68,6 +68,7 @@ export class AuthenticationService {
             this.router.navigateByUrl("/home/search-targets");
           }
           else {
+            this.router.navigateByUrl("/login");
             this.errorDialogService.openDialogForMessages(
               "No roles appropriate for this app have been approved for you. See admin."
             );

@@ -65,6 +65,7 @@ describe("workspace-project App", () => {
     expect(browser.getCurrentUrl()).toMatch(/.+\/login/);
   }
 
+
   async function loginWithCredentials( username: string, password: string, homePageCheck: boolean) {
 
     // The code below must be activated ONLY for dev.local mode!
@@ -97,6 +98,7 @@ describe("workspace-project App", () => {
     }
   }
 
+
   async function logoutToRecycle() {
     const logoutButton = await element(by.cssContainingText('.btn-nav', 'Log Out'));
     await logoutButton.click();
@@ -105,6 +107,7 @@ describe("workspace-project App", () => {
     browser.wait(EC.urlContains('login'), 10000);
     expect(browser.getCurrentUrl()).toMatch(/.+\/login/);
   }
+
 
   async function initialPageTest(userName, password) {
 
@@ -156,6 +159,7 @@ describe("workspace-project App", () => {
       expect(browser.getCurrentUrl()).toMatch(/.+\/login/);
     }
   }
+
 
   async function menuActivationTest(userName, password) {
 
@@ -355,7 +359,7 @@ describe("workspace-project App", () => {
 
     await restartAppSession();
 
-    // await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
+    await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
 
   });
 
