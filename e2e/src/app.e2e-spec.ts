@@ -347,7 +347,16 @@ describe("workspace-project App", () => {
     browser.wait(EC.urlContains('target-detail'), 10000);
     expect(browser.getCurrentUrl()).toMatch(/.+\/home\/target-detail\/\d+/);
 
-    // Check that a target has been loaded into the target details page.
+    // Check that a target has been loaded into the target details page
+    // by discovering the existence of at least one subunit.
+    const allSubunitsOnPage = element.all(by.css('ngu-tile mat-card'));
+    expect(allSubunitsOnPage.count()).toBeGreaterThan(0);
+
+    // Check that clicking the biophysical properties button will retrieve the bio-props page.
+    // await element(by.cssContainingText('.mat-button span', 'Biophysical Properties')).click();
+    // browser.wait(EC.urlContains('target-property'), 10000);
+    // expect(browser.getCurrentUrl()).toMatch(/.+\/home\/target-property\/\d+/);
+
 
 
     // Recycle for next test by logging out.
