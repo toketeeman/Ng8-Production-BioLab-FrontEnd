@@ -50,7 +50,7 @@ describe("workspace-project App", () => {
   const EC = protractor.ExpectedConditions;
 
   beforeEach(async () => {
-    // No preparation at this time.
+    browser.waitForAngular();
   });
 
 
@@ -68,11 +68,11 @@ describe("workspace-project App", () => {
     // intended only for aiding the development of tests in dev.local.
     //
     // Use if-statement below ONLY for dev.local!
-    
+
     // if (username !== 'userx') {                  //  UN-COMMENT
-    //   username = 'user1';                        //     FOR
-    //   password = 'password1';                    //  DEV.LOCAL !
-    // }                                            //
+    //   username = 'user1';                        //     ONLY
+    //   password = 'password1';                    //     FOR
+    // }                                            //  DEV.LOCAL !
 
     console.log("\n----E2E - Current Username: ", username);
     const user = element(by.id('username'));
@@ -115,7 +115,6 @@ describe("workspace-project App", () => {
       await logoutToRecycle();
 
     } else {
-
       // Check that a non-submitter non-viewer valid user will be immediately returned to login after login attempt.
       expect(newUrl).toContain('/login');
 
@@ -129,6 +128,10 @@ describe("workspace-project App", () => {
       // Recycle for next test by dismissing error dialog.
       const errorDialogCloseButton = await element(by.cssContainingText('footer span', 'Close'));
       await errorDialogCloseButton.click();
+
+      // Check that we get back to the login page.
+      browser.wait(EC.urlContains('login'), 10000);
+      expect(browser.getCurrentUrl()).toMatch(/.+\/login/);
     }
   }
 
@@ -222,14 +225,14 @@ describe("workspace-project App", () => {
 
   });
 
-  it('5. Valid no-role user should be denied login according to roles.', async () => {
-    // Pre-condition: supplied user must be valid with no roles.
+  // it('5. Valid no-role user should be denied login according to roles.', async () => {
+  //   // Pre-condition: supplied user must be valid with no roles.
 
-    await restartAppSession();
+  //   await restartAppSession();
 
-    await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
+  //   await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
 
-  });
+  // });
 
   it('6. Valid viewer-only user should have correct menu activation as per roles upon login.', async () => {
     // Pre-condition: supplied user must be valid with viewer role.
@@ -329,6 +332,7 @@ describe("workspace-project App", () => {
 
 
   });
+
 
   afterEach(async () => {
 
