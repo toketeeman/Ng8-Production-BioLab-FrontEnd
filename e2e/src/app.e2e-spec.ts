@@ -59,9 +59,13 @@ describe("workspace-project App", () => {
   async function restartAppSession() {
     loginPage = new LoginPage();
     await loginPage.navigateTo();
+
+    // Make sure we're at the login page.
+    browser.wait(EC.urlContains('login'), 10000);
+    expect(browser.getCurrentUrl()).toMatch(/.+\/login/);
   }
 
-  async function loginWithCredentials( username: string, password: string) {
+  async function loginWithCredentials( username: string, password: string, homePageCheck: boolean) {
 
     // The code below must be activated ONLY for dev.local mode!
     // Otherwise it is to be left commented out. Thus it is
@@ -74,6 +78,10 @@ describe("workspace-project App", () => {
     //   password = 'password1';                    //     FOR
     // }                                            //  DEV.LOCAL !
 
+    // Make sure we're at the login page.
+    browser.wait(EC.urlContains('login'), 10000);
+    expect(browser.getCurrentUrl()).toMatch(/.+\/login/);
+
     console.log("\n----E2E - Current Username: ", username);
     const user = element(by.id('username'));
     await user.sendKeys(username);
@@ -81,17 +89,31 @@ describe("workspace-project App", () => {
     await pwd.sendKeys(password);
     const loginButton = await element(by.css('.btn-login'));
     await loginButton.click();
+
+    // Check that we get to the first page beyond the login page.
+    if (homePageCheck) {
+      browser.wait(EC.urlContains('home'), 10000);
+      expect(browser.getCurrentUrl()).toMatch(/.+\/home\/.+/);
+    }
   }
 
   async function logoutToRecycle() {
     const logoutButton = await element(by.cssContainingText('.btn-nav', 'Log Out'));
     await logoutButton.click();
+
+    // Check that we get back to the login page.
+    browser.wait(EC.urlContains('login'), 10000);
+    expect(browser.getCurrentUrl()).toMatch(/.+\/login/);
   }
 
   async function initialPageTest(userName, password) {
 
     // Enter login credentials of a valid user.
-    await loginWithCredentials(userName, password);
+    if (userName === 'testuser_NO_GROUPS') {
+      await loginWithCredentials(userName, password, false);
+    } else {
+      await loginWithCredentials(userName, password, true);
+    }
 
     // Start verification that we entered correct first page after login as per our roles.
     const newUrl = await browser.getCurrentUrl();
@@ -138,7 +160,11 @@ describe("workspace-project App", () => {
   async function menuActivationTest(userName, password) {
 
     // Enter login credentials of an VALID user.
-    await loginWithCredentials(userName, password);
+    if (userName === 'testuser_NO_GROUPS') {
+      await loginWithCredentials(userName, password, false);
+    } else {
+      await loginWithCredentials(userName, password, true);
+    }
 
     // Find user's roles.
     await browser.getCurrentUrl();
@@ -225,16 +251,7 @@ describe("workspace-project App", () => {
 
   });
 
-  // it('5. Valid no-role user should be denied login according to roles.', async () => {
-  //   // Pre-condition: supplied user must be valid with no roles.
-
-  //   await restartAppSession();
-
-  //   await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
-
-  // });
-
-  it('6. Valid viewer-only user should have correct menu activation as per roles upon login.', async () => {
+  it('5. Valid viewer-only user should have correct menu activation as per roles upon login.', async () => {
     // Pre-condition: supplied user must be valid with viewer role.
 
     await restartAppSession();
@@ -243,7 +260,7 @@ describe("workspace-project App", () => {
 
   });
 
-  it('7. Valid submitter-only user should have correct menu activation as per roles upon login.', async () => {
+  it('6. Valid submitter-only user should have correct menu activation as per roles upon login.', async () => {
     // Pre-condition: supplied user must be valid with submitter role.
 
     await restartAppSession();
@@ -252,7 +269,7 @@ describe("workspace-project App", () => {
 
   });
 
-  it('8. Valid viewer-submitter user should have correct menu activation as per roles upon login.', async () => {
+  it('7. Valid viewer-submitter user should have correct menu activation as per roles upon login.', async () => {
     // Pre-condition: supplied user must be valid with viewer and submitter roles.
 
     await restartAppSession();
@@ -261,13 +278,13 @@ describe("workspace-project App", () => {
 
   });
 
-  it('9. Invalid user should be denied login with error message.', async () => {
+  it('8. Invalid user should be denied login with error message.', async () => {
     // Pre-condition: supplied user must be invalid.
 
     await restartAppSession();
 
     // Enter login credentials of an INVALID user.
-    await loginWithCredentials('userx', 'passwordx');
+    await loginWithCredentials('userx', 'passwordx', false);
 
     // Check that an invalid user will be immediately returned to login after login attempt.
     const newUrl = await browser.getCurrentUrl();
@@ -289,12 +306,12 @@ describe("workspace-project App", () => {
     expect(browser.getCurrentUrl()).toMatch(/.+\/login/);
   });
 
-  it('10. Valid viewer user should be able to access target search page and target detail page.', async () => {
+  it('9. Valid viewer user should be able to access target search page and target detail page.', async () => {
 
     await restartAppSession();
 
     // Enter login credentials of a valid viewer user.
-    await loginWithCredentials('testuser_VIEWER', '%aEX@D4ez@DT');
+    await loginWithCredentials('testuser_VIEWER', '%aEX@D4ez@DT', true);
     await browser.getCurrentUrl();
 
     // Allow test only if user has at least viewer role.
@@ -329,13 +346,21 @@ describe("workspace-project App", () => {
     // Check that a target has been loaded into the target details page.
 
 
+    // Recycle for next test by logging out.
+    logoutToRecycle();
+  });
 
+  it('10. Valid no-role user should be denied login according to roles.', async () => {
+    // Pre-condition: supplied user must be valid with no roles.
+
+    await restartAppSession();
+
+    // await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
 
   });
 
-
   afterEach(async () => {
-
+    // Ignore fussy browser errors.
   });
 });
 
