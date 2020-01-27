@@ -68,10 +68,11 @@ describe("workspace-project App", () => {
     // intended only for aiding the development of tests in dev.local.
     //
     // Use if-statement below ONLY for dev.local!
-    // if (username !== 'userx') {
-    //   username = 'user1';
-    //   password = 'password1';
-    // }
+    
+    // if (username !== 'userx') {                  //  UN-COMMENT
+    //   username = 'user1';                        //     FOR
+    //   password = 'password1';                    //  DEV.LOCAL !
+    // }                                            //
 
     console.log("\n----E2E - Current Username: ", username);
     const user = element(by.id('username'));
@@ -221,14 +222,14 @@ describe("workspace-project App", () => {
 
   });
 
-  // it('5. Valid no-role user should be denied login according to roles.', async () => {
-  //   // Pre-condition: supplied user must be valid with no roles.
+  it('5. Valid no-role user should be denied login according to roles.', async () => {
+    // Pre-condition: supplied user must be valid with no roles.
 
-  //   await restartAppSession();
+    await restartAppSession();
 
-  //   await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
+    await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');
 
-  // });
+  });
 
   it('6. Valid viewer-only user should have correct menu activation as per roles upon login.', async () => {
     // Pre-condition: supplied user must be valid with viewer role.
