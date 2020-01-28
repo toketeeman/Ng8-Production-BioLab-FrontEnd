@@ -8,7 +8,7 @@ import { AppSettings } from "../../src/app/appsettings/appsettings";
 //
 //     ng e2e --protractorConfig=e2e/protractor.conf.ts --configuration=dev.local
 // OR
-//     ng e2e --protractorConfig=e2e/protractor.conf.ts --configuration=dev.docker
+//     ng e2e --protractorConfig=e2e/protractor.conf.ts --configuration=dev.docker (the default mode)
 //
 // When developing these tests further, do NOT import and use environment.ts! Unlike
 // ng build and ng serve, the command ng e2e does NOT automatically replace environment.ts
@@ -353,27 +353,13 @@ describe("workspace-project App", () => {
     expect(allSubunitsOnPage.count()).toBeGreaterThan(0);
 
     // Check that clicking the biophysical properties button will retrieve the bio-props page.
-    // await element(by.cssContainingText('.mat-button span', 'Biophysical Properties')).click();
-    // browser.wait(EC.urlContains('target-property'), 10000);
-    // expect(browser.getCurrentUrl()).toMatch(/.+\/home\/target-property\/\d+/);
-
-
+    // await element(by.cssContainingText('.mat-button span', 'Biophysical Properties')).click();   // UN-COMMENT
+    // browser.wait(EC.urlContains('target-property'), 10000);                                      //  ONLY FOR
+    // expect(browser.getCurrentUrl()).toMatch(/.+\/home\/target-property\/\d+/);                   // DEV.LOCAL !
 
     // Recycle for next test by logging out.
     logoutToRecycle();
   });
-
-  // This test below fails in protractor and the fix remains to be found. The app itself behaves correctly.
-
-  it('10. Valid no-role user should be denied login according to roles.', async () => {
-    // Pre-condition: supplied user must be valid with no roles.
-
-    await restartAppSession();
-
-    // await initialPageTest('testuser_NO_GROUPS', '7@S#HliL813C');  // Insxplicably fails here.
-
-  });
-
 
   afterEach(async () => {
     // Ignore fussy browser errors.
