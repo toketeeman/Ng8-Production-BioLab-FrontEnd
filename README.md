@@ -1,6 +1,4 @@
 # protein_expression_front_end
-Web client for the protein expression application
-
 A solo-authored production-level Angular 8.2 biomanufacturer (undisclosed) lab tool for compiling molecular databases during the molecular fabrication process. Actively used daily by lab technicians and scientists. Employs four levels of Angular environment configurations to accommodate CI/CD, specifically using in-memory-web-db for code implementation, Docker Desktop for phasing more advanced development with real-end-point simulation, and the staging/production automated deployment environments. Interfaced to various PostgreSQL-based REST back-ends. Angular Material was employed throughout, but advanced styling was limited due to the utilitarian priority of this software. The UI is also extensively responsive to support both monitors and tablets. End-to-end headless-Chrome testing is provided via Protractor 6-ish using async-await techniques. Finally, Angular purity has been maintained: no unnecessary third-party dependencies such as Bootstrap and jQuery have been used.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.2.
